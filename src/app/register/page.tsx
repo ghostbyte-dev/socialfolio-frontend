@@ -37,8 +37,8 @@ export default function RegisterPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
-          name="name"
-          placeholder="Name"
+          name="username"
+          placeholder="Username"
           value={formData.username}
           onChange={handleChange}
           className="w-full p-2 border rounded"

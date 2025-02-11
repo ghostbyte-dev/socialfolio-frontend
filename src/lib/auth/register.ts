@@ -13,7 +13,7 @@ export interface RegisterResponse {
 
 export const register = async (credentials: RegisterCredentials): Promise<RegisterResponse> => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/register`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const register = async (credentials: RegisterCredentials): Promise<Regist
     if (!response.ok) {
       throw new Error(data.message || "Registration failed");
     }
-    
+
     // If successful, auto-login the user
     await signIn("credentials", {
       email: credentials.email,

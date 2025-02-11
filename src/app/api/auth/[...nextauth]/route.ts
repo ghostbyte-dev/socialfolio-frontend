@@ -1,7 +1,14 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const API_URL = process.env.API_URL as string;
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 export const authOptions: AuthOptions = {
   providers: [
