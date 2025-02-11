@@ -1,7 +1,7 @@
 import { signIn } from "next-auth/react";
 
 export interface RegisterCredentials {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }

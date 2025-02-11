@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -39,7 +39,7 @@ export default function RegisterPage() {
           type="text"
           name="name"
           placeholder="Name"
-          value={formData.name}
+          value={formData.username}
           onChange={handleChange}
           className="w-full p-2 border rounded"
           required

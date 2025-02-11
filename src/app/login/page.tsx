@@ -1,43 +1,62 @@
 "use client";
-import { signIn } from "next-auth/react";
+
 import { useState } from "react";
+import { login, LoginCredentials } from "@/lib/auth/login";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState<LoginCredentials>({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setMessage("");
+    setError(null);
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    });
+    const result = await login(formData);
 
-    if (res?.error) {
-      setMessage(res.error);
-    } else {
-      router.push("/dashboard"); // Redirect after login
+    if (!result.success) {
+      setError(result.message);
+      return;
     }
+
+    router.push("/dashboard"); // Redirect after successful login
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit">Login</button>
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        {error && <p className="text-red-500">{error}</p>}
+        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
+          Login
+        </button>
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 }
