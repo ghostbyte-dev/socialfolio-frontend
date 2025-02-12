@@ -2,18 +2,14 @@ import { NextResponse } from 'next/server';
 
 const REAL_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-export async function GET(request: Request) {
+export async function GET(request: Request, { params }: { params: Promise<{ username: string }> }) {
+
     try {
-        const authHeader = request.headers.get("authorization");
+        const slug = (await params).username
 
-        if (!authHeader) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const res = await fetch(`${REAL_API_URL}/api/user/self`, {
+        const res = await fetch(`${REAL_API_URL}/api/user/username/${slug}`, {
             method: "GET",
             headers: {
-                "Authorization": authHeader,
                 "Content-Type": "application/json",
             },
         });
