@@ -1,7 +1,7 @@
 "use client";
 
-import { fetcher, useUserData } from "@/hooks/useUserData";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserSelf } from "@/hooks/useUserData";
+import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 export default function DashboardPage() {
@@ -9,14 +9,13 @@ export default function DashboardPage() {
 
   const jwt = session?.user?.jwt;
   const { data: user, isLoading, error } = useQuery({
-    queryKey: ["user", jwt],  // Include JWT in the query key for caching
-    queryFn: () => fetcher("/api/user/self", jwt),
-    enabled: !!jwt,  // Only fetch when JWT is available  
+    queryKey: ["user", jwt],
+    queryFn: () => getUserSelf(jwt),
+    enabled: !!jwt,
   });
-  // Handle loading state for the session
+  
   if (status === "loading") return <p>Loading session...</p>;
   if (!session) return <p>No session found</p>;
-  // Use React Query to fetch user data with `useUserData` and the session JWT
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
