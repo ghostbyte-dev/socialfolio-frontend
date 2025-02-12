@@ -1,13 +1,28 @@
 import { MastodonData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Link from "next/link";
+import Image from "next/image";
 
-export function MastodonWidget({ data }: { data: MastodonData }) {
+interface MastodonWidgetProps {
+  data: MastodonData;
+  size: { cols: number; rows: number };
+  variant: number;
+}
+
+export function MastodonWidget({ data, size, variant }: MastodonWidgetProps) {
   return (
     <BaseWidget>
-      <div>
-        <h3 className="text-gray-800 font-bold">Mastodon</h3>
-        <p>Username: {data.username}</p>
-      </div>
+    
+      {variant == 1 && (
+        <Link href={"https://" + data.instance + "/@" + data.username}>
+        <div
+          className={`h-full w-full p-20 bg-[#6364ff] variant-${variant}`}
+        >
+          <img src="/widgets/mastodon/mastodon-logo-white.webp" alt="Mastodon logo" className="w-full h-full object-contain"/>
+        </div>
+        </Link>
+        
+      )}
     </BaseWidget>
   );
 }

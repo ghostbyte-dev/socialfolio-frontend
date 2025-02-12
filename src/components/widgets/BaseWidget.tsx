@@ -6,8 +6,8 @@ export interface BaseWidgetProps {
 
 export function BaseWidget({ children }: BaseWidgetProps) {
   return (
-    <div className="p-4 border rounded-lg shadow-md bg-white">
-      <div className="mt-2">{children}</div>
+    <div className="h-full w-full border rounded-2xl shadow-md bg-white overflow-hidden">
+      {children}
     </div>
   );
 }

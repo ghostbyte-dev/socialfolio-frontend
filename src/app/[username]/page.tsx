@@ -1,5 +1,7 @@
 "use client";
 
+import WidgetsGrid from "@/components/WidgetsGrid";
+import { sampleWidgets } from "@/data/sampleData";
 import { getUserData } from "@/hooks/useUserData";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -24,6 +26,12 @@ export default function UserPage() {
   return (
     <div className="max-w-4xl w-4/5 mx-auto flex flex-col items-center my-20">
       <h1 className="text-5xl font-bold mb-4">{user.username}</h1>
+
+
+      <section className="w-full">
+        
+        <WidgetsGrid widgets={sampleWidgets} />
+      </section>
     </div>
   );
 }
