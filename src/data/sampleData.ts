@@ -1,4 +1,4 @@
-import { WidgetProps, MastodonData, GitHubData } from "@/types/widget-types";
+import { WidgetProps, MastodonData, GitHubData, ImageWidgetData } from "@/types/widget-types";
 
 export const sampleWidgets: WidgetProps[] = [
     {
@@ -17,16 +17,16 @@ export const sampleWidgets: WidgetProps[] = [
     },
     {
         id: "3",
-        type: "mastodon",
+        type: "image",
         variant: 1,
-        size: { cols: 3, rows: 2 },
-        data: { username: "pixelix", instance: "mastodon.social" } as MastodonData,
+        size: { cols: 2, rows: 2 },
+        data: { url: "https://daniebeler.com/img/profilbild.webp" } as ImageWidgetData,
     },
     {
         id: "4",
         type: "github",
         variant: 2,
-        size: { cols: 2, rows: 1 },
+        size: { cols: 1, rows: 2 },
         data: { username: "Hiebeler" } as GitHubData,
     },
 ];

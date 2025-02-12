@@ -15,4 +15,8 @@ export interface GitHubData {
   username: string;
 }
 
-export type WidgetData = MastodonData | GitHubData;
+export interface ImageWidgetData {
+  url: string;
+}
+
+export type WidgetData = MastodonData | GitHubData | ImageWidgetData;

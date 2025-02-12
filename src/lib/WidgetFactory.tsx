@@ -1,7 +1,13 @@
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
+import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
-import { GitHubData, MastodonData, WidgetProps } from "@/types/widget-types";
+import {
+  GitHubData,
+  ImageWidgetData,
+  MastodonData,
+  WidgetProps,
+} from "@/types/widget-types";
 
 export function WidgetFactory({ widget }: { widget: WidgetProps }) {
   switch (widget.type) {
@@ -13,10 +19,18 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           variant={widget.variant}
         />
       );
-      case "github":
+    case "github":
       return (
         <GithubWidget
           data={widget.data as GitHubData}
+          size={widget.size}
+          variant={widget.variant}
+        />
+      );
+    case "image":
+      return (
+        <ImageWidget
+          data={widget.data as ImageWidgetData}
           size={widget.size}
           variant={widget.variant}
         />
