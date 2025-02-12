@@ -1,12 +1,6 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -35,8 +29,7 @@ export const authOptions: AuthOptions = {
           throw new Error(user.message || "Invalid credentials");
         }
 
-        // Return user data to NextAuth (this gets stored in session)
-        return { id: user.id, name: user.name, email: user.email };
+        return { id: user.id, username: user.username, email: user.email, jwt: user.jwt };
       },
     }),
   ],
@@ -48,7 +41,7 @@ export const authOptions: AuthOptions = {
       return {...token, ...user}
     },
     async session ({ session, token, user }) {
-      session.user = token as any ;
+      session.user = token as any;
       return session;
     }
   },
