@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { createWidget, WidgetService } from "@/services/widget.service";
 
 interface WidgetOption {
   id: string;
@@ -39,21 +40,35 @@ const widgetOptions: WidgetOption[] = [
   },
 ];
 
+interface ISize {
+  cols: number;
+  rows: number;
+}
+
+interface IPixelfed {
+  baseUrl: string;
+  username: string;
+}
+
+interface IMastodon {
+  baseUrl: string;
+  username: string;
+}
+
+export interface ICreateWidgetRequest {
+  type: string;
+  variant: number;
+  size: ISize;
+  data: IPixelfed | IMastodon
+}
+
 export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<string | null>(null);
 
   const mutation = useMutation({
-    mutationFn: async (data: { widgetId: string; formData: Record<string, string> }) => {
-      const response = await fetch("/api/widgets", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to save widget");
-      return response.json();
-    },
+    mutationFn: WidgetService.createWidget,
     onSuccess: () => setMessage("Widget saved successfully!"),
     onError: () => setMessage("Failed to save widget."),
   });
@@ -75,7 +90,18 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
   const handleSave = () => {
     if (!selectedWidget) return;
-    mutation.mutate({ widgetId: selectedWidget.id, formData });
+    const createWidgetRequest: ICreateWidgetRequest = {
+      type: selectedWidget.name,
+      variant: 0,
+      size: {
+        cols: 2,
+        rows: 2,
+      },
+      data: {
+        
+      }
+    }
+    mutation.mutate(createWidgetRequest);
   };
 
   return (
