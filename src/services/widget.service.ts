@@ -39,7 +39,7 @@ const createWidget = async (
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`, // Pass the JWT token in the Authorization header
+            Authorization: `Bearer ${jwt}`,
         },
         body: JSON.stringify(data),
     });
@@ -52,7 +52,19 @@ const createWidget = async (
     return transformedRes;
 };
 
+const getUsersWidgets = async (username: string): Promise<WidgetProps[]> => {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + username + "/all"
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch user data");
+  }
+
+  return res.json();
+};
+
 
 export const WidgetService = {
-    createWidget
+    createWidget,
+    getUsersWidgets
 };

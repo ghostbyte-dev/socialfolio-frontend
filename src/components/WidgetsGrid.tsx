@@ -1,5 +1,8 @@
+import { getUserData } from "@/hooks/useUserData";
 import { WidgetFactory } from "@/lib/WidgetFactory";
+import { WidgetService } from "@/services/widget.service";
 import { GitHubData, WidgetProps } from "@/types/widget-types";
+import { useQuery } from "@tanstack/react-query";
 
 const addNewWidget: WidgetProps = {
   id: "0",
@@ -10,13 +13,34 @@ const addNewWidget: WidgetProps = {
 };
 
 export default function WidgetsGrid({
-  widgets,
+  username,
   isOwner,
 }: {
-  widgets: WidgetProps[];
+  username: string;
   isOwner: boolean;
 }) {
+
+
+  const {
+    data: widgets = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["widgetsofuser", username],
+    queryFn: () => WidgetService.getUsersWidgets(username),
+    enabled: !!username,
+  });
+
+
   const displayedWidgets = isOwner ? [...widgets, addNewWidget] : widgets;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading widgets</div>;
+  }
 
   return (
     <div className="grid grid-cols-3 gap-4">

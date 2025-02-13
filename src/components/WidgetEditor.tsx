@@ -85,13 +85,13 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     }, {} as Record<string, string>);
 
     const createWidgetRequest: ICreateWidgetRequest = {
-      type: selectedWidget.id, // Use `id` instead of `name` to be more reliable
-      variant: 0,
+      type: selectedWidget.id,
+      variant: 1,
       size: {
         cols: 2,
         rows: 2,
       },
-      data: widgetData, // Pass dynamically created data object
+      data: widgetData,
     };
 
     mutation.mutate({data: createWidgetRequest, jwt: session?.user.jwt ?? ""});

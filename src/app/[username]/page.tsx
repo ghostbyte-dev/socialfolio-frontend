@@ -41,7 +41,7 @@ export default function UserPage() {
       </section>
 
       <section className="w-full">
-        <WidgetsGrid widgets={sampleWidgets} isOwner={isOwner} />
+        <WidgetsGrid username={username} isOwner={isOwner} />
       </section>
     </div>
   );

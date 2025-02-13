@@ -22,6 +22,6 @@ export const getUserData = async (username: string) => {
   if (!res.ok) {
     throw new Error("Failed to fetch user data");
   }
-
+  console.log(res)
   return res.json();
 };
