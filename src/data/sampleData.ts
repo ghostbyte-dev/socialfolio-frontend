@@ -43,4 +43,11 @@ export const sampleWidgets: WidgetProps[] = [
             followersCount: 2232
         } as MastodonData,
     },
+    {
+        id: "6",
+        type: "pixelfed",
+        variant: 1,
+        size: { cols: 1, rows: 1 },
+        data: { username: "daniebeler", instance: "pixelix.social" } as MastodonData,
+    },
 ];

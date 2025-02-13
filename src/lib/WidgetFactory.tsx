@@ -2,10 +2,12 @@ import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
+import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import {
   GitHubData,
   ImageWidgetData,
   MastodonData,
+  PixelfedData,
   WidgetProps,
 } from "@/types/widget-types";
 
@@ -15,6 +17,14 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
       return (
         <MastodonWidget
           data={widget.data as MastodonData}
+          size={widget.size}
+          variant={widget.variant}
+        />
+      );
+    case "pixelfed":
+      return (
+        <PixelfedWidget
+          data={widget.data as PixelfedData}
           size={widget.size}
           variant={widget.variant}
         />

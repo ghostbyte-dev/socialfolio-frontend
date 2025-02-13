@@ -16,6 +16,19 @@ export interface MastodonData {
   description: string;
 }
 
+export interface PixelfedData {
+  username: string;
+  instance: string;
+}
+
+export interface BuymeacoffeeData {
+  username: string;
+}
+
+export interface TextData {
+  text: string;
+}
+
 export interface GitHubData {
   username: string;
 }
