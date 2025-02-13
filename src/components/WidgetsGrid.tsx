@@ -1,10 +1,18 @@
 import { WidgetFactory } from "@/lib/WidgetFactory";
-import { WidgetProps } from "@/types/widget-types";
+import { GitHubData, WidgetProps } from "@/types/widget-types";
+
+const addNewWidget: WidgetProps = {
+  id: "0",
+  type: "newwidget",
+  variant: 1,
+  size: {cols: 3, rows: 1},
+  data: {} as GitHubData
+}
 
 export default function WidgetsGrid({ widgets }: { widgets: WidgetProps[] }) {
     return (
       <div className="grid grid-cols-3 gap-4">
-        {widgets.map((widget) => {
+        {[...widgets, addNewWidget].map((widget) => {
           const aspectRatio = widget.size.rows / widget.size.cols; // Calculate aspect ratio (height/width)
           return (
             <div

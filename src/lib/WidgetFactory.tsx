@@ -1,3 +1,4 @@
+import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
@@ -53,6 +54,13 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           data={widget.data as LiberaPayData}
           size={widget.size}
           variant={widget.variant}
+        />
+      );
+
+      case "newwidget":
+      return (
+        <AddNewWidget
+          size={widget.size}
         />
       );
     default:
