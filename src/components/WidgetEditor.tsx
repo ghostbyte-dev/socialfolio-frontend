@@ -49,6 +49,15 @@ const widgetOptions: WidgetOption[] = [
     ],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
   },
+  {
+    id: "note",
+    name: "Note",
+    imageLink: "/widgeteditor/note.svg",
+    fields: [
+      { key: "note", label: "Note", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+  },
 ];
 
 export default function WidgetEditor({ onClose }: WidgetEditorProps) {

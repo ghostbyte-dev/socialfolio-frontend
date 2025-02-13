@@ -38,9 +38,13 @@ export interface ImageWidgetData {
   url: string;
 }
 
+export interface NoteWidgetData {
+  note: string;
+}
+
 export interface EmptyWidgetData {
 
 }
 
-export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData;
+export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData;
 export type WidgetApiData = MastodonApiData
