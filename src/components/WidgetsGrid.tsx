@@ -1,7 +1,7 @@
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { WidgetService } from "@/services/widget.service";
 import { GitHubData, WidgetProps } from "@/types/widget-types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 const addNewWidget: WidgetProps = {
@@ -19,6 +19,7 @@ export default function WidgetsGrid({
   username: string;
   isOwner: boolean;
 }) {
+  const queryClient = useQueryClient();
   const { data: session } = useSession();
 
   const {
@@ -34,6 +35,23 @@ export default function WidgetsGrid({
   const deleteWidget = useMutation({
     mutationFn: (id: string) =>
       WidgetService.deleteWidget(id, session?.user.jwt ?? ""),
+    onMutate: async (id: string) => {
+      await queryClient.cancelQueries({queryKey: ["widgetsofuser"]})
+
+      const previousWidgets = queryClient.getQueryData(["widgetsofuser"])
+
+      queryClient.setQueryData(["widgets"], (old: any[]) =>
+        old?.filter((widget) => widget.id !== id)
+      );
+
+      return {previousWidgets}
+    },
+    onError: (err, id: string, context: any) => {
+      queryClient.setQueryData(["widgetsofuser"], context.previousWidgets)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["widgetsofuser"]})
+    }
   });
 
   const displayedWidgets = isOwner ? [...widgets, addNewWidget] : widgets;
