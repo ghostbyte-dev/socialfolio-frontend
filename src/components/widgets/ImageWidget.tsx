@@ -6,11 +6,12 @@ interface ImageWidgetProps {
   data: ImageWidgetData;
   size: { cols: number; rows: number };
   variant: number;
+  deleteWidget: () => void;
 }
 
-export function ImageWidget({ data, size, variant }: ImageWidgetProps) {
+export function ImageWidget({ data, size, variant, deleteWidget }: ImageWidgetProps) {
   return (
-    <BaseWidget>
+    <BaseWidget deleteWidget={deleteWidget}>
       {variant == 1 && (
         <div className={`h-full w-full variant-${variant}`}>
           <img

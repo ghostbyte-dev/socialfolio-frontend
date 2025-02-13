@@ -52,19 +52,37 @@ const createWidget = async (
     return transformedRes;
 };
 
+const deleteWidget = async (
+    id: string,
+    jwt: string
+): Promise<any> => {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+        }
+    });
+
+    if (!response.ok) throw new Error("Failed to delete widget");
+
+    return response;
+};
+
 const getUsersWidgets = async (username: string): Promise<WidgetProps[]> => {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + username + "/all"
-  );
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + username + "/all"
+    );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch user data");
-  }
+    if (!res.ok) {
+        throw new Error("Failed to fetch user data");
+    }
 
-  return res.json();
+    return res.json();
 };
 
 
 export const WidgetService = {
     createWidget,
+    deleteWidget,
     getUsersWidgets
 };

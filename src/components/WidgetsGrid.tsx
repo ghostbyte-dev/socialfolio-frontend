@@ -1,8 +1,8 @@
-import { getUserData } from "@/hooks/useUserData";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { WidgetService } from "@/services/widget.service";
 import { GitHubData, WidgetProps } from "@/types/widget-types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 const addNewWidget: WidgetProps = {
   id: "0",
@@ -19,7 +19,7 @@ export default function WidgetsGrid({
   username: string;
   isOwner: boolean;
 }) {
-
+  const { data: session } = useSession();
 
   const {
     data: widgets = [],
@@ -31,6 +31,10 @@ export default function WidgetsGrid({
     enabled: !!username,
   });
 
+  const deleteWidget = useMutation({
+    mutationFn: (id: string) =>
+      WidgetService.deleteWidget(id, session?.user.jwt ?? ""),
+  });
 
   const displayedWidgets = isOwner ? [...widgets, addNewWidget] : widgets;
 
@@ -56,7 +60,10 @@ export default function WidgetsGrid({
             }}
           >
             <div className="absolute inset-0">
-              <WidgetFactory widget={widget} />
+              <WidgetFactory
+                widget={widget}
+                deleteWidget={() => deleteWidget.mutate(widget.id)}
+              />
             </div>
           </div>
         );

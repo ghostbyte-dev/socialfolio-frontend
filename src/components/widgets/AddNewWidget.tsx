@@ -14,7 +14,7 @@ export function AddNewWidget({ size }: AddNewWidgetProps) {
 
   return (
     <>
-      <BaseWidget>
+      <BaseWidget deleteWidget={() => {}}>
         <div
           className="h-full w-full flex justify-center items-center flex-col hover:cursor-pointer"
           onClick={() => setIsOpen(true)}

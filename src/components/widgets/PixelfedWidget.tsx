@@ -7,11 +7,12 @@ interface PixelfedWidgetProps {
   data: PixelfedData;
   size: { cols: number; rows: number };
   variant: number;
+  deleteWidget: () => void;
 }
 
-export function PixelfedWidget({ data, size, variant }: PixelfedWidgetProps) {
+export function PixelfedWidget({ data, size, variant, deleteWidget }: PixelfedWidgetProps) {
   return (
-    <BaseWidget>
+    <BaseWidget deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://" + data.instance + "/@" + data.username}>
           <div className="h-full w-full p-20">

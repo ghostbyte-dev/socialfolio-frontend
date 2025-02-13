@@ -6,11 +6,13 @@ interface GithubWidgetProps {
   data: GitHubData;
   size: { cols: number; rows: number };
   variant: number;
+  deleteWidget: () => void;
 }
 
-export function GithubWidget({ data, size, variant }: GithubWidgetProps) {
+export function GithubWidget({ data, size, variant, deleteWidget }: GithubWidgetProps) {
+
   return (
-    <BaseWidget>
+    <BaseWidget deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://github.com/" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#171515]">

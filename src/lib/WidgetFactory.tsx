@@ -14,7 +14,7 @@ import {
   WidgetProps,
 } from "@/types/widget-types";
 
-export function WidgetFactory({ widget }: { widget: WidgetProps }) {
+export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, deleteWidget: () => void }) {
   switch (widget.type) {
     case "mastodon":
       return (
@@ -22,6 +22,7 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           data={widget.data as MastodonData}
           size={widget.size}
           variant={widget.variant}
+          deleteWidget={deleteWidget}
         />
       );
     case "pixelfed":
@@ -30,6 +31,7 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           data={widget.data as PixelfedData}
           size={widget.size}
           variant={widget.variant}
+          deleteWidget={deleteWidget}
         />
       );
     case "github":
@@ -38,6 +40,7 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           data={widget.data as GitHubData}
           size={widget.size}
           variant={widget.variant}
+          deleteWidget={deleteWidget}
         />
       );
     case "image":
@@ -46,6 +49,7 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           data={widget.data as ImageWidgetData}
           size={widget.size}
           variant={widget.variant}
+          deleteWidget={deleteWidget}
         />
       );
       case "liberapay":
@@ -54,6 +58,7 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
           data={widget.data as LiberaPayData}
           size={widget.size}
           variant={widget.variant}
+          deleteWidget={deleteWidget}
         />
       );
 
@@ -65,7 +70,7 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
       );
     default:
       return (
-        <BaseWidget>
+        <BaseWidget deleteWidget={deleteWidget}>
           <div>Unknown Widget Type</div>
         </BaseWidget>
       );
