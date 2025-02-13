@@ -1,4 +1,4 @@
-import { WidgetProps } from "@/types/widget-types";
+import { MastodonData, WidgetApiData, WidgetProps } from "@/types/widget-types";
 
 interface ISize {
     cols: number;
@@ -81,8 +81,21 @@ const getUsersWidgets = async (username: string): Promise<WidgetProps[]> => {
 };
 
 
+const getWidgetData = async (id: string): Promise<WidgetApiData> => {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + id);
+    if (!res.ok) {
+        throw new Error("Failed to fetch user data");
+    }
+    const json = await res.json()
+
+    return json.data;
+};
+
+
+
 export const WidgetService = {
     createWidget,
     deleteWidget,
-    getUsersWidgets
+    getUsersWidgets,
+    getWidgetData
 };

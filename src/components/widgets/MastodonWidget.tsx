@@ -2,8 +2,12 @@ import { MastodonData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { WidgetService } from "@/services/widget.service";
 
 interface MastodonWidgetProps {
+  id: string;
   data: MastodonData;
   size: { cols: number; rows: number };
   variant: number;
@@ -11,7 +15,42 @@ interface MastodonWidgetProps {
   deleteWidget: () => void;
 }
 
-export function MastodonWidget({ data, size, isOwner, variant, deleteWidget }: MastodonWidgetProps) {
+export interface MastodonApiData {
+  username: string;
+  instance: string;
+  avatar: string;
+  followersCount: number;
+  url: string;
+  displayName: string;
+  description: string;
+}
+
+export function MastodonWidget({
+  id,
+  data,
+  size,
+  isOwner,
+  variant,
+  deleteWidget,
+}: MastodonWidgetProps) {
+  const needApiData = (): boolean => {
+    if (variant == 1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const {
+    data: widgetApiData,
+    isLoading: widgetApiDataIsLoading,
+    error,
+  } = useQuery<MastodonApiData>({
+    queryKey: ["mastodonWidgetData", id],
+    queryFn: () => WidgetService.getWidgetData(id),
+    enabled: needApiData() && id !== "",
+  });
+
   return (
     <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
       {variant == 1 && (
@@ -35,8 +74,10 @@ export function MastodonWidget({ data, size, isOwner, variant, deleteWidget }: M
       {variant == 2 && (
         <Link href={"https://" + data.instance + "/@" + data.username}>
           <div className="h-full w-full p-8">
-            <Image
-              src={data.avatar}
+            {widgetApiDataIsLoading ? <p>Loading...</p>: <></>}
+            {widgetApiData?.avatar ? <>
+              <Image
+              src={widgetApiData.avatar}
               alt="Mastodon logo"
               height={64}
               width={64}
@@ -44,8 +85,11 @@ export function MastodonWidget({ data, size, isOwner, variant, deleteWidget }: M
             />
 
             <div>
-              <p className="text-black">{data.description}</p>
+              <p className="text-black">{widgetApiData?.description}</p>
             </div>
+            </> : <></>}
+    
+            
           </div>
         </Link>
       )}

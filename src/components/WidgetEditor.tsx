@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
 import { useSession } from "next-auth/react";
+import { WidgetProps } from "@/types/widget-types";
+import { useParams } from "next/navigation";
 
 interface WidgetOption {
   id: string;
@@ -42,8 +44,11 @@ const widgetOptions: WidgetOption[] = [
 ];
 
 export default function WidgetEditor({ onClose }: WidgetEditorProps) {
+  const params = useParams();
+  const username = params.username as string;
+  const queryClient = useQueryClient();
 
-    const { data: session } = useSession();
+  const { data: session } = useSession();
 
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
     null
@@ -53,11 +58,49 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
   const mutation = useMutation({
     mutationKey: ["new Widget"],
-    mutationFn: ({data, jwt}: {data: ICreateWidgetRequest, jwt: string}) => {
+    mutationFn: ({
+      data,
+      jwt,
+    }: {
+      data: ICreateWidgetRequest;
+      jwt: string;
+    }) => {
       return WidgetService.createWidget(data, jwt);
     },
+    onMutate: async ({
+      data,
+      jwt,
+    }: {
+      data: ICreateWidgetRequest;
+      jwt: string;
+    }) => {
+      await queryClient.cancelQueries({ queryKey: ["widgetsofuser", username] });
+
+      const previousWidgets = queryClient.getQueryData(["widgetsofuser", username]);
+
+      const newWidget: WidgetProps = {
+        type: data.type,
+        id: "",
+        size: data.size,
+        variant: data.variant,
+        data: {},
+      };
+
+      queryClient.setQueryData(["widgetsofuser", username], (old: WidgetProps[]) => [
+        ...old,
+        newWidget,
+      ]);
+
+      return { previousWidgets };
+    },
     onSuccess: () => setMessage("Widget saved successfully!"),
-    onError: () => setMessage("Failed to save widget."),
+    onError: (context: any) => {
+      setMessage("Failed to save widget.");
+      queryClient.setQueryData(["widgetsofuser", username], context.previousWidgets);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["widgetsofuser", username] });
+    },
   });
 
   const handleSelectWidget = (widget: WidgetOption) => {
@@ -86,7 +129,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
     const createWidgetRequest: ICreateWidgetRequest = {
       type: selectedWidget.id,
-      variant: 1,
+      variant: 2,
       size: {
         cols: 1,
         rows: 1,
@@ -94,7 +137,10 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
       data: widgetData,
     };
 
-    mutation.mutate({data: createWidgetRequest, jwt: session?.user.jwt ?? ""});
+    mutation.mutate({
+      data: createWidgetRequest,
+      jwt: session?.user.jwt ?? "",
+    });
   };
 
   return (

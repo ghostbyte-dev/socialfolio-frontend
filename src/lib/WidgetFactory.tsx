@@ -14,11 +14,20 @@ import {
   WidgetProps,
 } from "@/types/widget-types";
 
-export function WidgetFactory({ widget, isOwner, deleteWidget }: { widget: WidgetProps, isOwner: boolean, deleteWidget: () => void }) {
+export function WidgetFactory({
+  widget,
+  isOwner,
+  deleteWidget,
+}: {
+  widget: WidgetProps;
+  isOwner: boolean;
+  deleteWidget: () => void;
+}) {
   switch (widget.type) {
     case "mastodon":
       return (
         <MastodonWidget
+          id={widget.id}
           data={widget.data as MastodonData}
           size={widget.size}
           variant={widget.variant}
@@ -56,7 +65,7 @@ export function WidgetFactory({ widget, isOwner, deleteWidget }: { widget: Widge
           deleteWidget={deleteWidget}
         />
       );
-      case "liberapay":
+    case "liberapay":
       return (
         <LiberaPayWidget
           data={widget.data as LiberaPayData}
@@ -67,12 +76,8 @@ export function WidgetFactory({ widget, isOwner, deleteWidget }: { widget: Widge
         />
       );
 
-      case "newwidget":
-      return (
-        <AddNewWidget
-          size={widget.size}
-        />
-      );
+    case "newwidget":
+      return <AddNewWidget size={widget.size} />;
     default:
       return (
         <BaseWidget isOwner={false} deleteWidget={deleteWidget}>

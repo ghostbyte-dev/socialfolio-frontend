@@ -1,3 +1,5 @@
+import { MastodonApiData } from "@/components/widgets/MastodonWidget";
+
 export interface WidgetProps {
   id: string;
   type: string;
@@ -9,11 +11,6 @@ export interface WidgetProps {
 export interface MastodonData {
   username: string;
   instance: string;
-  avatar: string;
-  followersCount: number;
-  url: string;
-  displayName: string;
-  description: string;
 }
 
 export interface PixelfedData {
@@ -41,4 +38,9 @@ export interface ImageWidgetData {
   url: string;
 }
 
-export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData;
+export interface EmptyWidgetData {
+
+}
+
+export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData;
+export type WidgetApiData = MastodonApiData

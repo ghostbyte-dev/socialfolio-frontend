@@ -36,22 +36,31 @@ export default function WidgetsGrid({
     mutationFn: (id: string) =>
       WidgetService.deleteWidget(id, session?.user.jwt ?? ""),
     onMutate: async (id: string) => {
-      await queryClient.cancelQueries({queryKey: ["widgetsofuser"]})
+      await queryClient.cancelQueries({
+        queryKey: ["widgetsofuser", username],
+      });
 
-      const previousWidgets = queryClient.getQueryData(["widgetsofuser"])
+      const previousWidgets = queryClient.getQueryData([
+        "widgetsofuser",
+        username,
+      ]);
 
-      queryClient.setQueryData(["widgets"], (old: any[]) =>
-        old?.filter((widget) => widget.id !== id)
+      queryClient.setQueryData(
+        ["widgetsofuser", username],
+        (old: WidgetProps[]) => old.filter((widget) => widget.id !== id)
       );
 
-      return {previousWidgets}
+      return { previousWidgets };
     },
     onError: (err, id: string, context: any) => {
-      queryClient.setQueryData(["widgetsofuser"], context.previousWidgets)
+      queryClient.setQueryData(
+        ["widgetsofuser", username],
+        context.previousWidgets
+      );
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["widgetsofuser"]})
-    }
+      queryClient.invalidateQueries({ queryKey: ["widgetsofuser", username] });
+    },
   });
 
   const displayedWidgets = isOwner ? [...widgets, addNewWidget] : widgets;
