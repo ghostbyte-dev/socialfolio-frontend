@@ -1,5 +1,6 @@
 "use client";
 
+import DisplayName from "@/components/DisplayName";
 import WidgetsGrid from "@/components/WidgetsGrid";
 import { sampleWidgets } from "@/data/sampleData";
 import { getUserData } from "@/hooks/useUserData";
@@ -32,11 +33,10 @@ export default function UserPage() {
   return (
     <div className="max-w-4xl w-4/5 mx-auto flex flex-col items-center my-20">
       <section className="mb-10">
-        <h1 className="text-5xl font-bold mb-4">
-          {user.displayName && user.displayName}
-
-          {!user.displayName && user.username}
-        </h1>
+        <DisplayName
+          name={user.displayName?.trim() ? user.displayName : user.username}
+          isOwner={isOwner}
+        />
         <p className="text-xl">{user.description}</p>
       </section>
 
