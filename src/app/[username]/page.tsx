@@ -25,11 +25,16 @@ export default function UserPage() {
 
   return (
     <div className="max-w-4xl w-4/5 mx-auto flex flex-col items-center my-20">
-      <h1 className="text-5xl font-bold mb-4">{user.username}</h1>
+      <section className="mb-10">
+        <h1 className="text-5xl font-bold mb-4">
+          {user.displayName && user.displayName}
 
+          {!user.displayName && user.username}
+        </h1>
+        <p className="text-xl">{user.description}</p>
+      </section>
 
       <section className="w-full">
-        
         <WidgetsGrid widgets={sampleWidgets} />
       </section>
     </div>

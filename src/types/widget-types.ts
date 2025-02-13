@@ -9,6 +9,11 @@ export interface WidgetProps {
 export interface MastodonData {
   username: string;
   instance: string;
+  avatar: string;
+  followersCount: number;
+  url: string;
+  displayName: string;
+  description: string;
 }
 
 export interface GitHubData {

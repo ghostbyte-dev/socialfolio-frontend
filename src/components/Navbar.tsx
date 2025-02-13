@@ -16,7 +16,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="p-4 bg-gray-800 text-white flex justify-between items-center">
+    <nav className="p-4 flex justify-between items-center">
       <div>
         <h1 className="text-xl font-semibold">Fedistack</h1>
       </div>
