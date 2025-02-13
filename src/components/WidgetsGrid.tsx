@@ -9,10 +9,13 @@ const addNewWidget: WidgetProps = {
   data: {} as GitHubData
 }
 
-export default function WidgetsGrid({ widgets }: { widgets: WidgetProps[] }) {
+export default function WidgetsGrid({ widgets, isOwner }: { widgets: WidgetProps[]; isOwner: boolean }) {
+
+  const displayedWidgets = isOwner ? [...widgets, addNewWidget] : widgets;
+
     return (
       <div className="grid grid-cols-3 gap-4">
-        {[...widgets, addNewWidget].map((widget) => {
+        {displayedWidgets.map((widget) => {
           const aspectRatio = widget.size.rows / widget.size.cols; // Calculate aspect ratio (height/width)
           return (
             <div
