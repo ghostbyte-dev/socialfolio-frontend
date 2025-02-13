@@ -51,6 +51,16 @@ export function MastodonWidget({
     enabled: needApiData() && id !== "",
   });
 
+  const truncateHTML = (html: string | undefined, maxLength: number): string => {
+    if (!html) {
+      return ""
+    }
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    let text = div.textContent || div.innerText || "";
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  };
+
   return (
     <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
       {variant == 1 && (
@@ -85,7 +95,7 @@ export function MastodonWidget({
             />
 
             <div>
-              <p className="text-black">{widgetApiData?.description}</p>
+              <div className="overflow-auto" dangerouslySetInnerHTML={{__html: widgetApiData.description}} />
             </div>
             </> : <></>}
     
