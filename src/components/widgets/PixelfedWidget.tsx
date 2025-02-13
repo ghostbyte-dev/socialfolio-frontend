@@ -1,7 +1,6 @@
 import { PixelfedData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Link from "next/link";
-import Image from "next/image";
 
 interface PixelfedWidgetProps {
   data: PixelfedData;

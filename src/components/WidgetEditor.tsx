@@ -10,6 +10,11 @@ interface WidgetOption {
   name: string;
   imageLink: string;
   fields: { key: string; label: string; type: string }[];
+  variants: Variant[];
+}
+
+interface Variant {
+  index: number;
 }
 
 interface WidgetEditorProps {
@@ -25,12 +30,14 @@ const widgetOptions: WidgetOption[] = [
       { key: "instance", label: "Instance", type: "text" },
       { key: "username", label: "Username", type: "text" },
     ],
+    variants: [{ index: 1 }],
   },
   {
     id: "github",
     name: "GitHub",
     imageLink: "/widgeteditor/github.webp",
     fields: [{ key: "username", label: "Username", type: "text" }],
+    variants: [{ index: 1 }, { index: 2 }],
   },
   {
     id: "mastodon",
@@ -40,6 +47,16 @@ const widgetOptions: WidgetOption[] = [
       { key: "instance", label: "Instance", type: "text" },
       { key: "username", label: "Username", type: "text" },
     ],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
+  },
+  {
+    id: "note",
+    name: "Note",
+    imageLink: "/widgeteditor/note.svg",
+    fields: [
+      { key: "note", label: "Note", type: "text" },
+    ],
+    variants: [{ index: 1 }],
   },
 ];
 
@@ -54,6 +71,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     null
   );
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [variant, setVariant] = useState<number>(1);
   const [message, setMessage] = useState<string | null>(null);
 
   const mutation = useMutation({
@@ -74,9 +92,14 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
       data: ICreateWidgetRequest;
       jwt: string;
     }) => {
-      await queryClient.cancelQueries({ queryKey: ["widgetsofuser", username] });
+      await queryClient.cancelQueries({
+        queryKey: ["widgetsofuser", username],
+      });
 
-      const previousWidgets = queryClient.getQueryData(["widgetsofuser", username]);
+      const previousWidgets = queryClient.getQueryData([
+        "widgetsofuser",
+        username,
+      ]);
 
       const newWidget: WidgetProps = {
         type: data.type,
@@ -86,17 +109,20 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
         data: {},
       };
 
-      queryClient.setQueryData(["widgetsofuser", username], (old: WidgetProps[]) => [
-        ...old,
-        newWidget,
-      ]);
+      queryClient.setQueryData(
+        ["widgetsofuser", username],
+        (old: WidgetProps[]) => [...old, newWidget]
+      );
 
       return { previousWidgets };
     },
     onSuccess: () => setMessage("Widget saved successfully!"),
     onError: (context: any) => {
       setMessage("Failed to save widget.");
-      queryClient.setQueryData(["widgetsofuser", username], context.previousWidgets);
+      queryClient.setQueryData(
+        ["widgetsofuser", username],
+        context.previousWidgets
+      );
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["widgetsofuser", username] });
@@ -129,7 +155,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
     const createWidgetRequest: ICreateWidgetRequest = {
       type: selectedWidget.id,
-      variant: 2,
+      variant: variant,
       size: {
         cols: 1,
         rows: 1,
@@ -176,6 +202,22 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           <h2 className="text-xl font-bold">Widget Editor</h2>
           {selectedWidget ? (
             <div className="mt-4">
+              <div className="mb-4">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Variant
+                </label>
+                <select
+                  className="w-full p-2 border rounded"
+                  value={variant}
+                  onChange={(e) => setVariant(Number(e.target.value))}
+                >
+                  {selectedWidget.variants.map((variant) => (
+                    <option key={variant.index} value={variant.index}>
+                      Variant {variant.index}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
                   <label className="block text-gray-700 font-medium mb-2">

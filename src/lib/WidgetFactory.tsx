@@ -4,12 +4,14 @@ import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
+import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import {
   GitHubData,
   ImageWidgetData,
   LiberaPayData,
   MastodonData,
+  NoteWidgetData,
   PixelfedData,
   WidgetProps,
 } from "@/types/widget-types";
@@ -69,6 +71,17 @@ export function WidgetFactory({
       return (
         <LiberaPayWidget
           data={widget.data as LiberaPayData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+        />
+      );
+
+      case "note":
+      return (
+        <NoteWidget
+          data={widget.data as NoteWidgetData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
