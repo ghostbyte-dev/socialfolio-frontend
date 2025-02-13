@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 interface WidgetOption {
   id: string;
@@ -39,13 +40,27 @@ const widgetOptions: WidgetOption[] = [
 ];
 
 export default function WidgetEditor({ onClose }: WidgetEditorProps) {
-  const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
-    null
-  );
+  const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [message, setMessage] = useState<string | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: async (data: { widgetId: string; formData: Record<string, string> }) => {
+      const response = await fetch("/api/widgets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error("Failed to save widget");
+      return response.json();
+    },
+    onSuccess: () => setMessage("Widget saved successfully!"),
+    onError: () => setMessage("Failed to save widget."),
+  });
 
   const handleSelectWidget = (widget: WidgetOption) => {
     setSelectedWidget(widget);
+    setMessage(null);
     setFormData(
       widget.fields.reduce((acc, field) => {
         acc[field.key] = "";
@@ -56,6 +71,11 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSave = () => {
+    if (!selectedWidget) return;
+    mutation.mutate({ widgetId: selectedWidget.id, formData });
   };
 
   return (
@@ -69,17 +89,11 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               <li
                 key={widget.id}
                 className={`p-3 flex items-center gap-3 cursor-pointer rounded-lg ${
-                  selectedWidget?.id === widget.id
-                    ? "bg-blue-200"
-                    : "hover:bg-gray-200"
+                  selectedWidget?.id === widget.id ? "bg-blue-200" : "hover:bg-gray-200"
                 }`}
                 onClick={() => handleSelectWidget(widget)}
               >
-                <img
-                  src={widget.imageLink}
-                  alt={widget.name}
-                  className="w-8 h-8"
-                />
+                <img src={widget.imageLink} alt={widget.name} className="w-8 h-8" />
                 <span>{widget.name}</span>
               </li>
             ))}
@@ -93,35 +107,34 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
             <div className="mt-4">
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2">
-                    {field.label}
-                  </label>
-                  {field.type === "select" ? (
-                    <select
-                      className="w-full p-2 border rounded"
-                      value={formData[field.key]}
-                      onChange={(e) => handleChange(field.key, e.target.value)}
-                    >
-                      <option value="">Select</option>
-                      <option value="light">Light</option>
-                      <option value="dark">Dark</option>
-                    </select>
-                  ) : (
-                    <input
-                      type={field.type}
-                      className="w-full p-2 border rounded"
-                      value={formData[field.key]}
-                      onChange={(e) => handleChange(field.key, e.target.value)}
-                    />
-                  )}
+                  <label className="block text-gray-700 font-medium mb-2">{field.label}</label>
+                  <input
+                    type={field.type}
+                    className="w-full p-2 border rounded"
+                    value={formData[field.key]}
+                    onChange={(e) => handleChange(field.key, e.target.value)}
+                  />
                 </div>
               ))}
+
+              {/* Save Button */}
+              <button
+                onClick={handleSave}
+                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? "Saving..." : "Save Widget"}
+              </button>
+
+              {/* Success / Error Message */}
+              {message && <p className="mt-2 text-sm text-center">{message}</p>}
             </div>
           ) : (
             <p className="text-gray-500 mt-4">Select a widget to configure.</p>
           )}
         </div>
 
+        {/* Close Button */}
         <div
           onClick={onClose}
           className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
