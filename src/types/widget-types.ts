@@ -33,8 +33,12 @@ export interface GitHubData {
   username: string;
 }
 
+export interface LiberaPayData {
+  username: string;
+}
+
 export interface ImageWidgetData {
   url: string;
 }
 
-export type WidgetData = MastodonData | GitHubData | ImageWidgetData;
+export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData;

@@ -1,4 +1,4 @@
-import { WidgetProps, MastodonData, GitHubData, ImageWidgetData } from "@/types/widget-types";
+import { WidgetProps, MastodonData, GitHubData, ImageWidgetData, LiberaPayData } from "@/types/widget-types";
 
 export const sampleWidgets: WidgetProps[] = [
     {
@@ -49,5 +49,19 @@ export const sampleWidgets: WidgetProps[] = [
         variant: 1,
         size: { cols: 1, rows: 1 },
         data: { username: "daniebeler", instance: "pixelix.social" } as MastodonData,
+    },
+    {
+        id: "7",
+        type: "liberapay",
+        variant: 1,
+        size: { cols: 1, rows: 1 },
+        data: { username: "daniebeler" } as LiberaPayData,
+    },
+    {
+        id: "8",
+        type: "mastodon",
+        variant: 3,
+        size: { cols: 1, rows: 1 },
+        data: { username: "daniebeler", instance: "techhub.social" } as MastodonData,
     },
 ];

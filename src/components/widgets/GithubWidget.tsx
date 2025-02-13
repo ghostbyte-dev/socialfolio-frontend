@@ -13,11 +13,11 @@ export function GithubWidget({ data, size, variant }: GithubWidgetProps) {
     <BaseWidget>
       {variant == 1 && (
         <Link href={"https://github.com/" + data.username}>
-          <div className="h-full w-full p-20 bg-[#171515]">
+          <div className="h-full w-full flex justify-center items-center bg-[#171515]">
             <img
               src="/widgets/github/github-logo-white.webp"
               alt="Mastodon logo"
-              className="w-full h-full object-contain"
+              className="w-[50%] h-[50%] object-contain"
             />
           </div>
         </Link>
@@ -25,11 +25,11 @@ export function GithubWidget({ data, size, variant }: GithubWidgetProps) {
 
       {variant == 2 && (
         <Link href={"https://github.com/" + data.username}>
-          <div className="h-full w-full p-20 bg-[#fff]">
+          <div className="h-full w-full flex justify-center items-center bg-[#fff]">
             <img
               src="/widgets/github/github-logo-dark.webp"
               alt="Mastodon logo"
-              className="w-full h-full object-contain"
+              className="w-[50%] h-[50%] object-contain"
             />
           </div>
         </Link>

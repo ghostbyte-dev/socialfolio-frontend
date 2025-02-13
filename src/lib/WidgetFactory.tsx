@@ -1,11 +1,13 @@
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
+import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import {
   GitHubData,
   ImageWidgetData,
+  LiberaPayData,
   MastodonData,
   PixelfedData,
   WidgetProps,
@@ -41,6 +43,14 @@ export function WidgetFactory({ widget }: { widget: WidgetProps }) {
       return (
         <ImageWidget
           data={widget.data as ImageWidgetData}
+          size={widget.size}
+          variant={widget.variant}
+        />
+      );
+      case "liberapay":
+      return (
+        <LiberaPayWidget
+          data={widget.data as LiberaPayData}
           size={widget.size}
           variant={widget.variant}
         />
