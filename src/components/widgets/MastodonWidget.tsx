@@ -7,12 +7,13 @@ interface MastodonWidgetProps {
   data: MastodonData;
   size: { cols: number; rows: number };
   variant: number;
+  isOwner: boolean;
   deleteWidget: () => void;
 }
 
-export function MastodonWidget({ data, size, variant, deleteWidget }: MastodonWidgetProps) {
+export function MastodonWidget({ data, size, isOwner, variant, deleteWidget }: MastodonWidgetProps) {
   return (
-    <BaseWidget deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://" + data.instance + "/@" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">

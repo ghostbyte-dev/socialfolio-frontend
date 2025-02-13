@@ -62,6 +62,7 @@ export default function WidgetsGrid({
             <div className="absolute inset-0">
               <WidgetFactory
                 widget={widget}
+                isOwner={isOwner}
                 deleteWidget={() => deleteWidget.mutate(widget.id)}
               />
             </div>

@@ -6,13 +6,14 @@ interface GithubWidgetProps {
   data: GitHubData;
   size: { cols: number; rows: number };
   variant: number;
+  isOwner: boolean;
   deleteWidget: () => void;
 }
 
-export function GithubWidget({ data, size, variant, deleteWidget }: GithubWidgetProps) {
+export function GithubWidget({ data, size, variant, isOwner, deleteWidget }: GithubWidgetProps) {
 
   return (
-    <BaseWidget deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://github.com/" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#171515]">

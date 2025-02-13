@@ -88,8 +88,8 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
       type: selectedWidget.id,
       variant: 1,
       size: {
-        cols: 2,
-        rows: 2,
+        cols: 1,
+        rows: 1,
       },
       data: widgetData,
     };

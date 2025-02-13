@@ -14,7 +14,7 @@ import {
   WidgetProps,
 } from "@/types/widget-types";
 
-export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, deleteWidget: () => void }) {
+export function WidgetFactory({ widget, isOwner, deleteWidget }: { widget: WidgetProps, isOwner: boolean, deleteWidget: () => void }) {
   switch (widget.type) {
     case "mastodon":
       return (
@@ -22,6 +22,7 @@ export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, d
           data={widget.data as MastodonData}
           size={widget.size}
           variant={widget.variant}
+          isOwner={isOwner}
           deleteWidget={deleteWidget}
         />
       );
@@ -31,6 +32,7 @@ export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, d
           data={widget.data as PixelfedData}
           size={widget.size}
           variant={widget.variant}
+          isOwner={isOwner}
           deleteWidget={deleteWidget}
         />
       );
@@ -40,6 +42,7 @@ export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, d
           data={widget.data as GitHubData}
           size={widget.size}
           variant={widget.variant}
+          isOwner={isOwner}
           deleteWidget={deleteWidget}
         />
       );
@@ -49,6 +52,7 @@ export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, d
           data={widget.data as ImageWidgetData}
           size={widget.size}
           variant={widget.variant}
+          isOwner={isOwner}
           deleteWidget={deleteWidget}
         />
       );
@@ -58,6 +62,7 @@ export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, d
           data={widget.data as LiberaPayData}
           size={widget.size}
           variant={widget.variant}
+          isOwner={isOwner}
           deleteWidget={deleteWidget}
         />
       );
@@ -70,7 +75,7 @@ export function WidgetFactory({ widget, deleteWidget }: { widget: WidgetProps, d
       );
     default:
       return (
-        <BaseWidget deleteWidget={deleteWidget}>
+        <BaseWidget isOwner={false} deleteWidget={deleteWidget}>
           <div>Unknown Widget Type</div>
         </BaseWidget>
       );
