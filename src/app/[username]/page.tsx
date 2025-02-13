@@ -1,5 +1,6 @@
 "use client";
 
+import Description from "@/components/Description";
 import DisplayName from "@/components/DisplayName";
 import WidgetsGrid from "@/components/WidgetsGrid";
 import { sampleWidgets } from "@/data/sampleData";
@@ -37,7 +38,8 @@ export default function UserPage() {
           name={user.displayName?.trim() ? user.displayName : user.username}
           isOwner={isOwner}
         />
-        <p className="text-xl">{user.description}</p>
+
+        <Description description={user.description} isOwner={isOwner} />
       </section>
 
       <section className="w-full">
