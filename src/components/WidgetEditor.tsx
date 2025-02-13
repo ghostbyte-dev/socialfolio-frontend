@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { createWidget, WidgetService } from "@/services/widget.service";
+import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
+import { useSession } from "next-auth/react";
 
 interface WidgetOption {
   id: string;
@@ -40,35 +41,21 @@ const widgetOptions: WidgetOption[] = [
   },
 ];
 
-interface ISize {
-  cols: number;
-  rows: number;
-}
-
-interface IPixelfed {
-  baseUrl: string;
-  username: string;
-}
-
-interface IMastodon {
-  baseUrl: string;
-  username: string;
-}
-
-export interface ICreateWidgetRequest {
-  type: string;
-  variant: number;
-  size: ISize;
-  data: IPixelfed | IMastodon
-}
-
 export default function WidgetEditor({ onClose }: WidgetEditorProps) {
-  const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(null);
+
+    const { data: session } = useSession();
+
+  const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
+    null
+  );
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<string | null>(null);
 
   const mutation = useMutation({
-    mutationFn: WidgetService.createWidget,
+    mutationKey: ["new Widget"],
+    mutationFn: ({data, jwt}: {data: ICreateWidgetRequest, jwt: string}) => {
+      return WidgetService.createWidget(data, jwt);
+    },
     onSuccess: () => setMessage("Widget saved successfully!"),
     onError: () => setMessage("Failed to save widget."),
   });
@@ -90,18 +77,24 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
   const handleSave = () => {
     if (!selectedWidget) return;
+
+    // Create data object dynamically based on user input
+    const widgetData = selectedWidget.fields.reduce((acc, field) => {
+      acc[field.key] = formData[field.key] || ""; // Use user input or default to empty string
+      return acc;
+    }, {} as Record<string, string>);
+
     const createWidgetRequest: ICreateWidgetRequest = {
-      type: selectedWidget.name,
+      type: selectedWidget.id, // Use `id` instead of `name` to be more reliable
       variant: 0,
       size: {
         cols: 2,
         rows: 2,
       },
-      data: {
-        
-      }
-    }
-    mutation.mutate(createWidgetRequest);
+      data: widgetData, // Pass dynamically created data object
+    };
+
+    mutation.mutate({data: createWidgetRequest, jwt: session?.user.jwt ?? ""});
   };
 
   return (
@@ -115,11 +108,17 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               <li
                 key={widget.id}
                 className={`p-3 flex items-center gap-3 cursor-pointer rounded-lg ${
-                  selectedWidget?.id === widget.id ? "bg-blue-200" : "hover:bg-gray-200"
+                  selectedWidget?.id === widget.id
+                    ? "bg-blue-200"
+                    : "hover:bg-gray-200"
                 }`}
                 onClick={() => handleSelectWidget(widget)}
               >
-                <img src={widget.imageLink} alt={widget.name} className="w-8 h-8" />
+                <img
+                  src={widget.imageLink}
+                  alt={widget.name}
+                  className="w-8 h-8"
+                />
                 <span>{widget.name}</span>
               </li>
             ))}
@@ -133,7 +132,9 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
             <div className="mt-4">
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2">{field.label}</label>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    {field.label}
+                  </label>
                   <input
                     type={field.type}
                     className="w-full p-2 border rounded"
