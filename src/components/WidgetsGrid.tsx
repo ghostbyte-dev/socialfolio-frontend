@@ -74,7 +74,7 @@ export default function WidgetsGrid({
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4 grid-rows- grid-flow-row">
       {displayedWidgets.map((widget) => {
         const aspectRatio = widget.size.rows / widget.size.cols; // Calculate aspect ratio (height/width)
         return (
@@ -82,6 +82,7 @@ export default function WidgetsGrid({
             key={widget.id}
             className="relative w-full"
             style={{
+              gridRow: `span ${widget.size.rows}`,
               gridColumn: `span ${widget.size.cols}`,
               paddingBottom: `${aspectRatio * 100}%`, // Maintain aspect ratio
             }}

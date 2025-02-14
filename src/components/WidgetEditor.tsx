@@ -65,7 +65,7 @@ const widgetOptions: WidgetOption[] = [
   {
     id: "localTime",
     name: "Local Time",
-    imageLink: "/widgeteditor/note.svg",
+    imageLink: "/widgeteditor/timezone.svg",
     fields: [
       {
         key: "timezone",
