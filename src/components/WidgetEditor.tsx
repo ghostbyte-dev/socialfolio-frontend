@@ -9,7 +9,12 @@ interface WidgetOption {
   id: string;
   name: string;
   imageLink: string;
-  fields: { key: string; label: string; type: string }[];
+  fields: {
+    key: string;
+    label: string;
+    type: string;
+    options?: string[] | undefined;
+  }[];
   variants: Variant[];
 }
 
@@ -53,8 +58,20 @@ const widgetOptions: WidgetOption[] = [
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",
+    fields: [{ key: "note", label: "Note", type: "text" }],
+    variants: [{ index: 1 }],
+  },
+  {
+    id: "localTime",
+    name: "Local Time",
+    imageLink: "/widgeteditor/note.svg",
     fields: [
-      { key: "note", label: "Note", type: "text" },
+      {
+        key: "timezone",
+        label: "Timezone",
+        type: "select",
+        options: Intl.supportedValuesOf("timeZone"),
+      },
     ],
     variants: [{ index: 1 }],
   },
@@ -223,12 +240,26 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   <label className="block text-gray-700 font-medium mb-2">
                     {field.label}
                   </label>
-                  <input
-                    type={field.type}
-                    className="w-full p-2 border rounded"
-                    value={formData[field.key]}
-                    onChange={(e) => handleChange(field.key, e.target.value)}
-                  />
+                  {field.type === "select" ? (
+                    <select
+                      className="w-full p-2 border rounded"
+                      value={formData[field.key]}
+                      onChange={(e) => handleChange(field.key, e.target.value)}
+                    >
+                      {field.options?.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type={field.type}
+                      className="w-full p-2 border rounded"
+                      value={formData[field.key]}
+                      onChange={(e) => handleChange(field.key, e.target.value)}
+                    />
+                  )}
                 </div>
               ))}
 
