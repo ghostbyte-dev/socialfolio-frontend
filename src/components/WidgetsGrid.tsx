@@ -8,7 +8,7 @@ const addNewWidget: WidgetProps = {
   id: "0",
   type: "newwidget",
   variant: 1,
-  size: { cols: 3, rows: 1 },
+  size: { cols: 1, rows: 1 },
   data: {} as GitHubData,
 };
 
@@ -74,7 +74,10 @@ export default function WidgetsGrid({
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4 grid-rows- grid-flow-row">
+    <div   className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row"
+    style={{
+      gridAutoRows: "minmax(50px, 1fr)", // Adjust the minimum row height as needed
+    }}>
       {displayedWidgets.map((widget) => {
         const aspectRatio = widget.size.rows / widget.size.cols; // Calculate aspect ratio (height/width)
         return (
@@ -87,7 +90,7 @@ export default function WidgetsGrid({
               paddingBottom: `${aspectRatio * 100}%`, // Maintain aspect ratio
             }}
           >
-            <div className="absolute inset-0">
+          <div className="absolute inset-0">
               <WidgetFactory
                 widget={widget}
                 isOwner={isOwner}
