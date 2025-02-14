@@ -6,6 +6,7 @@ import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
+import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import {
   GitHubData,
   ImageWidgetData,
@@ -13,6 +14,7 @@ import {
   MastodonData,
   NoteWidgetData,
   PixelfedData,
+  TimezoneData,
   WidgetProps,
 } from "@/types/widget-types";
 
@@ -77,7 +79,16 @@ export function WidgetFactory({
           deleteWidget={deleteWidget}
         />
       );
-
+      case "localTime":
+        return (
+          <TimezoneWidget
+            data={widget.data as TimezoneData}
+            size={widget.size}
+            variant={widget.variant}
+            isOwner={isOwner}
+            deleteWidget={deleteWidget}
+          />
+        );
       case "note":
       return (
         <NoteWidget

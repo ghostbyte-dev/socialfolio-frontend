@@ -14,7 +14,10 @@ export function BaseWidget({
   deleteWidget,
 }: BaseWidgetProps) {
   return (
-    <div className="h-full w-full border rounded-2xl shadow-md bg-white duration-300 ease-in-out overflow-hidden group hover:scale-95">
+    <div
+      className={`h-full w-full border rounded-2xl shadow-md bg-white duration-300 ease-in-out overflow-hidden group 
+      ${isClickable ? "hover:scale-95 cursor-pointer" : ""}`}
+    >
       {children}
 
       {isOwner && (

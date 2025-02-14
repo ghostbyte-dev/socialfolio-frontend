@@ -30,6 +30,10 @@ export interface GitHubData {
   username: string;
 }
 
+export interface TimezoneData {
+  timezone: string;
+}
+
 export interface LiberaPayData {
   username: string;
 }
