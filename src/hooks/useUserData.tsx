@@ -15,13 +15,3 @@ export const getUserSelf = async (token?: string) => {
   return res.json();
 };
 
-export const getUserData = async (username: string) => {
-  const res = await fetch(REAL_API_URL + "/api/user/username/" + username
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch user data");
-  }
-  console.log(res)
-  return res.json();
-};
