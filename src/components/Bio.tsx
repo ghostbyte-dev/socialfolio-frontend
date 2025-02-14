@@ -13,7 +13,7 @@ export default function Bio({
   return (
     <div className="flex flex-wrap lg:flex-nowrap">
       <div className="mr-5">
-        <Avatar url="" isOwner={isOwner} />
+        <Avatar url={user.avatar} isOwner={isOwner} />
       </div>
 
       <div className="flex flex-col items-start justify-center">

@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**",
       },
+      {
+        protocol: "http", // Or "https" if your production is using HTTPS
+        hostname: "localhost",
+        port: "8000",  // Port is optional if you're using default ports
+        pathname: "/public/avatars/**", // Ensure it's specific to avatars folder
+      },
     ],
     domains: ["*"],
   },

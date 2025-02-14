@@ -42,7 +42,7 @@ export default function Avatar({
   return (
     <div className="group relative">
       
-      <Image src="/defaults/default-avatar.jpg" alt="" width={200} height={200} className="rounded-2xl" />
+      <Image src={url ?? "/defaults/default-avatar.jpg"} alt="" width={200} height={200} className="rounded-2xl" />
 
       {isOwner && (
         <button
