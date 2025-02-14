@@ -34,12 +34,14 @@ export default function UserPage() {
   return (
     <div className="max-w-4xl w-4/5 mx-auto flex flex-col items-center my-20">
       <section className="mb-10">
-        <DisplayName
-          name={user.displayName?.trim() ? user.displayName : user.username}
-          isOwner={isOwner}
-        />
+        <div className="flex flex-col items-start">
+          <DisplayName
+            name={user.displayName?.trim() ? user.displayName : user.username}
+            isOwner={isOwner}
+          />
 
-        <Description description={user.description} isOwner={isOwner} />
+          <Description description={user.description} isOwner={isOwner} />
+        </div>
       </section>
 
       <section className="w-full">

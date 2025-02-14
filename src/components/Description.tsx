@@ -46,9 +46,9 @@ export default function Description({
       {isOwner && (
         <button
           onClick={handleOpenPopup}
-          className="absolute top-[-10px] right-[-10px] p-1 rounded-full opacity-0 bg-red-500 group-hover:opacity-100 hover:cursor-pointer"
+          className="absolute top-[-10px] right-[-35px] p-2 rounded-full bg-black shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:!scale-110"
         >
-          <Image src="/icons/add.svg" alt="Edit icon" height={22} width={22} />
+          <Image src="/icons/pencil-outline.svg" alt="Edit icon" height={18} width={18} />
         </button>
       )}
 
