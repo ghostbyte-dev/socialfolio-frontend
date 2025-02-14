@@ -11,7 +11,7 @@ interface NoteWidgetProps {
 
 export function NoteWidget({ data, size, isOwner, variant, deleteWidget }: NoteWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={false} deleteWidget={deleteWidget}>
       {variant == 1 && (
           <div className="h-full w-full p-20">
             <p>

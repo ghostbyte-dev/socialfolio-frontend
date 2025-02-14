@@ -12,7 +12,7 @@ interface PixelfedWidgetProps {
 
 export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget }: PixelfedWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://" + data.instance + "/@" + data.username}>
           <div className="h-full w-full p-20">

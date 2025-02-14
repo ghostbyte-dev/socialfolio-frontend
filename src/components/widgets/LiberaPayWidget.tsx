@@ -13,7 +13,7 @@ interface LiberaPayWidgetProps {
 
 export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget }: LiberaPayWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://liberapay.com/" + data.username}>
           <div className="h-full w-full bg-[#f6c915] p-20">

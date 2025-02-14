@@ -93,7 +93,7 @@ export function WidgetFactory({
       return <AddNewWidget size={widget.size} />;
     default:
       return (
-        <BaseWidget isOwner={false} deleteWidget={deleteWidget}>
+        <BaseWidget isOwner={false} isClickable={true} deleteWidget={deleteWidget}>
           <div>Unknown Widget Type</div>
         </BaseWidget>
       );

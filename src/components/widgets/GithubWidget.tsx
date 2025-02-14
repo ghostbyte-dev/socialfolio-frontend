@@ -13,7 +13,7 @@ interface GithubWidgetProps {
 export function GithubWidget({ data, size, variant, isOwner, deleteWidget }: GithubWidgetProps) {
 
   return (
-    <BaseWidget isOwner={isOwner} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget}>
       {variant == 1 && (
         <Link href={"https://github.com/" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#171515]">
