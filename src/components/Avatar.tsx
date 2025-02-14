@@ -6,11 +6,11 @@ import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 
-export default function Description({
-  description,
+export default function Avatar({
+  url,
   isOwner,
 }: {
-  description: string;
+  url: string;
   isOwner: boolean;
 }) {
   const params = useParams();
@@ -19,7 +19,7 @@ export default function Description({
   const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
   const [editedDescription, setEditedDescription] =
-    useState<string>(description);
+    useState<string>(url);
   const { data: session } = useSession();
 
   const handleOpenPopup = () => {
@@ -41,18 +41,13 @@ export default function Description({
 
   return (
     <div className="group relative">
-      {description.trim() && <p className="text-xl">{description}</p>}
-
-      {!description.trim() && isOwner &&
-        <div className="">
-          Add description...
-        </div>
-      }
+      
+      <Image src="/defaults/default-avatar.jpg" alt="" width={200} height={200} className="rounded-2xl" />
 
       {isOwner && (
         <button
           onClick={handleOpenPopup}
-          className="absolute top-[-10px] right-[-35px] p-2 rounded-full bg-black shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:!scale-110"
+          className="absolute top-[-10px] right-[-10px] p-2 rounded-full bg-black shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:!scale-110"
         >
           <Image
             src="/icons/pencil-outline.svg"

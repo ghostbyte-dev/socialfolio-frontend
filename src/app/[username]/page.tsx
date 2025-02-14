@@ -1,9 +1,9 @@
 "use client";
 
+import Avatar from "@/components/Avatar";
 import Description from "@/components/Description";
 import DisplayName from "@/components/DisplayName";
 import WidgetsGrid from "@/components/WidgetsGrid";
-import { sampleWidgets } from "@/data/sampleData";
 import { getUserData } from "@/hooks/useUserData";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -32,15 +32,21 @@ export default function UserPage() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="max-w-4xl w-4/5 mx-auto flex flex-col items-center my-20">
-      <section className="mb-10">
-        <div className="flex flex-col items-start">
-          <DisplayName
-            name={user.displayName?.trim() ? user.displayName : user.username}
-            isOwner={isOwner}
-          />
+    <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
+      <section className="mb-16">
+        <div className="flex flex-wrap lg:flex-nowrap">
+          <div className="mr-5">
+            <Avatar url="" isOwner={isOwner} />
+          </div>
 
-          <Description description={user.description} isOwner={isOwner} />
+          <div className="flex flex-col items-start justify-center">
+            <DisplayName
+              name={user.displayName?.trim() ? user.displayName : user.username}
+              isOwner={isOwner}
+            />
+
+            <Description description={user.description} isOwner={isOwner} />
+          </div>
         </div>
       </section>
 

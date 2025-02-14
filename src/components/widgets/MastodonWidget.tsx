@@ -71,12 +71,6 @@ export function MastodonWidget({
               alt="Mastodon logo"
               className="w-[50%] h-[50%] object-contain"
             />
-
-            <img
-              src="/icons/arrow-open.svg"
-              alt=""
-              className="absolute right-4 top-4 h-6 w-6 opacity-0 ease-in-out duration-300 group-hover:opacity-100"
-            />
           </div>
         </Link>
       )}
