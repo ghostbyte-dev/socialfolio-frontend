@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
 import { useSession } from "next-auth/react";
@@ -14,6 +14,7 @@ interface WidgetOption {
     label: string;
     type: string;
     options?: string[] | undefined;
+    defaultOption?: string | undefined
   }[];
   variants: Variant[];
 }
@@ -71,6 +72,7 @@ const widgetOptions: WidgetOption[] = [
         label: "Timezone",
         type: "select",
         options: Intl.supportedValuesOf("timeZone"),
+        defaultOption: Intl.DateTimeFormat().resolvedOptions().timeZone,
       },
     ],
     variants: [{ index: 1 }],
@@ -186,6 +188,15 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     });
   };
 
+  useEffect(() => {
+    if (!selectedWidget) return;
+    selectedWidget.fields.forEach((field) => {
+      if (field.type === "select" && field.defaultOption) {
+        handleChange(field.key, field.defaultOption);
+      }
+    });
+  }, [selectedWidget]);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="relative bg-white w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden">
@@ -243,7 +254,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   {field.type === "select" ? (
                     <select
                       className="w-full p-2 border rounded"
-                      value={formData[field.key]}
+                      value={formData[field.key] || field.defaultOption}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     >
                       {field.options?.map((option) => (
