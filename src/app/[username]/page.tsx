@@ -1,8 +1,6 @@
 "use client";
 
-import Avatar from "@/components/Avatar";
-import Description from "@/components/Description";
-import DisplayName from "@/components/DisplayName";
+import Bio from "@/components/Bio";
 import WidgetsGrid from "@/components/WidgetsGrid";
 import { getUserData } from "@/hooks/useUserData";
 import { useQuery } from "@tanstack/react-query";
@@ -34,20 +32,7 @@ export default function UserPage() {
   return (
     <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
       <section className="mb-16">
-        <div className="flex flex-wrap lg:flex-nowrap">
-          <div className="mr-5">
-            <Avatar url="" isOwner={isOwner} />
-          </div>
-
-          <div className="flex flex-col items-start justify-center">
-            <DisplayName
-              name={user.displayName?.trim() ? user.displayName : user.username}
-              isOwner={isOwner}
-            />
-
-            <Description description={user.description} isOwner={isOwner} />
-          </div>
-        </div>
+        <Bio isOwner={isOwner} user={user} />
       </section>
 
       <section className="w-full">
