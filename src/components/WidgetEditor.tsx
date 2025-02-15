@@ -43,7 +43,7 @@ const widgetOptions: WidgetOption[] = [
     name: "GitHub",
     imageLink: "/widgeteditor/github.webp",
     fields: [{ key: "username", label: "Username", type: "text" }],
-    variants: [{ index: 1 }, { index: 2 }],
+    variants: [{ index: 1 }, { index: 2 }, {index: 3}],
   },
   {
     id: "mastodon",
