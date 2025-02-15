@@ -1,4 +1,10 @@
-import { ContributionDay, ContributionsCollection, ContributionsWeek, GithubApiData, GitHubData } from "@/types/widget-types";
+import {
+  ContributionDay,
+  ContributionsCollection,
+  ContributionsWeek,
+  GithubApiData,
+  GitHubData,
+} from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +21,7 @@ interface GithubWidgetProps {
   deleteWidget: () => void;
 }
 
-const ContributionsGridGap = 1/3;
+const ContributionsGridGap = 1 / 3;
 
 export function GithubWidget({
   id,
@@ -25,7 +31,7 @@ export function GithubWidget({
   isOwner,
   deleteWidget,
 }: GithubWidgetProps) {
-  const [boxSize, setBoxSize] = useState(12); // Default size
+
   const needApiData = (): boolean => {
     if (variant == 3) {
       return true;
@@ -45,10 +51,7 @@ export function GithubWidget({
   });
 
   const getDisplayedWeeks = (): number => {
-    if (boxSize < 300) {
-      return 10;
-    }
-    switch(size.cols) {
+    switch (size.cols) {
       case 1:
         return 10;
       case 2:
@@ -56,27 +59,22 @@ export function GithubWidget({
       default:
         return 10;
     }
-  }
+  };
 
-  const getContributions = (contributions: ContributionsCollection): ContributionsCollection => {
-    console.log(contributions.weeks)
-    let numberOfWeeks = getDisplayedWeeks()
+  const getContributions = (
+    contributions: ContributionsCollection
+  ): ContributionsCollection => {
+    console.log(contributions.weeks);
+    let numberOfWeeks = getDisplayedWeeks();
     contributions.weeks = contributions.weeks.slice(-numberOfWeeks);
     return contributions;
-  }
-
-  const calcContributionsItemSize = (): number => {
-    const weeks = getDisplayedWeeks();
-    const value = (boxSize - 64) / (weeks + (weeks * ContributionsGridGap));
-    return value;
-  }
+  };
 
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
-      onResize={setBoxSize}
     >
       {variant == 1 && (
         <Link href={"https://github.com/" + data.username}>
@@ -119,28 +117,47 @@ export function GithubWidget({
                   />
                   <h3 className="text-xl">{widgetApiData.name}</h3>
                 </div>
-                {(size.rows > 1 && size.cols > 1) ? <>
-                  <div className="flex flex-row gap-10">
-                    <p>
-                    Followers: {widgetApiData.followers}
-                    </p>
-                    <p>
-                      Following: {widgetApiData.following}
-                    </p>
-                    <p>
-                      Public Repos: {widgetApiData.publicRepos}
-                    </p>
-                  </div>
-                  
-                </>: <></>}
-                <div className="flex flex-row mt-5" style={{gap: `${calcContributionsItemSize() * ContributionsGridGap}px`}}>
-                  {getContributions(widgetApiData.contributions).weeks.map((week: ContributionsWeek) => {
-                    return <div key={week.firstDay} className="flex flex-col gap-1">
-                      {week.contributionDays.map((day: ContributionDay) => {
-                        return <div className="rounded-sm" style={{backgroundColor: day.color, width: `${calcContributionsItemSize()}px`, height: `${calcContributionsItemSize()}px`}} key={day.date}></div>
-                      })}
+                {size.rows > 1 && size.cols > 1 ? (
+                  <>
+                    <div className="flex flex-row gap-10">
+                      <p>Followers: {widgetApiData.followers}</p>
+                      <p>Following: {widgetApiData.following}</p>
+                      <p>Public Repos: {widgetApiData.publicRepos}</p>
                     </div>
-                  })}
+                  </>
+                ) : (
+                  <></>
+                )}
+                <div
+                  className="grid mt-5"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${
+                      getContributions(widgetApiData.contributions).weeks.length
+                    }, 1fr)`,
+                    gridTemplateRows: "repeat(7, 1fr)",
+                    gap: "3px",
+                    height: "100%",
+                    maxHeight: "161px"
+                  }}
+                >
+                  {getContributions(widgetApiData.contributions).weeks.map(
+                    (week: ContributionsWeek) =>
+                      week.contributionDays.map(
+                        (day: ContributionDay) => (
+                          <div
+                            key={day.date}
+                            className="rounded-sm"
+                            style={{
+                              backgroundColor: day.color,
+                              width: "100%",
+                              height: "100%",
+                              maxHeight: "20px"
+                            }}
+                          ></div>
+                        )
+                      )
+                  )}
                 </div>
               </>
             ) : (

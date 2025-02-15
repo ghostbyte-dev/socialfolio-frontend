@@ -5,7 +5,6 @@ export interface BaseWidgetProps {
   isOwner: boolean;
   isClickable: boolean;
   deleteWidget: () => void;
-  onResize?: (size: number) => void; // Optional callback
 }
 
 export function BaseWidget({
@@ -13,26 +12,9 @@ export function BaseWidget({
   isOwner,
   isClickable,
   deleteWidget,
-  onResize
 }: BaseWidgetProps) {
-  const widgetRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!onResize) return; // Skip if no resize handler is provided
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        onResize(entry.contentRect.width );
-      }
-    });
-
-    if (widgetRef.current) resizeObserver.observe(widgetRef.current);
-
-    return () => resizeObserver.disconnect();
-  }, []);
-  
   return (
     <div
-    ref={widgetRef}
       className={`h-full w-full border rounded-2xl shadow-md bg-white duration-300 ease-in-out overflow-hidden group 
       ${isClickable ? "hover:scale-95 cursor-pointer" : ""}`}
     >
