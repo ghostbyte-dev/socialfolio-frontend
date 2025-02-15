@@ -23,7 +23,9 @@ export default function Avatar({
   const { data: session } = useSession();
   const [file, setFile] = useState<string | undefined>();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-
+  const [avatarUrl, setAvatarUrl] = useState(url.trim() === "" ? "/defaults/default-avatar.jpg" : url);
+  
+  
   function handleChange(e: any) {
     setFile(URL.createObjectURL(e.target.files[0]));
     handleOpenPopup()
@@ -45,7 +47,10 @@ export default function Avatar({
     setIsEditing(false);
   };
 
-
+  useEffect(() => {
+    setAvatarUrl(url.trim() === "" ? "/defaults/default-avatar.jpg" : url);
+  }, [url])
+  
   return (
     <div className="group relative">
       {isOwner ? (
@@ -59,21 +64,21 @@ export default function Avatar({
           />
           <div onClick={handleClick} className="cursor-pointer group relative">
             <Image
-              src={file ?? url ?? "/defaults/default-avatar.jpg"}
+              src={file ?? avatarUrl}
               alt=""
               width={200}
               height={200}
               className="rounded-2xl"
             />
-            <div className="hidden group-hover:flex absolute top-0 bg-black bg-opacity-40 h-full w-full z-50 rounded-xl justify-center items-center">
-              <p className="text-white">Uplad Avatar</p>
+            <div className="flex opacity-0 group-hover:opacity-100 absolute top-0 bg-black bg-opacity-40 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
+              <p className="text-white">Upload Avatar</p>
             </div>  
           </div>
         </>
       ) : (
         <>
           <Image
-            src={url ?? "/defaults/default-avatar.jpg"}
+            src={avatarUrl}
             alt=""
             width={200}
             height={200}
