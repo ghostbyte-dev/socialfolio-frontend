@@ -1,4 +1,4 @@
-import { MastodonData } from "@/types/widget-types";
+import { MastodonData, WidgetApiData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Link from "next/link";
 import Image from "next/image";
@@ -47,7 +47,7 @@ export function MastodonWidget({
     error,
   } = useQuery<MastodonApiData>({
     queryKey: ["mastodonWidgetData", id],
-    queryFn: () => WidgetService.getWidgetData(id),
+    queryFn: () => WidgetService.getWidgetData(id) as Promise<MastodonApiData>,
     enabled: needApiData() && id !== "",
   });
 

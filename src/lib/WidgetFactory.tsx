@@ -52,6 +52,7 @@ export function WidgetFactory({
     case "github":
       return (
         <GithubWidget
+          id={widget.id}
           data={widget.data as GitHubData}
           size={widget.size}
           variant={widget.variant}
@@ -79,17 +80,17 @@ export function WidgetFactory({
           deleteWidget={deleteWidget}
         />
       );
-      case "localTime":
-        return (
-          <TimezoneWidget
-            data={widget.data as TimezoneData}
-            size={widget.size}
-            variant={widget.variant}
-            isOwner={isOwner}
-            deleteWidget={deleteWidget}
-          />
-        );
-      case "note":
+    case "localTime":
+      return (
+        <TimezoneWidget
+          data={widget.data as TimezoneData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+        />
+      );
+    case "note":
       return (
         <NoteWidget
           data={widget.data as NoteWidgetData}
@@ -104,7 +105,11 @@ export function WidgetFactory({
       return <AddNewWidget size={widget.size} />;
     default:
       return (
-        <BaseWidget isOwner={false} isClickable={true} deleteWidget={deleteWidget}>
+        <BaseWidget
+          isOwner={false}
+          isClickable={true}
+          deleteWidget={deleteWidget}
+        >
           <div>Unknown Widget Type</div>
         </BaseWidget>
       );

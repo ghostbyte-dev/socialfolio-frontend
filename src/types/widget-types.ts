@@ -50,5 +50,35 @@ export interface EmptyWidgetData {
 
 }
 
+export interface GithubApiData {
+  username: string;
+  name: string;
+  avatar: string;
+  url: string;
+  location: string;
+  followers: number;
+  following: number;
+  publicRepos: number;
+  contributions: ContributionsCollection
+}
+
+export interface ContributionsCollection {
+  colors: string[];
+  totalContributions: number;
+  weeks: ContributionsWeek[];
+}
+
+export interface ContributionsWeek {
+  contributionDays: ContributionDay[];
+  firstDay: string;
+}
+
+export interface ContributionDay {
+  color: string;
+  contributeCount: number;
+  date: string;
+  weekday: number;
+}
+
 export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData;
-export type WidgetApiData = MastodonApiData
+export type WidgetApiData = MastodonApiData | GithubApiData
