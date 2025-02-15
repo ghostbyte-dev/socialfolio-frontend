@@ -19,22 +19,19 @@ export default function Avatar({
 }) {
   const params = useParams();
   const username = params.username as string;
-  const [isEditing, setIsEditing] = useState(true);
-  const queryClient = useQueryClient();
-  const [editedDescription, setEditedDescription] = useState<string>(url);
+  const [isEditing, setIsEditing] = useState(false);
   const { data: session } = useSession();
-  const [file, setFile] = useState<string>();
+  const [file, setFile] = useState<string | undefined>();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   function handleChange(e: any) {
-    console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
-    setIsEditing(true);
+    handleOpenPopup()
   }
 
   const handleClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Open file picker when avatar is clicked
+      fileInputRef.current.click();
     }
   };
 
@@ -43,17 +40,11 @@ export default function Avatar({
   };
 
   const handleClosePopup = () => {
+    console.log("close")
+    setFile(undefined)
     setIsEditing(false);
   };
 
-  const mutation = useMutation({
-    mutationFn: (description: string) =>
-      UserService.updateDescription(description, session?.user.jwt ?? ""),
-    onSuccess: (data: IUser, variables, context) => {
-      queryClient.setQueryData(["otheruser", username], data);
-      handleClosePopup();
-    },
-  });
 
   return (
     <div className="group relative">
@@ -66,14 +57,17 @@ export default function Avatar({
             className="hidden"
             accept="image/*"
           />
-          <div onClick={handleClick} className="cursor-pointer">
+          <div onClick={handleClick} className="cursor-pointer group relative">
             <Image
-              src={file ?? "/defaults/default-avatar.jpg"}
+              src={file ?? url ?? "/defaults/default-avatar.jpg"}
               alt=""
               width={200}
               height={200}
               className="rounded-2xl"
             />
+            <div className="hidden group-hover:flex absolute top-0 bg-black bg-opacity-40 h-full w-full z-50 rounded-xl justify-center items-center">
+              <p className="text-white">Uplad Avatar</p>
+            </div>  
           </div>
         </>
       ) : (
@@ -88,65 +82,43 @@ export default function Avatar({
         </>
       )}
 
-      {/*isOwner && (
-        <button
-          onClick={handleOpenPopup}
-          className="absolute top-[-10px] right-[-10px] p-2 rounded-full bg-black shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:!scale-110"
-        >
-          <Image
-            src="/icons/pencil-outline.svg"
-            alt="Edit icon"
-            height={18}
-            width={18}
-          />
-        </button>
-      )*/}
-
-      {(isEditing && file)&& <CropAvatar imageUrl={file ?? ""} handleClosePopup={() => handleClosePopup} save={() => handleClosePopup} jwt={session?.user.jwt ?? ""}/>}
+      {(isEditing && file)&& <CropAvatar imageUrl={file ?? ""} handleClosePopup={handleClosePopup} jwt={session?.user.jwt ?? ""} username={username}/>}
     </div>
   );
 }
 
 interface CropAvatarProps {
   imageUrl: string;
-  handleClosePopup: () => {};
-  save: () => {};
+  handleClosePopup: () => void;
   jwt: string;
+  username: string;
 }
 
-function CropAvatar({ imageUrl, handleClosePopup, save, jwt }: CropAvatarProps) {
+function CropAvatar({ imageUrl, handleClosePopup, jwt, username }: CropAvatarProps) {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+  const queryClient = useQueryClient();
 
   const onCropComplete = async (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
   };
   const saveImage = async () => {
-    console.log("save")
     if (croppedAreaPixels) {
       const croppedImage: Blob = await getCroppedImg(imageUrl, croppedAreaPixels)
-      await sendData(croppedImage)
+      uploadAvatar.mutate(croppedImage)
     }
   }
 
-  const sendData = async (blob: Blob) => {
-    const formData = new FormData();
-    formData.append("avatar", blob);
-
-    try {
-      const response = await fetch("http://localhost:8000/api/user/uploadAvatar", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-      },
-        body: formData,
-      });
-      console.log(await response.json());
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  const uploadAvatar = useMutation({
+    mutationFn: (avatar: Blob) => UserService.uploadAvatar(avatar, jwt),
+    onSuccess: (data: IUser, variables, context) => {
+      console.log(data)
+      queryClient.setQueryData(["otheruser", username], data);
+      console.log("close popup")
+      handleClosePopup();
+    },
+  })
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

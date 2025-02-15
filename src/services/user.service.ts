@@ -52,8 +52,28 @@ const updateDescription = async (
     return response.json();
 };
 
+const uploadAvatar = async (
+    avatar: Blob,
+    jwt: string
+): Promise<IUser> => {
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+
+    const response = await fetch(API_URL + "/api/user/uploadAvatar", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${jwt}`,
+        },
+        body: formData,
+    });
+    if (!response.ok) throw new Error("Failed to update description");
+
+    return response.json();
+}
+
 export const UserService = {
     getUser,
     updateDisplayName,
-    updateDescription
+    updateDescription,
+    uploadAvatar
 };
