@@ -129,7 +129,7 @@ export function GithubWidget({
                   <></>
                 )}
                 <div
-                  className="grid mt-5"
+                  className="grid mt-5 grid-flow-col"
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${
