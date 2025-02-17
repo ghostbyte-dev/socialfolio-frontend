@@ -3,6 +3,7 @@
 import { AuthService } from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function RequestPasswordReset () {
   const [formData, setFormData] = useState({
@@ -13,9 +14,11 @@ export default function RequestPasswordReset () {
   const requestPasswordReset = useMutation({
     mutationFn: (email: string) => AuthService.requestReset(email),
     onError: (error: Error) => {
+      toast.error(error.message)
       setError(error.message);
     },
     onSuccess(data, variables, context) {
+      toast.success("A reset Email got sent to you")
       console.log("success");
     },
   });

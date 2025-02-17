@@ -4,6 +4,7 @@ import { AuthService } from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ResetPasswordPage() {
   const params = useParams();
@@ -19,11 +20,12 @@ export default function ResetPasswordPage() {
     mutationFn: (password: string) =>
       AuthService.resetPassword(password, token),
     onError: (error: Error) => {
-        console.log(error)
+      toast.error(error.message);
       setError(error.message);
     },
     onSuccess(data, variables, context) {
       console.log("success");
+      toast.success("Password got resetted")
     },
   });
 
@@ -34,7 +36,7 @@ export default function ResetPasswordPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData.password == formData.repeatPassword) {
-        resetPassword.mutate(formData.password);
+      resetPassword.mutate(formData.password);
     }
   };
 
