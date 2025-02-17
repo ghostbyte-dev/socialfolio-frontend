@@ -16,8 +16,8 @@ export default function RequestPasswordReset() {
       toast.promise(
         AuthService.requestReset(email), // Actual promise
         {
-          loading: "Sending reset email...", // Display while waiting
-          success: "Reset Email got sent to you", // Success message
+          loading: "Sending reset link...", // Display while waiting
+          success: "Reset link got sent to you", // Success message
           error: (err) => `Error: ${err.message}`, // Error message
         }
       ),
@@ -52,7 +52,7 @@ export default function RequestPasswordReset() {
           type="submit"
           className="w-full p-2 bg-blue-500 text-white rounded"
         >
-          Login
+          Send reset link
         </button>
       </form>
       {requestPasswordReset.isPending ? <p>Loading...</p> : <></>}
