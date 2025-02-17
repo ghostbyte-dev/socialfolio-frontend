@@ -4,6 +4,7 @@ import { useState } from "react";
 import { login, LoginCredentials } from "@/lib/auth/login";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState<LoginCredentials>({
@@ -21,7 +22,14 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await login(formData);
+    const result = await toast.promise(
+      login(formData),
+      {
+        loading: "Logging you in...",
+        success: "Login successful!",
+        error: (err) => `Error: ${err.message}`,
+      }
+    );
 
     if (!result.success) {
       setError(result.message);

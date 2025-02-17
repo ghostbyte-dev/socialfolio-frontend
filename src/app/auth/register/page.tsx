@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { register, RegisterCredentials } from "@/lib/auth/register";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
@@ -21,7 +22,15 @@ export default function RegisterPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await register(formData);
+    const result = await toast.promise(
+      register(formData),
+      {
+        loading: "Registerin you...",
+        success: "Registered you successful!",
+        error: (err) => `Error: ${err.message}`,
+      }
+    );
+
 
     if (!result.success) {
       setError(result.message);
