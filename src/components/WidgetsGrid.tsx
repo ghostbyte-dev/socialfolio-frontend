@@ -20,7 +20,8 @@ export default function WidgetsGrid({
   isOwner: boolean;
 }) {
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const sessionStatus = status ?? "loading";
 
   const {
     data: widgets = [],
@@ -28,8 +29,8 @@ export default function WidgetsGrid({
     error,
   } = useQuery({
     queryKey: ["widgetsofuser", username],
-    queryFn: () => WidgetService.getUsersWidgets(username),
-    enabled: !!username,
+    queryFn: () => WidgetService.getUsersWidgets(username, session?.user?.jwt ?? ""),
+    enabled: !!username && sessionStatus !== "loading",
   });
 
   const deleteWidget = useMutation({

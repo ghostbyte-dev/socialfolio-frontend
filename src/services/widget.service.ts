@@ -69,8 +69,14 @@ const deleteWidget = async (
     return response;
 };
 
-const getUsersWidgets = async (username: string): Promise<WidgetProps[]> => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + username + "/all"
+const getUsersWidgets = async (username: string, jwt: string | undefined): Promise<WidgetProps[]> => {
+    const headers: HeadersInit = jwt ? {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+    } : {}
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + username + "/all", {
+        headers: headers,
+    }
     );
 
     if (!res.ok) {

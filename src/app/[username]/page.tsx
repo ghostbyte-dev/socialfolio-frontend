@@ -13,43 +13,44 @@ export default function UserPage() {
   const params = useParams();
   const username = params.username as string;
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const sessionStatus = status ?? "loading";
   const loggedInUsername = session?.user?.username;
 
   const isOwner = username === loggedInUsername;
 
   const [userNotFound, setUserNotFound] = useState(false);
+  const jwt = session?.user?.jwt;
 
   const {
     data: user,
-    isLoading,
+    isPending,
     error,
   } = useQuery({
     queryKey: ["otheruser", username],
     queryFn: async () => {
       try {
-        return await UserService.getUser(username);
+        return await UserService.getUser(username, jwt);
       } catch (err: any) {
         if (err.message === "UserNotFound") {
           setUserNotFound(true);
-          throw err; // Still set error so React Query knows
+          throw err;
         }
         throw err;
       }
     },
-    enabled: !!username,
+    enabled: !!username && sessionStatus !== "loading",
     retry: (failureCount, error) => {
       if (error.message === "UserNotFound") return false; // Don't retry on 404
       return failureCount < 3; // Retry other errors up to 3 times
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isPending) return <p>Loading...</p>;
 
   if (error && userNotFound) return <UserNotFoundPage/>;
 
   if (error) return <p>Error: {error.message}</p>;
-
 
   return (
     <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
