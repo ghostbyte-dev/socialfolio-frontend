@@ -41,7 +41,7 @@ export default function LoginPage() {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         <input
@@ -50,19 +50,21 @@ export default function LoginPage() {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         {error && <p className="text-red-500">{error}</p>}
         <button
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded-sm"
+          className="w-full p-2 bg-primary text-white rounded-sm"
         >
           Login
         </button>
       </form>
 
-      <Link href={"/auth/password/reset"}>forgot my password</Link>
+      <div className="mt-2.5">
+        <Link href={"/auth/password/reset"}>forgot my password</Link>
+      </div>
     </div>
   );
 }
