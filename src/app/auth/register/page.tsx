@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { login, LoginCredentials } from "@/lib/auth/login";
+import { register, RegisterCredentials } from "@/lib/auth/register";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
-export default function LoginPage() {
-  const [formData, setFormData] = useState<LoginCredentials>({
+export default function RegisterPage() {
+  const [formData, setFormData] = useState<RegisterCredentials>({
+    username: "",
     email: "",
     password: "",
   });
@@ -21,20 +21,29 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await login(formData);
+    const result = await register(formData);
 
     if (!result.success) {
       setError(result.message);
       return;
     }
 
-    router.push("/dashboard");
+    router.push("/dashboard"); // Redirect after successful login
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Register</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
         <input
           type="email"
           name="email"
@@ -55,11 +64,9 @@ export default function LoginPage() {
         />
         {error && <p className="text-red-500">{error}</p>}
         <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-          Login
+          Register
         </button>
       </form>
-
-      <Link href={"/password/reset"}>forgot my password</Link>
     </div>
   );
 }

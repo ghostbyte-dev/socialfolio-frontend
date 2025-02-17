@@ -1,25 +1,28 @@
-"use client"
+"use client";
 
 import { AuthService } from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function RequestPasswordReset () {
+export default function RequestPasswordReset() {
   const [formData, setFormData] = useState({
     email: "",
   });
   const [error, setError] = useState<string | null>(null);
 
   const requestPasswordReset = useMutation({
-    mutationFn: (email: string) => AuthService.requestReset(email),
+    mutationFn: (email: string) =>
+      toast.promise(
+        AuthService.requestReset(email), // Actual promise
+        {
+          loading: "Sending reset email...", // Display while waiting
+          success: "Reset Email got sent to you", // Success message
+          error: (err) => `Error: ${err.message}`, // Error message
+        }
+      ),
     onError: (error: Error) => {
-      toast.error(error.message)
       setError(error.message);
-    },
-    onSuccess(data, variables, context) {
-      toast.success("A reset Email got sent to you")
-      console.log("success");
     },
   });
 
@@ -33,8 +36,7 @@ export default function RequestPasswordReset () {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
+    <div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="email"
@@ -53,7 +55,7 @@ export default function RequestPasswordReset () {
           Login
         </button>
       </form>
-      {requestPasswordReset.isPending ? <p>Loading...</p>: <></>}
+      {requestPasswordReset.isPending ? <p>Loading...</p> : <></>}
     </div>
   );
 }

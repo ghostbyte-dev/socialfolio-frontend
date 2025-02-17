@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { register, RegisterCredentials } from "@/lib/auth/register";
+import { login, LoginCredentials } from "@/lib/auth/login";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function RegisterPage() {
-  const [formData, setFormData] = useState<RegisterCredentials>({
-    username: "",
+export default function LoginPage() {
+  const [formData, setFormData] = useState<LoginCredentials>({
     email: "",
     password: "",
   });
@@ -21,29 +21,20 @@ export default function RegisterPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await register(formData);
+    const result = await login(formData);
 
     if (!result.success) {
       setError(result.message);
       return;
     }
 
-    router.push("/dashboard"); // Redirect after successful login
+    router.push("/dashboard");
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded">
-      <h2 className="text-2xl font-bold mb-4">Register</h2>
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
         <input
           type="email"
           name="email"
@@ -63,10 +54,15 @@ export default function RegisterPage() {
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-          Register
+        <button
+          type="submit"
+          className="w-full p-2 bg-blue-500 text-white rounded"
+        >
+          Login
         </button>
       </form>
+
+      <Link href={"/auth/password/reset"}>forgot my password</Link>
     </div>
   );
 }
