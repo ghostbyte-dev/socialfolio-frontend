@@ -14,11 +14,11 @@ export default function RequestPasswordReset() {
   const requestPasswordReset = useMutation({
     mutationFn: (email: string) =>
       toast.promise(
-        AuthService.requestReset(email), // Actual promise
+        AuthService.requestReset(email),
         {
-          loading: "Sending reset link...", // Display while waiting
-          success: "Reset link got sent to you", // Success message
-          error: (err) => `Error: ${err.message}`, // Error message
+          loading: "Sending reset link...",
+          success: "Reset link got sent to you",
+          error: (err) => `Error: ${err.message}`,
         }
       ),
     onError: (error: Error) => {
