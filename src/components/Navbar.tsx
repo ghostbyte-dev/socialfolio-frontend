@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <nav className="p-4 flex justify-between items-center">
       <div>
-        <h1 className="text-xl font-semibold">Fedistack</h1>
+        <h1 className="text-xl font-semibold">Socialfolio</h1>
       </div>
       <div>
         {status === "loading" ? (
