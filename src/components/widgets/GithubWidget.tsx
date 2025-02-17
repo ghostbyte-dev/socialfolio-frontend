@@ -147,7 +147,7 @@ export function GithubWidget({
                         (day: ContributionDay) => (
                           <div
                             key={day.date}
-                            className="rounded-sm"
+                            className="rounded-xs"
                             style={{
                               backgroundColor: day.color,
                               width: "100%",

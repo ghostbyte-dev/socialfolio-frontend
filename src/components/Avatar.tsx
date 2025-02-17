@@ -70,7 +70,7 @@ export default function Avatar({
               height={200}
               className="rounded-2xl"
             />
-            <div className="flex opacity-0 group-hover:opacity-100 absolute top-0 bg-black bg-opacity-40 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
+            <div className="flex opacity-0 group-hover:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
               <p className="text-white">Upload Avatar</p>
             </div>  
           </div>
@@ -126,7 +126,7 @@ function CropAvatar({ imageUrl, handleClosePopup, jwt, username }: CropAvatarPro
   })
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white rounded-lg shadow-lg w-4/5 h-4/5 relative flex flex-col">
         <div className="relative h-full w-full overflow-hidden rounded-t-lg">
         <Cropper
@@ -145,12 +145,12 @@ function CropAvatar({ imageUrl, handleClosePopup, jwt, username }: CropAvatarPro
       <div className="flex justify-end gap-2 bottom-0 p-6">
         <button
           onClick={handleClosePopup}
-          className="bg-gray-300 px-4 py-2 rounded"
+          className="bg-gray-300 px-4 py-2 rounded-sm"
         >
           Cancel
         </button>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded-sm"
           onClick={saveImage}
         >
           Save

@@ -198,7 +198,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   }, [selectedWidget]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
       <div className="relative bg-white w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden">
         {/* Left Sidebar - Widget Options */}
         <div className="w-1/3 bg-gray-100 p-4 border-r">
@@ -235,7 +235,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   Variant
                 </label>
                 <select
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded-sm"
                   value={variant}
                   onChange={(e) => setVariant(Number(e.target.value))}
                 >
@@ -253,7 +253,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   </label>
                   {field.type === "select" ? (
                     <select
-                      className="w-full p-2 border rounded"
+                      className="w-full p-2 border rounded-sm"
                       value={formData[field.key] || field.defaultOption}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     >
@@ -266,7 +266,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   ) : (
                     <input
                       type={field.type}
-                      className="w-full p-2 border rounded"
+                      className="w-full p-2 border rounded-sm"
                       value={formData[field.key]}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     />
@@ -277,7 +277,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               {/* Save Button */}
               <button
                 onClick={handleSave}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-sm disabled:opacity-50"
                 disabled={mutation.isPending}
               >
                 {mutation.isPending ? "Saving..." : "Save Widget"}

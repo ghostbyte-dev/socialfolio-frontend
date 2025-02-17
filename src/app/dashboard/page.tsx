@@ -21,7 +21,7 @@ export default function DashboardPage() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded">
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-sm">
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
       <p>Welcome, <strong>{user?.username}</strong>!</p>
     </div>

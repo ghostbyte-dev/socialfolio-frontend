@@ -52,7 +52,7 @@ export default function ResetPasswordPage() {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-sm"
           required
         />
         <input
@@ -61,14 +61,14 @@ export default function ResetPasswordPage() {
           placeholder="Password"
           value={formData.repeatPassword}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-sm"
           required
         />
         {error && <p className="text-red-500">{error}</p>}
         <button
           disabled={formData.password != formData.repeatPassword}
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded"
+          className="w-full p-2 bg-blue-500 text-white rounded-sm"
         >
           Reset
         </button>
