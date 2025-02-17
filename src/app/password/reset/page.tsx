@@ -1,17 +1,24 @@
-"use client";
+"use client"
 
+import { AuthService } from "@/services/auth.service";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { login, LoginCredentials } from "@/lib/auth/login";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 
-export default function LoginPage() {
-  const [formData, setFormData] = useState<LoginCredentials>({
+export default function RequestPasswordReset () {
+  const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+
+  const requestPasswordReset = useMutation({
+    mutationFn: (email: string) => AuthService.requestReset(email),
+    onError: (error: Error) => {
+      setError(error.message);
+    },
+    onSuccess(data, variables, context) {
+      console.log("success");
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,16 +26,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
-
-    const result = await login(formData);
-
-    if (!result.success) {
-      setError(result.message);
-      return;
-    }
-
-    router.push("/dashboard");
+    requestPasswordReset.mutate(formData.email);
   };
 
   return (
@@ -44,22 +42,15 @@ export default function LoginPage() {
           className="w-full p-2 border rounded"
           required
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
+        <button
+          type="submit"
+          className="w-full p-2 bg-blue-500 text-white rounded"
+        >
           Login
         </button>
       </form>
-
-      <Link href={"/password/reset"}>forgot my password</Link>
+      {requestPasswordReset.isPending ? <p>Loading...</p>: <></>}
     </div>
   );
 }
