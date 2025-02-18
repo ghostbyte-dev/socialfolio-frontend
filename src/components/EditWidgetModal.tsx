@@ -101,7 +101,7 @@ export default function EditWidgetModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-      <div className="relative bg-white w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-y-scroll">
+      <div className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-y-scroll">
         <div className="flex-1 p-8">
           <h2 className="text-xl font-bold">Widget Editor</h2>
           {selectedWidget ? (

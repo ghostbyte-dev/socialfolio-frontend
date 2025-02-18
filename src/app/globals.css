@@ -2,29 +2,25 @@
 
 @theme {
   --color-background: #f2f0e3;
+  --color-surface: #fff;
   --color-primary: #f76f53;
+  --color-text: #000;
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
   --color-background: #1a1a1a;
-  --color-primary: #2010b0;
+  --color-surface: #000;
+  --color-primary: #f76f53;
+  --color-text: #fff;
 }
 
 /* Light Theme */
 [data-theme="light"] {
-  --color-background: #ffffff;
+  --color-background: #f2f0e3;
+  --color-surface: #fff;
   --color-primary: #f76f53;
-}
-
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+  --color-text: #000;
 }
 
 @layer components {
@@ -46,5 +42,9 @@
 
   button {
     cursor: pointer;
+  }
+
+  * {
+    color: var(--color-text);
   }
 }

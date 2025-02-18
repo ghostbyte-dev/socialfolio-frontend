@@ -10,10 +10,10 @@ export default function ExploreProfileCard({
     <Link href={"/" + profile.username}>
       <div
         key={profile.id}
-        className="bg-gray-100 rounded-xl shadow-md p-6 flex flex-col items-center text-center"
+        className="bg-surface rounded-xl shadow-md p-6 flex flex-col items-center text-center"
       >
         <img
-          src={profile.avatar || "/default-avatar.png"}
+          src={profile.avatar || "/defaults/default-avatar.jpg"}
           alt={profile.username}
           className="w-24 h-24 rounded-full mb-4"
         />

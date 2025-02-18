@@ -52,10 +52,17 @@ export default function Navbar() {
   }, [dropdownOpen]);
 
   return (
-    <nav className="py-4 px-8 flex justify-between items-center">
-      <div>
-        <Link href="/">
+    <nav className="py-4 px-8 flex justify-between items-center relative">
+
+      <div className="absolute left-[50%] transform -translate-x-1/2 flex justify-center">
+      <Link href="/">
           <span className="text-xl font-semibold">Socialfolio</span>
+        </Link>
+      </div>
+
+      <div>
+        <Link href="/explore">
+          <span className="text-lg">Explore</span>
         </Link>
       </div>
       <div className="flex items-center">
@@ -95,7 +102,7 @@ export default function Navbar() {
 
                 {dropdownOpen && (
                   <div
-                    className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white ring-1 shadow-lg ring-black/5 focus:outline-none"
+                    className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface ring-1 shadow-lg ring-black/5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
@@ -103,7 +110,7 @@ export default function Navbar() {
                     <div className="" role="none">
                       <Link
                         href={"/" + user.username}
-                        className="block px-4 py-2 text-sm font-bold rounded hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm font-bold rounded hover:bg-background"
                         role="menuitem"
                       >
                         View my page
@@ -111,7 +118,7 @@ export default function Navbar() {
 
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-background"
                         role="menuitem"
                       >
                         Logout
