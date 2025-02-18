@@ -74,7 +74,7 @@ export default function Navbar() {
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   <Image
-                    src={user?.avatar}
+                    src={user.avatar.trim() === "" ? "/defaults/default-avatar.jpg" : user.avatar}
                     alt="User Avatar"
                     width={48}
                     height={48}
