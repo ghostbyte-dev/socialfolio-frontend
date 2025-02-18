@@ -13,6 +13,7 @@ interface MastodonWidgetProps {
   variant: number;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }
 
 export interface MastodonApiData {
@@ -32,6 +33,7 @@ export function MastodonWidget({
   isOwner,
   variant,
   deleteWidget,
+  editWidget
 }: MastodonWidgetProps) {
   const needApiData = (): boolean => {
     if (variant == 1) {
@@ -62,7 +64,7 @@ export function MastodonWidget({
   };
 
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
         <Link href={"https://" + data.instance + "/@" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">

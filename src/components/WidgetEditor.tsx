@@ -17,6 +17,12 @@ interface WidgetOption {
     defaultOption?: string | undefined
   }[];
   variants: Variant[];
+  sizes: Size[];
+}
+
+interface Size {
+  cols: number;
+  rows: number;
 }
 
 interface Variant {
@@ -27,7 +33,7 @@ interface WidgetEditorProps {
   onClose: () => void;
 }
 
-const widgetOptions: WidgetOption[] = [
+export const widgetOptions: WidgetOption[] = [
   {
     id: "pixelfed",
     name: "Pixelfed",
@@ -37,6 +43,12 @@ const widgetOptions: WidgetOption[] = [
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
   },
   {
     id: "github",
@@ -44,6 +56,12 @@ const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/github.webp",
     fields: [{ key: "username", label: "Username", type: "text" }],
     variants: [{ index: 1 }, { index: 2 }, {index: 3}],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
   },
   {
     id: "mastodon",
@@ -54,6 +72,12 @@ const widgetOptions: WidgetOption[] = [
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
   },
   {
     id: "note",
@@ -61,6 +85,12 @@ const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/note.svg",
     fields: [{ key: "note", label: "Note", type: "text" }],
     variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
   },
   {
     id: "localTime",
@@ -76,6 +106,12 @@ const widgetOptions: WidgetOption[] = [
       },
     ],
     variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
   },
 ];
 

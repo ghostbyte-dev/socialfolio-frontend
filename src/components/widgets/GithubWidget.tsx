@@ -4,24 +4,24 @@ import {
   ContributionsWeek,
   GithubApiData,
   GitHubData,
+  WidgetSize,
 } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface GithubWidgetProps {
   id: string;
   data: GitHubData;
-  size: { cols: number; rows: number };
+  size: WidgetSize;
   variant: number;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }
-
-const ContributionsGridGap = 1 / 3;
 
 export function GithubWidget({
   id,
@@ -30,8 +30,9 @@ export function GithubWidget({
   variant,
   isOwner,
   deleteWidget,
+  editWidget
 }: GithubWidgetProps) {
-
+  const [widgetSize, setWidgetSize] = useState(size)
   const needApiData = (): boolean => {
     if (variant == 3) {
       return true;
@@ -50,7 +51,7 @@ export function GithubWidget({
     enabled: needApiData() && id !== "",
   });
 
-  const getDisplayedWeeks = (): number => {
+  const getDisplayedWeeks = (size: WidgetSize): number => {
     switch (size.cols) {
       case 1:
         return 10;
@@ -62,19 +63,33 @@ export function GithubWidget({
   };
 
   const getContributions = (
-    contributions: ContributionsCollection
+    contributions: ContributionsCollection, size: WidgetSize
   ): ContributionsCollection => {
-    console.log(contributions.weeks);
-    let numberOfWeeks = getDisplayedWeeks();
-    contributions.weeks = contributions.weeks.slice(-numberOfWeeks);
-    return contributions;
+    let numberOfWeeks = getDisplayedWeeks(size);
+    console.log("getNumberOfWeeks " + numberOfWeeks)
+    const newContributions = {...contributions}
+    newContributions.weeks = contributions.weeks.slice(-numberOfWeeks);
+    return newContributions;
   };
 
+  useEffect(() => {
+    setWidgetSize(size)
+  }, [size])
+
+  const displayedContributions = useMemo(() => {
+    console.log('Recalculating contributions:', widgetSize, widgetApiData?.contributions);
+    const contributions = getContributions(widgetApiData?.contributions ?? { weeks: [], colors: [], totalContributions: 0 }, widgetSize);
+    console.log(contributions.weeks.length);
+    return contributions;
+  }, [widgetSize, widgetApiData?.contributions]);
+  
+  
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
+      editWidget={editWidget}
     >
       {variant == 1 && (
         <Link href={"https://github.com/" + data.username}>
@@ -117,7 +132,7 @@ export function GithubWidget({
                   />
                   <h3 className="text-xl">{widgetApiData.name}</h3>
                 </div>
-                {size.rows > 1 && size.cols > 1 ? (
+                {widgetSize.rows > 1 && widgetSize.cols > 1 ? (
                   <>
                     <div className="flex flex-row gap-10">
                       <p>Followers: {widgetApiData.followers}</p>
@@ -133,7 +148,7 @@ export function GithubWidget({
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${
-                      getContributions(widgetApiData.contributions).weeks.length
+                      getContributions(widgetApiData.contributions, widgetSize).weeks.length
                     }, 1fr)`,
                     gridTemplateRows: "repeat(7, 1fr)",
                     gap: "3px",
@@ -141,7 +156,8 @@ export function GithubWidget({
                     maxHeight: "161px"
                   }}
                 >
-                  {getContributions(widgetApiData.contributions).weeks.map(
+                
+                  {displayedContributions.weeks.map(
                     (week: ContributionsWeek) =>
                       week.contributionDays.map(
                         (day: ContributionDay) => (

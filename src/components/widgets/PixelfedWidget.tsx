@@ -8,11 +8,12 @@ interface PixelfedWidgetProps {
   variant: number;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }
 
-export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget }: PixelfedWidgetProps) {
+export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: PixelfedWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
         <Link href={"https://" + data.instance + "/@" + data.username}>
           <div className="h-full w-full p-20">

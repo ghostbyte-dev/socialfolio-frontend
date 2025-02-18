@@ -9,11 +9,12 @@ interface LiberaPayWidgetProps {
   variant: number;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }
 
-export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget }: LiberaPayWidgetProps) {
+export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget, editWidget }: LiberaPayWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
         <Link href={"https://liberapay.com/" + data.username}>
           <div className="h-full w-full bg-[#f6c915] p-20">

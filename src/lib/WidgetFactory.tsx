@@ -22,10 +22,12 @@ export function WidgetFactory({
   widget,
   isOwner,
   deleteWidget,
+  editWidget,
 }: {
   widget: WidgetProps;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }) {
   switch (widget.type) {
     case "mastodon":
@@ -37,6 +39,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
     case "pixelfed":
@@ -47,6 +50,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
     case "github":
@@ -58,6 +62,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
     case "image":
@@ -68,6 +73,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
     case "liberapay":
@@ -78,6 +84,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
     case "localTime":
@@ -88,6 +95,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
     case "note":
@@ -98,6 +106,7 @@ export function WidgetFactory({
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         />
       );
 
@@ -109,6 +118,7 @@ export function WidgetFactory({
           isOwner={false}
           isClickable={true}
           deleteWidget={deleteWidget}
+          editWidget={editWidget}
         >
           <div>Unknown Widget Type</div>
         </BaseWidget>

@@ -7,11 +7,12 @@ interface NoteWidgetProps {
   variant: number;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }
 
-export function NoteWidget({ data, size, isOwner, variant, deleteWidget }: NoteWidgetProps) {
+export function NoteWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: NoteWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={false} deleteWidget={deleteWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={false} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
           <div className="h-full w-full p-20">
             <p>

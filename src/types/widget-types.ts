@@ -4,8 +4,12 @@ export interface WidgetProps {
   id: string;
   type: string;
   variant: number;
-  size: { cols: number; rows: number };
+  size: WidgetSize;
   data: WidgetData;
+}
+
+export interface WidgetSize {
+  cols: number; rows: number;
 }
 
 export interface MastodonData {

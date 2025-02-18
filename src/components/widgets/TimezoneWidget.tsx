@@ -8,6 +8,7 @@ interface TimezoneWidgetProps {
   variant: number;
   isOwner: boolean;
   deleteWidget: () => void;
+  editWidget: () => void;
 }
 
 export function TimezoneWidget({
@@ -16,6 +17,7 @@ export function TimezoneWidget({
   variant,
   isOwner,
   deleteWidget,
+  editWidget
 }: TimezoneWidgetProps) {
 
   const formattedTime = new Date().toLocaleTimeString(undefined, {
@@ -29,6 +31,7 @@ export function TimezoneWidget({
       isOwner={isOwner}
       isClickable={false}
       deleteWidget={deleteWidget}
+      editWidget={editWidget}
     >
       {variant == 1 && (
         <div className="h-full w-full flex flex-col justify-center items-center">

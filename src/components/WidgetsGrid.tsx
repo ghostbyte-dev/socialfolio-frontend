@@ -3,6 +3,8 @@ import { WidgetService } from "@/services/widget.service";
 import { GitHubData, WidgetProps } from "@/types/widget-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import EditWidgetModal from "./EditWidgetModal";
 
 const addNewWidget: WidgetProps = {
   id: "0",
@@ -19,6 +21,7 @@ export default function WidgetsGrid({
   username: string;
   isOwner: boolean;
 }) {
+  const [editModal, setEditModal] = useState<WidgetProps | undefined>(undefined)
   const queryClient = useQueryClient();
   const { data: session, status } = useSession();
   const sessionStatus = status ?? "loading";
@@ -75,11 +78,19 @@ export default function WidgetsGrid({
   }
 
   return (
-    <div   className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense"
+    <WidgetsGridDisplay isOwner={isOwner} widgets={displayedWidgets} deleteWidget={(id: string) => deleteWidget.mutate(id)}/>
+  );
+}
+
+export function WidgetsGridDisplay({isOwner, widgets, deleteWidget}: {isOwner: boolean, widgets: WidgetProps[], deleteWidget: (id: string) => void}) {
+  const [editModal, setEditModal] = useState<WidgetProps | undefined>(undefined)
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense"
     style={{
       gridAutoRows: "minmax(50px, 1fr)", // Adjust the minimum row height as needed
     }}>
-      {displayedWidgets.map((widget) => {
+      {widgets.map((widget) => {
         const aspectRatio = widget.size.rows / widget.size.cols; // Calculate aspect ratio (height/width)
         return (
           <div
@@ -95,12 +106,17 @@ export default function WidgetsGrid({
               <WidgetFactory
                 widget={widget}
                 isOwner={isOwner}
-                deleteWidget={() => deleteWidget.mutate(widget.id)}
+                deleteWidget={() => deleteWidget(widget.id)}
+                editWidget={() => setEditModal(widget)}
               />
             </div>
           </div>
         );
       })}
+
+      {editModal && isOwner? <>
+        <EditWidgetModal widgetProps={editModal} onClose={() => setEditModal(undefined) } />
+      </>: <></>}
     </div>
   );
 }
