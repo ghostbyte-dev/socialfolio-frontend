@@ -17,60 +17,51 @@ export default function EditWidgetModal({
   widgetProps,
   onClose,
 }: WidgetEditorProps) {
+  const [widgetData, setWidgetData] = useState<WidgetProps>({ ...widgetProps });
+  const { data: session } = useSession();
   const params = useParams();
   const username = params.username as string;
-  const queryClient = useQueryClient();  const [formData, setFormData] = useState<Record<string, string>>(() => {
-    return Object.entries(widgetProps.data || {}).reduce(
-      (acc, [key, value]) => {
-        if (typeof value === "string") {
-          acc[key] = value;
-        }
-        return acc;
-      },
-      {} as Record<string, string>
-    );
+  const queryClient = useQueryClient();
+  const [formData, setFormData] = useState<Record<string, string>>(() => {
+    return Object.entries(widgetData.data || {}).reduce((acc, [key, value]) => {
+      if (typeof value === "string") {
+        acc[key] = value;
+      }
+      return acc;
+    }, {} as Record<string, string>);
   });
-  const [variant, setVariant] = useState<number>(widgetProps.variant);
-  const [selectedSize, setSelectedSize] = useState<WidgetSize>(
-    widgetProps.size
-  );
+  const [variant, setVariant] = useState<number>(widgetData.variant);
+  const [selectedSize, setSelectedSize] = useState<WidgetSize>(widgetData.size);
   const [message, setMessage] = useState<string | null>(null);
 
   const handleChange = (key: string, value: string) => {
+    widgetData.data = {
+      ...widgetData.data,
+      [key]: value
+    }
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    mutation.mutate({ data: widgetData, jwt: session?.user.jwt ?? "" });
+  };
   const selectedWidget = widgetOptions.find(
-    (widgetOption) => widgetOption.id == widgetProps.type
+    (widgetOption) => widgetOption.id == widgetData.type
   );
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const [cols, rows] = e.target.value.split("x").map(Number);
     const size: WidgetSize = { cols, rows };
-    widgetProps.size = size;
+    widgetData.size = size;
     setSelectedSize(size);
   };
 
   const mutation = useMutation({
     mutationKey: ["edit Widget"],
-    mutationFn: ({
-      data,
-      jwt,
-    }: {
-      data: ICreateWidgetRequest;
-      jwt: string;
-    }) => {
-      //return WidgetService.updateWidget(widgetProps, jwt);
-      return new Promise(() => resolve())
+    mutationFn: ({ data, jwt }: { data: WidgetProps; jwt: string }) => {
+      return WidgetService.updateWidget(data, jwt);
     },
-    onMutate: async ({
-      data,
-      jwt,
-    }: {
-      data: ICreateWidgetRequest;
-      jwt: string;
-    }) => {
+    onMutate: async ({ data, jwt }: { data: WidgetProps; jwt: string }) => {
       await queryClient.cancelQueries({
         queryKey: ["widgetsofuser", username],
       });
@@ -122,7 +113,10 @@ export default function EditWidgetModal({
                 <select
                   className="w-full p-2 border rounded-sm"
                   value={variant}
-                  onChange={(e) => setVariant(Number(e.target.value))}
+                  onChange={(e) => {
+                    setVariant(Number(e.target.value));
+                    widgetData.variant = Number(e.target.value);
+                  }}
                 >
                   {selectedWidget.variants.map((variant) => (
                     <option key={variant.index} value={variant.index}>
@@ -177,7 +171,7 @@ export default function EditWidgetModal({
 
               <WidgetsGridDisplay
                 isOwner={false}
-                widgets={[widgetProps]}
+                widgets={[widgetData]}
                 deleteWidget={() => {}}
               />
 
@@ -187,24 +181,18 @@ export default function EditWidgetModal({
                 className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-sm disabled:opacity-50"
                 disabled={mutation.isPending}
               >
-                {
-                  mutation.isPending ? "Saving..." : "Save Widget"
-                }
+                {mutation.isPending ? "Saving..." : "Save Widget"}
               </button>
 
               {/* Success / Error Message */}
-              {
-                message && <p className="mt-2 text-sm text-center">{message}</p>
-              }
+              {message && <p className="mt-2 text-sm text-center">{message}</p>}
             </div>
           ) : (
             <p className="text-gray-500 mt-4">Select a widget to configure.</p>
           )}
 
           {/* Success / Error Message */}
-          {
-            //message && <p className="mt-2 text-sm text-center">{message}</p>
-          }
+          {message && <p className="mt-2 text-sm text-center">{message}</p>}
         </div>
 
         {/* Close Button */}

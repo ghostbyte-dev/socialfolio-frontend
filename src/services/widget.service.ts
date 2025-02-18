@@ -97,11 +97,32 @@ const getWidgetData = async (id: string): Promise<WidgetApiData> => {
     return json.data;
 };
 
+const updateWidget = async (
+    data: WidgetProps,
+    jwt: string
+): Promise<WidgetProps> => {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/widgets/" + data.id, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error("Failed to create widget");
+
+    const bodyRes = (await response.json()) as ICreateWidgetResponse;
+    const transformedRes: WidgetProps = bodyRes;
+
+    return transformedRes;
+};
 
 
 export const WidgetService = {
     createWidget,
     deleteWidget,
     getUsersWidgets,
-    getWidgetData
+    getWidgetData,
+    updateWidget
 };
