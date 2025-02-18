@@ -34,9 +34,7 @@ export default function RootLayout({
         <Toaster />
         <QueryClientProvider client={queryClient}>
           <SessionProvider>
-            <Navbar />
             {children}
-            <Footer />
           </SessionProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { register, RegisterCredentials } from "@/lib/auth/register";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
@@ -42,7 +43,10 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Register</h2>
+      <h1 className="text-5xl font-bold mb-5">Register</h1>
+
+<p className="mb-5">Already have an account? <Link href="/auth/login" className="underline">Log in</Link></p>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

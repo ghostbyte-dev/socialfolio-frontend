@@ -41,7 +41,10 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <h1 className="text-5xl font-bold mb-5">Login</h1>
+
+      <p className="mb-5">Need an account yet? <Link href="/auth/register" className="underline">Register</Link></p>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="email"
@@ -70,8 +73,8 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <div className="mt-2.5">
-        <Link href={"/auth/password/reset"}>forgot my password</Link>
+      <div className="mt-3 flex justify-center">
+        <Link href="/auth/password/reset" className="underline">I forgot my password</Link>
       </div>
     </div>
   );
