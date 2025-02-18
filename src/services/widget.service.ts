@@ -1,18 +1,8 @@
-import { MastodonData, WidgetApiData, WidgetProps } from "@/types/widget-types";
+import { WidgetApiData, WidgetProps } from "@/types/widget-types";
 
 interface ISize {
     cols: number;
     rows: number;
-}
-
-interface IPixelfed {
-    baseUrl: string;
-    username: string;
-}
-
-interface IMastodon {
-    baseUrl: string;
-    username: string;
 }
 
 export interface ICreateWidgetRequest {

@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 
 export interface LoginCredentials {
   email: string;
@@ -6,6 +6,10 @@ export interface LoginCredentials {
 }
 
 export interface LoginResponse {
+  id?: string;
+  username?: string;
+  jwt?: string;
+  email?: string;
   success: boolean;
   message: string;
 }
@@ -18,12 +22,27 @@ export const login = async (credentials: LoginCredentials): Promise<LoginRespons
       redirect: false,
     });
 
-    if (result?.error) {
-      throw new Error(result.error);
+    if (!result || result.error) {
+      throw new Error(result?.error || "Invalid credentials");
     }
 
-    return { success: true, message: "Login successful" };
+    const session = await getSession();
+    if (!session?.user) {
+      throw new Error("Failed to retrieve user session");
+    }
+
+    return {
+      id: session.user.id,
+      username: session.user.username || "",
+      email: session.user.email || "",
+      jwt: session.user.jwt,
+      success: true,
+      message: "Login successful",
+    };
   } catch (error) {
-    return { success: false, message: (error as Error).message };
+    return {
+      success: false,
+      message: (error as Error).message,
+    };
   }
 };

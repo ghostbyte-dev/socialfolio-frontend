@@ -31,12 +31,14 @@ export default function LoginPage() {
       }
     );
 
+    console.log(result)
+
     if (!result.success) {
       setError(result.message);
       return;
     }
 
-    router.push("/dashboard");
+    router.push("/" + result.username);
   };
 
   return (
