@@ -8,14 +8,24 @@ export default function ThemeSwitcher() {
   const [theme, setTheme] = useState("default");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") || "default";
+    let storedTheme = localStorage.getItem("theme") || "default";
     setTheme(storedTheme);
+    if (theme == "default") {
+      storedTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        ? "dark"
+        : "light";
+    }
     document.documentElement.setAttribute("data-theme", storedTheme);
   }, []);
 
   const changeTheme = (newTheme: string) => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
+    if (newTheme == "default") {
+      newTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        ? "dark"
+        : "light";
+    }
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
