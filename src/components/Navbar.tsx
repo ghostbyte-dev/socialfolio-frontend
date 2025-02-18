@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -54,11 +55,14 @@ export default function Navbar() {
     <nav className="py-4 px-8 flex justify-between items-center">
       <div>
         <Link href="/">
-        <span className="text-xl font-semibold">Socialfolio</span>
+          <span className="text-xl font-semibold">Socialfolio</span>
         </Link>
-        
       </div>
-      <div>
+      <div className="flex items-center">
+        <div className="mr-3">
+          <ThemeSwitcher />
+        </div>
+
         {status === "loading" ? (
           <p>Loading...</p>
         ) : session ? (
@@ -77,7 +81,11 @@ export default function Navbar() {
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   <Image
-                    src={user.avatar.trim() === "" ? "/defaults/default-avatar.jpg" : user.avatar}
+                    src={
+                      user.avatar.trim() === ""
+                        ? "/defaults/default-avatar.jpg"
+                        : user.avatar
+                    }
                     alt="User Avatar"
                     width={48}
                     height={48}
