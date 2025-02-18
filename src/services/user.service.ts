@@ -2,14 +2,26 @@ import { IUser } from "@/types/user-type";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-
-const getUser = async (username: string, jwt: string | undefined): Promise<IUser> => {
-    console.log("get User" + jwt)
+const getSelf = async (jwt: string): Promise<IUser> => {
     const headers: HeadersInit = jwt ? {
         "Content-Type": "application/json",
         Authorization: `Bearer ${jwt}`,
     } : {}
-    const res = await fetch(API_URL + "/api/user/username/" + username, {headers: headers});
+    const res = await fetch(API_URL + "/api/user/self", { headers: headers });
+    if (!res.ok) {
+        throw new Error("Failed to fetch user data");
+    }
+
+    return res.json();
+};
+
+
+const getUser = async (username: string, jwt: string | undefined): Promise<IUser> => {
+    const headers: HeadersInit = jwt ? {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+    } : {}
+    const res = await fetch(API_URL + "/api/user/username/" + username, { headers: headers });
     if (!res.ok) {
         if (res.status === 404) {
             throw new Error("UserNotFound");
@@ -76,6 +88,7 @@ const uploadAvatar = async (
 }
 
 export const UserService = {
+    getSelf,
     getUser,
     updateDisplayName,
     updateDescription,
