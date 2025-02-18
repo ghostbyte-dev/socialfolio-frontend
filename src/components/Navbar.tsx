@@ -53,7 +53,10 @@ export default function Navbar() {
   return (
     <nav className="py-4 px-8 flex justify-between items-center">
       <div>
-        <h1 className="text-xl font-semibold">Socialfolio</h1>
+        <Link href="/">
+        <span className="text-xl font-semibold">Socialfolio</span>
+        </Link>
+        
       </div>
       <div>
         {status === "loading" ? (
