@@ -27,6 +27,7 @@
   .input {
     border-radius: var(--radius-sm);
     border-style: var(--tw-border-style);
+    background-color: var(--color-gray-200);
     border-width: 1px;
     padding: calc(var(--spacing) * 2);
     width: 100%;
