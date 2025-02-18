@@ -7,4 +7,5 @@ export interface IUser {
     displayName: string;
     description: string;
     avatar: string;
+    verified: boolean;
 }

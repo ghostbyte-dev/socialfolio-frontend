@@ -1,13 +1,16 @@
 
 export interface ExploreProfile {
     id: string;
+    username: string;
+    avatar: string;
+    bio: string;
 }
 
-const getNewestProfiles = async (username: string, jwt: string | undefined): Promise<ExploreProfile[]> => {
-    const headers: HeadersInit = jwt ? {
+const getProfiles = async (): Promise<ExploreProfile[]> => {
+    const headers: HeadersInit = {
         "Content-Type": "application/json"
-    } : {}
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/explore", {
+    }
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/explore/profiles", {
         headers: headers,
     }
     );
@@ -20,5 +23,5 @@ const getNewestProfiles = async (username: string, jwt: string | undefined): Pro
 };
 
 export const ExploreService = {
-    getNewestProfiles
+    getProfiles
 }

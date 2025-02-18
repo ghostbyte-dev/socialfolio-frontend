@@ -48,19 +48,33 @@ export default function UserPage() {
 
   if (isPending) return <p>Loading...</p>;
 
-  if (error && userNotFound) return <UserNotFoundPage/>;
+  if (error && userNotFound) return <UserNotFoundPage />;
 
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
-      <section className="mb-16">
-        <Bio isOwner={isOwner} user={user} />
-      </section>
+    <>
+      {isOwner && !user.verified && (
+        <div className="w-full h-10 bg-red-500 flex justify-center items-center">
+          <span className="text-white font-bold">
+            Your profile is not visible until you verify your email
+          </span>
 
-      <section className="w-full">
-        <WidgetsGrid username={username} isOwner={isOwner} />
-      </section>
-    </div>
+          <button className="bg-black text-sm text-white px-3 py-1 rounded-lg ml-3" onClick={() => {}}>
+            Verify
+          </button>
+        </div>
+      )}
+
+      <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
+        <section className="mb-16">
+          <Bio isOwner={isOwner} user={user} />
+        </section>
+
+        <section className="w-full">
+          <WidgetsGrid username={username} isOwner={isOwner} />
+        </section>
+      </div>
+    </>
   );
 }
