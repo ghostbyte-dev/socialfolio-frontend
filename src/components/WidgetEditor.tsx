@@ -271,7 +271,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   Variant
                 </label>
                 <select
-                  className="w-full p-2 border rounded-sm"
+                  className="w-full input p-2 border rounded-sm"
                   value={variant}
                   onChange={(e) => setVariant(Number(e.target.value))}
                 >
@@ -289,7 +289,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   </label>
                   {field.type === "select" ? (
                     <select
-                      className="w-full p-2 border rounded-sm"
+                      className="w-full input p-2 border rounded-sm"
                       value={formData[field.key] || field.defaultOption}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     >
@@ -302,7 +302,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   ) : (
                     <input
                       type={field.type}
-                      className="w-full p-2 border rounded-sm"
+                      className="w-full p-2 input rounded-sm"
                       value={formData[field.key]}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     />
@@ -330,7 +330,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
         {/* Close Button */}
         <div
           onClick={onClose}
-          className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+          className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
         >
           <img src="/icons/close.svg" alt="Close icon" width={10} height={10} />
         </div>
