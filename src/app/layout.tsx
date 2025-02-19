@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,13 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
       >
-        <Toaster />
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider>
-            {children}
-          </SessionProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <ThemeProvider>
+          <Toaster />
+          <QueryClientProvider client={queryClient}>
+            <SessionProvider>{children}</SessionProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

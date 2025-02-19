@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import ThemeSwitcher from "./ThemeSwitcher";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export default function Navbar() {
   const { data: session, status } = useSession();

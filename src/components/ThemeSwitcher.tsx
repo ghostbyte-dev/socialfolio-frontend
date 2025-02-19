@@ -1,47 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 
-const themes = ["default", "light", "dark"];
+export const ThemeSwitcher = () => {
+  const { theme, setTheme } = useTheme();
 
-export default function ThemeSwitcher() {
-  const [theme, setTheme] = useState("default");
-
-  useEffect(() => {
-    let storedTheme = localStorage.getItem("theme") || "default";
-    setTheme(storedTheme);
-    if (theme == "default") {
-      storedTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        ? "dark"
-        : "light";
-    }
-    document.documentElement.setAttribute("data-theme", storedTheme);
-  }, []);
-
-  const changeTheme = (newTheme: string) => {
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    if (newTheme == "default") {
-      newTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        ? "dark"
-        : "light";
-    }
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
+  console.log(theme)
 
   return (
-    <div className="relative">
-      <select
-        value={theme}
-        onChange={(e) => changeTheme(e.target.value)}
-        className="p-2 border rounded"
-      >
-        {themes.map((t) => (
-          <option key={t} value={t}>
-            {t.charAt(0).toUpperCase() + t.slice(1)}
-          </option>
-        ))}
-      </select>
+    <div className="relative bg-surface rounded-full p-1">
+      <button onClick={() => setTheme("system")} className={"rounded-full p-1 " + ((theme === 'system') ? "bg-background" : "bg-surface")}>
+        <Image src="/icons/laptop-outline.svg" alt="" height={24} width={24} />
+      </button>
+      <button onClick={() => setTheme("light")} className={"rounded-full p-1 " + ((theme === 'light') ? "bg-background" : "bg-surface")}>
+        <Image src="/icons/sunny-outline.svg" alt="" height={24} width={24} />
+      </button>
+      <button onClick={() => setTheme("dark")} className={"rounded-full p-1 " + ((theme === 'dark') ? "bg-background" : "bg-surface")}>
+        <Image src="/icons/moon-outline.svg" alt="" height={24} width={24} />
+      </button>
     </div>
   );
-}
+};
