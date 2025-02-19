@@ -323,11 +323,14 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               {message && <p className="mt-2 text-sm text-center">{message}</p>}
             </div>
           ) : (
-            <p className="text-gray-500 mt-4">Select a widget to configure.</p>
+            <div className="flex flex-col justify-center items-center">
+              <img src="/illustrations/arrow-left-scribbl.svg" />
+              <p className="mt-4 font-bold">Select a widget to configure</p>
+            </div>
+            
           )}
         </div>
 
-        {/* Close Button */}
         <div
           onClick={onClose}
           className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"

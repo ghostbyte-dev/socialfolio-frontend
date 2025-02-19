@@ -1,6 +1,7 @@
 "use client";
 
 import ExploreProfileCard from "@/components/ExploreProfileCard";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import { ExploreService } from "@/services/explore.service";
 import { useQuery } from "@tanstack/react-query";
 
@@ -27,7 +28,7 @@ export default function Explore() {
       </section>
 
       <section className="w-full max-w-6xl px-4 mb-20">
-        {isPending && <p>Loading...</p>}
+        {isPending && <LoadingIndicator />}
         {error && <p className="text-red-500">{error.message}</p>}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -16,6 +16,8 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const jwt = session?.user?.jwt;
 
   const { data: user } = useQuery({
@@ -52,87 +54,129 @@ export default function Navbar() {
   }, [dropdownOpen]);
 
   return (
-    <nav className="py-4 px-8 flex justify-between items-center relative">
-
-      <div className="absolute left-[50%] transform -translate-x-1/2 flex justify-center">
-      <Link href="/">
-          <span className="text-xl font-semibold">Socialfolio</span>
-        </Link>
-      </div>
-
-      <div>
-        <Link href="/explore">
-          <span className="text-lg">Explore</span>
-        </Link>
-      </div>
-      <div className="flex items-center">
-        <div className="mr-3">
-          <ThemeSwitcher />
+    <>
+      <nav className="py-4 px-8 flex justify-between items-center relative">
+        <div className="absolute left-[50%] transform -translate-x-1/2 justify-center">
+          <Link href="/">
+            <span className="text-xl font-semibold">Socialfolio</span>
+          </Link>
         </div>
 
-        {status === "loading" ? (
-          <p>Loading...</p>
-        ) : session ? (
-          <>
-            {user && (
-              <div
-                className="relative inline-block text-left"
-                ref={dropdownRef}
+        <button
+          type="button"
+          className={`flex flex-col items-end py-5 pr-4 md:hidden font-bold`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span className="mb-[8px] h-[3px] w-8 bg-text" />
+          <span className="mb-[8px] h-[3px] w-8 bg-text" />
+          <span className="h-[3px] w-8 bg-text" />
+        </button>
+
+        <div className="hidden md:block">
+          <Link href="/explore">
+            <span className="text-lg">Explore</span>
+          </Link>
+        </div>
+        <div className="flex items-center">
+          <div className="mr-3 hidden md:block">
+            <ThemeSwitcher />
+          </div>
+
+          {status === "unauthenticated" && (
+            <Button link="/auth/login">Log in</Button>
+          )}
+
+          {status === "authenticated" && user && (
+            <div className="relative inline-block text-left" ref={dropdownRef}>
+              <button
+                type="button"
+                className="inline-flex w-full justify-center gap-x-1.5"
+                id="menu-button"
+                aria-expanded={dropdownOpen}
+                aria-haspopup="true"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                <button
-                  type="button"
-                  className="inline-flex w-full justify-center gap-x-1.5"
-                  id="menu-button"
-                  aria-expanded={dropdownOpen}
-                  aria-haspopup="true"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                <Image
+                  src={
+                    user.avatar.trim() === ""
+                      ? "/defaults/default-avatar.jpg"
+                      : user.avatar
+                  }
+                  alt="User Avatar"
+                  width={48}
+                  height={48}
+                  className="rounded-full"
+                />
+              </button>
+
+              {dropdownOpen && (
+                <div
+                  className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface ring-1 shadow-lg ring-black/5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-button"
                 >
-                  <Image
-                    src={
-                      user.avatar.trim() === ""
-                        ? "/defaults/default-avatar.jpg"
-                        : user.avatar
-                    }
-                    alt="User Avatar"
-                    width={48}
-                    height={48}
-                    className="rounded-full"
-                  />
-                </button>
+                  <div className="" role="none">
+                    <Link
+                      href={"/" + user.username}
+                      className="block px-4 py-2 text-sm font-bold rounded hover:bg-background"
+                      role="menuitem"
+                    >
+                      View my page
+                    </Link>
 
-                {dropdownOpen && (
-                  <div
-                    className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface ring-1 shadow-lg ring-black/5 focus:outline-none"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="menu-button"
-                  >
-                    <div className="" role="none">
-                      <Link
-                        href={"/" + user.username}
-                        className="block px-4 py-2 text-sm font-bold rounded hover:bg-background"
-                        role="menuitem"
-                      >
-                        View my page
-                      </Link>
-
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-background"
-                        role="menuitem"
-                      >
-                        Logout
-                      </button>
-                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-background"
+                      role="menuitem"
+                    >
+                      Logout
+                    </button>
                   </div>
-                )}
-              </div>
-            )}
-          </>
-        ) : (
-          <Button link="/auth/login">Log in</Button>
-        )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </nav>
+
+      <div
+        className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-black duration-500 "
+        style={{ width: isOpen ? "75vw" : "0vw" }}
+      >
+        <button
+          type="button"
+          className={`
+            ml-auto mr-7 mt-6 text-[50px] duration-300
+            ${isOpen ? "delay-200" : ""}
+          `}
+          style={{ color: isOpen ? "white" : "transparent" }}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          &times;
+        </button>
+
+        <div
+          className={`text-white flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
+        >
+          <Link
+            href="/explore"
+            className="cursor-pointer font-bold"
+            onClick={() => setIsOpen(false)}
+          >
+            <span
+              className={`
+                duration-300 
+                ${isOpen ? "delay-200 text-white" : "text-transparent"}
+              `}
+            >
+              Explore
+            </span>
+          </Link>
+        </div>
+
+        <div className="px-10 pb-6 flex items-center space-x-6">fief</div>
       </div>
-    </nav>
+    </>
   );
 }

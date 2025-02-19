@@ -1,6 +1,8 @@
 "use client";
 
 import Bio from "@/components/Bio";
+import ErrorPage from "@/components/ErrorPage";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import UserNotFoundPage from "@/components/UserNotFoundPage";
 import WidgetsGrid from "@/components/WidgetsGrid";
 import { UserService } from "@/services/user.service";
@@ -46,11 +48,11 @@ export default function UserPage() {
     },
   });
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <LoadingIndicator />;
 
   if (error && userNotFound) return <UserNotFoundPage />;
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <ErrorPage message={error.message} />;
 
   return (
     <>
@@ -60,7 +62,10 @@ export default function UserPage() {
             Your profile is not visible until you verify your email
           </span>
 
-          <button className="bg-black text-sm text-white px-3 py-1 rounded-lg ml-3" onClick={() => {}}>
+          <button
+            className="bg-black text-sm text-white px-3 py-1 rounded-lg ml-3"
+            onClick={() => {}}
+          >
             Verify
           </button>
         </div>
