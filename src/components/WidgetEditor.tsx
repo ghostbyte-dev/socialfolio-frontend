@@ -185,6 +185,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   });
 
   const handleSelectWidget = (widget: WidgetOption) => {
+    setVariant(1)
     setSelectedWidget(widget);
     setMessage(null);
     setFormData(
