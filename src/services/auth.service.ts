@@ -17,7 +17,18 @@ const resetPassword = async (password: string, token: string) => {
         method: "POST",
         body: JSON.stringify({ token, password })
     });
-    
+
+    if (!response.ok) {
+        const errorResponse = await response.json()
+        throw new Error(errorResponse.message);
+    }
+}
+
+const verify = async (token: string) => {
+    const response = await fetch(API_URL + "/api/auth/verify/" + token, {
+        method: "POST",
+    });
+
     if (!response.ok) {
         const errorResponse = await response.json()
         throw new Error(errorResponse.message);
@@ -26,5 +37,6 @@ const resetPassword = async (password: string, token: string) => {
 
 export const AuthService = {
     requestReset,
-    resetPassword
+    resetPassword,
+    verify
 }
