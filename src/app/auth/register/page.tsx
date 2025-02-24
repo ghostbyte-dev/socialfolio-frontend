@@ -26,7 +26,7 @@ export default function RegisterPage() {
     const result = await toast.promise(
       register(formData),
       {
-        loading: "Registerin you...",
+        loading: "Registering you...",
         success: "Registered you successful!",
         error: (err) => `Error: ${err.message}`,
       }
