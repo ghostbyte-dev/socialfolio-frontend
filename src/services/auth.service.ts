@@ -35,8 +35,24 @@ const verify = async (token: string) => {
     }
 }
 
+const resendVerificationCode = async (jwt: string) => {
+    const response = await fetch(API_URL + "/api/auth/resendVerifiationCode", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+        },
+    });
+
+    if (!response.ok) {
+        const errorResponse = await response.json()
+        throw new Error(errorResponse.message);
+    }
+}
+
 export const AuthService = {
     requestReset,
     resetPassword,
-    verify
+    verify,
+    resendVerificationCode
 }

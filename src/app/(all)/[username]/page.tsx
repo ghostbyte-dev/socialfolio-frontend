@@ -5,11 +5,13 @@ import ErrorPage from "@/components/ErrorPage";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import UserNotFoundPage from "@/components/UserNotFoundPage";
 import WidgetsGrid from "@/components/WidgetsGrid";
+import { AuthService } from "@/services/auth.service";
 import { UserService } from "@/services/user.service";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function UserPage() {
   const params = useParams();
@@ -44,6 +46,15 @@ export default function UserPage() {
     enabled: !!username && sessionStatus !== "loading",
   });
 
+  const resendVerificationCode = useMutation({
+    mutationFn: (jwt: string) => 
+      toast.promise(AuthService.resendVerificationCode(jwt), {
+        loading: "Sending verification Email...",
+        success: "Verification Email has been sent!",
+        error: (err) => `Error: ${err.message}`,
+      })
+  })
+
   if (isPending) return <LoadingIndicator />;
 
   if (error && userNotFound) return <UserNotFoundPage />;
@@ -60,9 +71,9 @@ export default function UserPage() {
 
           <button
             className="bg-black text-sm text-white px-3 py-1 rounded-lg ml-3"
-            onClick={() => {}}
+            onClick={() => {resendVerificationCode.mutate(jwt!)}}
           >
-            Verify
+            Resend Verification Email
           </button>
         </div>
       )}
