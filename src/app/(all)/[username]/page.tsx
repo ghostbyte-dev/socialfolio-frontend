@@ -42,10 +42,6 @@ export default function UserPage() {
       }
     },
     enabled: !!username && sessionStatus !== "loading",
-    retry: (failureCount, error) => {
-      if (error.message === "UserNotFound") return false; // Don't retry on 404
-      return failureCount < 3; // Retry other errors up to 3 times
-    },
   });
 
   if (isPending) return <LoadingIndicator />;

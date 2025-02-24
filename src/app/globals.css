@@ -11,7 +11,7 @@
 [data-theme="dark"] {
   --color-background: #030712;
   --color-surface: #1d202a;
-  --color-primary: #5f6fc2;
+  --color-primary: #407BFF;
   --color-text: #fff;
 }
 
@@ -19,7 +19,7 @@
 [data-theme="light"] {
   --color-background: #f2f0e3;
   --color-surface: #fff;
-  --color-primary: #5f6fc2;
+  --color-primary: #407BFF;
   --color-text: #000;
 }
 
