@@ -22,22 +22,14 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await toast.promise(
-      login(formData),
-      {
-        loading: "Logging you in...",
-        success: "Login successful!",
-        error: (err) => `Error: ${err.message}`,
-      }
-    );
-
-    console.log(result)
+    const result = await login(formData)
 
     if (!result.success) {
+      toast.error(result.message)
       setError(result.message);
       return;
     }
-
+    toast.success("Logged in")
     router.push("/" + result.username);
   };
 

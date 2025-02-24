@@ -23,21 +23,14 @@ export default function RegisterPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await toast.promise(
-      register(formData),
-      {
-        loading: "Registerin you...",
-        success: "Registered you successful!",
-        error: (err) => `Error: ${err.message}`,
-      }
-    );
-
+    const result = await register(formData)
 
     if (!result.success) {
+      toast.error(result.message)
       setError(result.message);
       return;
     }
-
+    toast.success("Registered successfully")
     router.push("/dashboard"); // Redirect after successful login
   };
 
