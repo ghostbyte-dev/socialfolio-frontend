@@ -8,17 +8,24 @@ export default function ExploreProfileCard({
 }) {
   return (
     <Link href={"/" + profile.username}>
-      <div
-        key={profile.id}
-        className="bg-surface rounded-xl shadow-md p-6 flex flex-col items-center text-center"
-      >
-        <img
-          src={profile.avatar || "/defaults/default-avatar.jpg"}
-          alt={profile.username}
-          className="w-24 h-24 rounded-full mb-4"
-        />
-        <h2 className="text-xl font-semibold">{profile.username}</h2>
-        <p className="text-gray-500 dark:text-gray-400">{profile.bio}</p>
+      <div key={profile.id} className="bg-surface rounded-2xl shadow-md p-4">
+        <div className="flex">
+          <div>
+            <img
+              src={profile.avatar || "/defaults/default-avatar.jpg"}
+              alt={profile.username}
+              className="w-24 h-24 rounded-xl mr-4"
+            />
+          </div>
+          <div className="flex flex-col">
+            <span>{profile.username}</span>
+            <span className="text-xl font-semibold">{profile.username}</span>
+          </div>
+        </div>
+
+        {profile.bio && profile.bio.length && (
+          <p className="text-gray-500 dark:text-gray-400 mt-4">{profile.bio}</p>
+        )}
       </div>
     </Link>
   );

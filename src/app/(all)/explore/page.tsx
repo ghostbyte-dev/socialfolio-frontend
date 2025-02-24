@@ -3,7 +3,7 @@
 import ErrorPage from "@/components/ErrorPage";
 import ExploreProfileCard from "@/components/ExploreProfileCard";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import { ExploreService } from "@/services/explore.service";
+import { ExploreProfile, ExploreService } from "@/services/explore.service";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Explore() {
@@ -33,7 +33,7 @@ export default function Explore() {
         {error && <ErrorPage message={error.message} />}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {profiles?.map((profile: any) => (
+          {profiles?.map((profile: ExploreProfile) => (
             <div key={profile.id}>
               <ExploreProfileCard profile={profile} />
             </div>
