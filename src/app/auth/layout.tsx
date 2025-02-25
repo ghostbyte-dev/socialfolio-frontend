@@ -6,18 +6,14 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full max-h-screen flex p-6">
-
-      <div className="w-[50%]">
-        <img src="/other/fief.jpg" alt="" className="object-cover h-full w-full rounded-2xl" />
+    <div className="w-full h-screen flex p-6 items-center">
+      <div className="w-[50%] px-5 py-10 h-full flex justify-center">
+        <img src="/other/socialfolio_widgets.png" alt="" className="object-contain max-h-full" />
       </div>
 
-      <div className="w-[50%] flex justify-center items-center"> 
+      <div className="w-[50%] flex items-center"> 
         {children}
       </div>
-
-
-      
     </div>
   );
 }

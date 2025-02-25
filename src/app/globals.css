@@ -23,6 +23,8 @@
   --color-text: #000;
 }
 
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @layer components {
   .input {
     border-radius: var(--radius-sm);
@@ -32,6 +34,7 @@
     border: none;
     padding: calc(var(--spacing) * 2);
     width: 100%;
+    max-width: 400px;
     
     @variant focus {
       border-color: var(--color-primary);

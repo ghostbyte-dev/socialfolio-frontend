@@ -47,7 +47,7 @@ export default function RegisterPage() {
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         <input
@@ -56,7 +56,7 @@ export default function RegisterPage() {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         <input
@@ -65,11 +65,11 @@ export default function RegisterPage() {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-sm">
+        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-sm max-w-[400px]">
           Register
         </button>
       </form>
