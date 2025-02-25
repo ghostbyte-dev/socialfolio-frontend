@@ -31,7 +31,7 @@ export default function RegisterPage() {
       return;
     }
     toast.success("Registered successfully")
-    router.push("/dashboard"); // Redirect after successful login
+    router.push("/" + result.username);
   };
 
   return (
