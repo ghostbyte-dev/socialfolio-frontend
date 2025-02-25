@@ -11,6 +11,7 @@
 [data-theme="dark"] {
   --color-background: #030712;
   --color-surface: #1d202a;
+  --color-surface-container: #1d202a;
   --color-primary: #407BFF;
   --color-text: #fff;
 }
@@ -19,6 +20,7 @@
 [data-theme="light"] {
   --color-background: #f2f0e3;
   --color-surface: #fff;
+  --color-surface-container: #dcdbd1;
   --color-primary: #407BFF;
   --color-text: #000;
 }
@@ -29,7 +31,7 @@
   .input {
     border-radius: var(--radius-sm);
     border-style: var(--tw-border-style);
-    background-color: var(--color-gray-200);
+    background-color: var(--color-surface-container);
     border-width: 1px;
     border: none;
     padding: calc(var(--spacing) * 2);
