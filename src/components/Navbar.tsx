@@ -30,6 +30,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     signOut({ redirect: false });
+    setDropdownOpen(false);
     router.push("/auth/login");
   };
 
@@ -121,6 +122,7 @@ export default function Navbar() {
                       href={"/" + user.username}
                       className="block px-4 py-2 text-sm font-bold rounded hover:bg-background"
                       role="menuitem"
+                      onClick={() => setDropdownOpen(false)}
                     >
                       View my page
                     </Link>
