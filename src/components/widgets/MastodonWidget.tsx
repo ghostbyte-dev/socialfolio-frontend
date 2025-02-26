@@ -84,7 +84,7 @@ export function MastodonWidget({
             {widgetApiData?.avatar ? <>
               <Image
               src={widgetApiData.avatar}
-              alt="Mastodon logo"
+              alt="Mastodon Avatar"
               height={64}
               width={64}
               className="rounded-2xl object-contain"

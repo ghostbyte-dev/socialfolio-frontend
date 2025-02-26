@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
+import Pencil from "../../../public/icons/pencil-outline.svg";
 
 export interface BaseWidgetProps {
   children: React.ReactNode;
@@ -39,14 +40,9 @@ export function BaseWidget({
 
           <div
             onClick={editWidget}
-            className="top-4 right-4 absolute bg-black rounded-full h-8 w-8 flex justify-center items-center scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110!"
+            className="top-4 right-4 absolute bg-on-surface rounded-full h-8 w-8 flex justify-center items-center scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110!"
           >
-            <Image
-              src="/icons/pencil-outline.svg"
-              alt="Edit icon"
-              height={18}
-              width={18}
-            />
+            <Pencil className="w-[18px] h-[18px] text-surface" />
           </div>
         </>
       )}

@@ -4,6 +4,7 @@
   --color-background: #f2f0e3;
   --color-surface: #fff;
   --color-primary: #f76f53;
+  --color-on-surface: #1d1b20;
   --color-text: #000;
 }
 
@@ -12,6 +13,7 @@
   --color-background: #030712;
   --color-surface: #1d202a;
   --color-surface-container: #1d202a;
+  --color-on-surface: #f8f2fa;
   --color-primary: #407BFF;
   --color-text: #fff;
 }
@@ -21,6 +23,7 @@
   --color-background: #f2f0e3;
   --color-surface: #fff;
   --color-surface-container: #dcdbd1;
+  --color-on-surface: #1d1b20;
   --color-primary: #407BFF;
   --color-text: #000;
 }
@@ -48,9 +51,5 @@
 
   button {
     cursor: pointer;
-  }
-
-  * {
-    color: var(--color-text);
   }
 }

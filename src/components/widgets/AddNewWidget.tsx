@@ -4,6 +4,7 @@ import Image from "next/image";
 import { BaseWidget } from "./BaseWidget";
 import { useState } from "react";
 import WidgetEditor from "../WidgetEditor";
+import Add from "../../../public/icons/add.svg"
 
 interface AddNewWidgetProps {
   size: { cols: number; rows: number };
@@ -19,13 +20,7 @@ export function AddNewWidget({ size }: AddNewWidgetProps) {
           className="h-full w-full flex justify-center items-center flex-col hover:cursor-pointer"
           onClick={() => setIsOpen(true)}
         >
-          <Image
-            src="/icons/add.svg"
-            alt=""
-            width={64}
-            height={64}
-            className="object-cover"
-          />
+          <Add className="w-[64px] h-[64px]"/>
           <span className="mt-5 font-bold text-2xl">Add Widget</span>
         </div>
       </BaseWidget>
