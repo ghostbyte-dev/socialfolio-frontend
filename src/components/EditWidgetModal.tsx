@@ -102,7 +102,7 @@ export default function EditWidgetModal({
 
   return (
     <div
-      className="fixed inset-0 flex justify-center items-center"
+      className="fixed inset-0 flex justify-center items-center bg-black/50"
       onClick={() => onClose()}
     >
       <div

@@ -61,23 +61,24 @@ export default function Description({
 
       {isEditing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+          <div className="bg-surface-container p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Edit description</h2>
             <input
               type="text"
               value={editedDescription}
               onChange={(e) => setEditedDescription(e.target.value)}
-              className="w-full p-2 border rounded-sm mb-4"
+              className="input w-full bg-surface-container-high"
+              placeholder="Desription..."
             />
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2 mt-5">
               <button
                 onClick={handleClosePopup}
-                className="bg-gray-300 px-4 py-2 rounded-sm"
+                className="outlinedButton"
               >
                 Cancel
               </button>
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-sm"
+                className="button"
                 onClick={() => mutation.mutate(editedDescription)}
               >
                 Save

@@ -8,7 +8,7 @@ export default function ExploreProfileCard({
 }) {
   return (
     <Link href={"/" + profile.username}>
-      <div key={profile.id} className="bg-surface rounded-2xl shadow-md p-4">
+      <div key={profile.id} className="bg-surface-container rounded-2xl shadow-md p-4">
         <div className="flex">
           <div>
             <img
