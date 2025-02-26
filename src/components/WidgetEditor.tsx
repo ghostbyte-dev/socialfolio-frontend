@@ -113,7 +113,7 @@ export const widgetOptions: WidgetOption[] = [
         defaultOption: Intl.DateTimeFormat().resolvedOptions().timeZone,
       },
     ],
-    variants: [{ index: 1 }],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },

@@ -30,9 +30,9 @@ export function GithubWidget({
   variant,
   isOwner,
   deleteWidget,
-  editWidget
+  editWidget,
 }: GithubWidgetProps) {
-  const [widgetSize, setWidgetSize] = useState(size)
+  const [widgetSize, setWidgetSize] = useState(size);
   const needApiData = (): boolean => {
     if (variant == 3) {
       return true;
@@ -63,53 +63,62 @@ export function GithubWidget({
   };
 
   const getContributions = (
-    contributions: ContributionsCollection, size: WidgetSize
+    contributions: ContributionsCollection,
+    size: WidgetSize
   ): ContributionsCollection => {
     let numberOfWeeks = getDisplayedWeeks(size);
-    console.log("getNumberOfWeeks " + numberOfWeeks)
-    const newContributions = {...contributions}
+    const newContributions = { ...contributions };
     newContributions.weeks = contributions.weeks.slice(-numberOfWeeks);
     return newContributions;
   };
 
   useEffect(() => {
-    setWidgetSize(size)
-  }, [size])
+    setWidgetSize(size);
+  }, [size]);
 
   const displayedContributions = useMemo(() => {
-    console.log('Recalculating contributions:', widgetSize, widgetApiData?.contributions);
-    const contributions = getContributions(widgetApiData?.contributions ?? { weeks: [], colors: [], totalContributions: 0 }, widgetSize);
-    console.log(contributions.weeks.length);
+    console.log(
+      "Recalculating contributions:",
+      widgetSize,
+      widgetApiData?.contributions
+    );
+    const contributions = getContributions(
+      widgetApiData?.contributions ?? {
+        weeks: [],
+        colors: [],
+        totalContributions: 0,
+      },
+      widgetSize
+    );
     return contributions;
   }, [widgetSize, widgetApiData?.contributions]);
-  
+
   const customColors = [
-    "#ccd1e0",  // Very light blue (lighter than primary color)
-    "#8999c7",  // Light blue
-    "#4c63a4",  // Primary blue (#495d92 adjusted)
-    "#2e4180",  // Darker blue
-    "#1b2a5d"   // Very dark blue (almost navy)
+    "#ccd1e0", // Very light blue (lighter than primary color)
+    "#8999c7", // Light blue
+    "#4c63a4", // Primary blue (#495d92 adjusted)
+    "#2e4180", // Darker blue
+    "#1b2a5d", // Very dark blue (almost navy)
   ];
-  
+
   function contributionDayColor(contributionCount: number) {
-    console.log(contributionCount)
     if (!widgetApiData) {
       return;
     }
     const maxContributions = Math.max(
-      ...widgetApiData.contributions.weeks.flatMap((c: ContributionsWeek) => 
+      ...widgetApiData.contributions.weeks.flatMap((c: ContributionsWeek) =>
         c.contributionDays.map((d: ContributionDay) => d.contributionCount)
       )
     );
-            if (contributionCount === 0) return customColors[0]; // No contribution
+    if (contributionCount === 0) return customColors[0]; // No contribution
     const intensity = contributionCount / maxContributions;
-    
+
     if (intensity > 0.75) return customColors[4];
     if (intensity > 0.5) return customColors[3];
     if (intensity > 0.25) return customColors[2];
     return customColors[1];
   }
-  
+
   return (
     <BaseWidget
       isOwner={isOwner}
@@ -174,31 +183,30 @@ export function GithubWidget({
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${
-                      getContributions(widgetApiData.contributions, widgetSize).weeks.length
+                      getContributions(widgetApiData.contributions, widgetSize)
+                        .weeks.length
                     }, 1fr)`,
                     gridTemplateRows: "repeat(7, 1fr)",
                     gap: "3px",
                     height: "100%",
-                    maxHeight: "161px"
+                    maxHeight: "161px",
                   }}
                 >
-                
-                  {displayedContributions.weeks.map(
-                    (week: ContributionsWeek) =>
-                      week.contributionDays.map(
-                        (day: ContributionDay) => (
-                          <div
-                            key={day.date}
-                            className="rounded-xs"
-                            style={{
-                              backgroundColor: contributionDayColor(day.contributionCount),
-                              width: "100%",
-                              height: "100%",
-                              maxHeight: "20px"
-                            }}
-                          ></div>
-                        )
-                      )
+                  {displayedContributions.weeks.map((week: ContributionsWeek) =>
+                    week.contributionDays.map((day: ContributionDay) => (
+                      <div
+                        key={day.date}
+                        className="rounded-xs"
+                        style={{
+                          backgroundColor: contributionDayColor(
+                            day.contributionCount
+                          ),
+                          width: "100%",
+                          height: "100%",
+                          maxHeight: "20px",
+                        }}
+                      ></div>
+                    ))
                   )}
                 </div>
               </>
