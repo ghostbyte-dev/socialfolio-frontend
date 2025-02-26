@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { BaseWidget } from "./BaseWidget";
 import { useState } from "react";
 import WidgetEditor from "../WidgetEditor";
-import Add from "../../../public/icons/add.svg"
+import Add from "@/assets/icons/add.svg"
 
 interface AddNewWidgetProps {
   size: { cols: number; rows: number };

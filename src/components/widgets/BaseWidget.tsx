@@ -1,6 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import Pencil from "../../../public/icons/pencil-outline.svg";
+import Pencil from "@/assets/icons/pencil-outline.svg";
 
 export interface BaseWidgetProps {
   children: React.ReactNode;

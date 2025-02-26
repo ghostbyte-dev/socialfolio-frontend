@@ -5,7 +5,7 @@ import { UserService } from "@/services/user.service";
 import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
-import Pencil from "../../public/icons/pencil-outline.svg"
+import Pencil from "@/assets/icons/pencil-outline.svg"
 
 export default function Description({
   description,

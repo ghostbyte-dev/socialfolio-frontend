@@ -6,7 +6,6 @@ import { WidgetProps, WidgetSize } from "@/types/widget-types";
 import { useParams } from "next/navigation";
 import { widgetOptions } from "./WidgetEditor";
 import { WidgetsGridDisplay } from "./WidgetsGrid";
-import { resolve } from "path";
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;

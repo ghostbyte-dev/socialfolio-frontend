@@ -2,9 +2,9 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import Moon from "../../public/icons/moon-outline.svg";
-import Sunny from "../../public/icons/sunny-outline.svg";
-import Laptop from "../../public/icons/laptop-outline.svg";
+import Moon from "@/assets/icons/moon-outline.svg";
+import Sunny from "@/assets/icons/sunny-outline.svg";
+import Laptop from "@/assets/icons/laptop-outline.svg";
 
 export const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);

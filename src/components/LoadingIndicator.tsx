@@ -1,4 +1,4 @@
-import LoadingSpinner from "../../public/icons/loading-spinner.svg"
+import LoadingSpinner from "@/assets/icons/loading-spinner.svg"
 
 export default function LoadingIndicator() {
   return (
