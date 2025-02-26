@@ -3,7 +3,9 @@ export interface ExploreProfile {
     id: string;
     username: string;
     avatar: string;
-    bio: string;
+    displayName: string;
+    description: string;
+    createdAt: Date;
 }
 
 const getProfiles = async (): Promise<ExploreProfile[]> => {

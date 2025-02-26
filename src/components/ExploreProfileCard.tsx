@@ -8,7 +8,10 @@ export default function ExploreProfileCard({
 }) {
   return (
     <Link href={"/" + profile.username}>
-      <div key={profile.id} className="bg-surface-container rounded-2xl shadow-md p-4">
+      <div
+        key={profile.id}
+        className="bg-surface-container rounded-2xl shadow-md p-4"
+      >
         <div className="flex">
           <div>
             <img
@@ -19,12 +22,19 @@ export default function ExploreProfileCard({
           </div>
           <div className="flex flex-col">
             <span>{profile.username}</span>
-            <span className="text-xl font-semibold">{profile.username}</span>
+            <span className="text-xl font-semibold">
+              {!profile.displayName ? profile.username : profile.displayName}
+            </span>
+            <span>
+              Joined: {new Date(profile.createdAt).toLocaleDateString()}
+            </span>
           </div>
         </div>
 
-        {profile.bio && profile.bio.length && (
-          <p className="text-gray-500 dark:text-gray-400 mt-4">{profile.bio}</p>
+        {profile.description && profile.description.length && (
+          <p className="text-gray-500 dark:text-gray-400 mt-4">
+            {profile.description}
+          </p>
         )}
       </div>
     </Link>
