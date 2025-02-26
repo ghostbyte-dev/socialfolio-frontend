@@ -7,6 +7,7 @@
   --color-primary: #f76f53;
   --color-primary-high: #7b8fc8;
   --color-primary-container: #b2caff;
+  --color-on-primary: #ffffff;
   --color-on-surface: #1d1b20;
   --color-text: #000;
   --color-outline: #dcdbd1;
@@ -24,6 +25,7 @@
   --color-primary: #7b8fc8;
   --color-primary-high: #859bdf;
   --color-primary-container: #304578;
+  --color-on-primary: #182e60;
   --color-text: #fff;
   --color-outline: #8f909a;
 }
@@ -37,6 +39,7 @@
   --color-primary: #495d92; /* Orange */
   --color-primary-high: #6276ac;
   --color-primary-container: #dae2ff; /* Light orange container */
+  --color-on-primary: #ffffff;
   --color-text: #333; /* Slightly darker text for contrast */
   --color-outline: #757780; /* Soft orange outline */
 }
@@ -53,7 +56,6 @@
     border: none;
     padding: calc(var(--spacing) * 2);
     width: 100%;
-    max-width: 400px;
     border-radius: var(--border-radius);
     
     @variant focus {
@@ -69,7 +71,7 @@
     padding-block: calc(var(--spacing) * 2);
     padding-inline: calc(var(--spacing) * 4) /* 1rem = 16px */;
     border-radius: var(--border-radius);
-
+    color: var(--color-on-primary);
     @variant hover {
       background-color: var(--color-primary-high)
     }

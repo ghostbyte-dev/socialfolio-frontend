@@ -112,7 +112,7 @@ export default function Navbar() {
 
               {dropdownOpen && (
                 <div
-                  className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface ring-1 shadow-lg ring-black/5 focus:outline-none"
+                  className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface-container ring-1 shadow-lg ring-black/5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"

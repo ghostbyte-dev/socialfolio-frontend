@@ -173,13 +173,14 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[]) => [...old, newWidget]
+        (old: WidgetProps[] | undefined) => [...old ?? [], newWidget]
       );
 
       return { previousWidgets };
     },
     onSuccess: () => setMessage("Widget saved successfully!"),
     onError: (context: any) => {
+      console.log(context.message)
       setMessage("Failed to save widget.");
       queryClient.setQueryData(
         ["widgetsofuser", username],
@@ -286,11 +287,11 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           {selectedWidget ? (
             <div className="mt-4">
               <div className="mb-4">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block font-medium mb-2">
                   Variant
                 </label>
                 <select
-                  className="w-full input p-2 border rounded-sm"
+                  className="input bg-surface-container-high w-full"
                   value={variant}
                   onChange={(e) => setVariant(Number(e.target.value))}
                 >
@@ -303,12 +304,12 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2">
+                  <label className="block font-medium mb-2">
                     {field.label}
                   </label>
                   {field.type === "select" ? (
                     <select
-                      className="w-full input p-2 border rounded-sm"
+                      className="input bg-surface-container-high w-full"
                       value={formData[field.key] || field.defaultOption}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     >
@@ -321,7 +322,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   ) : (
                     <input
                       type={field.type}
-                      className="input bg-surface-container-high"
+                      className="input bg-surface-container-high w-full"
                       value={formData[field.key]}
                       placeholder={field.label}
                       onChange={(e) => handleChange(field.key, e.target.value)}
@@ -333,7 +334,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               {/* Save Button */}
               <button
                 onClick={handleSave}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="button"
                 disabled={mutation.isPending}
               >
                 {mutation.isPending ? "Saving..." : "Save Widget"}
