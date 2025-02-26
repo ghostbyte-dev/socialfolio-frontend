@@ -88,7 +88,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",
-    imageLinkDarkTheme: "/widgeteditor/note.svg",
+    imageLinkDarkTheme: "/widgeteditor/note_white.svg",
     fields: [{ key: "note", label: "Note", type: "text" }],
     variants: [{ index: 1 }],
     sizes: [
@@ -102,7 +102,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "localTime",
     name: "Local Time",
     imageLink: "/widgeteditor/timezone.svg",
-    imageLinkDarkTheme: "/widgeteditor/timezone.svg",
+    imageLinkDarkTheme: "/widgeteditor/timezone_white.svg",
     fields: [
       {
         key: "timezone",

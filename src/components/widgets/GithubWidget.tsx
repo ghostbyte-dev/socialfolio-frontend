@@ -83,6 +83,32 @@ export function GithubWidget({
     return contributions;
   }, [widgetSize, widgetApiData?.contributions]);
   
+  const customColors = [
+    "#ccd1e0",  // Very light blue (lighter than primary color)
+    "#8999c7",  // Light blue
+    "#4c63a4",  // Primary blue (#495d92 adjusted)
+    "#2e4180",  // Darker blue
+    "#1b2a5d"   // Very dark blue (almost navy)
+  ];
+  
+  function contributionDayColor(contributionCount: number) {
+    console.log(contributionCount)
+    if (!widgetApiData) {
+      return;
+    }
+    const maxContributions = Math.max(
+      ...widgetApiData.contributions.weeks.flatMap((c: ContributionsWeek) => 
+        c.contributionDays.map((d: ContributionDay) => d.contributionCount)
+      )
+    );
+            if (contributionCount === 0) return customColors[0]; // No contribution
+    const intensity = contributionCount / maxContributions;
+    
+    if (intensity > 0.75) return customColors[4];
+    if (intensity > 0.5) return customColors[3];
+    if (intensity > 0.25) return customColors[2];
+    return customColors[1];
+  }
   
   return (
     <BaseWidget
@@ -165,7 +191,7 @@ export function GithubWidget({
                             key={day.date}
                             className="rounded-xs"
                             style={{
-                              backgroundColor: day.color,
+                              backgroundColor: contributionDayColor(day.contributionCount),
                               width: "100%",
                               height: "100%",
                               maxHeight: "20px"

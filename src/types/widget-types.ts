@@ -79,7 +79,7 @@ export interface ContributionsWeek {
 
 export interface ContributionDay {
   color: string;
-  contributeCount: number;
+  contributionCount: number;
   date: string;
   weekday: number;
 }
