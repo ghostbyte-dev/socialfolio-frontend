@@ -22,28 +22,19 @@ export const ThemeSwitcher = () => {
     <div className="relative bg-surface rounded-full p-1">
       <button
         onClick={() => setTheme("system")}
-        className={
-          "rounded-full p-1 " +
-          (theme === "system" ? "bg-background" : "bg-surface")
-        }
+        className={"rounded-full p-1 bg-surface"}
       >
         <Laptop className="w-[24px] h-[24px]" />
       </button>
       <button
         onClick={() => setTheme("light")}
-        className={
-          "rounded-full p-1 " +
-          (theme === "light" ? "bg-background" : "bg-surface")
-        }
+        className={"rounded-full p-1 bg-surface"}
       >
         <Sunny className="w-[24px] h-[24px]" />
       </button>
       <button
         onClick={() => setTheme("dark")}
-        className={
-          "rounded-full p-1 " +
-          (theme === "dark" ? "bg-background" : "bg-surface")
-        }
+        className={"rounded-full p-1 bg-surface"}
       >
         <Moon className="w-[24px] h-[24px]" />
       </button>

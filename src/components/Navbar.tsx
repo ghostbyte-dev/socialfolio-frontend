@@ -120,7 +120,7 @@ export default function Navbar() {
                   <div className="" role="none">
                     <Link
                       href={"/" + user.username}
-                      className="block px-4 py-2 text-sm font-bold rounded hover:bg-background"
+                      className="block px-4 py-2 text-sm font-bold rounded hover:bg-surface"
                       role="menuitem"
                       onClick={() => setDropdownOpen(false)}
                     >
@@ -129,7 +129,7 @@ export default function Navbar() {
 
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-background"
+                      className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Logout

@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-surface min-h-screen`}
       >
         <ThemeProvider>
           <Toaster />

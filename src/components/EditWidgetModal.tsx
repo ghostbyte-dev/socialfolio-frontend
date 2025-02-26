@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
+import { WidgetService } from "@/services/widget.service";
 import { useSession } from "next-auth/react";
 import { WidgetProps, WidgetSize } from "@/types/widget-types";
 import { useParams } from "next/navigation";
 import { widgetOptions } from "./WidgetEditor";
 import { WidgetsGridDisplay } from "./WidgetsGrid";
+import Close from "@/assets/icons/close.svg";
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;
@@ -36,8 +37,8 @@ export default function EditWidgetModal({
   const handleChange = (key: string, value: string) => {
     widgetData.data = {
       ...widgetData.data,
-      [key]: value
-    }
+      [key]: value,
+    };
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -87,7 +88,7 @@ export default function EditWidgetModal({
     },
     onSuccess: () => setMessage("Widget saved successfully!"),
     onError: (context: any) => {
-      alert(context.message)
+      alert(context.message);
       setMessage("Failed to save widget.");
       queryClient.setQueryData(
         ["widgetsofuser", username],
@@ -100,8 +101,14 @@ export default function EditWidgetModal({
   });
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center" onClick={() => onClose()}>
-      <div className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-y-scroll"  onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 flex justify-center items-center"
+      onClick={() => onClose()}
+    >
+      <div
+        className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-y-scroll"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex-1 p-8">
           <h2 className="text-xl font-bold">Widget Editor</h2>
           {selectedWidget ? (
@@ -200,7 +207,7 @@ export default function EditWidgetModal({
           onClick={onClose}
           className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
         >
-          <img src="/icons/close.svg" alt="Close icon" width={10} height={10} />
+          <Close className="w-[10px] h-[10px]" />
         </div>
       </div>
     </div>

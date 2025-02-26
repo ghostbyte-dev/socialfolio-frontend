@@ -4,6 +4,7 @@ import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
 import { useSession } from "next-auth/react";
 import { WidgetProps } from "@/types/widget-types";
 import { useParams } from "next/navigation";
+import Close from "@/assets/icons/close.svg";
 
 interface WidgetOption {
   id: string;
@@ -14,7 +15,7 @@ interface WidgetOption {
     label: string;
     type: string;
     options?: string[] | undefined;
-    defaultOption?: string | undefined
+    defaultOption?: string | undefined;
   }[];
   variants: Variant[];
   sizes: Size[];
@@ -55,7 +56,7 @@ export const widgetOptions: WidgetOption[] = [
     name: "GitHub",
     imageLink: "/widgeteditor/github.webp",
     fields: [{ key: "username", label: "Username", type: "text" }],
-    variants: [{ index: 1 }, { index: 2 }, {index: 3}],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
@@ -185,7 +186,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   });
 
   const handleSelectWidget = (widget: WidgetOption) => {
-    setVariant(1)
+    setVariant(1);
     setSelectedWidget(widget);
     setMessage(null);
     setFormData(
@@ -235,10 +236,16 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   }, [selectedWidget]);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center" onClick={onClose}>
-      <div className="relative bg-white w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden"  onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 bg-black/50 flex justify-center items-center"
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Left Sidebar - Widget Options */}
-        <div className="w-1/3 bg-gray-100 p-4 border-r">
+        <div className="w-1/3 bg-surface-container-high p-4 border-r">
           <h2 className="text-lg font-bold mb-4">Select a Widget</h2>
           <ul>
             {widgetOptions.map((widget) => (
@@ -328,7 +335,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               <img src="/illustrations/arrow-left-scribbl.svg" />
               <p className="mt-4 font-bold">Select a widget to configure</p>
             </div>
-            
           )}
         </div>
 
@@ -336,7 +342,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           onClick={onClose}
           className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
         >
-          <img src="/icons/close.svg" alt="Close icon" width={10} height={10} />
+          <Close className="w-[10px] h-[10px]" />
         </div>
       </div>
     </div>
