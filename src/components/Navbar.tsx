@@ -9,6 +9,7 @@ import { UserService } from "@/services/user.service";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import Close from "@/assets/icons/close.svg";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -143,20 +144,19 @@ export default function Navbar() {
       </nav>
 
       <div
-        className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-black duration-500 "
+        className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-surface-container duration-500 "
         style={{ width: isOpen ? "75vw" : "0vw" }}
       >
-        <button
-          type="button"
-          className={`
-            ml-auto mr-7 mt-6 text-[50px] duration-300
-            ${isOpen ? "delay-200" : ""}
-          `}
-          style={{ color: isOpen ? "white" : "transparent" }}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          &times;
-        </button>
+        <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
+            <ThemeSwitcher />
+
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <Close className="w-[18px] h-[18px]" />
+          </button>
+        </div>
 
         <div
           className={`text-white flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
