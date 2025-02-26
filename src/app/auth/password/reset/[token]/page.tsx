@@ -44,15 +44,15 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
         <input
           type="password"
           name="password"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         <input
@@ -61,14 +61,14 @@ export default function ResetPasswordPage() {
           placeholder="Password"
           value={formData.repeatPassword}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         {error && <p className="text-red-500">{error}</p>}
         <button
           disabled={formData.password != formData.repeatPassword}
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded-sm"
+          className="button w-full"
         >
           Reset
         </button>

@@ -36,21 +36,21 @@ export default function RequestPasswordReset() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
         <input
           type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-2 border rounded-sm"
+          className="input"
           required
         />
         {error && <p className="text-red-500">{error}</p>}
         <button
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded-sm"
+          className="button w-full"
         >
           Send reset link
         </button>

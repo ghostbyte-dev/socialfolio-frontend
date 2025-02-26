@@ -23,24 +23,29 @@ export default function RegisterPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await register(formData)
+    const result = await register(formData);
 
     if (!result.success) {
-      toast.error(result.message)
+      toast.error(result.message);
       setError(result.message);
       return;
     }
-    toast.success("Registered successfully")
+    toast.success("Registered successfully");
     router.push("/" + result.username);
   };
 
   return (
-    <div>
+    <div className="w-full">
       <h1 className="text-5xl font-bold mb-5">Register</h1>
 
-<p className="mb-5">Already have an account? <Link href="/auth/login" className="underline">Log in</Link></p>
+      <p className="mb-5">
+        Already have an account?{" "}
+        <Link href="/auth/login" className="underline hover:text-primary">
+          Log in
+        </Link>
+      </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
         <input
           type="text"
           name="username"
@@ -69,7 +74,7 @@ export default function RegisterPage() {
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-sm max-w-[400px]">
+        <button type="submit" className="button w-full">
           Register
         </button>
       </form>

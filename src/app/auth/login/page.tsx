@@ -22,24 +22,29 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
 
-    const result = await login(formData)
+    const result = await login(formData);
 
     if (!result.success) {
-      toast.error(result.message)
+      toast.error(result.message);
       setError(result.message);
       return;
     }
-    toast.success("Logged in")
+    toast.success("Logged in");
     router.push("/" + result.username);
   };
 
   return (
-    <div>
+    <div className="w-full">
       <h1 className="text-5xl font-bold mb-5">Login</h1>
 
-      <p className="mb-5">Need an account yet? <Link href="/auth/register" className="underline">Register</Link></p>
+      <p className="mb-5">
+        Need an account yet?{" "}
+        <Link href="/auth/register" className="underline hover:text-primary">
+          Register
+        </Link>
+      </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
         <input
           type="email"
           name="email"
@@ -59,16 +64,15 @@ export default function LoginPage() {
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          className="button w-full max-w-[400px]"
-        >
+        <button type="submit" className="button w-full">
           Login
         </button>
       </form>
 
       <div className="mt-3 flex justify-center">
-        <Link href="/auth/password/reset" className="underline">I forgot my password</Link>
+        <Link href="/auth/password/reset" className="underline hover:text-primary">
+          I forgot my password
+        </Link>
       </div>
     </div>
   );
