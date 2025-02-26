@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { WidgetProps } from "@/types/widget-types";
 import { useParams } from "next/navigation";
 import Close from "@/assets/icons/close.svg";
+import toast from "react-hot-toast";
 
 interface WidgetOption {
   id: string;
@@ -134,7 +135,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   );
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [variant, setVariant] = useState<number>(1);
-  const [message, setMessage] = useState<string | null>(null);
 
   const mutation = useMutation({
     mutationKey: ["new Widget"],
@@ -145,7 +145,11 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
       data: ICreateWidgetRequest;
       jwt: string;
     }) => {
-      return WidgetService.createWidget(data, jwt);
+      return toast.promise(WidgetService.createWidget(data, jwt), {
+        loading: "Creating Widget...",
+        success: "Successfully created Widget",
+        error: (err) => `Error: ${err.message}`,
+      });
     },
     onMutate: async ({
       data,
@@ -173,15 +177,15 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...old ?? [], newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
       );
 
       return { previousWidgets };
     },
-    onSuccess: () => setMessage("Widget saved successfully!"),
+    onSuccess: () => {
+      onClose();
+    },
     onError: (context: any) => {
-      console.log(context.message)
-      setMessage("Failed to save widget.");
       queryClient.setQueryData(
         ["widgetsofuser", username],
         context.previousWidgets
@@ -195,7 +199,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const handleSelectWidget = (widget: WidgetOption) => {
     setVariant(1);
     setSelectedWidget(widget);
-    setMessage(null);
     setFormData(
       widget.fields.reduce((acc, field) => {
         acc[field.key] = "";
@@ -287,9 +290,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           {selectedWidget ? (
             <div className="mt-4">
               <div className="mb-4">
-                <label className="block font-medium mb-2">
-                  Variant
-                </label>
+                <label className="block font-medium mb-2">Variant</label>
                 <select
                   className="input bg-surface-container-high w-full"
                   value={variant}
@@ -331,7 +332,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                 </div>
               ))}
 
-              {/* Save Button */}
               <button
                 onClick={handleSave}
                 className="button"
@@ -339,9 +339,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               >
                 {mutation.isPending ? "Saving..." : "Save Widget"}
               </button>
-
-              {/* Success / Error Message */}
-              {message && <p className="mt-2 text-sm text-center">{message}</p>}
             </div>
           ) : (
             <div className="flex flex-col justify-center items-center">

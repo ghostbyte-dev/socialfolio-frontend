@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { widgetOptions } from "./WidgetEditor";
 import { WidgetsGridDisplay } from "./WidgetsGrid";
 import Close from "@/assets/icons/close.svg";
+import toast from "react-hot-toast";
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;
@@ -32,7 +33,6 @@ export default function EditWidgetModal({
   });
   const [variant, setVariant] = useState<number>(widgetData.variant);
   const [selectedSize, setSelectedSize] = useState<WidgetSize>(widgetData.size);
-  const [message, setMessage] = useState<string | null>(null);
 
   const handleChange = (key: string, value: string) => {
     widgetData.data = {
@@ -59,7 +59,11 @@ export default function EditWidgetModal({
   const mutation = useMutation({
     mutationKey: ["edit Widget"],
     mutationFn: ({ data, jwt }: { data: WidgetProps; jwt: string }) => {
-      return WidgetService.updateWidget(data, jwt);
+      return toast.promise(WidgetService.updateWidget(data, jwt), {
+        loading: "Updating Widget...",
+        success: "Successfully updated Widget",
+        error: (err) => `Error: ${err.message}`,
+      });
     },
     onMutate: async ({ data, jwt }: { data: WidgetProps; jwt: string }) => {
       await queryClient.cancelQueries({
@@ -86,10 +90,10 @@ export default function EditWidgetModal({
 
       return { previousWidgets };
     },
-    onSuccess: () => setMessage("Widget saved successfully!"),
+    onSuccess: () => {
+      onClose();
+    },
     onError: (context: any) => {
-      alert(context.message);
-      setMessage("Failed to save widget.");
       queryClient.setQueryData(
         ["widgetsofuser", username],
         context.previousWidgets
@@ -114,9 +118,7 @@ export default function EditWidgetModal({
           {selectedWidget ? (
             <div className="mt-4">
               <div className="mb-4">
-                <label className="block font-medium mb-2">
-                  Variant
-                </label>
+                <label className="block font-medium mb-2">Variant</label>
                 <select
                   className="input bg-surface-container-high w-full"
                   value={variant}
@@ -160,9 +162,7 @@ export default function EditWidgetModal({
                 </div>
               ))}
               <div className="mb-4">
-                <label className="block font-medium mb-2">
-                  Size
-                </label>
+                <label className="block font-medium mb-2">Size</label>
                 <select
                   className="input bg-surface-container-high w-full"
                   value={`${selectedSize.cols}x${selectedSize.rows}`}
@@ -181,8 +181,6 @@ export default function EditWidgetModal({
                 widgets={[widgetData]}
                 deleteWidget={() => {}}
               />
-
-              {/* Save Button */}
               <button
                 onClick={handleSave}
                 className="button my-5"
@@ -190,19 +188,12 @@ export default function EditWidgetModal({
               >
                 {mutation.isPending ? "Saving..." : "Save Widget"}
               </button>
-
-              {/* Success / Error Message */}
-              {message && <p className="mt-2 text-sm text-center">{message}</p>}
             </div>
           ) : (
             <p className="text-gray-500 mt-4">Select a widget to configure.</p>
           )}
-
-          {/* Success / Error Message */}
-          {message && <p className="mt-2 text-sm text-center">{message}</p>}
         </div>
 
-        {/* Close Button */}
         <div
           onClick={onClose}
           className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
