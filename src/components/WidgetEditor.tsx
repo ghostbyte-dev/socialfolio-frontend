@@ -10,6 +10,7 @@ interface WidgetOption {
   id: string;
   name: string;
   imageLink: string;
+  imageLinkDarkTheme: string;
   fields: {
     key: string;
     label: string;
@@ -39,6 +40,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "pixelfed",
     name: "Pixelfed",
     imageLink: "/widgeteditor/pixelfed.webp",
+    imageLinkDarkTheme: "/widgeteditor/pixelfed.webp",
     fields: [
       { key: "instance", label: "Instance", type: "text" },
       { key: "username", label: "Username", type: "text" },
@@ -55,6 +57,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "github",
     name: "GitHub",
     imageLink: "/widgeteditor/github.webp",
+    imageLinkDarkTheme: "/widgeteditor/github_white.webp",
     fields: [{ key: "username", label: "Username", type: "text" }],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
     sizes: [
@@ -68,6 +71,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "mastodon",
     name: "Mastodon",
     imageLink: "/widgeteditor/mastodon.svg",
+    imageLinkDarkTheme: "/widgeteditor/mastodon.svg",
     fields: [
       { key: "instance", label: "Instance", type: "text" },
       { key: "username", label: "Username", type: "text" },
@@ -84,6 +88,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",
+    imageLinkDarkTheme: "/widgeteditor/note.svg",
     fields: [{ key: "note", label: "Note", type: "text" }],
     variants: [{ index: 1 }],
     sizes: [
@@ -97,6 +102,7 @@ export const widgetOptions: WidgetOption[] = [
     id: "localTime",
     name: "Local Time",
     imageLink: "/widgeteditor/timezone.svg",
+    imageLinkDarkTheme: "/widgeteditor/timezone.svg",
     fields: [
       {
         key: "timezone",
@@ -253,15 +259,20 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                 key={widget.id}
                 className={`p-3 flex items-center gap-3 cursor-pointer rounded-lg ${
                   selectedWidget?.id === widget.id
-                    ? "bg-blue-200"
-                    : "hover:bg-gray-200"
+                    ? "bg-primary-container"
+                    : "hover:bg-primary-container"
                 }`}
                 onClick={() => handleSelectWidget(widget)}
               >
                 <img
                   src={widget.imageLink}
                   alt={widget.name}
-                  className="w-8 h-8"
+                  className="w-8 h-8 dark:hidden"
+                />
+                <img
+                  src={widget.imageLinkDarkTheme}
+                  alt={widget.name}
+                  className="w-8 h-8 hidden dark:block"
                 />
                 <span>{widget.name}</span>
               </li>
@@ -310,8 +321,9 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                   ) : (
                     <input
                       type={field.type}
-                      className="w-full p-2 input rounded-sm"
+                      className="input bg-surface-container-high"
                       value={formData[field.key]}
+                      placeholder={field.label}
                       onChange={(e) => handleChange(field.key, e.target.value)}
                     />
                   )}
@@ -321,7 +333,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
               {/* Save Button */}
               <button
                 onClick={handleSave}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-sm disabled:opacity-50"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 disabled={mutation.isPending}
               >
                 {mutation.isPending ? "Saving..." : "Save Widget"}
