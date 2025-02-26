@@ -235,8 +235,8 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   }, [selectedWidget]);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-      <div className="relative bg-white w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center" onClick={onClose}>
+      <div className="relative bg-white w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden"  onClick={(e) => e.stopPropagation()}>
         {/* Left Sidebar - Widget Options */}
         <div className="w-1/3 bg-gray-100 p-4 border-r">
           <h2 className="text-lg font-bold mb-4">Select a Widget</h2>

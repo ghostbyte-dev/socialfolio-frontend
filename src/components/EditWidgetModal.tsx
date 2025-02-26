@@ -81,13 +81,14 @@ export default function EditWidgetModal({
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[]) => [...old, newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
       );
 
       return { previousWidgets };
     },
     onSuccess: () => setMessage("Widget saved successfully!"),
     onError: (context: any) => {
+      alert(context.message)
       setMessage("Failed to save widget.");
       queryClient.setQueryData(
         ["widgetsofuser", username],
@@ -100,8 +101,8 @@ export default function EditWidgetModal({
   });
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-      <div className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-y-scroll">
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center" onClick={() => onClose()}>
+      <div className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-y-scroll"  onClick={(e) => e.stopPropagation()}>
         <div className="flex-1 p-8">
           <h2 className="text-xl font-bold">Widget Editor</h2>
           {selectedWidget ? (
