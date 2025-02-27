@@ -1,5 +1,6 @@
 "use client";
 
+import SubmitButton from "@/components/SubmitButton";
 import { AuthService } from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -24,6 +25,9 @@ export default function RequestPasswordReset() {
     onError: (error: Error) => {
       setError(error.message);
     },
+    onSuccess: () => {
+      setError("");
+    }
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,14 +52,9 @@ export default function RequestPasswordReset() {
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          className="button w-full"
-        >
-          Send reset link
-        </button>
+
+        <SubmitButton text="Send reset link" isLoading={requestPasswordReset.isPending} />
       </form>
-      {requestPasswordReset.isPending ? <p>Loading...</p> : <></>}
     </div>
   );
 }

@@ -7,10 +7,10 @@ export default function ExploreProfileCard({
   profile: ExploreProfile;
 }) {
   return (
-    <Link href={"/" + profile.username}>
+    <Link href={"/" + profile.username} className="h-full">
       <div
         key={profile.id}
-        className="bg-surface-container rounded-2xl shadow-md p-4"
+        className="bg-surface-container rounded-2xl h-full shadow-md p-4"
       >
         <div className="flex">
           <div>

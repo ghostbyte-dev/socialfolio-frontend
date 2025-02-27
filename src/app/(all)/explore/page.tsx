@@ -34,7 +34,7 @@ export default function Explore() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {profiles?.map((profile: ExploreProfile) => (
-            <div key={profile.id}>
+            <div key={profile.id} className="h-full">
               <ExploreProfileCard profile={profile} />
             </div>
           ))}

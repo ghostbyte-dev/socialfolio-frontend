@@ -1,10 +1,13 @@
 "use client";
 
+
+
 import { useState } from "react";
 import { login, LoginCredentials } from "@/lib/auth/login";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState<LoginCredentials>({
@@ -12,6 +15,7 @@ export default function LoginPage() {
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +26,11 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
 
+    setLoading(true);
+
     const result = await login(formData);
+
+    setLoading(false);
 
     if (!result.success) {
       toast.error(result.message);
@@ -64,13 +72,15 @@ export default function LoginPage() {
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="button w-full">
-          Login
-        </button>
+
+        <SubmitButton text="Login" isLoading={loading} />
       </form>
 
       <div className="mt-3 flex justify-center">
-        <Link href="/auth/password/reset" className="underline hover:text-primary">
+        <Link
+          href="/auth/password/reset"
+          className="underline hover:text-primary"
+        >
           I forgot my password
         </Link>
       </div>

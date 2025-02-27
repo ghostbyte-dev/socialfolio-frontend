@@ -5,6 +5,7 @@ import { register, RegisterCredentials } from "@/lib/auth/register";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
@@ -13,6 +14,7 @@ export default function RegisterPage() {
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +24,11 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setLoading(true);
 
     const result = await register(formData);
+
+    setLoading(false);
 
     if (!result.success) {
       toast.error(result.message);
@@ -74,9 +79,7 @@ export default function RegisterPage() {
           required
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="button w-full">
-          Register
-        </button>
+        <SubmitButton text="Register" isLoading={loading} />
       </form>
     </div>
   );
