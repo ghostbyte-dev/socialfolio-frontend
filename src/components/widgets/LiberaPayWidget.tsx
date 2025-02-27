@@ -17,11 +17,11 @@ export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget, ed
     <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
         <Link href={"https://liberapay.com/" + data.username}>
-          <div className="h-full w-full bg-[#f6c915] p-20">
+          <div className="h-full w-full bg-[#f6c915] flex justify-center items-center">
             <img
               src="/widgets/liberapay/liberapay-logo-black.webp"
               alt="LiberaPay logo"
-              className="w-full h-full object-contain"
+              className="w-[50%] h-[50%] object-contain"
             />
           </div>
         </Link>

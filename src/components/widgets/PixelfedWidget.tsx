@@ -16,11 +16,11 @@ export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget, edi
     <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
         <Link href={data.instance + "/@" + data.username}>
-          <div className="h-full w-full p-20">
+          <div className="h-full w-full flex justify-center items-center">
             <img
               src="/widgets/pixelfed/pixelfed-logo.webp"
               alt="Pixelfed logo"
-              className="w-full h-full object-contain"
+              className="w-[50%] h-[50%] object-contain"
             />
           </div>
         </Link>

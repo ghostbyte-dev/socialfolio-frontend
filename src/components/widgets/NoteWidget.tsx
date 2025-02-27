@@ -14,7 +14,7 @@ export function NoteWidget({ data, size, isOwner, variant, deleteWidget, editWid
   return (
     <BaseWidget isOwner={isOwner} isClickable={false} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
-          <div className="h-full w-full p-20">
+          <div className="h-full w-full p-[10%]">
             <p>
               {data.note}
             </p>
