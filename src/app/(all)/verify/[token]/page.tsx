@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import EmailVerificationFailed from "@/components/EmailVerificationFailed";
 import EmailVerifiedPage from "@/components/EmailVerifiedPage";
@@ -14,30 +14,40 @@ export default function Verify() {
   const token = params.token as string;
 
   const verify = useMutation({
-    mutationFn: () => toast.promise(
-        AuthService.verify(token),
-        {
-          loading: "Verifying Profile",
-          success: "Verified Profile",
-          error: (err) => `Error: ${err.message}`,
-        }
-      )
+    mutationFn: () =>
+      toast.promise(AuthService.verify(token), {
+        loading: "Verifying Profile",
+        success: "Verified Profile",
+        error: (err) => `Error: ${err.message}`,
+      }),
   });
 
   useEffect(() => {
-    verify.mutate()
-  }, [])
+    verify.mutate();
+  }, []);
 
   if (verify.isError) {
-    return <EmailVerificationFailed message={verify.error.message} />
+    return (
+      <>
+        <title>Verify email - Socialfolio</title>
+        <EmailVerificationFailed message={verify.error.message} />
+      </>
+    );
   }
 
   if (verify.isPending) {
     return (
-      <LoadingIndicator />
+      <>
+        <title>Verify email - Socialfolio</title>
+        <LoadingIndicator />
+      </>
     );
   }
 
-  return <EmailVerifiedPage />
-
+  return (
+    <>
+      <title>Verify email - Socialfolio</title>
+      <EmailVerifiedPage />
+    </>
+  );
 }

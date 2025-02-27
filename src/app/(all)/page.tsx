@@ -83,79 +83,83 @@ const liberapayWidgets: WidgetProps[] = [
 
 export default function Home() {
   return (
-    <div className="items-center flex flex-col">
-      <section className="min-h-[70vh] flex flex-col items-center">
-        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
-          Your Fediverse Portfolio, Simplified.
-        </h1>
+    <>
+      <title>Socialfolio</title>
+      <div className="items-center flex flex-col">
+        <section className="min-h-[70vh] flex flex-col items-center">
+          <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
+            Your Fediverse Portfolio, Simplified.
+          </h1>
 
-        <div className="flex justify-center items-center h-72 my-20">
-          <div className="absolute flex">
-            <div className="w-60 h-60 rotate-[-10deg] translate-x-1/2 overflow-hidden">
-              <WidgetFactory
-                widget={liberapayWidgets[0]}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-              />
-            </div>
+          <div className="flex justify-center items-center h-72 my-20">
+            <div className="absolute flex">
+              <div className="w-60 h-60 rotate-[-10deg] translate-x-1/2 overflow-hidden">
+                <WidgetFactory
+                  widget={liberapayWidgets[0]}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                />
+              </div>
 
-            <div className="w-60 h-60 rotate-[-5deg] translate-x-1/4">
-              <WidgetFactory
-                widget={liberapayWidgets[1]}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-              />
-            </div>
+              <div className="w-60 h-60 rotate-[-5deg] translate-x-1/4">
+                <WidgetFactory
+                  widget={liberapayWidgets[1]}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                />
+              </div>
 
-            <div className="w-60 h-60 z-10">
-              <WidgetFactory
-                widget={liberapayWidgets[2]}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-              />
-            </div>
+              <div className="w-60 h-60 z-10">
+                <WidgetFactory
+                  widget={liberapayWidgets[2]}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                />
+              </div>
 
-            <div className="w-60 h-60 rotate-[10deg] -translate-x-1/4">
-              <WidgetFactory
-                widget={liberapayWidgets[3]}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-              />
-            </div>
+              <div className="w-60 h-60 rotate-[10deg] -translate-x-1/4">
+                <WidgetFactory
+                  widget={liberapayWidgets[3]}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                />
+              </div>
 
-            <div className="w-60 h-60 rotate-[13deg] -translate-x-1/2 overflow-hidden">
-              <WidgetFactory
-                widget={liberapayWidgets[4]}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-              />
-            </div>
+              <div className="w-60 h-60 rotate-[13deg] -translate-x-1/2 overflow-hidden">
+                <WidgetFactory
+                  widget={liberapayWidgets[4]}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                />
+              </div>
 
-            <div className="w-60 h-60 rotate-[10deg] translate-y-10 -translate-x-3/4">
-              <WidgetFactory
-                widget={liberapayWidgets[5]}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-              />
+              <div className="w-60 h-60 rotate-[10deg] translate-y-10 -translate-x-3/4">
+                <WidgetFactory
+                  widget={liberapayWidgets[5]}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xl mb-6">
-            Create a beautiful portfolio to share your projects, links, and
-            social media. Open-source, privacy-friendly, and fully customizable.
-          </h2>
-        </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-xl mb-6">
+              Create a beautiful portfolio to share your projects, links, and
+              social media. Open-source, privacy-friendly, and fully
+              customizable.
+            </h2>
+          </div>
 
-        <Button link="/auth/login">Get Started</Button>
-      </section>
-    </div>
+          <Button link="/auth/login">Get Started</Button>
+        </section>
+      </div>
+    </>
   );
 }

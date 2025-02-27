@@ -42,6 +42,8 @@ export default function LoginPage() {
   };
 
   return (
+    <>
+    <title>Login - Socialfolio</title>
     <div className="w-full">
       <h1 className="text-5xl font-bold mb-5">Login</h1>
 
@@ -85,5 +87,6 @@ export default function LoginPage() {
         </Link>
       </div>
     </div>
+    </>
   );
 }

@@ -40,47 +40,53 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="w-full">
-      <h1 className="text-5xl font-bold mb-5">Register</h1>
+    <>
+    <title>Register - Socialfolio</title>
+      <div className="w-full">
+        <h1 className="text-5xl font-bold mb-5">Register</h1>
 
-      <p className="mb-5">
-        Already have an account?{" "}
-        <Link href="/auth/login" className="underline hover:text-primary">
-          Log in
-        </Link>
-      </p>
+        <p className="mb-5">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="underline hover:text-primary">
+            Log in
+          </Link>
+        </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          className="input"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="input"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="input"
-          required
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <SubmitButton text="Register" isLoading={loading} />
-      </form>
-    </div>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 flex flex-col w-full"
+        >
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+          {error && <p className="text-red-500">{error}</p>}
+          <SubmitButton text="Register" isLoading={loading} />
+        </form>
+      </div>
+    </>
   );
 }

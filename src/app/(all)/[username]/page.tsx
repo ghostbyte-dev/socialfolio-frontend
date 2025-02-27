@@ -10,7 +10,7 @@ import { UserService } from "@/services/user.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function UserPage() {
@@ -25,6 +25,11 @@ export default function UserPage() {
 
   const [userNotFound, setUserNotFound] = useState(false);
   const jwt = session?.user?.jwt;
+
+  useEffect(() => {
+    document.title = username +  " - Socialfolio";
+  }, [username]);
+
 
   const {
     data: user,
@@ -63,6 +68,7 @@ export default function UserPage() {
 
   return (
     <>
+
       {isOwner && !user.verified && (
         <div className="w-full h-10 bg-red-500 flex justify-center items-center">
           <span className="text-white font-bold">

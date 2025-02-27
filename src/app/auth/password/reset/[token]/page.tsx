@@ -44,6 +44,8 @@ export default function ResetPasswordPage() {
   };
 
   return (
+    <>
+    <title>Reset password - Socialfolio</title>
     <div className="w-full">
       <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
         <input
@@ -75,5 +77,6 @@ export default function ResetPasswordPage() {
       </form>
       {resetPassword.isPending ? <p>Loading...</p> : <></>}
     </div>
+    </>
   );
 }
