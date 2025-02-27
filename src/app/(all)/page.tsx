@@ -1,5 +1,85 @@
+"use client";
+
 import Button from "@/components/Button";
-import Image from "next/image";
+import { WidgetFactory } from "@/lib/WidgetFactory";
+import { WidgetProps } from "@/types/widget-types";
+
+const liberapayWidgets: WidgetProps[] = [
+  {
+    id: "libera",
+    type: "liberapay",
+    variant: 1,
+    size: {
+      cols: 1,
+      rows: 1,
+    },
+    data: {
+      username: "Pixelix",
+    },
+  },
+  {
+    id: "pixelfed",
+    type: "pixelfed",
+    variant: 1,
+    size: {
+      cols: 1,
+      rows: 1,
+    },
+    data: {
+      instance: "pixelix.social",
+      username: "Pixelix",
+    },
+  },
+  {
+    id: "mastodon",
+    type: "mastodon",
+    variant: 1,
+    size: {
+      cols: 1,
+      rows: 1,
+    },
+    data: {
+      instance: "mastodon.social",
+      username: "Pixelix",
+    },
+  },
+  {
+    id: "github",
+    type: "github",
+    variant: 1,
+    size: {
+      cols: 1,
+      rows: 1,
+    },
+    data: {
+      username: "daniebeler",
+    },
+  },
+  {
+    id: "timezone",
+    type: "localTime",
+    variant: 2,
+    size: {
+      cols: 1,
+      rows: 1,
+    },
+    data: {
+      timezone: "Europe/Vienna",
+    },
+  },
+  {
+    id: "github-2",
+    type: "github",
+    variant: 2,
+    size: {
+      cols: 1,
+      rows: 1,
+    },
+    data: {
+      username: "daniebeler",
+    },
+  },
+];
 
 export default function Home() {
   return (
@@ -13,33 +93,61 @@ export default function Home() {
           <div className="absolute flex">
             {/* Left Widget */}
 
-            <div className="w-60 h-60 bg-yellow-600 rounded-xl rotate-[-10deg] translate-x-1/2 overflow-hidden">
-              <img
-                src="/homepage/mastodon.png"
-                height={240}
-                width={240}
-                alt=""
+            <div className="w-60 h-60 rotate-[-10deg] translate-x-1/2 overflow-hidden">
+              <WidgetFactory
+                widget={liberapayWidgets[0]}
+                isOwner={false}
+                deleteWidget={() => {}}
+                editWidget={() => {}}
               />
             </div>
 
-            <div className="w-60 h-60 bg-blue-500 rounded-xl rotate-[-5deg] translate-x-1/4"></div>
+            <div className="w-60 h-60 rotate-[-5deg] translate-x-1/4">
+              <WidgetFactory
+                widget={liberapayWidgets[1]}
+                isOwner={false}
+                deleteWidget={() => {}}
+                editWidget={() => {}}
+              />
+            </div>
 
             {/* Center Widget */}
-            <div className="w-60 h-60 bg-green-500 rounded-xl z-10"></div>
-
-            {/* Right Widget */}
-            <div className="w-60 h-60 bg-red-500 rounded-xl rotate-[10deg] -translate-x-1/4"></div>
-
-            <div className="w-60 h-60 bg-yellow-600 rounded-xl rotate-[13deg] -translate-x-1/2 overflow-hidden">
-              <img
-                src="/homepage/mastodon.png"
-                height={240}
-                width={240}
-                alt=""
+            <div className="w-60 h-60 z-10">
+              <WidgetFactory
+                widget={liberapayWidgets[2]}
+                isOwner={false}
+                deleteWidget={() => {}}
+                editWidget={() => {}}
               />
             </div>
 
-            <div className="w-60 h-60 bg-red-500 rounded-xl rotate-[10deg] translate-y-10 -translate-x-3/4"></div>
+            {/* Right Widget */}
+            <div className="w-60 h-60 rotate-[10deg] -translate-x-1/4">
+              <WidgetFactory
+                widget={liberapayWidgets[3]}
+                isOwner={false}
+                deleteWidget={() => {}}
+                editWidget={() => {}}
+              />
+            </div>
+
+            <div className="w-60 h-60 rotate-[13deg] -translate-x-1/2 overflow-hidden">
+              <WidgetFactory
+                widget={liberapayWidgets[4]}
+                isOwner={false}
+                deleteWidget={() => {}}
+                editWidget={() => {}}
+              />
+            </div>
+
+            <div className="w-60 h-60 rotate-[10deg] translate-y-10 -translate-x-3/4">
+              <WidgetFactory
+                widget={liberapayWidgets[5]}
+                isOwner={false}
+                deleteWidget={() => {}}
+                editWidget={() => {}}
+              />
+            </div>
           </div>
         </div>
 
