@@ -103,6 +103,22 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "liberapay",
+    name: "Liberapay",
+    imageLink: "/widgeteditor/liberapay.png",
+    imageLinkDarkTheme: "/widgeteditor/liberapay.png",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",
