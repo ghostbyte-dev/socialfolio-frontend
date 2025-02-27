@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import Close from "@/assets/icons/close.svg";
+import Logo from "@/assets/icons/logo.svg";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -58,8 +59,9 @@ export default function Navbar() {
   return (
     <>
       <nav className="py-4 px-8 flex justify-between items-center relative">
-        <div className="flex">
-          <Link href="/">
+        <div className="flex items-center">
+          <Logo className="w-[44px] h-[44px]" />
+          <Link href="/" className="ml-2">
             <span className="text-xl font-semibold">Socialfolio</span>
           </Link>
 
@@ -96,9 +98,9 @@ export default function Navbar() {
                       : user.avatar
                   }
                   alt="User Avatar"
-                  width={48}
-                  height={48}
-                  className="rounded-full"
+                  width={44}
+                  height={44}
+                  className="rounded-xl"
                 />
               </button>
 
