@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 export default function Verify() {
   const params = useParams();
   const token = params.token as string;
-  const [verified, setVerified] = useState<boolean>(false)
+
   const verify = useMutation({
     mutationFn: () => toast.promise(
         AuthService.verify(token),
@@ -21,26 +21,23 @@ export default function Verify() {
           success: "Verified Profile",
           error: (err) => `Error: ${err.message}`,
         }
-      ),
-      onSuccess: () => {
-        setVerified(true)
-      }
+      )
   });
 
   useEffect(() => {
     verify.mutate()
   }, [])
 
-  if (verify.isPending) {
-
-    return <LoadingIndicator />
-  }
-
   if (verify.isError) {
-    <EmailVerificationFailed message={verify.error.message} />
+    return <EmailVerificationFailed message={verify.error.message} />
   }
 
-  return (
-    <EmailVerifiedPage />
-  );
+  if (verify.isPending) {
+    return (
+      <LoadingIndicator />
+    );
+  }
+
+  return <EmailVerifiedPage />
+
 }
