@@ -8,7 +8,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ children, link }) => {
   return (
     <a href={link}>
-      <button className="relative px-4 py-2 text-white bg-primary font-semibold rounded-xl border-none overflow-hidden group">
+      <button className="button rounded-xl">
         <span className="relative z-10 transition-colors text-white duration-300 ease-in-out">
           {children}
         </span>
