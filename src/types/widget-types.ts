@@ -22,6 +22,11 @@ export interface PixelfedData {
   instance: string;
 }
 
+export interface LemmyWidgetData {
+  username: string;
+  instance: string;
+}
+
 export interface BuymeacoffeeData {
   username: string;
 }

@@ -86,6 +86,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "lemmy",
+    name: "Lemmy",
+    imageLink: "/widgeteditor/lemmy.svg",
+    imageLinkDarkTheme: "/widgeteditor/lemmy.svg",
+    fields: [
+      { key: "instance", label: "Instance", type: "text" },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",

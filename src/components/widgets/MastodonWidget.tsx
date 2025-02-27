@@ -66,7 +66,7 @@ export function MastodonWidget({
   return (
     <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
-        <Link href={"https://" + data.instance + "/@" + data.username}>
+        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
             <img
               src="/widgets/mastodon/mastodon-logo-white.webp"
@@ -78,7 +78,7 @@ export function MastodonWidget({
       )}
 
       {variant == 2 && (
-        <Link href={"https://" + data.instance + "/@" + data.username}>
+        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full p-8">
             {widgetApiDataIsLoading ? <p>Loading...</p>: <></>}
             {widgetApiData?.avatar ? <>
@@ -101,7 +101,7 @@ export function MastodonWidget({
       )}
 
       {variant == 3 && (
-        <Link href={"https://" + data.instance + "/@" + data.username}>
+        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full p-[15%] bg-[#6364ff] text-white flex justify-between flex-col">
             <Image
               src="/widgets/mastodon/mastodon-logo-white.webp"

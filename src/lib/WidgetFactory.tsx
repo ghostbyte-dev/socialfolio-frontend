@@ -2,6 +2,7 @@ import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
+import { LemmyWidget } from "@/components/widgets/LemmyWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
@@ -45,6 +46,17 @@ export function WidgetFactory({
     case "pixelfed":
       return (
         <PixelfedWidget
+          data={widget.data as PixelfedData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "lemmy":
+      return (
+        <LemmyWidget
           data={widget.data as PixelfedData}
           size={widget.size}
           variant={widget.variant}
