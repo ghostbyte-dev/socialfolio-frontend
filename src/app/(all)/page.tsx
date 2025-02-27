@@ -85,14 +85,12 @@ export default function Home() {
   return (
     <div className="items-center flex flex-col">
       <section className="min-h-[70vh] flex flex-col items-center">
-        <h1 className="text-6xl font-bold mb-6">
+        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
           Your Fediverse Portfolio, Simplified.
         </h1>
 
         <div className="flex justify-center items-center h-72 my-20">
           <div className="absolute flex">
-            {/* Left Widget */}
-
             <div className="w-60 h-60 rotate-[-10deg] translate-x-1/2 overflow-hidden">
               <WidgetFactory
                 widget={liberapayWidgets[0]}
@@ -111,7 +109,6 @@ export default function Home() {
               />
             </div>
 
-            {/* Center Widget */}
             <div className="w-60 h-60 z-10">
               <WidgetFactory
                 widget={liberapayWidgets[2]}
@@ -121,7 +118,6 @@ export default function Home() {
               />
             </div>
 
-            {/* Right Widget */}
             <div className="w-60 h-60 rotate-[10deg] -translate-x-1/4">
               <WidgetFactory
                 widget={liberapayWidgets[3]}
