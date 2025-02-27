@@ -66,7 +66,7 @@ export default function DisplayName({
             <div className="flex justify-end gap-2 mt-5">
               <button
                 onClick={handleClosePopup}
-                className="outlinedButton"
+                className="button-outlined"
               >
                 Cancel
               </button>
