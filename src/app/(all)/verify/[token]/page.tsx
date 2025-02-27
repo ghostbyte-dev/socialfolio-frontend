@@ -1,5 +1,8 @@
 "use client"
 
+import EmailVerificationFailed from "@/components/EmailVerificationFailed";
+import EmailVerifiedPage from "@/components/EmailVerifiedPage";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import { AuthService } from "@/services/auth.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -28,13 +31,16 @@ export default function Verify() {
     verify.mutate()
   }, [])
 
-  if (!verified) {
-    return <div>Verifying...</div>
+  if (verify.isPending) {
+
+    return <LoadingIndicator />
+  }
+
+  if (verify.isError) {
+    <EmailVerificationFailed message={verify.error.message} />
   }
 
   return (
-    <div>
-      <h2>Your Profile is now verified</h2>
-    </div>
+    <EmailVerifiedPage />
   );
 }
