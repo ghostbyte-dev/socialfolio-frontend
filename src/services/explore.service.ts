@@ -8,11 +8,18 @@ export interface ExploreProfile {
     createdAt: Date;
 }
 
-const getProfiles = async (): Promise<ExploreProfile[]> => {
+
+export interface ExploreProfilesResponse {
+    nextCursor: string | null;
+    profiles: ExploreProfile[];
+}
+
+const EXPLORE_PROFILES_LIMIT: number = 20;
+const getProfiles = async (cursor: string = ""): Promise<ExploreProfilesResponse> => {
     const headers: HeadersInit = {
         "Content-Type": "application/json"
     }
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/explore/profiles", {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/explore/profiles?limit=" + EXPLORE_PROFILES_LIMIT + "&cursor=" + cursor, {
         headers: headers,
     }
     );
