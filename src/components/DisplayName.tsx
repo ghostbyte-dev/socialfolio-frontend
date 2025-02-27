@@ -42,7 +42,7 @@ export default function DisplayName({
 
   return (
     <div className="group relative">
-      <h1 className="text-5xl font-bold mb-4">{name}</h1>
+      <h1 className="text-3xl font-bold mb-4">{name}</h1>
 
       {isOwner && (
         <button
