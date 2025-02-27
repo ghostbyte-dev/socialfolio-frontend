@@ -19,11 +19,11 @@ export const ThemeSwitcher = () => {
   }
 
   return (
-    <div className="relative bg-surface-container rounded-full p-1 px-2">
+    <div className="relative bg-surface-container rounded-xl p-1">
       <button
         onClick={() => setTheme("system")}
         className={
-          "rounded-full p-1 " +
+          "rounded-lg p-1 " +
           (theme === "system" ? "bg-surface-container-high" : "bg-surface-container")
         }
       >
@@ -32,7 +32,7 @@ export const ThemeSwitcher = () => {
       <button
         onClick={() => setTheme("light")}
         className={
-          "rounded-full p-1 " +
+          "rounded-lg p-1 " +
           (theme === "light" ? "bg-surface-container-high" : "bg-surface-container")
         }      >
         <Sunny className="w-[24px] h-[24px]" />
@@ -40,7 +40,7 @@ export const ThemeSwitcher = () => {
       <button
         onClick={() => setTheme("dark")}
         className={
-          "rounded-full p-1 " +
+          "rounded-lg p-1 " +
           (theme === "dark" ? "bg-surface-container-high" : "bg-surface-container")
         }      >
         <Moon className="w-[24px] h-[24px]" />

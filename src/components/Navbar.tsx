@@ -58,27 +58,18 @@ export default function Navbar() {
   return (
     <>
       <nav className="py-4 px-8 flex justify-between items-center relative">
-        <div className="absolute left-[50%] transform -translate-x-1/2 justify-center">
+        <div className="flex">
           <Link href="/">
             <span className="text-xl font-semibold">Socialfolio</span>
           </Link>
+
+          <div className="hidden md:block pl-8">
+            <Link href="/explore">
+              <span className="text-lg">Explore</span>
+            </Link>
+          </div>
         </div>
 
-        <button
-          type="button"
-          className={`flex flex-col items-end py-5 pr-4 md:hidden font-bold`}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span className="mb-[8px] h-[3px] w-8 bg-text" />
-          <span className="mb-[8px] h-[3px] w-8 bg-text" />
-          <span className="h-[3px] w-8 bg-text" />
-        </button>
-
-        <div className="hidden md:block">
-          <Link href="/explore">
-            <span className="text-lg">Explore</span>
-          </Link>
-        </div>
         <div className="flex items-center">
           <div className="mr-3 hidden md:block">
             <ThemeSwitcher />
@@ -140,6 +131,18 @@ export default function Navbar() {
               )}
             </div>
           )}
+
+          <div>
+            <button
+              type="button"
+              className={`flex flex-col items-end py-5 pl-4 md:hidden font-bold`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <span className="mb-[8px] h-[3px] w-8 bg-text" />
+              <span className="mb-[8px] h-[3px] w-8 bg-text" />
+              <span className="h-[3px] w-8 bg-text" />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -148,12 +151,9 @@ export default function Navbar() {
         style={{ width: isOpen ? "75vw" : "0vw" }}
       >
         <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
-            <ThemeSwitcher />
+          <ThemeSwitcher />
 
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button type="button" onClick={() => setIsOpen(!isOpen)}>
             <Close className="w-[18px] h-[18px]" />
           </button>
         </div>
