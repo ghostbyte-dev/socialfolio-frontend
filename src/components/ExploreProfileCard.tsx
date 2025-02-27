@@ -25,9 +25,6 @@ export default function ExploreProfileCard({
             <span className="text-xl font-semibold">
               {!profile.displayName ? profile.username : profile.displayName}
             </span>
-            <span>
-              Joined: {new Date(profile.createdAt).toLocaleDateString()}
-            </span>
           </div>
         </div>
 
