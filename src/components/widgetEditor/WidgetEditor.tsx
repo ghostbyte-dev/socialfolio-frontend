@@ -4,11 +4,11 @@ import { WidgetService } from "@/services/widget.service";
 import { useSession } from "next-auth/react";
 import { WidgetProps, WidgetSize } from "@/types/widget-types";
 import { useParams } from "next/navigation";
-import { widgetOptions } from "./WidgetEditor";
-import { WidgetsGridDisplay } from "./WidgetsGrid";
+import { WidgetsGridDisplay } from "../WidgetsGrid";
 import Close from "@/assets/icons/close.svg";
 import toast from "react-hot-toast";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../SubmitButton";
+import { widgetOptions } from "@/data/widgetOptions";
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;
