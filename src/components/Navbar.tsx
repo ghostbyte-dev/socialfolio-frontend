@@ -60,9 +60,10 @@ export default function Navbar() {
     <>
       <nav className="py-4 px-8 flex justify-between items-center relative">
         <div className="flex items-center">
-          <Logo className="w-[44px] h-[44px]" />
-          <Link href="/" className="ml-2">
-            <span className="text-xl font-semibold">Socialfolio</span>
+          <Link href="/" className="duration-300 flex items-center ease-in-out hover:scale-95">
+            <Logo className="w-[44px] h-[44px]" />
+
+            <span className="text-xl font-semibold ml-2">Socialfolio</span>
           </Link>
 
           <div className="hidden md:block pl-8">
