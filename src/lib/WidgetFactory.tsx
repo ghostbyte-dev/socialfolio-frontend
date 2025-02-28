@@ -1,5 +1,6 @@
 import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
+import { FediverseWidget } from "@/components/widgets/Fediverse";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { LemmyWidget } from "@/components/widgets/LemmyWidget";
@@ -9,8 +10,10 @@ import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import {
+  FediverseData,
   GitHubData,
   ImageWidgetData,
+  LemmyWidgetData,
   LiberaPayData,
   MastodonData,
   NoteWidgetData,
@@ -57,7 +60,18 @@ export function WidgetFactory({
     case "lemmy":
       return (
         <LemmyWidget
-          data={widget.data as PixelfedData}
+          data={widget.data as LemmyWidgetData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+      case "fediverse":
+      return (
+        <FediverseWidget
+          data={widget.data as FediverseData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

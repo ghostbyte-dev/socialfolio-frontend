@@ -3,6 +3,22 @@ import { WidgetOption } from "@/components/widgetEditor/WidgetCreator";
 
 export const widgetOptions: WidgetOption[] = [
   {
+    id: "fediverse",
+    name: "Fediverse",
+    imageLink: "/widgeteditor/fediverse.svg",
+    imageLinkDarkTheme: "/widgeteditor/fediverse.svg",
+    fields: [
+      { key: "link", label: "Link", type: "url" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "pixelfed",
     name: "Pixelfed",
     imageLink: "/widgeteditor/pixelfed.webp",
