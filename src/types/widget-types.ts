@@ -22,6 +22,11 @@ export interface PixelfedData {
   instance: string;
 }
 
+export interface MatrixData {
+  username: string;
+  instance: string;
+}
+
 export interface FediverseData {
   link: string;
   fediverseHandle: string;

@@ -85,6 +85,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "matrix",
+    name: "Matrix",
+    imageLink: "/widgeteditor/matrix-black.svg",
+    imageLinkDarkTheme: "/widgeteditor/matrix-white.svg",
+    fields: [
+      { key: "instance", label: "Instance", type: "text", placeholder:"matrix.org" },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "liberapay",
     name: "Liberapay",
     imageLink: "/widgeteditor/liberapay.png",

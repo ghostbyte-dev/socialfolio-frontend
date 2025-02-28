@@ -6,6 +6,7 @@ import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { LemmyWidget } from "@/components/widgets/LemmyWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
+import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
@@ -16,6 +17,7 @@ import {
   LemmyWidgetData,
   LiberaPayData,
   MastodonData,
+  MatrixData,
   NoteWidgetData,
   PixelfedData,
   TimezoneData,
@@ -72,6 +74,17 @@ export function WidgetFactory({
       return (
         <FediverseWidget
           data={widget.data as FediverseData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+      case "matrix":
+      return (
+        <MatrixWidget
+          data={widget.data as MatrixData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
