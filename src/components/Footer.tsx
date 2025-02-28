@@ -32,14 +32,14 @@ export default function Footer() {
                 alt="Github logo"
                 height={45}
                 width={45}
-                className="dark:hidden"
+                className="block dark:hidden"
               ></img>
               <img
                 src="/icons/github-logo-white.webp"
                 alt="Github logo"
                 height={45}
                 width={45}
-                className="light:hidden"
+                className="hidden dark:block"
               ></img>
             </Link>
           </div>
