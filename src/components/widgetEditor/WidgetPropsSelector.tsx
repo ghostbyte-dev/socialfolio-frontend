@@ -78,7 +78,7 @@ export default function WidgetPropsSelector({
                 <input
                   type={field.type}
                   className="input bg-surface-container-high w-full"
-                  value={formData[field.key]}
+                  value={formData[field.key] ?? ""}
                   placeholder={field.label}
                   onChange={(e) => handleChange(field.key, e.target.value)}
                 />
