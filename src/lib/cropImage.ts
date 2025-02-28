@@ -99,7 +99,7 @@ export default async function getCroppedImg(
         } else {
             reject()
         }
-      }, 'image/jpeg')
+      }, 'image/png')
     })
   }
   
