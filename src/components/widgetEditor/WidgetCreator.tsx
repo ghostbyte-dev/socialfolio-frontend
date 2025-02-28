@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
 import { useSession } from "next-auth/react";
@@ -6,7 +6,6 @@ import { WidgetProps } from "@/types/widget-types";
 import { useParams } from "next/navigation";
 import Close from "@/assets/icons/close.svg";
 import toast from "react-hot-toast";
-import { widgetOptions } from "@/data/widgetOptions";
 import WidgetTypeSelector from "./WidgetTypeSelector";
 import WidgetPropsSelector from "./WidgetPropsSelector";
 
@@ -157,18 +156,16 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Left Sidebar - Widget Options */}
-
-        <div className={"md:hidden " + (selectedWidget == null ? "w-full" : "")}>
-          {selectedWidget == null && (
+        {selectedWidget == null && (
+          <div className="md:hidden w-full">
             <div className="w-full h-full">
               <WidgetTypeSelector
                 selectedWidget={selectedWidget}
                 handleSelectWidget={handleSelectWidget}
               />
             </div>
-          )}
-        </div>
-
+          </div>
+        )}
         <div className="w-1/3 hidden md:block">
           <WidgetTypeSelector
             selectedWidget={selectedWidget}
@@ -177,9 +174,8 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
         </div>
 
         {/* Right Side - Widget Configuration */}
-
-        <div className={"md:hidden "}>
-          {selectedWidget != null && (
+        {selectedWidget != null && (
+          <div className="block md:hidden w-full">
             <div className="w-full h-full">
               <WidgetPropsSelector
                 selectedWidget={selectedWidget}
@@ -187,8 +183,8 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
                 goBack={() => setSelectedWidget(null)}
               />
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="hidden md:block w-full h-full">
           <WidgetPropsSelector
