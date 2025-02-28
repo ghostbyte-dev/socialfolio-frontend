@@ -118,7 +118,7 @@ export function MastodonWidget({
           <div>
             <h3 className="font-bold text-4xl mb-4">Mastodon</h3>
             <span>
-              @{data.username}@{data.instance}
+              @{data.username}@{data.instance?.replace(/^https?\:\/\//i, "")}
             </span>
           </div>
         </div>
