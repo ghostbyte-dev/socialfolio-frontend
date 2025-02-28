@@ -21,6 +21,8 @@ export interface MastodonApiData {
   instance: string;
   avatar: string;
   followersCount: number;
+  followingCount: number;
+  statusesCount: number;
   url: string;
   displayName: string;
   description: string;
@@ -33,7 +35,7 @@ export function MastodonWidget({
   isOwner,
   variant,
   deleteWidget,
-  editWidget
+  editWidget,
 }: MastodonWidgetProps) {
   const needApiData = (): boolean => {
     if (variant == 1) {
@@ -56,57 +58,65 @@ export function MastodonWidget({
   const onClick = () => {
     const url = data.instance + "/@" + data.username;
     window.location.href = url;
-  }
+  };
 
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={true}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      onClick={onClick}
+    >
       {variant == 1 && (
-          <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
-            <img
-              src="/widgets/mastodon/mastodon-logo-white.webp"
-              alt="Mastodon logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+        <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
+          <img
+            src="/widgets/mastodon/mastodon-logo-white.webp"
+            alt="Mastodon logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
 
       {variant == 2 && (
-          <div className="h-full w-full p-8">
-            {widgetApiDataIsLoading ? <p>Loading...</p>: <></>}
-            {widgetApiData?.avatar ? <>
-              <Image
-              src={widgetApiData.avatar}
-              alt="Mastodon Avatar"
-              height={64}
-              width={64}
-              className="rounded-2xl object-contain"
-            />
-
-            <div>
-              <div className="overflow-auto" dangerouslySetInnerHTML={{__html: widgetApiData.description}} />
-            </div>
-            </> : <></>}
-    
-            
-          </div>
+        <div className="h-full w-full p-8">
+          {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
+          {widgetApiData && (
+            <>
+              <div className="flex flex-row gap-4 items-center">
+                <img
+                  src="/widgets/mastodon/mastodon-logo-white.webp"
+                  alt="Mastodon logo"
+                  className="w-16 h-16 object-contain"
+                />
+                <p className="text-xl">{widgetApiData.displayName}</p>
+              </div>
+              <div className="flex flex-col mt-5 gap-2">
+                <p>Follower: {widgetApiData.followersCount}</p>
+                <p>Following: {widgetApiData.followingCount}</p>
+                <p>Statuses: {widgetApiData.statusesCount}</p>
+              </div>
+            </>
+          )}
+        </div>
       )}
 
       {variant == 3 && (
-          <div className="h-full w-full p-[15%] bg-[#6364ff] text-white flex justify-between flex-col">
-            <Image
-              src="/widgets/mastodon/mastodon-logo-white.webp"
-              alt="Mastodon logo"
-              width={56}
-              height={56}
-              className="object-contain"
-            />
-            <div>
-              <h3 className="font-bold text-4xl mb-4">Mastodon</h3>
-              <span>
-                @{data.username}@{data.instance}
-              </span>
-            </div>
+        <div className="h-full w-full p-[15%] bg-[#6364ff] text-white flex justify-between flex-col">
+          <Image
+            src="/widgets/mastodon/mastodon-logo-white.webp"
+            alt="Mastodon logo"
+            width={56}
+            height={56}
+            className="object-contain"
+          />
+          <div>
+            <h3 className="font-bold text-4xl mb-4">Mastodon</h3>
+            <span>
+              @{data.username}@{data.instance}
+            </span>
           </div>
+        </div>
       )}
     </BaseWidget>
   );
