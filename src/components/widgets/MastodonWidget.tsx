@@ -87,7 +87,12 @@ export function MastodonWidget({
                 <img
                   src="/widgets/mastodon/mastodon-logo-white.webp"
                   alt="Mastodon logo"
-                  className="w-16 h-16 object-contain"
+                  className="w-16 h-16 object-contain hidden dark:block"
+                />
+                <img
+                  src="/widgets/mastodon/mastodon-logo-black.webp"
+                  alt="Mastodon logo"
+                  className="w-16 h-16 object-contain block dark:hidden"
                 />
                 <p className="text-xl">{widgetApiData.displayName}</p>
               </div>
