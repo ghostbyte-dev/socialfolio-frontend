@@ -9,6 +9,7 @@ import React from "react";
 import { Point, Area } from "react-easy-crop";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "@/lib/cropImage";
+import SubmitButton from "./SubmitButton";
 
 export default function Avatar({
   url,
@@ -23,11 +24,13 @@ export default function Avatar({
   const { data: session } = useSession();
   const [file, setFile] = useState<string | undefined>();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-  const [avatarUrl, setAvatarUrl] = useState(url.trim() === "" ? "/defaults/default-avatar.jpg" : url);
-  
+  const [avatarUrl, setAvatarUrl] = useState(
+    url.trim() === "" ? "/defaults/default-avatar.jpg" : url
+  );
+
   function handleChange(e: any) {
     setFile(URL.createObjectURL(e.target.files[0]));
-    handleOpenPopup()
+    handleOpenPopup();
   }
 
   const handleClick = () => {
@@ -41,15 +44,15 @@ export default function Avatar({
   };
 
   const handleClosePopup = () => {
-    console.log("close")
-    setFile(undefined)
+    console.log("close");
+    setFile(undefined);
     setIsEditing(false);
   };
 
   useEffect(() => {
     setAvatarUrl(url.trim() === "" ? "/defaults/default-avatar.jpg" : url);
-  }, [url])
-  
+  }, [url]);
+
   return (
     <div className="group relative">
       {isOwner ? (
@@ -71,7 +74,7 @@ export default function Avatar({
             />
             <div className="flex opacity-0 group-hover:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
               <p className="text-white">Upload Avatar</p>
-            </div>  
+            </div>
           </div>
         </>
       ) : (
@@ -86,7 +89,14 @@ export default function Avatar({
         </>
       )}
 
-      {(isEditing && file)&& <CropAvatar imageUrl={file ?? ""} handleClosePopup={handleClosePopup} jwt={session?.user.jwt ?? ""} username={username}/>}
+      {isEditing && file && (
+        <CropAvatar
+          imageUrl={file ?? ""}
+          handleClosePopup={handleClosePopup}
+          jwt={session?.user.jwt ?? ""}
+          username={username}
+        />
+      )}
     </div>
   );
 }
@@ -98,63 +108,66 @@ interface CropAvatarProps {
   username: string;
 }
 
-function CropAvatar({ imageUrl, handleClosePopup, jwt, username }: CropAvatarProps) {
+function CropAvatar({
+  imageUrl,
+  handleClosePopup,
+  jwt,
+  username,
+}: CropAvatarProps) {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const queryClient = useQueryClient();
 
   const onCropComplete = async (croppedArea: Area, croppedAreaPixels: Area) => {
-    setCroppedAreaPixels(croppedAreaPixels)
+    setCroppedAreaPixels(croppedAreaPixels);
   };
   const saveImage = async () => {
     if (croppedAreaPixels) {
-      const croppedImage: Blob = await getCroppedImg(imageUrl, croppedAreaPixels)
-      uploadAvatar.mutate(croppedImage)
+      const croppedImage: Blob = await getCroppedImg(
+        imageUrl,
+        croppedAreaPixels
+      );
+      uploadAvatar.mutate(croppedImage);
     }
-  }
+  };
 
   const uploadAvatar = useMutation({
     mutationFn: (avatar: Blob) => UserService.uploadAvatar(avatar, jwt),
     onSuccess: (data: IUser, variables, context) => {
-      console.log(data)
+      console.log(data);
       queryClient.setQueryData(["otheruser", username], data);
-      console.log("close popup")
       handleClosePopup();
     },
-  })
+  });
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-lg shadow-lg w-4/5 h-4/5 relative flex flex-col">
+      <div className="bg-surface-container rounded-lg shadow-lg w-4/5 h-4/5 relative flex flex-col">
         <div className="relative h-full w-full overflow-hidden rounded-t-lg">
-        <Cropper
-          image={imageUrl}
-          crop={crop}
-          zoom={zoom}
-          showGrid={true}
-          cropShape="round"
-          aspect={1 / 1}
-          onCropChange={setCrop}
-          onCropComplete={onCropComplete}
-          onZoomChange={setZoom}
-        />
+          <Cropper
+            image={imageUrl}
+            crop={crop}
+            zoom={zoom}
+            showGrid={true}
+            cropShape="rect"
+            aspect={1 / 1}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+          />
         </div>
-        
-      <div className="flex justify-end gap-2 bottom-0 p-6">
-        <button
-          onClick={handleClosePopup}
-          className="bg-gray-300 px-4 py-2 rounded-sm"
-        >
-          Cancel
-        </button>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-sm"
-          onClick={saveImage}
-        >
-          Save
-        </button>
-      </div>
+
+        <div className="flex justify-end gap-2 bottom-0 p-6">
+          <button
+            onClick={handleClosePopup}
+            className="button-outlined"
+            disabled={uploadAvatar.isPending}
+          >
+            Cancel
+          </button>
+          <SubmitButton text="Save" isLoading={uploadAvatar.isPending} isFullWidth={false} onClick={saveImage} />
+        </div>
       </div>
     </div>
   );
