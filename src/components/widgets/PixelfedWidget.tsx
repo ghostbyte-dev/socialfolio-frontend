@@ -12,10 +12,15 @@ interface PixelfedWidgetProps {
 }
 
 export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: PixelfedWidgetProps) {
+
+  const onClick = () => {
+    const url = data.instance + "/@" + data.username;
+    window.location.href = url;
+  }
+
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
       {variant == 1 && (
-        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full flex justify-center items-center">
             <img
               src="/widgets/pixelfed/pixelfed-logo.webp"
@@ -23,7 +28,6 @@ export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget, edi
               className="w-[50%] h-[50%] object-contain"
             />
           </div>
-        </Link>
       )}
     </BaseWidget>
   );

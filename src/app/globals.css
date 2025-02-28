@@ -21,7 +21,7 @@
   --color-on-surface: #e3e2e9;
   --color-primary: #4169E1;
   --color-primary-high: #5478e4;
-  --color-primary-container: #304578;
+  --color-primary-container: #314683;
   --color-on-primary: #ffffff;
   --color-text: #fff;
   --color-outline: #8f909a;
@@ -35,7 +35,7 @@
   --color-on-surface: #1a1b21; /* Darker text color for better readability */
   --color-primary: #4169E1; /* Orange */
   --color-primary-high: #5478e4;
-  --color-primary-container: #dae2ff; /* Light orange container */
+  --color-primary-container: #96aef6; /* Light orange container */
   --color-on-primary: #ffffff;
   --color-text: #333; /* Slightly darker text for contrast */
   --color-outline: #757780; /* Soft orange outline */

@@ -8,6 +8,7 @@ export interface BaseWidgetProps {
   isClickable: boolean;
   deleteWidget: () => void;
   editWidget: () => void;
+  onClick?: () => void;
 }
 
 export function BaseWidget({
@@ -16,6 +17,7 @@ export function BaseWidget({
   isClickable,
   deleteWidget,
   editWidget,
+  onClick = () =>{}
 }: BaseWidgetProps) {
   const isTouch = () => {
     if (typeof window !== "undefined") {
@@ -27,6 +29,12 @@ export function BaseWidget({
     }
     return false;
   };
+
+  const click = () => {
+    if (isClickable && !(isOwner && isTouch())) {
+      onClick()
+    }
+  }
   
   const touchStyle = isTouch() ? "group-focus:opacity-100 group-focus:scale-100": ""
 
@@ -35,6 +43,7 @@ export function BaseWidget({
       className={`h-full w-full dark:border-2 dark:border-outline rounded-2xl shadow-md bg-surface-container duration-300 ease-in-out overflow-hidden group
       ${isClickable && !(isOwner && isTouch()) ? "hover:scale-95 cursor-pointer" : ""}`}
       tabIndex={0}
+      onClick={click}
     >
       {children}
 
@@ -44,7 +53,7 @@ export function BaseWidget({
             onClick={deleteWidget}
             className={`top-4 left-4 absolute bg-red-500 rounded-full h-8 w-8 flex justify-center items-center scale-75  ease-in-out duration-300 opacity-0 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
-            <Close className="w-[10px] h-[10px]" />
+            <Close className="w-[10px] h-[10px] text-whites" />
           </div>
 
           <div

@@ -53,20 +53,14 @@ export function MastodonWidget({
     enabled: needApiData() && id !== "",
   });
 
-  const truncateHTML = (html: string | undefined, maxLength: number): string => {
-    if (!html) {
-      return ""
-    }
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    let text = div.textContent || div.innerText || "";
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
-  };
+  const onClick = () => {
+    const url = data.instance + "/@" + data.username;
+    window.location.href = url;
+  }
 
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
       {variant == 1 && (
-        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
             <img
               src="/widgets/mastodon/mastodon-logo-white.webp"
@@ -74,11 +68,9 @@ export function MastodonWidget({
               className="w-[50%] h-[50%] object-contain"
             />
           </div>
-        </Link>
       )}
 
       {variant == 2 && (
-        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full p-8">
             {widgetApiDataIsLoading ? <p>Loading...</p>: <></>}
             {widgetApiData?.avatar ? <>
@@ -97,11 +89,9 @@ export function MastodonWidget({
     
             
           </div>
-        </Link>
       )}
 
       {variant == 3 && (
-        <Link href={data.instance + "/@" + data.username}>
           <div className="h-full w-full p-[15%] bg-[#6364ff] text-white flex justify-between flex-col">
             <Image
               src="/widgets/mastodon/mastodon-logo-white.webp"
@@ -117,7 +107,6 @@ export function MastodonWidget({
               </span>
             </div>
           </div>
-        </Link>
       )}
     </BaseWidget>
   );
