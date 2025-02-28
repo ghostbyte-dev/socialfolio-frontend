@@ -24,6 +24,7 @@ export interface PixelfedData {
 
 export interface FediverseData {
   link: string;
+  fediverseHandle: string;
 }
 
 export interface LemmyWidgetData {

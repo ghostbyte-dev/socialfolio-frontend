@@ -9,8 +9,9 @@ export const widgetOptions: WidgetOption[] = [
     imageLinkDarkTheme: "/widgeteditor/fediverse.svg",
     fields: [
       { key: "link", label: "Link", type: "url", placeholder: "https://pixelfed.social/@username" },
+      { key: "fediverseHandle", label: "Fediverse Handle", type: "string", placeholder: "@username@mastodon.social" },
     ],
-    variants: [{ index: 1 }],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },

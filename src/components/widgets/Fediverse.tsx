@@ -27,6 +27,16 @@ export function FediverseWidget({ data, size, isOwner, variant, deleteWidget, ed
             />
           </div>
       )}
+      {variant == 2 && (
+          <div className="h-full w-full flex flex-col justify-center items-center">
+            <img
+              src="/widgeteditor/fediverse.svg"
+              alt="Pixelfed logo"
+              className="w-[50%] h-[50%] object-contain"
+            />
+            <p>{data.fediverseHandle}</p>
+          </div>
+      )}
     </BaseWidget>
   );
 }
