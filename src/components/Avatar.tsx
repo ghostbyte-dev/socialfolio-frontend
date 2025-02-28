@@ -25,7 +25,6 @@ export default function Avatar({
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState(url.trim() === "" ? "/defaults/default-avatar.jpg" : url);
   
-  
   function handleChange(e: any) {
     setFile(URL.createObjectURL(e.target.files[0]));
     handleOpenPopup()
