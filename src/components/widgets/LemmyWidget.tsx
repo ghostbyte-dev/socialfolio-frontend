@@ -13,7 +13,7 @@ interface LemmyWidgetProps {
 
 export function LemmyWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: LemmyWidgetProps) {
   const onClick = () => {
-    const url = data.instance + "/@" + data.username;
+    const url = data.instance + "/u/" + data.username;
     window.location.href = url;
   }
 
