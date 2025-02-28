@@ -215,7 +215,7 @@ export default function EditWidgetModal({
 
         <div
           onClick={onClose}
-          className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+          className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
         >
           <Close className="w-[10px] h-[10px]" />
         </div>
