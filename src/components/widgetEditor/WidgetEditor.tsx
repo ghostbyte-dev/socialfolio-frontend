@@ -170,6 +170,7 @@ export default function EditWidgetModal({
                     type={field.type}
                     className="input bg-surface-container-high w-full"
                     value={formData[field.key]}
+                    placeholder={field.placeholder}
                     onChange={(e) => handleChange(field.key, e.target.value)}
                   />
                 )}

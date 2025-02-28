@@ -18,6 +18,7 @@ export interface WidgetOption {
     key: string;
     label: string;
     type: string;
+    placeholder?: string | undefined;
     options?: string[] | undefined;
     defaultOption?: string | undefined;
   }[];

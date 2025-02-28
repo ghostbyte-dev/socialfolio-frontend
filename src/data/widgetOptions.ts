@@ -8,7 +8,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/fediverse.svg",
     imageLinkDarkTheme: "/widgeteditor/fediverse.svg",
     fields: [
-      { key: "link", label: "Link", type: "url" },
+      { key: "link", label: "Link", type: "url", placeholder: "https://pixelfed.social/@username" },
     ],
     variants: [{ index: 1 }],
     sizes: [
@@ -24,7 +24,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/pixelfed.webp",
     imageLinkDarkTheme: "/widgeteditor/pixelfed.webp",
     fields: [
-      { key: "instance", label: "Instance", type: "text" },
+      { key: "instance", label: "Instance", type: "text", placeholder: "pixelfed.social" },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -55,7 +55,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/mastodon.svg",
     imageLinkDarkTheme: "/widgeteditor/mastodon.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text" },
+      { key: "instance", label: "Instance", type: "text", placeholder: "mastodon.social" },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
@@ -72,7 +72,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/lemmy.svg",
     imageLinkDarkTheme: "/widgeteditor/lemmy.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text" },
+      { key: "instance", label: "Instance", type: "text", placeholder:"lemmy.ml" },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
