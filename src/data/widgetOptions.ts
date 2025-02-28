@@ -144,6 +144,20 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "link",
+    name: "Link",
+    imageLink: "/widgeteditor/link.svg",
+    imageLinkDarkTheme: "/widgeteditor/link_white.svg",
+    fields: [{ key: "link", label: "Link", type: "url", placeholder: "https://somewebsite.com" }],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",

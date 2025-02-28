@@ -7,6 +7,7 @@ import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { LemmyWidget } from "@/components/widgets/LemmyWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
+import { LinkWidget } from "@/components/widgets/LinkWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
@@ -20,6 +21,7 @@ import {
   ImageWidgetData,
   LemmyWidgetData,
   LiberaPayData,
+  LinkData,
   MastodonData,
   MatrixData,
   NoteWidgetData,
@@ -174,6 +176,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
+      case "link":
+        return (
+          <LinkWidget
+            data={widget.data as LinkData}
+            size={widget.size}
+            variant={widget.variant}
+            isOwner={isOwner}
+            deleteWidget={deleteWidget}
+            editWidget={editWidget}
+          />
+        );
 
     case "newwidget":
       return <AddNewWidget size={widget.size} />;

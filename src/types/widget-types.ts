@@ -73,6 +73,10 @@ export interface EmailData {
   email: string;
 }
 
+export interface LinkData {
+  link: string;
+}
+
 export interface EmptyWidgetData {
 
 }
@@ -107,5 +111,5 @@ export interface ContributionDay {
   weekday: number;
 }
 
-export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData;
+export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData | EmailData | CodebergData  | MatrixData | LinkData;
 export type WidgetApiData = MastodonApiData | GithubApiData
