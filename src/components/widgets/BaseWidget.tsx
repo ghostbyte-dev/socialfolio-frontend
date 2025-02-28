@@ -53,7 +53,7 @@ export function BaseWidget({
             onClick={deleteWidget}
             className={`top-4 left-4 absolute bg-red-500 rounded-full h-8 w-8 flex justify-center items-center scale-75  ease-in-out duration-300 opacity-0 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
-            <Close className="w-[10px] h-[10px]" />
+            <Close className="w-[10px] h-[10px] text-whites" />
           </div>
 
           <div
