@@ -11,7 +11,7 @@ export default function WidgetTypeSelector({
   handleSelectWidget,
 }: WidgetTypeSelectorProps) {
   return (
-    <div className="w-full h-full bg-surface-container-high p-4 border-r">
+    <div className="w-full h-full bg-surface-container-high p-4 border-r overflow-y-scroll">
       <h2 className="text-lg font-bold mb-4">Select a Widget</h2>
       <ul>
         {widgetOptions.map((widget) => (
