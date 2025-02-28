@@ -3,6 +3,7 @@
 import Button from "@/components/Button";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { WidgetProps } from "@/types/widget-types";
+import { useSession } from "next-auth/react";
 
 const liberapayWidgets: WidgetProps[] = [
   {
@@ -82,6 +83,9 @@ const liberapayWidgets: WidgetProps[] = [
 ];
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const loggedInUsername = session?.user?.username;
+
   return (
     <>
       <title>Socialfolio</title>
@@ -154,8 +158,11 @@ export default function Home() {
               A simple, open-source way to share your socials in one place
             </h2>
           </div>
-
-          <Button link="/auth/login">Get Started</Button>
+          {loggedInUsername ? (
+            <Button link={"/" + loggedInUsername}>My Profile</Button>
+          ) : (
+            <Button link="/auth/login">Get Started</Button>
+          )}
         </section>
       </div>
     </>
