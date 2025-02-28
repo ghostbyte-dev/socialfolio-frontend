@@ -9,21 +9,6 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export default function Explore() {
-  /*const {
-    data: profiles,
-    isPending,
-    error,
-  } = useQuery({
-    queryKey: ["exploreprofiles"],
-    queryFn: async () => {
-      try {
-        return await ExploreService.getProfiles();
-      } catch (err: any) {
-        throw err;
-      }
-    },
-  });
-*/
   const {
     data,
     error,

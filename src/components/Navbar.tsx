@@ -68,7 +68,7 @@ export default function Navbar() {
 
           <div className="hidden md:block pl-8">
             <Link href="/explore">
-              <span className="text-lg">Explore</span>
+              <span className="text-lg hover:underline">Explore</span>
             </Link>
           </div>
         </div>
