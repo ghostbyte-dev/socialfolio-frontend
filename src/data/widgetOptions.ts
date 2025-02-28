@@ -51,6 +51,20 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "codeberg",
+    name: "Codeberg",
+    imageLink: "/widgeteditor/codeberg.svg",
+    imageLinkDarkTheme: "/widgeteditor/codeberg.svg",
+    fields: [{ key: "username", label: "Username", type: "text" }],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }, { index: 6 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "mastodon",
     name: "Mastodon",
     imageLink: "/widgeteditor/mastodon.svg",
@@ -73,7 +87,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/lemmy.svg",
     imageLinkDarkTheme: "/widgeteditor/lemmy.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder:"lemmy.ml" },
+      { key: "instance", label: "Instance", type: "text", placeholder: "lemmy.ml" },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -90,7 +104,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/matrix-black.svg",
     imageLinkDarkTheme: "/widgeteditor/matrix-white.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder:"matrix.org" },
+      { key: "instance", label: "Instance", type: "text", placeholder: "matrix.org" },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],

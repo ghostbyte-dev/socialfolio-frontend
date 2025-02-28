@@ -49,6 +49,10 @@ export interface GitHubData {
   username: string;
 }
 
+export interface CodebergData {
+  username: string;
+}
+
 export interface TimezoneData {
   timezone: string;
 }

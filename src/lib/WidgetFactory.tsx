@@ -1,5 +1,6 @@
 import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
+import { CodebergWidget } from "@/components/widgets/CodebergWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
@@ -11,6 +12,7 @@ import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import {
+  CodebergData,
   FediverseData,
   GitHubData,
   ImageWidgetData,
@@ -97,6 +99,17 @@ export function WidgetFactory({
         <GithubWidget
           id={widget.id}
           data={widget.data as GitHubData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+      case "codeberg":
+      return (
+        <CodebergWidget
+          data={widget.data as CodebergData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
