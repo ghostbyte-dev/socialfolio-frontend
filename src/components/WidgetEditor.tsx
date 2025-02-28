@@ -107,9 +107,7 @@ export const widgetOptions: WidgetOption[] = [
     name: "Liberapay",
     imageLink: "/widgeteditor/liberapay.png",
     imageLinkDarkTheme: "/widgeteditor/liberapay.png",
-    fields: [
-      { key: "username", label: "Username", type: "text" },
-    ],
+    fields: [{ key: "username", label: "Username", type: "text" }],
     variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
@@ -375,7 +373,11 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
             </div>
           ) : (
             <div className="flex flex-col justify-center items-center">
-              <img src="/illustrations/arrow-left-scribbl.svg" />
+              <img
+                src="/illustrations/select.svg"
+                className="h-96"
+                height={400}
+              />
               <p className="mt-4 font-bold">Select a widget to configure</p>
             </div>
           )}
@@ -385,7 +387,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           onClick={onClose}
           className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
         >
-          <Close className="w-[10px] h-[10px]" />
+          <Close className="w-[10px] h-[10px] text-white" />
         </div>
       </div>
     </div>
