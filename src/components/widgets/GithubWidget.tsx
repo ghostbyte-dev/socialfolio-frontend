@@ -7,7 +7,6 @@ import {
   WidgetSize,
 } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
 import Image from "next/image";
@@ -119,15 +118,20 @@ export function GithubWidget({
     return customColors[1];
   }
 
+  const onClick = () => {
+    const url = "https://github.com/" + data.username;
+    window.location.href = url; // This will navigate to the GitHub URL
+  };
+
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
+      onClick={onClick}
     >
       {variant == 1 && (
-        <Link href={"https://github.com/" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#171515]">
             <img
               src="/widgets/github/github-logo-white.webp"
@@ -135,11 +139,9 @@ export function GithubWidget({
               className="w-[50%] h-[50%] object-contain"
             />
           </div>
-        </Link>
       )}
 
       {variant == 2 && (
-        <Link href={"https://github.com/" + data.username}>
           <div className="h-full w-full flex justify-center items-center bg-[#fff]">
             <img
               src="/widgets/github/github-logo-dark.webp"
@@ -147,11 +149,9 @@ export function GithubWidget({
               className="w-[50%] h-[50%] object-contain"
             />
           </div>
-        </Link>
       )}
 
       {variant == 3 && (
-        <Link href={"https://github.com/" + data.username}>
           <div className="h-full w-full flex flex-col p-8">
             {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
             {widgetApiDataError ? <p>{widgetApiDataError.message}</p> : <></>}
@@ -214,7 +214,6 @@ export function GithubWidget({
               <></>
             )}
           </div>
-        </Link>
       )}
     </BaseWidget>
   );

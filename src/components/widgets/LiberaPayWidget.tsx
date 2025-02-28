@@ -13,10 +13,15 @@ interface LiberaPayWidgetProps {
 }
 
 export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget, editWidget }: LiberaPayWidgetProps) {
+
+  const onClick = () => {
+    const url = "https://liberapay.com/" + data.username;
+    window.location.href = url;
+  }
+
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
       {variant == 1 && (
-        <Link href={"https://liberapay.com/" + data.username}>
           <div className="h-full w-full bg-[#f6c915] flex justify-center items-center">
             <img
               src="/widgets/liberapay/liberapay-logo-black.webp"
@@ -24,7 +29,6 @@ export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget, ed
               className="w-[50%] h-[50%] object-contain"
             />
           </div>
-        </Link>
       )}
     </BaseWidget>
   );

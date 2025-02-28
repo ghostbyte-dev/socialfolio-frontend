@@ -8,6 +8,7 @@ export interface BaseWidgetProps {
   isClickable: boolean;
   deleteWidget: () => void;
   editWidget: () => void;
+  onClick?: () => void;
 }
 
 export function BaseWidget({
@@ -16,6 +17,7 @@ export function BaseWidget({
   isClickable,
   deleteWidget,
   editWidget,
+  onClick = () =>{}
 }: BaseWidgetProps) {
   const isTouch = () => {
     if (typeof window !== "undefined") {
@@ -27,6 +29,12 @@ export function BaseWidget({
     }
     return false;
   };
+
+  const click = () => {
+    if (isClickable && !(isOwner && isTouch())) {
+      onClick()
+    }
+  }
   
   const touchStyle = isTouch() ? "group-focus:opacity-100 group-focus:scale-100": ""
 
@@ -35,6 +43,7 @@ export function BaseWidget({
       className={`h-full w-full dark:border-2 dark:border-outline rounded-2xl shadow-md bg-surface-container duration-300 ease-in-out overflow-hidden group
       ${isClickable && !(isOwner && isTouch()) ? "hover:scale-95 cursor-pointer" : ""}`}
       tabIndex={0}
+      onClick={click}
     >
       {children}
 

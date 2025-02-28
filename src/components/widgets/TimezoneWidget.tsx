@@ -26,13 +26,12 @@ export function TimezoneWidget({
     minute: "2-digit",
   });
 
-   // Get the hour in the specified timezone
    const hour = Number(new Date().toLocaleString("en-US", {
     timeZone: data.timezone,
     hour: "2-digit",
     hour12: false,
   }));
-  const isDaytime = hour >= 6 && hour < 20; // Daytime: 6 AM to 6 PM
+  const isDaytime = hour >= 6 && hour < 20;
 
   return (
     <BaseWidget
