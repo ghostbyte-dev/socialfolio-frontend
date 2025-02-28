@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import Pencil from "@/assets/icons/pencil-outline.svg"
+import { isTouch } from "@/lib/isTouch";
 
 export default function Description({
   description,
@@ -40,8 +41,12 @@ export default function Description({
     },
   });
 
+  const touchStyle = isTouch()
+  ? "group-focus:opacity-100 group-focus:scale-100"
+  : "";
+
   return (
-    <div className="group relative">
+    <div className="group relative" tabIndex={0}>
       {description.trim() && <p className="text-xl">{description}</p>}
 
       {!description.trim() && isOwner &&
@@ -53,7 +58,7 @@ export default function Description({
       {isOwner && (
         <button
           onClick={handleOpenPopup}
-          className="absolute top-[-10px] right-[-35px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110!"
+          className={`absolute top-[-10px] right-[-35px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
         >
           <Pencil className="w-[18px] h-[18px] text-surface"/>
         </button>

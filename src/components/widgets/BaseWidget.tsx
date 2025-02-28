@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Pencil from "@/assets/icons/pencil-outline.svg";
 import Close from "@/assets/icons/close.svg";
+import { isTouch } from "@/lib/isTouch";
 
 export interface BaseWidgetProps {
   children: React.ReactNode;
@@ -19,17 +20,7 @@ export function BaseWidget({
   editWidget,
   onClick = () => {},
 }: BaseWidgetProps) {
-  const isTouch = () => {
-    if (typeof window !== "undefined") {
-      return (
-        "ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        (window.matchMedia && window.matchMedia("(pointer: coarse)").matches)
-      );
-    }
-    return false;
-  };
-
+  
   const click = () => {
     if (isClickable && !(isOwner && isTouch())) {
       onClick();
