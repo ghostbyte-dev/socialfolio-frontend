@@ -47,7 +47,7 @@ export default function Description({
 
   return (
     <div className="group relative" tabIndex={0}>
-      {description.trim() && <p className="text-xl">{description}</p>}
+      {description.trim() && <p className="text-xl text-center sm:text-start">{description}</p>}
 
       {!description.trim() && isOwner &&
         <div className="">

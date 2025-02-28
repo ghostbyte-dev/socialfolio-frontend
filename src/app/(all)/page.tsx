@@ -14,7 +14,7 @@ const liberapayWidgets: WidgetProps[] = [
       rows: 1,
     },
     data: {
-      username: "Pixelix",
+      username: "daniebeler",
     },
   },
   {
@@ -26,8 +26,8 @@ const liberapayWidgets: WidgetProps[] = [
       rows: 1,
     },
     data: {
-      instance: "pixelix.social",
-      username: "Pixelix",
+      instance: "https://pixelix.social",
+      username: "daniebeler",
     },
   },
   {
@@ -39,8 +39,8 @@ const liberapayWidgets: WidgetProps[] = [
       rows: 1,
     },
     data: {
-      instance: "mastodon.social",
-      username: "Pixelix",
+      instance: "https://techhub.social",
+      username: "socialfolio",
     },
   },
   {
