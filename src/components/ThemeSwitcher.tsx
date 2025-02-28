@@ -6,7 +6,13 @@ import Moon from "@/assets/icons/moon-outline.svg";
 import Sunny from "@/assets/icons/sunny-outline.svg";
 import Laptop from "@/assets/icons/laptop-outline.svg";
 
-export const ThemeSwitcher = () => {
+export const ThemeSwitcher = ({
+  bgColor = "bg-surface-container",
+  activeColor = "bg-surface-container-high",
+}: {
+  bgColor?: string;
+  activeColor?: string;
+}) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -19,12 +25,11 @@ export const ThemeSwitcher = () => {
   }
 
   return (
-    <div className="relative bg-surface-container rounded-xl p-1">
+    <div className={"relative rounded-xl p-1 " + bgColor}>
       <button
         onClick={() => setTheme("system")}
         className={
-          "rounded-lg p-2 " +
-          (theme === "system" ? "bg-surface-container-high" : "bg-surface-container")
+          "rounded-lg p-2 " + (theme === "system" ? activeColor : bgColor)
         }
       >
         <Laptop className="w-[20px] h-[20px]" />
@@ -32,17 +37,17 @@ export const ThemeSwitcher = () => {
       <button
         onClick={() => setTheme("light")}
         className={
-          "rounded-lg p-2 " +
-          (theme === "light" ? "bg-surface-container-high" : "bg-surface-container")
-        }      >
+          "rounded-lg p-2 " + (theme === "light" ? activeColor : bgColor)
+        }
+      >
         <Sunny className="w-[20px] h-[20px]" />
       </button>
       <button
         onClick={() => setTheme("dark")}
         className={
-          "rounded-lg p-2 " +
-          (theme === "dark" ? "bg-surface-container-high" : "bg-surface-container")
-        }      >
+          "rounded-lg p-2 " + (theme === "dark" ? activeColor : bgColor)
+        }
+      >
         <Moon className="w-[20px] h-[20px]" />
       </button>
     </div>

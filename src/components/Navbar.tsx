@@ -154,7 +154,7 @@ export default function Navbar() {
         style={{ width: isOpen ? "75vw" : "0vw" }}
       >
         <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
-          <ThemeSwitcher />
+          <ThemeSwitcher bgColor="bg-surface-container-high" activeColor="bg-surface-container" />
 
           <button type="button" onClick={() => setIsOpen(!isOpen)}>
             <Close className="w-[18px] h-[18px]" />
@@ -162,7 +162,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`text-white flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
+          className={`flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
         >
           <Link
             href="/explore"
@@ -172,7 +172,7 @@ export default function Navbar() {
             <span
               className={`
                 duration-300 
-                ${isOpen ? "delay-200 text-white" : "text-transparent"}
+                ${isOpen ? "delay-200" : "text-transparent"}
               `}
             >
               Explore
@@ -180,7 +180,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="px-10 pb-6 flex items-center space-x-6">fief</div>
       </div>
     </>
   );
