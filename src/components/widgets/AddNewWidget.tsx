@@ -2,7 +2,7 @@
 
 import { BaseWidget } from "./BaseWidget";
 import { useState } from "react";
-import WidgetEditor from "../WidgetEditor";
+import WidgetEditor from "../widgetEditor/WidgetCreator";
 import Add from "@/assets/icons/add.svg"
 
 interface AddNewWidgetProps {

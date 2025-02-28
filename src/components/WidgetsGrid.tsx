@@ -4,7 +4,7 @@ import { GitHubData, WidgetProps } from "@/types/widget-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import EditWidgetModal from "./EditWidgetModal";
+import EditWidgetModal from "./widgetEditor/WidgetEditor";
 
 const addNewWidget: WidgetProps = {
   id: "0",
