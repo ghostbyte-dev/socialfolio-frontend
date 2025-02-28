@@ -130,6 +130,20 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "email",
+    name: "Email",
+    imageLink: "/widgeteditor/mail.svg",
+    imageLinkDarkTheme: "/widgeteditor/mail_white.svg",
+    fields: [{ key: "email", label: "E-Mail", type: "email", placeholder: "someone@example.com" }],
+    variants: [{ index: 1 }, { index: 2 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "note",
     name: "Note",
     imageLink: "/widgeteditor/note.svg",

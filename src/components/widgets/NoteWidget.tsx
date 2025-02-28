@@ -15,7 +15,7 @@ export function NoteWidget({ data, size, isOwner, variant, deleteWidget, editWid
     <BaseWidget isOwner={isOwner} isClickable={false} deleteWidget={deleteWidget} editWidget={editWidget}>
       {variant == 1 && (
           <div className="h-full w-full p-[10%] flex justify-center items-center">
-            <p>
+            <p className="break-words max-w-full">
               {data.note}
             </p>
           </div>

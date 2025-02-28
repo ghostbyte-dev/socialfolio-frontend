@@ -69,6 +69,10 @@ export interface NoteWidgetData {
   note: string;
 }
 
+export interface EmailData {
+  email: string;
+}
+
 export interface EmptyWidgetData {
 
 }
