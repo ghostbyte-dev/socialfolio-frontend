@@ -28,10 +28,18 @@ export default function Footer() {
 
             <Link href="https://github.com/Hiebeler/socialfolio-frontend">
               <img
-                src="/icons/mastodon.svg"
+                src="/icons/github-logo-dark.webp"
                 alt="Github logo"
                 height={45}
                 width={45}
+                className="dark:hidden"
+              ></img>
+              <img
+                src="/icons/github-logo-white.webp"
+                alt="Github logo"
+                height={45}
+                width={45}
+                className="light:hidden"
               ></img>
             </Link>
           </div>
