@@ -48,7 +48,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
     null
   );
-  const [variant, setVariant] = useState<number>(1);
 
   const mutation = useMutation({
     mutationKey: ["new Widget"],
@@ -111,7 +110,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   });
 
   const handleSelectWidget = (widget: WidgetOption) => {
-    setVariant(1);
     setSelectedWidget(widget);
     /* setFormData(
       widget.fields.reduce((acc, field) => {
@@ -121,7 +119,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     ); */
   };
 
-  const handleSave = (formData: any) => {
+  const handleSave = (formData: any, variant: number) => {
     if (!selectedWidget) return;
 
     // Create data object dynamically based on user input
@@ -129,7 +127,6 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
       acc[field.key] = formData[field.key] || ""; // Use user input or default to empty string
       return acc;
     }, {} as Record<string, string>);
-
     const createWidgetRequest: ICreateWidgetRequest = {
       type: selectedWidget.id,
       variant: variant,

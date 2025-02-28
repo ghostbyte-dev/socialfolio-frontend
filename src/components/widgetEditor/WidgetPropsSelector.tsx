@@ -6,7 +6,7 @@ import ArrowBack from "@/assets/icons/arrow-back.svg"
 
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption | null;
-  handleSave: (formData: any) => void;
+  handleSave: (formData: any, variant: number) => void;
   goBack: () => void;
 }
 
@@ -87,7 +87,7 @@ export default function WidgetPropsSelector({
           ))}
 
           <button
-            onClick={() => handleSave(formData)}
+            onClick={() => handleSave(formData, variant)}
             className="button"
             /* disabled={mutation.isPending} */
           >
