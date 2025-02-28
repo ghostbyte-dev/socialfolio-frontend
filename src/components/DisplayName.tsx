@@ -47,7 +47,7 @@ export default function DisplayName({
 
   return (
     <div className="group relative" tabIndex={0}>
-      <h1 className="text-3xl font-bold mb-4">{name}</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center sm:text-star">{name}</h1>
 
       {isOwner && (
         <button
