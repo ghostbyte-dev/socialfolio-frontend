@@ -99,6 +99,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "peertube",
+    name: "Peertube",
+    imageLink: "/widgeteditor/peertube.svg",
+    imageLinkDarkTheme: "/widgeteditor/peertube.svg",
+    fields: [
+      { key: "instance", label: "Instance", type: "text", placeholder: "clip.place" },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "matrix",
     name: "Matrix",
     imageLink: "/widgeteditor/matrix-black.svg",

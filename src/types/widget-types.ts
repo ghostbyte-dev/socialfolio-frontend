@@ -21,6 +21,10 @@ export interface PixelfedData {
   username: string;
   instance: string;
 }
+export interface PeertubeData {
+  username: string;
+  instance: string;
+}
 
 export interface MatrixData {
   username: string;
@@ -111,5 +115,5 @@ export interface ContributionDay {
   weekday: number;
 }
 
-export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData | EmailData | CodebergData  | MatrixData | LinkData;
+export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData | EmailData | CodebergData  | MatrixData | LinkData | PeertubeData;
 export type WidgetApiData = MastodonApiData | GithubApiData

@@ -11,6 +11,7 @@ import { LinkWidget } from "@/components/widgets/LinkWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
+import { PeertubeWidget } from "@/components/widgets/Peertube";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import {
@@ -25,6 +26,7 @@ import {
   MastodonData,
   MatrixData,
   NoteWidgetData,
+  PeertubeData,
   PixelfedData,
   TimezoneData,
   WidgetProps,
@@ -76,7 +78,7 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "fediverse":
+    case "fediverse":
       return (
         <FediverseWidget
           data={widget.data as FediverseData}
@@ -87,10 +89,21 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "matrix":
+    case "matrix":
       return (
         <MatrixWidget
           data={widget.data as MatrixData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "peertube":
+      return (
+        <PeertubeWidget
+          data={widget.data as PeertubeData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
@@ -110,7 +123,7 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "codeberg":
+    case "codeberg":
       return (
         <CodebergWidget
           data={widget.data as CodebergData}
@@ -165,7 +178,7 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "email":
+    case "email":
       return (
         <EmailWidget
           data={widget.data as EmailData}
@@ -176,17 +189,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "link":
-        return (
-          <LinkWidget
-            data={widget.data as LinkData}
-            size={widget.size}
-            variant={widget.variant}
-            isOwner={isOwner}
-            deleteWidget={deleteWidget}
-            editWidget={editWidget}
-          />
-        );
+    case "link":
+      return (
+        <LinkWidget
+          data={widget.data as LinkData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
 
     case "newwidget":
       return <AddNewWidget size={widget.size} />;
