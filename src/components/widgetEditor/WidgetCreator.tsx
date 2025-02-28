@@ -158,7 +158,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
       >
         {/* Left Sidebar - Widget Options */}
 
-        <div className="md:hidden">
+        <div className={"md:hidden " + (selectedWidget == null ? "w-full" : "")}>
           {selectedWidget == null && (
             <div className="w-full h-full">
               <WidgetTypeSelector
@@ -178,7 +178,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
         {/* Right Side - Widget Configuration */}
 
-        <div className="md:hidden">
+        <div className={"md:hidden "}>
           {selectedWidget != null && (
             <div className="w-full h-full">
               <WidgetPropsSelector

@@ -1,12 +1,7 @@
 "use client";
 
-import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
 import { WidgetOption } from "./WidgetCreator";
 import { useEffect, useState } from "react";
-import mutation from "swr/mutation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { WidgetProps } from "@/types/widget-types";
-import toast from "react-hot-toast";
 
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption | null;
@@ -19,7 +14,6 @@ export default function WidgetPropsSelector({
   handleSave,
   goBack,
 }: WidgetPropsSelectorProps) {
-  const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [variant, setVariant] = useState<number>(1);
