@@ -13,14 +13,14 @@ export default function ExploreProfileCard({
         className="bg-surface-container rounded-2xl h-full shadow-md p-4"
       >
         <div className="flex">
-          <div>
+          <div className="min-w-28 min-h-24 mr-4">
             <img
               src={profile.avatar || "/defaults/default-avatar.jpg"}
               alt={profile.username}
-              className="w-24 h-24 rounded-xl mr-4"
+              className="w-24 h-24 rounded-xl"
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col break-words" style={{ maxWidth: "calc(100% - 96px)" }}>
             <span>{profile.username}</span>
             <span className="text-xl font-semibold">
               {!profile.displayName ? profile.username : profile.displayName}

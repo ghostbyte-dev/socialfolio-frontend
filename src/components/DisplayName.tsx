@@ -47,12 +47,12 @@ export default function DisplayName({
 
   return (
     <div className="group relative" tabIndex={0}>
-      <h1 className="text-3xl font-bold mb-4 text-center sm:text-star">{name}</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center sm:text-star break-words max-w-screen sm:max-w-none px-10 sm:px-0">{name}</h1>
 
       {isOwner && (
         <button
           onClick={handleOpenPopup}
-          className={`absolute top-[-10px] right-[-35px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
+          className={`absolute top-[-10px] right-0 sm:right-[-40px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
         >
           <Pencil className="w-[18px] h-[18px] text-surface" />
         </button>

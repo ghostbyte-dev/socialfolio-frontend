@@ -41,7 +41,7 @@ export default function RootLayout({
           <SpeedInsights />
           <Toaster />
           <QueryClientProvider client={queryClient}>
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider><div className="overflow-x-hidden break-words">{children}</div></SessionProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>
