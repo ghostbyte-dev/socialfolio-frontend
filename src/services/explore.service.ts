@@ -14,7 +14,7 @@ export interface ExploreProfilesResponse {
     profiles: ExploreProfile[];
 }
 
-const EXPLORE_PROFILES_LIMIT: number = 20;
+const EXPLORE_PROFILES_LIMIT: number = 30;
 const getProfiles = async (cursor: string = ""): Promise<ExploreProfilesResponse> => {
     const headers: HeadersInit = {
         "Content-Type": "application/json"
