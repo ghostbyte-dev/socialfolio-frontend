@@ -1,4 +1,4 @@
-import { IUser } from "@/types/user-type";
+import { IUser, Status } from "@/types/user-type";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -68,6 +68,24 @@ const updateDescription = async (
     return response.json();
 };
 
+const updateStatus = async (
+    status: Status,
+    jwt: string
+): Promise<IUser> => {
+    const response = await fetch(API_URL + "/api/user/update/status", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify({ status: status })
+    });
+
+    if (!response.ok) throw new Error("Failed to update description");
+
+    return response.json();
+};
+
 const uploadAvatar = async (
     avatar: Blob,
     jwt: string
@@ -92,5 +110,6 @@ export const UserService = {
     getUser,
     updateDisplayName,
     updateDescription,
+    updateStatus,
     uploadAvatar
 };

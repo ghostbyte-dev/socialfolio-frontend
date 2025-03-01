@@ -11,13 +11,15 @@ import { useState, useRef, useEffect } from "react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import Close from "@/assets/icons/close.svg";
 import Logo from "@/assets/icons/logo.svg";
+import Settings from "./Settings";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const [isSettingsModalOpen, setIsSettingsModalOpen] =
+    useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const jwt = session?.user?.jwt;
@@ -60,7 +62,10 @@ export default function Navbar() {
     <>
       <nav className="py-4 px-8 flex justify-between items-center relative">
         <div className="flex items-center">
-          <Link href="/" className="duration-300 flex items-center ease-in-out hover:scale-95">
+          <Link
+            href="/"
+            className="duration-300 flex items-center ease-in-out hover:scale-95"
+          >
             <Logo className="w-[44px] h-[44px]" />
 
             <span className="text-xl font-semibold ml-2">Socialfolio</span>
@@ -123,6 +128,17 @@ export default function Navbar() {
                     </Link>
 
                     <button
+                      onClick={() => {
+                        setIsSettingsModalOpen(true);
+                        setDropdownOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 font-bold text-sm rounded hover:bg-surface"
+                      role="menuitem"
+                    >
+                      Settings
+                    </button>
+
+                    <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
@@ -154,7 +170,10 @@ export default function Navbar() {
         style={{ width: isOpen ? "75vw" : "0vw" }}
       >
         <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
-          <ThemeSwitcher bgColor="bg-surface-container-high" activeColor="bg-surface-container" />
+          <ThemeSwitcher
+            bgColor="bg-surface-container-high"
+            activeColor="bg-surface-container"
+          />
 
           <button type="button" onClick={() => setIsOpen(!isOpen)}>
             <Close className="w-[18px] h-[18px]" />
@@ -179,7 +198,9 @@ export default function Navbar() {
             </span>
           </Link>
         </div>
-
+        {isSettingsModalOpen && user && (
+          <Settings user={user} onClose={() => setIsSettingsModalOpen(false)} />
+        )}
       </div>
     </>
   );
