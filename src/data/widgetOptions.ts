@@ -140,7 +140,7 @@ export const widgetOptions: WidgetOption[] = [
     fields: [
       { key: "handle", label: "Handle", type: "text", placeholder: "username.bsky.social" },
     ],
-    variants: [{ index: 1 }],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
