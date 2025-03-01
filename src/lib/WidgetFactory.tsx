@@ -1,5 +1,6 @@
 import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
+import { BlueskyWidget } from "@/components/widgets/BlueskyWidget";
 import { CodebergWidget } from "@/components/widgets/CodebergWidget";
 import { EmailWidget } from "@/components/widgets/EmailWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
@@ -15,6 +16,7 @@ import { PeertubeWidget } from "@/components/widgets/Peertube";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import {
+  BlueskyData,
   CodebergData,
   EmailData,
   FediverseData,
@@ -104,6 +106,17 @@ export function WidgetFactory({
       return (
         <PeertubeWidget
           data={widget.data as PeertubeData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+      case "bluesky":
+      return (
+        <BlueskyWidget
+          data={widget.data as BlueskyData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

@@ -26,6 +26,11 @@ export interface PeertubeData {
   instance: string;
 }
 
+export interface BlueskyData {
+  username: string;
+  instance: string;
+}
+
 export interface MatrixData {
   username: string;
   instance: string;

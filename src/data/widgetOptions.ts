@@ -133,6 +133,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "bluesky",
+    name: "Bluesky",
+    imageLink: "/widgeteditor/bluesky.svg",
+    imageLinkDarkTheme: "/widgeteditor/bluesky.svg",
+    fields: [
+      { key: "instance", label: "Instance", type: "text", placeholder: "bsky.app" },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "liberapay",
     name: "Liberapay",
     imageLink: "/widgeteditor/liberapay.png",
