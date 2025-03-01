@@ -8,7 +8,7 @@ export default function HeroSection({
   loggedInUsername: string | undefined;
 }) {
   return (
-    <section className="min-h-[70vh] flex flex-col items-center">
+    <section className="flex flex-col items-center">
       <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
         Link All Your Socials in Style
       </h1>

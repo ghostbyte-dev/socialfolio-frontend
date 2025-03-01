@@ -14,7 +14,7 @@ export default function Home() {
       <div className="items-center flex flex-col mb-20">
         <HeroSection loggedInUsername={loggedInUsername} />
 
-        {/* <StatsSection /> */}
+        <StatsSection />
       </div>
     </>
   );

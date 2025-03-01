@@ -13,21 +13,21 @@ export default function StatsSection() {
   });
 
   return (
-    <section className="mt-20 w-full">
+    <section className="mt-20 mx-auto flex flex-col items-center">
       <div className="flex justify-center">
         <h2 className="text-4xl font-bold">Stats</h2>
       </div>
 
-      <div className="flex w-full justify-evenly mt-10">
-        <div className="w-56 h-56">
+      <div className="flex w-full flex-wrap justify-center mt-10 md:mt-14">
+        <div className="w-56 h-56 m-10 rotate-[3deg]">
           <StatsWidget
             stat={stats?.userCount?.toString() ?? ""}
-            name="Total users"
+            name="Total profiles"
             variant={1}
           />
         </div>
 
-        <div className="w-56 h-56">
+        <div className="w-56 h-56 m-10 rotate-[-3deg]">
           <StatsWidget
             stat={stats?.widgetCount?.toString() ?? ""}
             name="Total widgets"
@@ -36,7 +36,7 @@ export default function StatsSection() {
         </div>
 
         {stats?.userCount && stats.widgetCount != 0 && (
-          <div className="w-56 h-56">
+          <div className="w-56 h-56 m-10 rotate-[7deg]">
             <StatsWidget
               stat={(stats?.widgetCount / stats.userCount).toFixed(2) ?? ""}
               name="Average widgets per profile"
