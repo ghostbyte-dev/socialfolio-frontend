@@ -10,7 +10,7 @@ export default function ExploreProfileCard({
     <Link href={"/" + profile.username} className="h-full">
       <div
         key={profile.id}
-        className="bg-surface-container rounded-2xl h-full shadow-md p-4"
+        className="bg-surface-container rounded-2xl h-full shadow-md p-4 duration-300 ease-in-out hover:scale-95"
       >
         <div className="flex">
           <div className="min-w-28 min-h-24 mr-4">
@@ -20,7 +20,10 @@ export default function ExploreProfileCard({
               className="w-24 h-24 rounded-xl"
             />
           </div>
-          <div className="flex flex-col break-words" style={{ maxWidth: "calc(100% - 96px)" }}>
+          <div
+            className="flex flex-col break-words"
+            style={{ maxWidth: "calc(100% - 96px)" }}
+          >
             <span>{profile.username}</span>
             <span className="text-xl font-semibold">
               {!profile.displayName ? profile.username : profile.displayName}
