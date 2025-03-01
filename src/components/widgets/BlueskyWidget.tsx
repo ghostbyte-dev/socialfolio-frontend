@@ -22,7 +22,7 @@ export function BlueskyWidget({
   const onClick = () => {
     const url = "https://bsky.app/profile/" + data.handle;
     window.open(url, "_blank", "noopener,noreferrer");
-  }
+  };
 
   return (
     <BaseWidget
@@ -33,15 +33,6 @@ export function BlueskyWidget({
       onClick={onClick}
     >
       {variant == 1 && (
-        <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgeteditor/bluesky.svg"
-            alt="Bluesky logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
-        </div>
-      )}
-      {variant == 2 && (
         <div className="h-full w-full flex justify-center items-center bg-[#1185fe]">
           <img
             src="/widgets/bluesky/bluesky_white.svg"
@@ -50,6 +41,16 @@ export function BlueskyWidget({
           />
         </div>
       )}
+      {variant == 2 && (
+        <div className="h-full w-full flex justify-center items-center">
+          <img
+            src="/widgeteditor/bluesky.svg"
+            alt="Bluesky logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
+      )}
+
       {variant == 3 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
