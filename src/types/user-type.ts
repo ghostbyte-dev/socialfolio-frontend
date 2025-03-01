@@ -1,4 +1,9 @@
-
+export enum Status {
+    Visible = "visible",
+    Hidden = "hidden",
+    Disabled = "disabled",
+    Unverified = "unverified"
+  }
 
 export interface IUser {
     id: string;
@@ -7,5 +12,5 @@ export interface IUser {
     displayName: string;
     description: string;
     avatar: string;
-    verified: boolean;
+    status: Status;
 }

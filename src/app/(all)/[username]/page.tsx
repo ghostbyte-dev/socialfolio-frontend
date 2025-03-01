@@ -7,6 +7,7 @@ import UserNotFoundPage from "@/components/UserNotFoundPage";
 import WidgetsGrid from "@/components/WidgetsGrid";
 import { AuthService } from "@/services/auth.service";
 import { UserService } from "@/services/user.service";
+import { Status } from "@/types/user-type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
@@ -68,8 +69,7 @@ export default function UserPage() {
 
   return (
     <>
-
-      {isOwner && !user.verified && (
+      {isOwner && user.status == Status.Unverified && (
         <div className="w-full h-10 bg-red-500 flex justify-center items-center">
           <span className="text-white font-bold">
             Your profile is not visible until you verify your email
