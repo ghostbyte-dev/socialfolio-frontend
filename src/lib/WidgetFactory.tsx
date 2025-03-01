@@ -1,6 +1,7 @@
 import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { BlueskyWidget } from "@/components/widgets/BlueskyWidget";
+import { BuyMeACoffeeWidget } from "@/components/widgets/BuyMeACoffeeWidget";
 import { CodebergWidget } from "@/components/widgets/CodebergWidget";
 import { EmailWidget } from "@/components/widgets/EmailWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
@@ -17,6 +18,7 @@ import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import {
   BlueskyData,
+  BuymeacoffeeData,
   CodebergData,
   EmailData,
   FediverseData,
@@ -162,6 +164,17 @@ export function WidgetFactory({
       return (
         <LiberaPayWidget
           data={widget.data as LiberaPayData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+      case "buymeacoffee":
+      return (
+        <BuyMeACoffeeWidget
+          data={widget.data as BuymeacoffeeData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

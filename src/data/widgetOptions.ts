@@ -163,6 +163,20 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "buymeacoffee",
+    name: "Buy me a Coffee",
+    imageLink: "/widgeteditor/buymeacoffee.png",
+    imageLinkDarkTheme: "/widgeteditor/buymeacoffee.png",
+    fields: [{ key: "username", label: "Username", type: "text" }],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "email",
     name: "Email",
     imageLink: "/widgeteditor/mail.svg",
