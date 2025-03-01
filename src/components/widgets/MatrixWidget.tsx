@@ -14,7 +14,7 @@ interface MatrixWidgetProps {
 export function MatrixWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: MatrixWidgetProps) {
   const onClick = () => {
     const url = "https://matrix.to/#/@" + data.username + ":" + data.instance;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (

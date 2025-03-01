@@ -14,7 +14,7 @@ interface PeertubeWidgetProps {
 export function PeertubeWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: PeertubeWidgetProps) {
   const onClick = () => {
     const url = data.instance + "/c/" + data.username;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (
