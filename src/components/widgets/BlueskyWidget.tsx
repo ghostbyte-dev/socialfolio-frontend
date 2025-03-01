@@ -12,7 +12,7 @@ interface BlueskyWidgetProps {
 
 export function BlueskyWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: BlueskyWidgetProps) {
   const onClick = () => {
-    const url = data.instance + "/profile/" + data.username;
+    const url = "https://bsky.app/profile/" + data.handle;
     window.location.href = url;
   }
 

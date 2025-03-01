@@ -138,8 +138,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/bluesky.svg",
     imageLinkDarkTheme: "/widgeteditor/bluesky.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "bsky.app" },
-      { key: "username", label: "Username", type: "text" },
+      { key: "handle", label: "Handle", type: "text", placeholder: "username.bsky.social" },
     ],
     variants: [{ index: 1 }],
     sizes: [
