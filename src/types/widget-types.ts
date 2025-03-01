@@ -21,7 +21,13 @@ export interface PixelfedData {
   username: string;
   instance: string;
 }
+
 export interface PeertubeData {
+  username: string;
+  instance: string;
+}
+
+export interface NeoDBData {
   username: string;
   instance: string;
 }

@@ -122,6 +122,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "neodb",
+    name: "NeoDB",
+    imageLink: "/widgeteditor/neodb.svg",
+    imageLinkDarkTheme: "/widgeteditor/neodb.svg",
+    fields: [
+      { key: "instance", label: "Instance", type: "text", placeholder: "neodb.social" },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "github",
     name: "GitHub",
     imageLink: "/widgeteditor/github.webp",

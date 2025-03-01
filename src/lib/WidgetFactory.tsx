@@ -12,6 +12,7 @@ import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { LinkWidget } from "@/components/widgets/LinkWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
+import { NeoDbWidget } from "@/components/widgets/NeoDBWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PeertubeWidget } from "@/components/widgets/Peertube";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
@@ -29,6 +30,7 @@ import {
   LinkData,
   MastodonData,
   MatrixData,
+  NeoDBData,
   NoteWidgetData,
   PeertubeData,
   PixelfedData,
@@ -126,6 +128,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
+      case "neodb":
+        return (
+          <NeoDbWidget
+            data={widget.data as NeoDBData}
+            size={widget.size}
+            variant={widget.variant}
+            isOwner={isOwner}
+            deleteWidget={deleteWidget}
+            editWidget={editWidget}
+          />
+        );
     case "github":
       return (
         <GithubWidget
