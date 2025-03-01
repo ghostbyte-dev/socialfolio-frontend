@@ -1,6 +1,7 @@
 import { StatsService } from "@/services/stats.service";
 import { useQuery } from "@tanstack/react-query";
 import { StatsWidget } from "../widgets/StatsWidget";
+import { WidgetFactory } from "@/lib/WidgetFactory";
 
 export default function StatsSection() {
   const {
@@ -46,7 +47,20 @@ export default function StatsSection() {
         )}
       </div>
 
-      <div></div>
+      {/* <div>
+        <div className="flex justify-center mt-10">
+          <h2 className="text-4xl font-bold">Most used widgets</h2>
+        </div>
+
+        <div className="h-64 w-64">
+          <WidgetFactory
+            widget={stats?.mostUsedWidgets[0]}
+            isOwner={false}
+            deleteWidget={() => {}}
+            editWidget={() => {}}
+          />
+        </div>
+      </div> */}
     </section>
   );
 }
