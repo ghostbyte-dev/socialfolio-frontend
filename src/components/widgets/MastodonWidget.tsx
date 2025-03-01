@@ -68,6 +68,7 @@ export function MastodonWidget({
       editWidget={editWidget}
       onClick={onClick}
     >
+      <a rel="me" href={`https://${data.instance}/@${data.username}`} className="hidden">Mastodon</a>
       {variant == 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
           <img
