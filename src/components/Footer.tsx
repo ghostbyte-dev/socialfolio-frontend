@@ -16,13 +16,23 @@ export default function Footer() {
         <div>
           <span className="text-xl font-bold">Stay up to date:</span>
           <div className="mt-3 flex">
-            <Link href="https://techhub.social/@socialfolio">
+            <Link href="socialfolio">
               <img
-                className="mr-3"
-                src="/icons/mastodon.svg"
-                alt="Mastodon logo"
+                className="mr-4"
+                src="/icons/socialfolio-logo.svg"
+                alt="Socialfolio logo"
                 height={45}
                 width={45}
+              ></img>
+            </Link>
+
+            <Link href="https://techhub.social/@socialfolio">
+              <img
+                className="mr-4"
+                src="/icons/mastodon.svg"
+                alt="Mastodon logo"
+                height={42}
+                width={42}
               ></img>
             </Link>
 
@@ -37,8 +47,8 @@ export default function Footer() {
               <img
                 src="/icons/github-logo-white.webp"
                 alt="Github logo"
-                height={45}
-                width={45}
+                height={42}
+                width={42}
                 className="hidden dark:block"
               ></img>
             </Link>
