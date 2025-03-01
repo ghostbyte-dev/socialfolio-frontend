@@ -13,7 +13,7 @@ interface FediverseWidgetProps {
 export function FediverseWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: FediverseWidgetProps) {
   const onClick = () => {
     const url = data.link;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (

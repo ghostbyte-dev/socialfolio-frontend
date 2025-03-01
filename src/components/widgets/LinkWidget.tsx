@@ -24,7 +24,7 @@ export function LinkWidget({
 }: LinkWidgetProps) {
   const onClick = () => {
     const url = data.link;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

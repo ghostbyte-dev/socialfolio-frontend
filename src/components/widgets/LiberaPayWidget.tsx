@@ -16,7 +16,7 @@ export function LiberaPayWidget({ data, size, variant, isOwner, deleteWidget, ed
 
   const onClick = () => {
     const url = "https://liberapay.com/" + data.username;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (

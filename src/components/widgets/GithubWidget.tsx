@@ -120,7 +120,7 @@ export function GithubWidget({
 
   const onClick = () => {
     const url = "https://github.com/" + data.username;
-    window.location.href = url; // This will navigate to the GitHub URL
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

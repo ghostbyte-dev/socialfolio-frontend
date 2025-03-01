@@ -14,7 +14,7 @@ interface LemmyWidgetProps {
 export function LemmyWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: LemmyWidgetProps) {
   const onClick = () => {
     const url = data.instance + "/u/" + data.username;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (

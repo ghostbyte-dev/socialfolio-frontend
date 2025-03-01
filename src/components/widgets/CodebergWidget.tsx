@@ -10,13 +10,20 @@ interface CodebergWidgetProps {
   editWidget: () => void;
 }
 
-export function CodebergWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: CodebergWidgetProps) {
+export function CodebergWidget({
+  data,
+  size,
+  isOwner,
+  variant,
+  deleteWidget,
+  editWidget,
+}: CodebergWidgetProps) {
   const onClick = () => {
     const url = "https://codeberg.org/" + data.username;
-    window.location.href = url;
-  }
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
   const getBackground = () => {
-    switch(variant) {
+    switch (variant) {
       case 1:
         return "#2185D0";
       case 2:
@@ -28,41 +35,50 @@ export function CodebergWidget({ data, size, isOwner, variant, deleteWidget, edi
       default:
         return "";
     }
-  }
+  };
   const background = "bg-[" + getBackground() + "]";
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={true}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      onClick={onClick}
+    >
       {(variant == 1 || variant == 2 || variant == 3 || variant == 4) && (
-          <div className={"h-full w-full flex justify-center items-center"} style={{backgroundColor: getBackground()}}>
-            <img
-              src="/widgets/codeberg/codeberg.svg"
-              alt="Codeberg logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+        <div
+          className={"h-full w-full flex justify-center items-center"}
+          style={{ backgroundColor: getBackground() }}
+        >
+          <img
+            src="/widgets/codeberg/codeberg.svg"
+            alt="Codeberg logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
       {variant == 5 && (
-          <div className="h-full w-full flex justify-center items-center">
-            <img
-              src="/widgeteditor/codeberg.svg"
-              alt="Codeberg logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+        <div className="h-full w-full flex justify-center items-center">
+          <img
+            src="/widgeteditor/codeberg.svg"
+            alt="Codeberg logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
       {variant == 6 && (
-          <div className="h-full w-full flex justify-center items-center">
-            <img
-              src="/widgets/codeberg/codeberg_black.svg"
-              alt="Codeberg logo"
-              className="w-[50%] h-[50%] object-contain block dark:hidden"
-            />
-            <img
-              src="/widgets/codeberg/codeberg.svg"
-              alt="Codeberg logo"
-              className="w-[50%] h-[50%] object-contain hidden dark:block"
-            />
-          </div>
+        <div className="h-full w-full flex justify-center items-center">
+          <img
+            src="/widgets/codeberg/codeberg_black.svg"
+            alt="Codeberg logo"
+            className="w-[50%] h-[50%] object-contain block dark:hidden"
+          />
+          <img
+            src="/widgets/codeberg/codeberg.svg"
+            alt="Codeberg logo"
+            className="w-[50%] h-[50%] object-contain hidden dark:block"
+          />
+        </div>
       )}
     </BaseWidget>
   );

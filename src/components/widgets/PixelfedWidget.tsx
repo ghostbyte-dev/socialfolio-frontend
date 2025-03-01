@@ -15,7 +15,7 @@ export function PixelfedWidget({ data, size, isOwner, variant, deleteWidget, edi
 
   const onClick = () => {
     const url = data.instance + "/@" + data.username;
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (
