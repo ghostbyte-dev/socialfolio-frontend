@@ -1,10 +1,19 @@
-import { MastodonData, WidgetApiData } from "@/types/widget-types";
+import { MastodonData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Link from "next/link";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import { WidgetService } from "@/services/widget.service";
+import { Metadata } from "next";
+
+export async function generateMetadata({ user }: { user: { username: string, mastodon?: { instance: string, username: string } } }): Promise<Metadata> {
+  return {
+    other: user.mastodon
+      ? {
+          "link:rel=me": `https://${user.mastodon.instance}/@${user.mastodon.username}`,
+        }
+      : {},
+  };
+}
 
 interface MastodonWidgetProps {
   id: string;
@@ -68,7 +77,6 @@ export function MastodonWidget({
       editWidget={editWidget}
       onClick={onClick}
     >
-      <a rel="me" href={`https://${data.instance}/@${data.username}`} className="hidden">Mastodon</a>
       {variant == 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
           <img
