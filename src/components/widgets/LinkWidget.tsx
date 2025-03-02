@@ -41,7 +41,7 @@ export function LinkWidget({
 
           {data.link && (
             <Link className="break-words max-w-full" href={data.link}>
-              {data.link}
+              {data.link.replace(/^https?\:\/\//i, "")}
             </Link>
           )}
         </div>
