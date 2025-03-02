@@ -71,6 +71,7 @@ export default function Avatar({
               width={200}
               height={200}
               className="rounded-2xl min-h-48 min-w-48"
+              priority
             />
             <div className="flex opacity-0 group-hover:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
               <p className="text-white">Upload Avatar</p>
@@ -85,6 +86,7 @@ export default function Avatar({
             width={200}
             height={200}
             className="rounded-2xl"
+            priority
           />
         </>
       )}
