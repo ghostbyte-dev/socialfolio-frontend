@@ -10,6 +10,7 @@ import { UserService } from "@/services/user.service";
 import { Status } from "@/types/user-type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -28,9 +29,8 @@ export default function UserPage() {
   const jwt = session?.user?.jwt;
 
   useEffect(() => {
-    document.title = username +  " - Socialfolio";
+    document.title = username + " - Socialfolio";
   }, [username]);
-
 
   const {
     data: user,
@@ -53,13 +53,13 @@ export default function UserPage() {
   });
 
   const resendVerificationCode = useMutation({
-    mutationFn: (jwt: string) => 
+    mutationFn: (jwt: string) =>
       toast.promise(AuthService.resendVerificationCode(jwt), {
         loading: "Sending verification Email...",
         success: "Verification Email has been sent!",
         error: (err) => `Error: ${err.message}`,
-      })
-  })
+      }),
+  });
 
   if (isPending) return <LoadingIndicator />;
 
@@ -69,6 +69,11 @@ export default function UserPage() {
 
   return (
     <>
+      {user && (
+        <Head>
+          <link rel="me" href={`https://techhub.social/@${user.username}`} />
+        </Head>
+      )}
       {isOwner && user.status == Status.Unverified && (
         <div className="w-full h-10 bg-red-500 flex justify-center items-center">
           <span className="text-white font-bold">
@@ -77,13 +82,14 @@ export default function UserPage() {
 
           <button
             className="bg-black text-sm text-white px-3 py-1 rounded-lg ml-3"
-            onClick={() => {resendVerificationCode.mutate(jwt!)}}
+            onClick={() => {
+              resendVerificationCode.mutate(jwt!);
+            }}
           >
             Resend Verification Email
           </button>
         </div>
       )}
-
       <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
         <section className="mb-16">
           <Bio isOwner={isOwner} user={user} />

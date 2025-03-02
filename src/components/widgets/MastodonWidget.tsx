@@ -3,17 +3,6 @@ import { BaseWidget } from "./BaseWidget";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
-import { Metadata } from "next";
-
-export async function generateMetadata({ user }: { user: { username: string, mastodon?: { instance: string, username: string } } }): Promise<Metadata> {
-  return {
-    other: user.mastodon
-      ? {
-          "link:rel=me": `https://${user.mastodon.instance}/@${user.mastodon.username}`,
-        }
-      : {},
-  };
-}
 
 interface MastodonWidgetProps {
   id: string;
