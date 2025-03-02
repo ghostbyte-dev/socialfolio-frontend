@@ -17,6 +17,7 @@ import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PeertubeWidget } from "@/components/widgets/Peertube";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
+import { VernissageWidget } from "@/components/widgets/VernissageWidget";
 import {
   BlueskyData,
   BuymeacoffeeData,
@@ -35,6 +36,7 @@ import {
   PeertubeData,
   PixelfedData,
   TimezoneData,
+  VernissageData,
   WidgetProps,
 } from "@/types/widget-types";
 
@@ -117,6 +119,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
+      case "vernissage":
+        return (
+          <VernissageWidget
+            data={widget.data as VernissageData}
+            size={widget.size}
+            variant={widget.variant}
+            isOwner={isOwner}
+            deleteWidget={deleteWidget}
+            editWidget={editWidget}
+          />
+        );
       case "bluesky":
       return (
         <BlueskyWidget

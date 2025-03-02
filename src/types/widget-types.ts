@@ -55,6 +55,10 @@ export interface BuymeacoffeeData {
   username: string;
 }
 
+export interface VernissageData {
+  username: string;
+}
+
 export interface TextData {
   text: string;
 }

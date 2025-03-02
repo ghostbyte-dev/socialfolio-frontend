@@ -154,6 +154,7 @@ export default function Navbar() {
           <div>
             <button
               type="button"
+              aria-label="open menu"
               className={`flex flex-col items-end py-5 pl-4 md:hidden font-bold`}
               onClick={() => setIsOpen(!isOpen)}
             >

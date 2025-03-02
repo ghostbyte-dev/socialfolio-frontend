@@ -89,6 +89,22 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "vernissage",
+    name: "Vernissage",
+    imageLink: "/widgeteditor/vernissage.png",
+    imageLinkDarkTheme: "/widgeteditor/vernissage.png",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "matrix",
     name: "Matrix",
     imageLink: "/widgeteditor/matrix-black.svg",
