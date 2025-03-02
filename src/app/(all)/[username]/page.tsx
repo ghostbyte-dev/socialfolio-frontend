@@ -69,11 +69,6 @@ export default function UserPage() {
 
   return (
     <>
-      {user && (
-        <Head>
-          <link rel="me" href={`https://techhub.social/@${user.username}`} />
-        </Head>
-      )}
       {isOwner && user.status == Status.Unverified && (
         <div className="w-full h-10 bg-red-500 flex justify-center items-center">
           <span className="text-white font-bold">
