@@ -7,6 +7,7 @@ import { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import Pencil from "@/assets/icons/pencil-outline.svg";
 import { isTouch } from "@/lib/isTouch";
+import { FocusTrap } from "focus-trap-react";
 
 export default function DisplayName({
   name,
@@ -35,19 +36,19 @@ export default function DisplayName({
     mutationFn: (name: string) =>
       UserService.updateDisplayName(name, session?.user.jwt ?? ""),
     onSuccess: (data: IUser, variables, context) => {
-      console.log(username);
       queryClient.setQueryData(["otheruser", username], data);
       handleClosePopup();
     },
   });
 
-  const touchStyle = isTouch()
-    ? "group-focus:opacity-100 group-focus:scale-100"
-    : "";
+  const touchStyle =
+    "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
     <div className="group relative" tabIndex={0}>
-      <h1 className="text-3xl font-bold mb-4 text-center sm:text-star break-words max-w-screen sm:max-w-none px-10 sm:px-0">{name}</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center sm:text-star break-words max-w-screen sm:max-w-none px-10 sm:px-0">
+        {name}
+      </h1>
 
       {isOwner && (
         <button
@@ -59,28 +60,30 @@ export default function DisplayName({
       )}
 
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-surface-container p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4">Edit Display Name</h2>
-            <input
-              type="text"
-              value={editedName}
-              onChange={(e) => setEditedName(e.target.value)}
-              className="input bg-surface-container-high"
-            />
-            <div className="flex justify-end gap-2 mt-5">
-              <button onClick={handleClosePopup} className="button-outlined">
-                Cancel
-              </button>
-              <button
-                className="button"
-                onClick={() => mutation.mutate(editedName)}
-              >
-                Save
-              </button>
+        <FocusTrap>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="bg-surface-container p-6 rounded-lg shadow-lg w-96">
+              <h2 className="text-xl font-bold mb-4">Edit Display Name</h2>
+              <input
+                type="text"
+                value={editedName}
+                onChange={(e) => setEditedName(e.target.value)}
+                className="input bg-surface-container-high"
+              />
+              <div className="flex justify-end gap-2 mt-5">
+                <button onClick={handleClosePopup} className="button-outlined">
+                  Cancel
+                </button>
+                <button
+                  className="button"
+                  onClick={() => mutation.mutate(editedName)}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </FocusTrap>
       )}
     </div>
   );

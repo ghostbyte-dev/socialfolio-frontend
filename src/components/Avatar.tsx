@@ -63,8 +63,19 @@ export default function Avatar({
             onChange={handleChange}
             className="hidden"
             accept="image/*"
+            tabIndex={-1}
           />
-          <div onClick={handleClick} className="cursor-pointer group relative">
+          <div
+            onClick={handleClick}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleClick();
+              }
+            }}
+            className="cursor-pointer group relative"
+            tabIndex={0}
+          >
             <Image
               src={file ?? avatarUrl}
               alt=""
@@ -73,7 +84,7 @@ export default function Avatar({
               className="rounded-2xl min-h-48 min-w-48"
               priority
             />
-            <div className="flex opacity-0 group-hover:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
+            <div className="flex opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
               <p className="text-white">Upload Avatar</p>
             </div>
           </div>
@@ -168,7 +179,12 @@ function CropAvatar({
           >
             Cancel
           </button>
-          <SubmitButton text="Save" isLoading={uploadAvatar.isPending} isFullWidth={false} onClick={saveImage} />
+          <SubmitButton
+            text="Save"
+            isLoading={uploadAvatar.isPending}
+            isFullWidth={false}
+            onClick={saveImage}
+          />
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import Close from "@/assets/icons/close.svg";
 import toast from "react-hot-toast";
 import SubmitButton from "../SubmitButton";
 import { widgetOptions } from "@/data/widgetOptions";
+import { FocusTrap } from 'focus-trap-react';
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;
@@ -116,12 +117,25 @@ export default function EditWidgetModal({
           onClick={(e) => e.stopPropagation()}
         >
           <p>An error occured</p>
+          <button
+          onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault(); // Prevent scrolling when pressing space
+              onClose();
+            }
+          }}
+          className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+        >
+          <Close className="w-[10px] h-[10px]" />
+        </button>
         </div>
       </div>
     );
   }
 
   return (
+    <FocusTrap>
     <div
       className="fixed inset-0 flex justify-center items-center bg-black/50"
       onClick={() => onClose()}
@@ -214,13 +228,20 @@ export default function EditWidgetModal({
           />
         </div>
 
-        <div
+        <button
           onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault(); // Prevent scrolling when pressing space
+              onClose();
+            }
+          }}
           className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
         >
           <Close className="w-[10px] h-[10px]" />
-        </div>
+        </button>
       </div>
     </div>
-  );
+    </FocusTrap>
+    );
 }

@@ -8,6 +8,7 @@ import Close from "@/assets/icons/close.svg";
 import toast from "react-hot-toast";
 import WidgetTypeSelector from "./WidgetTypeSelector";
 import WidgetPropsSelector from "./WidgetPropsSelector";
+import { FocusTrap } from "focus-trap-react";
 
 export interface WidgetOption {
   id: string;
@@ -145,60 +146,68 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 flex justify-center items-center"
-      onClick={onClose}
-    >
+    <FocusTrap>
       <div
-        className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
+        className="fixed inset-0 bg-black/50 flex justify-center items-center"
+        onClick={onClose}
       >
-        {/* Left Sidebar - Widget Options */}
-        {selectedWidget == null && (
-          <div className="md:hidden w-full">
-            <div className="w-full h-full">
-              <WidgetTypeSelector
-                selectedWidget={selectedWidget}
-                handleSelectWidget={handleSelectWidget}
-              />
-            </div>
-          </div>
-        )}
-        <div className="w-1/3 hidden md:block">
-          <WidgetTypeSelector
-            selectedWidget={selectedWidget}
-            handleSelectWidget={handleSelectWidget}
-          />
-        </div>
-
-        {/* Right Side - Widget Configuration */}
-        {selectedWidget != null && (
-          <div className="block md:hidden w-full">
-            <div className="w-full h-full">
-              <WidgetPropsSelector
-                selectedWidget={selectedWidget}
-                handleSave={handleSave}
-                goBack={() => setSelectedWidget(null)}
-              />
-            </div>
-          </div>
-        )}
-
-        <div className="hidden md:block w-full h-full">
-          <WidgetPropsSelector
-            selectedWidget={selectedWidget}
-            handleSave={handleSave}
-            goBack={() => setSelectedWidget(null)}
-          />
-        </div>
-
         <div
-          onClick={onClose}
-          className="top-4 right-4 absolute bg-red-500 rounded-full w-8 h-8 flex justify-center items-center duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
+          className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
         >
-          <Close className="w-[10px] h-[10px] text-white" />
+          {/* Left Sidebar - Widget Options */}
+          {selectedWidget == null && (
+            <div className="md:hidden w-full">
+              <div className="w-full h-full">
+                <WidgetTypeSelector
+                  selectedWidget={selectedWidget}
+                  handleSelectWidget={handleSelectWidget}
+                />
+              </div>
+            </div>
+          )}
+          <div className="w-1/3 hidden md:block">
+            <WidgetTypeSelector
+              selectedWidget={selectedWidget}
+              handleSelectWidget={handleSelectWidget}
+            />
+          </div>
+
+          {/* Right Side - Widget Configuration */}
+          {selectedWidget != null && (
+            <div className="block md:hidden w-full">
+              <div className="w-full h-full">
+                <WidgetPropsSelector
+                  selectedWidget={selectedWidget}
+                  handleSave={handleSave}
+                  goBack={() => setSelectedWidget(null)}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="hidden md:block w-full h-full">
+            <WidgetPropsSelector
+              selectedWidget={selectedWidget}
+              handleSave={handleSave}
+              goBack={() => setSelectedWidget(null)}
+            />
+          </div>
+
+          <button
+          onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault(); // Prevent scrolling when pressing space
+              onClose();
+            }
+          }}
+          className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+        >
+          <Close className="w-[10px] h-[10px]" />
+        </button>
         </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 }

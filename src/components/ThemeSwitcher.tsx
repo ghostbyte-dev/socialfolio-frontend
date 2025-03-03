@@ -9,9 +9,11 @@ import Laptop from "@/assets/icons/laptop-outline.svg";
 export const ThemeSwitcher = ({
   bgColor = "bg-surface-container",
   activeColor = "bg-surface-container-high",
+  isFocusable = true,
 }: {
   bgColor?: string;
   activeColor?: string;
+  isFocusable?: boolean;
 }) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -24,9 +26,12 @@ export const ThemeSwitcher = ({
     return null;
   }
 
+  const tabIndex = isFocusable ? 0 : -1;
+
   return (
     <div className={"relative rounded-xl p-1 " + bgColor}>
       <button
+        tabIndex={tabIndex}
         onClick={() => setTheme("system")}
         className={
           "rounded-lg p-2 " + (theme === "system" ? activeColor : bgColor)
@@ -35,6 +40,7 @@ export const ThemeSwitcher = ({
         <Laptop className="w-[20px] h-[20px]" />
       </button>
       <button
+        tabIndex={tabIndex}
         onClick={() => setTheme("light")}
         className={
           "rounded-lg p-2 " + (theme === "light" ? activeColor : bgColor)
@@ -43,6 +49,7 @@ export const ThemeSwitcher = ({
         <Sunny className="w-[20px] h-[20px]" />
       </button>
       <button
+        tabIndex={tabIndex}
         onClick={() => setTheme("dark")}
         className={
           "rounded-lg p-2 " + (theme === "dark" ? activeColor : bgColor)
