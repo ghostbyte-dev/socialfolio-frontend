@@ -75,6 +75,7 @@ export default function Avatar({
             }}
             className="cursor-pointer group relative"
             tabIndex={0}
+            role="button"
           >
             <Image
               src={file ?? avatarUrl}

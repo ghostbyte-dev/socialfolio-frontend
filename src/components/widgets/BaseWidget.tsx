@@ -39,6 +39,7 @@ export function BaseWidget({
           ? "hover:scale-95 cursor-pointer"
           : ""
       }`}
+      role="link"
       tabIndex={0}
       onClick={click}
       onKeyDown={(e) => {

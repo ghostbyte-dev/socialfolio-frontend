@@ -18,6 +18,7 @@ export default function WidgetTypeSelector({
           <li
             key={widget.id}
             tabIndex={0}
+            role="button"
             className={`p-3 flex items-center gap-3 cursor-pointer rounded-lg ${
               selectedWidget?.id === widget.id
                 ? "bg-primary-container"
