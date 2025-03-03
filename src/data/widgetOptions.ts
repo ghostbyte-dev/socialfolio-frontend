@@ -235,7 +235,6 @@ export const widgetOptions: WidgetOption[] = [
         label: "Country",
         type: "select",
         options: getCountryDataList().map((countryData: ICountryData) => countryData.name),
-        defaultOption: "Austria"
       },
     ],
     variants: [{ index: 1 }],
