@@ -41,7 +41,7 @@ export function LinkWidget({
 
           {data.link && (
             <p className="break-words max-w-full">
-              {data.label != "" ? data.label : data.link.replace(/^https?\:\/\//i, "")}
+              {data.label != "" && data.label ? data.label : data.link.replace(/^https?\:\/\//i, "")}
             </p>
           )}
         </div>
