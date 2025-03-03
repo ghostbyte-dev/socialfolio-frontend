@@ -227,8 +227,8 @@ export const widgetOptions: WidgetOption[] = [
   {
     id: "country",
     name: "Country",
-    imageLink: "/widgeteditor/timezone.svg",
-    imageLinkDarkTheme: "/widgeteditor/timezone_white.svg",
+    imageLink: "/widgeteditor/country_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/country_white.svg",
     fields: [
       {
         key: "countryName",
