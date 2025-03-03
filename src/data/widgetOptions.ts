@@ -240,8 +240,6 @@ export const widgetOptions: WidgetOption[] = [
     variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
-      { cols: 1, rows: 2 },
-      { cols: 2, rows: 1 },
       { cols: 2, rows: 2 },
     ],
   },
