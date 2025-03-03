@@ -107,6 +107,7 @@ export interface EmailData {
 
 export interface LinkData {
   link: string;
+  label: string;
 }
 
 export interface EmptyWidgetData {

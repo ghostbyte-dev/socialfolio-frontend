@@ -40,9 +40,9 @@ export function LinkWidget({
           <LinkIcon className="w-[30%] h-[30%]" />
 
           {data.link && (
-            <Link className="break-words max-w-full" href={data.link}>
-              {data.link.replace(/^https?\:\/\//i, "")}
-            </Link>
+            <p className="break-words max-w-full">
+              {data.label != "" ? data.label : data.link.replace(/^https?\:\/\//i, "")}
+            </p>
           )}
         </div>
       )}

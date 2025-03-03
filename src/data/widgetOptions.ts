@@ -302,7 +302,10 @@ export const widgetOptions: WidgetOption[] = [
     name: "Link",
     imageLink: "/widgeteditor/link.svg",
     imageLinkDarkTheme: "/widgeteditor/link_white.svg",
-    fields: [{ key: "link", label: "Link", type: "url", placeholder: "https://somewebsite.com" }],
+    fields: [
+      { key: "label", label: "Label", type: "text"},
+      { key: "link", label: "Link", type: "url", placeholder: "https://somewebsite.com" }
+      ],
     variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
