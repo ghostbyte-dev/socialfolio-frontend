@@ -31,7 +31,7 @@ export function CountryWidget({
       {variant == 1 && (
         <div
           className="h-full w-full flex justify-center items-center"
-          style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundRepeat: "no-repeat" }}
+          style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}
         >
         </div>
       )}
