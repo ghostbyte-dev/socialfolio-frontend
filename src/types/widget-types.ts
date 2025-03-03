@@ -91,6 +91,10 @@ export interface NoteWidgetData {
   note: string;
 }
 
+export interface CountryWidgetData {
+  countryName: string;
+}
+
 export interface EmailData {
   email: string;
 }

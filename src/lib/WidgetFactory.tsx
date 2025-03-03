@@ -3,6 +3,7 @@ import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { BlueskyWidget } from "@/components/widgets/BlueskyWidget";
 import { BuyMeACoffeeWidget } from "@/components/widgets/BuyMeACoffeeWidget";
 import { CodebergWidget } from "@/components/widgets/CodebergWidget";
+import { CountryWidget } from "@/components/widgets/CountryWidget";
 import { EmailWidget } from "@/components/widgets/EmailWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
@@ -23,6 +24,7 @@ import {
   BlueskyData,
   BuymeacoffeeData,
   CodebergData,
+  CountryWidgetData,
   EmailData,
   FediverseData,
   GitHubData,
@@ -214,6 +216,17 @@ export function WidgetFactory({
       return (
         <KofiWidget
           data={widget.data as KofiData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "country":
+      return (
+        <CountryWidget
+          data={widget.data as CountryWidgetData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

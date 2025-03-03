@@ -1,5 +1,5 @@
 import { WidgetOption } from "@/components/widgetEditor/WidgetCreator";
-
+import { getCountryDataList, ICountryData } from 'countries-list'
 
 export const widgetOptions: WidgetOption[] = [
   {
@@ -217,6 +217,28 @@ export const widgetOptions: WidgetOption[] = [
     imageLinkDarkTheme: "/widgeteditor/kofi.svg",
     fields: [{ key: "username", label: "Username", type: "text" }],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "country",
+    name: "Country",
+    imageLink: "/widgeteditor/timezone.svg",
+    imageLinkDarkTheme: "/widgeteditor/timezone_white.svg",
+    fields: [
+      {
+        key: "countryName",
+        label: "Country",
+        type: "select",
+        options: getCountryDataList().map((countryData: ICountryData) => countryData.name),
+        defaultOption: "Austria"
+      },
+    ],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
