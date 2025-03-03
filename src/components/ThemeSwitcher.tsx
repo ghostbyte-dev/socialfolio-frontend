@@ -36,6 +36,7 @@ export const ThemeSwitcher = ({
         className={
           "rounded-lg p-2 " + (theme === "system" ? activeColor : bgColor)
         }
+        aria-label="System Theme"
       >
         <Laptop className="w-[20px] h-[20px]" />
       </button>
@@ -45,6 +46,7 @@ export const ThemeSwitcher = ({
         className={
           "rounded-lg p-2 " + (theme === "light" ? activeColor : bgColor)
         }
+        aria-label="Light Theme"
       >
         <Sunny className="w-[20px] h-[20px]" />
       </button>
@@ -54,6 +56,7 @@ export const ThemeSwitcher = ({
         className={
           "rounded-lg p-2 " + (theme === "dark" ? activeColor : bgColor)
         }
+        aria-label="Dark Theme"
       >
         <Moon className="w-[20px] h-[20px]" />
       </button>

@@ -59,6 +59,7 @@ export default function Description({
 
       {isOwner && (
         <button
+        aria-label="Edit profile description"
           onClick={handleOpenPopup}
           className={`absolute top-[-10px] right-0 sm:right-[-40px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
         >

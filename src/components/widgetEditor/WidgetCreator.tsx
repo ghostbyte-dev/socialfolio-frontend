@@ -195,17 +195,18 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           </div>
 
           <button
-          onClick={onClose}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault(); // Prevent scrolling when pressing space
-              onClose();
-            }
-          }}
-          className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
-        >
-          <Close className="w-[10px] h-[10px]" />
-        </button>
+            aria-label="Close widget creator"
+            onClick={onClose}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); // Prevent scrolling when pressing space
+                onClose();
+              }
+            }}
+            className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+          >
+            <Close className="w-[10px] h-[10px]" />
+          </button>
         </div>
       </div>
     </FocusTrap>

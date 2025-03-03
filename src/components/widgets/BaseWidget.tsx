@@ -64,6 +64,7 @@ export function BaseWidget({
                 deleteWidget();
               }
             }}
+            aria-label="Delete widget"
             className={`top-4 left-4 absolute bg-red-500 rounded-full h-8 w-8 flex justify-center items-center scale-75  ease-in-out duration-300 opacity-0 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
             <Close className="w-[10px] h-[10px] text-white" />
@@ -81,6 +82,7 @@ export function BaseWidget({
                 editWidget();
               }
             }}
+            aria-label="Edit widget"
             className={`top-4 right-4 absolute bg-on-surface rounded-full h-8 w-8 flex justify-center items-center scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
             <Pencil className="w-[18px] h-[18px] text-surface" />

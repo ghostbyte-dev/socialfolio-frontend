@@ -71,6 +71,7 @@ export default function Settings({ user, onClose }: SettingsProps) {
                   e.preventDefault();
                   setIsStatusInfoOpen(true);
                 }}
+                aria-label="Status explanation"
               >
                 <QuestionIcon className="w-8 h-8" />
               </button>

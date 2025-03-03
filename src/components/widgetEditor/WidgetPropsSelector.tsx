@@ -2,7 +2,7 @@
 
 import { WidgetOption } from "./WidgetCreator";
 import { useEffect, useState } from "react";
-import ArrowBack from "@/assets/icons/arrow-back.svg"
+import ArrowBack from "@/assets/icons/arrow-back.svg";
 
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption | null;
@@ -15,7 +15,6 @@ export default function WidgetPropsSelector({
   handleSave,
   goBack,
 }: WidgetPropsSelectorProps) {
-
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [variant, setVariant] = useState<number>(1);
 
@@ -35,7 +34,11 @@ export default function WidgetPropsSelector({
   return (
     <div className={"flex-1 p-8 " + (selectedWidget == null ? "" : "")}>
       <div className="flex">
-        <button onClick={goBack} className="mr-2 md:hidden">
+        <button
+          onClick={goBack}
+          className="mr-2 md:hidden"
+          aria-label="Back to widget type seletion"
+        >
           <ArrowBack className="w-6 h-6" />
         </button>
         {selectedWidget != null && (

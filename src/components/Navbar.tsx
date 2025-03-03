@@ -183,6 +183,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               tabIndex={isOpen ? 0 : -1}
+              aria-label="Close Menu"
             >
               <Close className="w-[18px] h-[18px]" />
             </button>
