@@ -1,5 +1,7 @@
 import { WidgetOption } from "@/components/widgetEditor/WidgetCreator";
+import { countryOptions } from "@/lib/country";
 import { getCountryDataList, ICountryData } from 'countries-list'
+
 
 export const widgetOptions: WidgetOption[] = [
   {
@@ -268,7 +270,7 @@ export const widgetOptions: WidgetOption[] = [
         key: "countryName",
         label: "Country",
         type: "select",
-        options: getCountryDataList().map((countryData: ICountryData) => countryData.name),
+        options: countryOptions
       },
     ],
     variants: [{ index: 1 }],

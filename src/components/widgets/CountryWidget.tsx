@@ -1,6 +1,6 @@
 import { CountryWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { getCountryCode, getCountryData, ICountryData } from "countries-list";
+import { countryNameToCode } from "@/lib/country";
 
 interface CountryWidgetProps {
   data: CountryWidgetData;
@@ -19,7 +19,7 @@ export function CountryWidget({
   deleteWidget,
   editWidget,
 }: CountryWidgetProps) {
-  const countryCode = getCountryCode(data.countryName).toString().toLowerCase()
+  const countryCode = countryNameToCode(data.countryName);
   const backgroundImageUrl = `/widgets/country/1x1/${countryCode}.svg`;
   return (
     <BaseWidget
