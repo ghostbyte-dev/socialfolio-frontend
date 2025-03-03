@@ -35,6 +35,7 @@ export default function EditWidgetModal({
   });
   const [variant, setVariant] = useState<number>(widgetData.variant);
   const [selectedSize, setSelectedSize] = useState<WidgetSize>(widgetData.size);
+  const [priority, setPriority] = useState<number>(widgetData.priority ?? 1);
 
   const handleChange = (key: string, value: string) => {
     widgetData.data = {
@@ -83,6 +84,7 @@ export default function EditWidgetModal({
         size: data.size,
         variant: data.variant,
         data: {},
+        priority: data.priority,
       };
 
       queryClient.setQueryData(
@@ -206,6 +208,18 @@ export default function EditWidgetModal({
                     </option>
                   ))}
                 </select>
+              </div>
+              <div className="mb-4">
+                <label className="block font-medium mb-2">Priority</label>
+                <input
+                  className="input bg-surface-container-high w-full"
+                  type="number"
+                  value={priority}
+                  onChange={(e) => {
+                    setPriority(Number(e.target.value));
+                    widgetData.priority = Number(e.target.value);
+                  }}
+                />
               </div>
 
               <WidgetsGridDisplay

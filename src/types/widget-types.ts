@@ -6,6 +6,7 @@ export interface WidgetProps {
   variant: number;
   size: WidgetSize;
   data: WidgetData;
+  priority?: number;
 }
 
 export interface WidgetSize {
