@@ -1,6 +1,7 @@
 import { AddNewWidget } from "@/components/widgets/AddNewWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { BlueskyWidget } from "@/components/widgets/BlueskyWidget";
+import { BookWyrmWiget } from "@/components/widgets/BookWyrmWidget";
 import { BuyMeACoffeeWidget } from "@/components/widgets/BuyMeACoffeeWidget";
 import { CodebergWidget } from "@/components/widgets/CodebergWidget";
 import { CountryWidget } from "@/components/widgets/CountryWidget";
@@ -22,6 +23,7 @@ import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
 import {
   BlueskyData,
+  BookWyrmWidgetData,
   BuymeacoffeeData,
   CodebergData,
   CountryWidgetData,
@@ -127,6 +129,17 @@ export function WidgetFactory({
       return (
         <VernissageWidget
           data={widget.data as VernissageData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+      case "bookwyrm":
+      return (
+        <BookWyrmWiget
+          data={widget.data as BookWyrmWidgetData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

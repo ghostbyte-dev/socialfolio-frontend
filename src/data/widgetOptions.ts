@@ -105,6 +105,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "bookwyrm",
+    name: "BookWyrm",
+    imageLink: "/widgeteditor/bookwyrm.png",
+    imageLinkDarkTheme: "/widgeteditor/bookwyrm.png",
+    fields: [
+      { key: "instance", label: "Instance", type: "text", placeholder: "bookwyrm.social" },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "matrix",
     name: "Matrix",
     imageLink: "/widgeteditor/matrix-black.svg",

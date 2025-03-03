@@ -23,6 +23,11 @@ export interface PixelfedData {
   instance: string;
 }
 
+export interface BookWyrmWidgetData {
+  username: string;
+  instance: string;
+}
+
 export interface PeertubeData {
   username: string;
   instance: string;
