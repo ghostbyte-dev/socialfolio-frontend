@@ -28,8 +28,8 @@ export function BaseWidget({
   };
 
   const touchStyle = isTouch()
-    ? "group-focus:opacity-100 group-focus:scale-100"
-    : "";
+    ? "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100"
+    : "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
     <div
@@ -41,30 +41,50 @@ export function BaseWidget({
       }`}
       tabIndex={0}
       onClick={click}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          click();
+        }
+      }}
     >
       {children}
 
       {isOwner && (
         <>
-          <div
+          <button
             onClick={(e) => {
               e.stopPropagation();
               deleteWidget();
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                e.stopPropagation();
+                deleteWidget();
+              }
+            }}
             className={`top-4 left-4 absolute bg-red-500 rounded-full h-8 w-8 flex justify-center items-center scale-75  ease-in-out duration-300 opacity-0 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
             <Close className="w-[10px] h-[10px] text-white" />
-          </div>
+          </button>
 
-          <div
+          <button
             onClick={(e) => {
               e.stopPropagation();
               editWidget();
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                e.stopPropagation();
+                editWidget();
+              }
+            }}
             className={`top-4 right-4 absolute bg-on-surface rounded-full h-8 w-8 flex justify-center items-center scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
             <Pencil className="w-[18px] h-[18px] text-surface" />
-          </div>
+          </button>
         </>
       )}
     </div>

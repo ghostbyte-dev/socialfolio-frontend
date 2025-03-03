@@ -17,12 +17,19 @@ export default function WidgetTypeSelector({
         {widgetOptions.map((widget) => (
           <li
             key={widget.id}
+            tabIndex={0}
             className={`p-3 flex items-center gap-3 cursor-pointer rounded-lg ${
               selectedWidget?.id === widget.id
                 ? "bg-primary-container"
                 : "hover:bg-primary-container"
             }`}
             onClick={() => handleSelectWidget(widget)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleSelectWidget(widget);
+              }
+            }}
           >
             <img
               src={widget.imageLink}

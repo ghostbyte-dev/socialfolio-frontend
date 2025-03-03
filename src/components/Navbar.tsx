@@ -12,6 +12,7 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 import Close from "@/assets/icons/close.svg";
 import Logo from "@/assets/icons/logo.svg";
 import Settings from "./Settings";
+import { FocusTrap } from "focus-trap-react";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -165,44 +166,56 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-
-      <div
-        className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-surface-container duration-500 "
-        style={{ width: isOpen ? "75vw" : "0vw" }}
-      >
-        <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
-          <ThemeSwitcher
-            bgColor="bg-surface-container-high"
-            activeColor="bg-surface-container"
-          />
-
-          <button type="button" onClick={() => setIsOpen(!isOpen)}>
-            <Close className="w-[18px] h-[18px]" />
-          </button>
-        </div>
-
+      <FocusTrap active={isOpen}>
         <div
-          className={`flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
+          className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-surface-container duration-500 "
+          style={{ width: isOpen ? "75vw" : "0vw" }}
+          tabIndex={isOpen ? 0 : -1}
         >
-          <Link
-            href="/explore"
-            className="cursor-pointer font-bold"
-            onClick={() => setIsOpen(false)}
+          <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
+            <ThemeSwitcher
+              bgColor="bg-surface-container-high"
+              activeColor="bg-surface-container"
+              isFocusable={isOpen}
+            />
+
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              tabIndex={isOpen ? 0 : -1}
+            >
+              <Close className="w-[18px] h-[18px]" />
+            </button>
+          </div>
+
+          <div
+            className={`flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
           >
-            <span
-              className={`
+            <Link
+              href="/explore"
+              className="cursor-pointer font-bold"
+              onClick={() => setIsOpen(false)}
+              tabIndex={isOpen ? 0 : -1}
+            >
+              <span
+                className={`
                 duration-300 
                 ${isOpen ? "delay-200" : "text-transparent"}
               `}
-            >
-              Explore
-            </span>
-          </Link>
+              >
+                Explore
+              </span>
+            </Link>
+          </div>
+
+          {isSettingsModalOpen && user && (
+            <Settings
+              user={user}
+              onClose={() => setIsSettingsModalOpen(false)}
+            />
+          )}
         </div>
-        {isSettingsModalOpen && user && (
-          <Settings user={user} onClose={() => setIsSettingsModalOpen(false)} />
-        )}
-      </div>
+      </FocusTrap>
     </>
   );
 }
