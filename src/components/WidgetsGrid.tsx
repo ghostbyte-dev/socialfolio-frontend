@@ -102,7 +102,7 @@ export function WidgetsGridDisplay({isOwner, widgets, deleteWidget}: {isOwner: b
               paddingBottom: `${aspectRatio * 100}%`, // Maintain aspect ratio
             }}
           >
-          <div className="absolute inset-0 aspect-square">
+          <div className="absolute inset-0">
               <WidgetFactory
                 widget={widget}
                 isOwner={isOwner}
