@@ -79,6 +79,10 @@ export interface LiberaPayData {
   username: string;
 }
 
+export interface KofiData {
+  username: string;
+}
+
 export interface ImageWidgetData {
   url: string;
 }

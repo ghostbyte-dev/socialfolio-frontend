@@ -7,6 +7,7 @@ import { EmailWidget } from "@/components/widgets/EmailWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
+import { KofiWidget } from "@/components/widgets/KofiWidget";
 import { LemmyWidget } from "@/components/widgets/LemmyWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { LinkWidget } from "@/components/widgets/LinkWidget";
@@ -26,6 +27,7 @@ import {
   FediverseData,
   GitHubData,
   ImageWidgetData,
+  KofiData,
   LemmyWidgetData,
   LiberaPayData,
   LinkData,
@@ -119,18 +121,18 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "vernissage":
-        return (
-          <VernissageWidget
-            data={widget.data as VernissageData}
-            size={widget.size}
-            variant={widget.variant}
-            isOwner={isOwner}
-            deleteWidget={deleteWidget}
-            editWidget={editWidget}
-          />
-        );
-      case "bluesky":
+    case "vernissage":
+      return (
+        <VernissageWidget
+          data={widget.data as VernissageData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "bluesky":
       return (
         <BlueskyWidget
           data={widget.data as BlueskyData}
@@ -141,17 +143,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "neodb":
-        return (
-          <NeoDbWidget
-            data={widget.data as NeoDBData}
-            size={widget.size}
-            variant={widget.variant}
-            isOwner={isOwner}
-            deleteWidget={deleteWidget}
-            editWidget={editWidget}
-          />
-        );
+    case "neodb":
+      return (
+        <NeoDbWidget
+          data={widget.data as NeoDBData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
     case "github":
       return (
         <GithubWidget
@@ -197,10 +199,21 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "buymeacoffee":
+    case "buymeacoffee":
       return (
         <BuyMeACoffeeWidget
           data={widget.data as BuymeacoffeeData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "kofi":
+      return (
+        <KofiWidget
+          data={widget.data as KofiData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

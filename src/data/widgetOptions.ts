@@ -211,6 +211,20 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "kofi",
+    name: "Ko-fi",
+    imageLink: "/widgeteditor/kofi.svg",
+    imageLinkDarkTheme: "/widgeteditor/kofi.svg",
+    fields: [{ key: "username", label: "Username", type: "text" }],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "localTime",
     name: "Local Time",
     imageLink: "/widgeteditor/timezone.svg",
