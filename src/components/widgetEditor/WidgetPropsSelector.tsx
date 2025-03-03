@@ -22,6 +22,22 @@ export default function WidgetPropsSelector({
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
+  const handleImageChange = (
+    key: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          handleChange(key, reader.result.toString());
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(() => {
     if (!selectedWidget) return;
     selectedWidget.fields.forEach((field) => {
@@ -77,6 +93,22 @@ export default function WidgetPropsSelector({
                     </option>
                   ))}
                 </select>
+              ) : field.type == "image" ? (
+                <div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="input bg-surface-container-high w-full"
+                    onChange={(e) => handleImageChange(field.key, e)}
+                  />
+                  {formData[field.key] && (
+                    <img
+                      src={formData[field.key]}
+                      alt="Preview"
+                      className="mt-2 max-h-40 rounded-lg shadow-md"
+                    />
+                  )}
+                </div>
               ) : (
                 <input
                   type={field.type}

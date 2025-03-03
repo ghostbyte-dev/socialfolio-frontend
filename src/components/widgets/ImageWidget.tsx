@@ -1,6 +1,5 @@
 import { ImageWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface ImageWidgetProps {
   data: ImageWidgetData;
@@ -12,12 +11,17 @@ interface ImageWidgetProps {
 }
 
 export function ImageWidget({ data, size, variant, isOwner, deleteWidget, editWidget }: ImageWidgetProps) {
+  const onClick = () => {
+    const url = data.link;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <BaseWidget isOwner={isOwner} isClickable={false} deleteWidget={deleteWidget} editWidget={editWidget}>
+    <BaseWidget isOwner={isOwner} isClickable={data.link ? true : false} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
       {variant == 1 && (
         <div className={`h-full w-full variant-${variant}`}>
           <img
-            src={data.url}
+            src={data.image}
             alt=""
             className="w-full h-full object-cover"
           />

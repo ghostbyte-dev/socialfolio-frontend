@@ -169,29 +169,39 @@ export default function EditWidgetModal({
               </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  <label className="block font-medium mb-2">
-                    {field.label}
-                  </label>
-                  {field.type === "select" ? (
-                    <select
-                      className="input bg-surface-container-high w-full"
-                      value={formData[field.key] || field.defaultOption}
-                      onChange={(e) => handleChange(field.key, e.target.value)}
-                    >
-                      {field.options?.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
+                  {field.type == "image" ? (
+                    <></>
                   ) : (
-                    <input
-                      type={field.type}
-                      className="input bg-surface-container-high w-full"
-                      value={formData[field.key]}
-                      placeholder={field.placeholder}
-                      onChange={(e) => handleChange(field.key, e.target.value)}
-                    />
+                    <>
+                      <label className="block font-medium mb-2">
+                        {field.label}
+                      </label>
+                      {field.type === "select" ? (
+                        <select
+                          className="input bg-surface-container-high w-full"
+                          value={formData[field.key] || field.defaultOption}
+                          onChange={(e) =>
+                            handleChange(field.key, e.target.value)
+                          }
+                        >
+                          {field.options?.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type={field.type}
+                          className="input bg-surface-container-high w-full"
+                          value={formData[field.key]}
+                          placeholder={field.placeholder}
+                          onChange={(e) =>
+                            handleChange(field.key, e.target.value)
+                          }
+                        />
+                      )}
+                    </>
                   )}
                 </div>
               ))}

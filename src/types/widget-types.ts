@@ -90,7 +90,8 @@ export interface KofiData {
 }
 
 export interface ImageWidgetData {
-  url: string;
+  image: string;
+  link: string | undefined
 }
 
 export interface NoteWidgetData {

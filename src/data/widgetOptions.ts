@@ -242,6 +242,23 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "image",
+    name: "Image",
+    imageLink: "/widgeteditor/image_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/image_white.svg",
+    fields: [
+      { key: "image", label: "Image", type: "image"},
+      { key: "link", label: "Link", type: "text"},
+      ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "country",
     name: "Country",
     imageLink: "/widgeteditor/country_black.svg",
