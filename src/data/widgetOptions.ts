@@ -238,7 +238,7 @@ export const widgetOptions: WidgetOption[] = [
         defaultOption: "Austria"
       },
     ],
-    variants: [{ index: 1 }, { index: 2 }],
+    variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
