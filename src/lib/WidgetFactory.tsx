@@ -13,6 +13,7 @@ import { KofiWidget } from "@/components/widgets/KofiWidget";
 import { LemmyWidget } from "@/components/widgets/LemmyWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { LinkWidget } from "@/components/widgets/LinkWidget";
+import { ListenBrainzWidget } from "@/components/widgets/ListenBrainzWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NeoDbWidget } from "@/components/widgets/NeoDBWidget";
@@ -36,6 +37,7 @@ import {
   LemmyWidgetData,
   LiberaPayData,
   LinkData,
+  ListenBrainzData,
   MastodonData,
   MatrixData,
   NeoDBData,
@@ -160,6 +162,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
+      case "listenbrainz":
+        return (
+          <ListenBrainzWidget
+            data={widget.data as ListenBrainzData}
+            size={widget.size}
+            variant={widget.variant}
+            isOwner={isOwner}
+            deleteWidget={deleteWidget}
+            editWidget={editWidget}
+          />
+        );
       case "recordclub":
         return (
           <RecordClubWidget

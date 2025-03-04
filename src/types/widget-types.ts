@@ -89,6 +89,10 @@ export interface RecordClubData {
   username: string;
 }
 
+export interface ListenBrainzData {
+  username: string;
+}
+
 export interface KofiData {
   username: string;
 }

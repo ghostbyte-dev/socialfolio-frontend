@@ -174,6 +174,22 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "listenbrainz",
+    name: "ListenBrainz",
+    imageLink: "/widgeteditor/listenbrainz.svg",
+    imageLinkDarkTheme: "/widgeteditor/listenbrainz.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "recordclub",
     name: "Record Club",
     imageLink: "/widgeteditor/recordClub.png",
