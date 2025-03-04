@@ -174,6 +174,22 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "recordclub",
+    name: "Record Club",
+    imageLink: "/widgeteditor/recordClub.png",
+    imageLinkDarkTheme: "/widgeteditor/recordClub.png",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "github",
     name: "GitHub",
     imageLink: "/widgeteditor/github.webp",

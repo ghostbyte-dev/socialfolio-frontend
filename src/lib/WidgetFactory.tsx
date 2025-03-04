@@ -19,6 +19,7 @@ import { NeoDbWidget } from "@/components/widgets/NeoDBWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
 import { PeertubeWidget } from "@/components/widgets/Peertube";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
+import { RecordClubWidget } from "@/components/widgets/RecordClubWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
 import {
@@ -41,6 +42,7 @@ import {
   NoteWidgetData,
   PeertubeData,
   PixelfedData,
+  RecordClubData,
   TimezoneData,
   VernissageData,
   WidgetProps,
@@ -158,6 +160,17 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
+      case "recordclub":
+        return (
+          <RecordClubWidget
+            data={widget.data as RecordClubData}
+            size={widget.size}
+            variant={widget.variant}
+            isOwner={isOwner}
+            deleteWidget={deleteWidget}
+            editWidget={editWidget}
+          />
+        );
     case "neodb":
       return (
         <NeoDbWidget

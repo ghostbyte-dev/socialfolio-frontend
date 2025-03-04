@@ -85,6 +85,10 @@ export interface LiberaPayData {
   username: string;
 }
 
+export interface RecordClubData {
+  username: string;
+}
+
 export interface KofiData {
   username: string;
 }
