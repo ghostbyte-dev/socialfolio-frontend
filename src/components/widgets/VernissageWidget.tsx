@@ -35,10 +35,15 @@ export function VernissageWidget({ data, size, isOwner, variant, deleteWidget, e
       )}
       {variant == 2 && (
           <div className="h-full w-full flex justify-center items-center">
-            <img
-              src="/widgeteditor/vernissage.png"
+           <img
+              src="/widgets/vernissage/vernissage-V-white.svg"
               alt="Pixelfed logo"
-              className="w-[50%] h-[50%] object-contain"
+              className="w-[50%] h-[50%] hidden dark:block"
+            />
+             <img
+              src="/widgets/vernissage/vernissage-V-black.svg"
+              alt="Pixelfed logo"
+              className="w-[50%] h-[50%] block dark:hidden"
             />
           </div>
       )}
