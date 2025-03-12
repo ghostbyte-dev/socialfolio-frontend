@@ -132,86 +132,110 @@ export function GithubWidget({
       onClick={onClick}
     >
       {variant == 1 && (
-          <div className="h-full w-full flex justify-center items-center bg-[#171515]">
-            <img
-              src="/widgets/github/github-logo-white.webp"
-              alt="Mastodon logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+        <div className="h-full w-full flex justify-center items-center bg-[#171515]">
+          <img
+            src="/widgets/github/github-logo-white.webp"
+            alt="Mastodon logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
 
       {variant == 2 && (
-          <div className="h-full w-full flex justify-center items-center bg-[#fff]">
-            <img
-              src="/widgets/github/github-logo-dark.webp"
-              alt="Mastodon logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+        <div className="h-full w-full flex justify-center items-center bg-[#fff]">
+          <img
+            src="/widgets/github/github-logo-dark.webp"
+            alt="Mastodon logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
 
       {variant == 3 && (
-          <div className="h-full w-full flex flex-col p-4 sm:p-8">
-            {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
-            {widgetApiDataError ? <p>{widgetApiDataError.message}</p> : <></>}
-            {widgetApiData ? (
-              <>
-                <div className="flex flex-row items-center gap-4">
-                  <img
-                    src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
-                    alt="Mastodon logo"
-                    className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
-                  />
-                  <h3 className="text-md sm:text-xl">{widgetApiData.name}</h3>
-                </div>
-                {widgetSize.rows > 1 && widgetSize.cols > 1 ? (
-                  <>
-                    <div className="flex flex-row gap-10">
-                      <p>Followers: {widgetApiData.followers}</p>
-                      <p>Following: {widgetApiData.following}</p>
-                      <p>Public Repos: {widgetApiData.publicRepos}</p>
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                <div
-                  className="grid mt-3 sm:mt-5 grid-flow-col"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: `repeat(${
-                      getContributions(widgetApiData.contributions, widgetSize)
-                        .weeks.length
-                    }, 1fr)`,
-                    gridTemplateRows: "repeat(7, 1fr)",
-                    gap: "3px",
-                    height: "100%",
-                    maxHeight: "161px",
-                  }}
+        <div className="h-full w-full flex flex-col p-4 sm:p-8">
+          {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
+          {widgetApiDataError ? <p>{widgetApiDataError.message}</p> : <></>}
+          {widgetApiData ? (
+            <>
+              <div className="flex flex-row items-center gap-2 sm:gap-4">
+                <img
+                  src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
+                  alt="Mastodon logo"
+                  className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
+                />
+                <span
+                  className={
+                    (widgetSize.cols == 1 ? "text-xs" : "text-md") +
+                    "sm:text-xl "
+                  }
                 >
-                  {displayedContributions.weeks.map((week: ContributionsWeek) =>
-                    week.contributionDays.map((day: ContributionDay) => (
-                      <div
-                        key={day.date}
-                        className="rounded-xs"
-                        style={{
-                          backgroundColor: contributionDayColor(
-                            day.contributionCount
-                          ),
-                          width: "100%",
-                          height: "100%",
-                          maxHeight: "20px",
-                        }}
-                      ></div>
-                    ))
-                  )}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
+                  {widgetApiData.name}
+                </span>
+              </div>
+              {widgetSize.rows > 1 && widgetSize.cols > 1 ? (
+                <>
+                  <div className="flex justify-between mt-5">
+                    <div className="flex flex-col items-center">
+                      <span className="text-sm sm:text-lg">Followers</span>
+                      <span className="font-bold">
+                        {widgetApiData.followers}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col items-center">
+                      <span className="text-sm sm:text-lg">Following</span>
+                      <span className="font-bold">
+                        {widgetApiData.following}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col items-center">
+                      <span className="text-sm sm:text-lg">Public Repos</span>
+                      <span className="font-bold">
+                        {widgetApiData.publicRepos}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+              <div
+                className="grid mt-3 sm:mt-5 grid-flow-col"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: `repeat(${
+                    getContributions(widgetApiData.contributions, widgetSize)
+                      .weeks.length
+                  }, 1fr)`,
+                  gridTemplateRows: "repeat(7, 1fr)",
+                  gap: "3px",
+                  height: "100%",
+                  maxHeight: "161px",
+                }}
+              >
+                {displayedContributions.weeks.map((week: ContributionsWeek) =>
+                  week.contributionDays.map((day: ContributionDay) => (
+                    <div
+                      key={day.date}
+                      className="rounded-xs"
+                      style={{
+                        backgroundColor: contributionDayColor(
+                          day.contributionCount
+                        ),
+                        width: "100%",
+                        height: "100%",
+                        maxHeight: "20px",
+                      }}
+                    ></div>
+                  ))
+                )}
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       )}
     </BaseWidget>
   );

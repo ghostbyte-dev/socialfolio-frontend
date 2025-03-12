@@ -26,11 +26,13 @@ export function TimezoneWidget({
     minute: "2-digit",
   });
 
-   const hour = Number(new Date().toLocaleString("en-US", {
-    timeZone: data.timezone,
-    hour: "2-digit",
-    hour12: false,
-  }));
+  const hour = Number(
+    new Date().toLocaleString("en-US", {
+      timeZone: data.timezone,
+      hour: "2-digit",
+      hour12: false,
+    })
+  );
   const isDaytime = hour >= 6 && hour < 20;
 
   return (
@@ -48,8 +50,8 @@ export function TimezoneWidget({
       )}
 
       {variant == 2 && (
-        <div className="h-full w-full relative flex justify-center pt-10">
-          <span className="text-3xl font-bold">{formattedTime}</span>
+        <div className="h-full w-full relative flex justify-center pt-8 md:pt-10">
+          <span className="text-2xl md:text-3xl font-bold">{formattedTime}</span>
           {isDaytime ? (
             <Sunlight className="absolute bottom-0 w-full" />
           ) : (

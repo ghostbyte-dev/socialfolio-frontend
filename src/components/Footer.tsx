@@ -59,12 +59,8 @@ export default function Footer() {
         <div className="text-center">
           Developed with 💙 by{" "}
           <Link href="/daniebeler" className="font-bold hover:underline">
-            Daniel
+            Ghostbyte
           </Link>{" "}
-          and{" "}
-          <Link href="/hiebeler05" className="font-bold hover:underline">
-            Emanuel
-          </Link>
         </div>
       </div>
     </nav>
