@@ -1,4 +1,4 @@
-import { WeatherWidgetData } from "@/types/widget-types";
+import { WeatherWidgetData, WidgetApiData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherApiData } from "./MastodonWidget";
@@ -36,14 +36,17 @@ export function WeatherWidget({
     enabled: id !== "",
   });
 
-  const widgetApiData = preview
+  const widgetApiData: WidgetApiData | undefined = preview
     ? {
         elevation: 0,
         current: {
           weatherCode: 0,
         },
+        isDay: true,
       }
     : apiData;
+
+    const iconFolder = widgetApiData?.isDay ? "day": "night"
 
   return (
     <BaseWidget
@@ -56,7 +59,7 @@ export function WeatherWidget({
         <div className="h-full w-full flex justify-center items-center">
           {widgetApiData && (
             <img
-              src={`widgets/weather/${getWeatherIcon(
+              src={`widgets/weather/${iconFolder}/${getWeatherIcon(
                 widgetApiData.current.weatherCode
               )}.svg`}
               alt={getWeatherIcon(widgetApiData.current.weatherCode)}

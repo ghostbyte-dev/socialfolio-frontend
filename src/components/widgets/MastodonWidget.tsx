@@ -32,6 +32,7 @@ export interface WeatherApiData {
   current: {
     weatherCode: number;
   }
+  isDay: boolean
 }
 
 export function MastodonWidget({
