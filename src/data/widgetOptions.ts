@@ -165,7 +165,7 @@ export const widgetOptions: WidgetOption[] = [
       { key: "instance", label: "Instance", type: "text", placeholder: "neodb.social" },
       { key: "username", label: "Username", type: "text" },
     ],
-    variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
+    variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
