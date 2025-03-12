@@ -152,20 +152,18 @@ export function GithubWidget({
       )}
 
       {variant == 3 && (
-          <div className="h-full w-full flex flex-col p-8">
+          <div className="h-full w-full flex flex-col p-4 sm:p-8">
             {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
             {widgetApiDataError ? <p>{widgetApiDataError.message}</p> : <></>}
             {widgetApiData ? (
               <>
                 <div className="flex flex-row items-center gap-4">
-                  <Image
+                  <img
                     src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
                     alt="Mastodon logo"
-                    height={64}
-                    width={64}
-                    className="rounded-2xl object-contain"
+                    className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
                   />
-                  <h3 className="text-xl">{widgetApiData.name}</h3>
+                  <h3 className="text-md sm:text-xl">{widgetApiData.name}</h3>
                 </div>
                 {widgetSize.rows > 1 && widgetSize.cols > 1 ? (
                   <>
@@ -179,7 +177,7 @@ export function GithubWidget({
                   <></>
                 )}
                 <div
-                  className="grid mt-5 grid-flow-col"
+                  className="grid mt-3 sm:mt-5 grid-flow-col"
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${
