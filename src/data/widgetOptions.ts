@@ -348,8 +348,8 @@ export const widgetOptions: WidgetOption[] = [
   {
     id: "weather",
     name: "Weather",
-    imageLink: "/widgeteditor/location_black.svg",
-    imageLinkDarkTheme: "/widgeteditor/location_white.svg",
+    imageLink: "/widgeteditor/weather_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/weather_white.svg",
     fields: [
       { key: "location", label: "Location", type: "location" },
     ],
