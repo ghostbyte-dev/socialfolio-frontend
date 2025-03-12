@@ -13,7 +13,7 @@ export default function MyMap(props: any) {
     <MapContainer
       center={position}
       zoom={zoom ?? 4}
-      className="w-full h-full relative"
+      className="w-full h-full relative z-0"
       zoomControl={false}
     >
       {light ? (
