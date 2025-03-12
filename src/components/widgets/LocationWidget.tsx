@@ -1,9 +1,8 @@
 import { LocationWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import "leaflet/dist/leaflet.css";
-import L, { Icon, marker } from "leaflet";
+import dynamic from "next/dynamic";
 
 interface LocationWidgetProps {
   data: LocationWidgetData;
@@ -23,11 +22,15 @@ export function LocationWidget({
   editWidget,
 }: LocationWidgetProps) {
   const mapRef = useRef(null);
-  const markerIcon = new Icon({
-    iconUrl: "/icons/marker.svg",
-    iconSize: [36, 36],
-    iconAnchor: [18, 36],
-  });
+
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("@/components/Map"), {
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+      }),
+    []
+  );
 
   if (!data.lat || !data.lon) {
     return (
@@ -50,46 +53,18 @@ export function LocationWidget({
       editWidget={editWidget}
     >
       {variant == 1 && (
-        <div className="flex justify-center items-center relative h-full w-full z-0">
-          <MapContainer
-            center={[Number(data.lat), Number(data.lon)]}
-            zoom={data.zoom ?? 4}
-            ref={mapRef}
-            className="w-full h-full relative"
-            zoomControl={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://carto.com/attributions">CartoDB</a> contributors'
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-            />
-            <Marker
-              position={[Number(data.lat), Number(data.lon)]}
-              icon={markerIcon}
-            >
-            </Marker>
-          </MapContainer>
-        </div>
+        <Map
+          position={{ lon: data.lon, lat: data.lat }}
+          zoom={data.zoom}
+          light={true}
+        />
       )}
       {variant == 2 && (
-        <div className="flex justify-center items-center relative h-full w-full z-0">
-          <MapContainer
-            center={[Number(data.lat), Number(data.lon)]}
-            zoom={data.zoom ?? 4}
-            ref={mapRef}
-            className="w-full h-full relative"
-            zoomControl={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://carto.com/attributions">CartoDB</a> contributors'
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
-            />
-            <Marker
-              position={[Number(data.lat), Number(data.lon)]}
-              icon={markerIcon}
-            >
-            </Marker>
-          </MapContainer>
-        </div>
+        <Map
+          position={{ lon: data.lon, lat: data.lat }}
+          zoom={data.zoom}
+          light={false}
+        />
       )}
     </BaseWidget>
   );
