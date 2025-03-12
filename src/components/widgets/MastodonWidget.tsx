@@ -27,6 +27,13 @@ export interface MastodonApiData {
   description: string;
 }
 
+export interface WeatherApiData {
+  elevation: number;
+  current: {
+    weatherCode: number;
+  }
+}
+
 export function MastodonWidget({
   id,
   data,

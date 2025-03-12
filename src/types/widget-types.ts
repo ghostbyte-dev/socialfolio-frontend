@@ -1,4 +1,4 @@
-import { MastodonApiData } from "@/components/widgets/MastodonWidget";
+import { MastodonApiData, WeatherApiData } from "@/components/widgets/MastodonWidget";
 
 export interface WidgetProps {
   id: string;
@@ -70,6 +70,11 @@ export interface LocationWidgetData {
   lon: string;
   lat: string;
   zoom: number;
+}
+
+export interface WeatherWidgetData {
+  lon: string;
+  lat: string;
 }
 
 export interface TextData {
@@ -175,4 +180,4 @@ export type WidgetData =
   | LinkData
   | PeertubeData
   | LocationWidgetData;
-export type WidgetApiData = MastodonApiData | GithubApiData;
+export type WidgetApiData = MastodonApiData | GithubApiData | WeatherApiData;

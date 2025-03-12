@@ -24,6 +24,7 @@ import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { RecordClubWidget } from "@/components/widgets/RecordClubWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
+import { WeatherWidget } from "@/components/widgets/WeatherWidget";
 import {
   BlueskyData,
   BookWyrmWidgetData,
@@ -49,6 +50,7 @@ import {
   RecordClubData,
   TimezoneData,
   VernissageData,
+  WeatherWidgetData,
   WidgetProps,
 } from "@/types/widget-types";
 
@@ -272,6 +274,18 @@ export function WidgetFactory({
       return (
         <LocationWidget
           data={widget.data as LocationWidgetData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "weather":
+      return (
+        <WeatherWidget
+          id={widget.id}
+          data={widget.data as WeatherWidgetData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
