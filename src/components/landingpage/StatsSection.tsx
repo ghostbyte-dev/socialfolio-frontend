@@ -16,13 +16,15 @@ export default function StatsSection() {
   const getDefaultWidgetData = (type: string, variant: number) => {
     switch (type) {
       case "github":
-        return variant === 3 ? { username: "Hiebeler" } : {};
+        return { username: "Hiebeler" };
       case "mastodon":
         return { instance: "techhub.social", username: "socialfolio" };
       case "note":
         return { text: "This is a sample note." };
+      case "link":
+        return { link: "https://link.com", label: "link" }
       default:
-        return {}; // Fallback for unknown types
+        return {};
     }
   };
 
