@@ -1,5 +1,4 @@
-// src/components/Map.tsx
-import { MapContainer, Marker, TileLayer, Tooltip } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 
