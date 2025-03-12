@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
 
 interface GithubWidgetProps {
   id: string;
@@ -20,6 +21,7 @@ interface GithubWidgetProps {
   isOwner: boolean;
   deleteWidget: () => void;
   editWidget: () => void;
+  preview?: boolean;
 }
 
 export function GithubWidget({
@@ -30,6 +32,7 @@ export function GithubWidget({
   isOwner,
   deleteWidget,
   editWidget,
+  preview = false
 }: GithubWidgetProps) {
   const [widgetSize, setWidgetSize] = useState(size);
   const needApiData = (): boolean => {
@@ -41,14 +44,28 @@ export function GithubWidget({
   };
 
   const {
-    data: widgetApiData,
+    data: apiData,
     isLoading: widgetApiDataIsLoading,
     error: widgetApiDataError,
   } = useQuery<GithubApiData>({
     queryKey: ["githubWidgetData", id],
     queryFn: () => WidgetService.getWidgetData(id) as Promise<GithubApiData>,
-    enabled: needApiData() && id !== "",
+    enabled: needApiData() && id !== "" && !preview,
   });
+
+  const widgetApiData: GithubApiData | undefined = preview
+    ? {
+      username: "Profile",
+      name: "Profile",
+      avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
+      url: "",
+      location: "",
+      followers: 0,
+      following: 0,
+      publicRepos: 0,
+      contributions: generateContributionsData()
+      }
+    : apiData;
 
   const getDisplayedWeeks = (size: WidgetSize): number => {
     switch (size.cols) {

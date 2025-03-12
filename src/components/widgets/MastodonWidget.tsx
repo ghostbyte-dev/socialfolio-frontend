@@ -12,6 +12,7 @@ interface MastodonWidgetProps {
   isOwner: boolean;
   deleteWidget: () => void;
   editWidget: () => void;
+  preview?: boolean;
 }
 
 export interface MastodonApiData {
@@ -34,6 +35,7 @@ export function MastodonWidget({
   variant,
   deleteWidget,
   editWidget,
+  preview = false,
 }: MastodonWidgetProps) {
   const needApiData = (): boolean => {
     if (variant == 1) {
@@ -44,7 +46,7 @@ export function MastodonWidget({
   };
 
   const {
-    data: widgetApiData,
+    data: apiData,
     isLoading: widgetApiDataIsLoading,
     error,
   } = useQuery<MastodonApiData>({
@@ -52,6 +54,17 @@ export function MastodonWidget({
     queryFn: () => WidgetService.getWidgetData(id) as Promise<MastodonApiData>,
     enabled: needApiData() && id !== "",
   });
+
+  const widgetApiData = preview
+    ? {
+        username: "socialfolio",
+        instance: "techhub.social",
+        followersCount: 0,
+        followingCount: 0,
+        statusesCount: 0,
+        displayName: "Socialfolio",
+      }
+    : apiData;
 
   const onClick = () => {
     const url = data.instance + "/@" + data.username;

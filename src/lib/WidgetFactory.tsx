@@ -55,11 +55,13 @@ export function WidgetFactory({
   isOwner,
   deleteWidget,
   editWidget,
+  preview = false,
 }: {
   widget: WidgetProps;
   isOwner: boolean;
   deleteWidget: () => void;
   editWidget: () => void;
+  preview?: boolean;
 }) {
   switch (widget.type) {
     case "mastodon":
@@ -72,6 +74,7 @@ export function WidgetFactory({
           isOwner={isOwner}
           deleteWidget={deleteWidget}
           editWidget={editWidget}
+          preview={preview}
         />
       );
     case "pixelfed":
@@ -205,6 +208,7 @@ export function WidgetFactory({
           isOwner={isOwner}
           deleteWidget={deleteWidget}
           editWidget={editWidget}
+          preview={preview}
         />
       );
     case "codeberg":

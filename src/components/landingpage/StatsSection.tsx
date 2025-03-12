@@ -13,6 +13,19 @@ export default function StatsSection() {
     queryFn: StatsService.getStats,
   });
 
+  const getDefaultWidgetData = (type: string, variant: number) => {
+    switch (type) {
+      case "github":
+        return variant === 3 ? { username: "Hiebeler" } : {};
+      case "mastodon":
+        return { instance: "techhub.social", username: "socialfolio" };
+      case "note":
+        return { text: "This is a sample note." };
+      default:
+        return {}; // Fallback for unknown types
+    }
+  };
+
   return (
     <section className="mt-20 mx-auto flex flex-col items-center">
       <div className="flex justify-center">
@@ -47,20 +60,69 @@ export default function StatsSection() {
         )}
       </div>
 
-      {/* <div>
-        <div className="flex justify-center mt-10">
-          <h2 className="text-4xl font-bold">Most used widgets</h2>
-        </div>
-
-        <div className="h-64 w-64">
+      {stats && (
+        <div>
+          <div className="flex justify-center mt-10 mb-10">
+            <h2 className="text-4xl font-bold">Most used widgets</h2>
+          </div>
+          <div className="flex w-full flex-wrap justify-center mt-10 md:mt-14">
+          <div className="w-56 h-56 m-10 rotate-[-2deg] mt-20">
           <WidgetFactory
-            widget={stats?.mostUsedWidgets[0]}
-            isOwner={false}
-            deleteWidget={() => {}}
-            editWidget={() => {}}
-          />
+              widget={{
+                type: stats?.mostUsedWidgets[2].type ?? "note",
+                id: "1",
+                size: { cols: 1, rows: 1 },
+                data: getDefaultWidgetData(
+                  stats.mostUsedWidgets[2].type,
+                  stats.mostUsedWidgets[2].mostUsedVariant
+                ),
+                variant: stats.mostUsedWidgets[2].mostUsedVariant,
+              }}
+              isOwner={false}
+              deleteWidget={() => {}}
+              editWidget={() => {}}
+              preview={true}
+            />
+          </div>
+          <div className="w-56 h-56 m-10 rotate-[1deg]">
+          <WidgetFactory
+              widget={{
+                type: stats?.mostUsedWidgets[0].type ?? "note",
+                id: "1",
+                size: { cols: 1, rows: 1 },
+                data: getDefaultWidgetData(
+                  stats.mostUsedWidgets[0].type,
+                  stats.mostUsedWidgets[0].mostUsedVariant
+                ),
+                variant: stats.mostUsedWidgets[0].mostUsedVariant,
+              }}
+              isOwner={false}
+              deleteWidget={() => {}}
+              editWidget={() => {}}
+              preview={true}
+            />
+          </div>
+          <div className="w-56 h-56 m-10 rotate-[4deg] mt-20">
+          <WidgetFactory
+              widget={{
+                type: stats?.mostUsedWidgets[1].type ?? "note",
+                id: "1",
+                size: { cols: 1, rows: 1 },
+                data: getDefaultWidgetData(
+                  stats.mostUsedWidgets[1].type,
+                  stats.mostUsedWidgets[1].mostUsedVariant
+                ),
+                variant: stats.mostUsedWidgets[1].mostUsedVariant,
+              }}
+              isOwner={false}
+              deleteWidget={() => {}}
+              editWidget={() => {}}
+              preview={true}
+            />
+          </div>
+          </div>
         </div>
-      </div> */}
+      )}
     </section>
   );
 }
