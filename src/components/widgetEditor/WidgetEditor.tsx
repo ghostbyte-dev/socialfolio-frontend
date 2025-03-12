@@ -25,31 +25,39 @@ export default function EditWidgetModal({
   const params = useParams();
   const username = params.username as string;
   const queryClient = useQueryClient();
-  const [formData, setFormData] = useState<Record<string, string>>(() => {
+  const [formData, setFormData] = useState<Record<string, any>>(() => {
     return Object.entries(widgetData.data || {}).reduce((acc, [key, value]) => {
-      if (typeof value === "string") {
+      if (typeof value === "string" || typeof value === "number") {
         acc[key] = value;
       }
       return acc;
-    }, {} as Record<string, string>);
+    }, {} as Record<string, any>);
   });
   const [variant, setVariant] = useState<number>(widgetData.variant);
   const [selectedSize, setSelectedSize] = useState<WidgetSize>(widgetData.size);
   const [priority, setPriority] = useState<number>(widgetData.priority ?? 1);
 
-  const handleChange = (key: string, value: string) => {
-    widgetData.data = {
-      ...widgetData.data,
-      [key]: value,
-    };
-    setFormData((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (key: string, value: string, type: string) => {
+    if (type == "number") {
+      widgetData.data = {
+        ...widgetData.data,
+        [key]: Number(value),
+      };
+      setFormData((prev) => ({ ...prev, [key]: Number(value) }));
+    } else {
+      widgetData.data = {
+        ...widgetData.data,
+        [key]: value,
+      };
+      setFormData((prev) => ({ ...prev, [key]: value }));
+    }
   };
 
   const handleSave = () => {
     mutation.mutate({ data: widgetData, jwt: session?.user.jwt ?? "" });
   };
   const selectedWidget = widgetOptions.find(
-    (widgetOption) => widgetOption.id == widgetData.type
+    (widgetOption) => widgetOption.id == widgetData.type,
   );
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -89,7 +97,7 @@ export default function EditWidgetModal({
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
       );
 
       return { previousWidgets };
@@ -100,7 +108,7 @@ export default function EditWidgetModal({
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
@@ -169,40 +177,50 @@ export default function EditWidgetModal({
               </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  {field.type == "image" ? (
-                    <></>
-                  ) : (
-                    <>
-                      <label className="block font-medium mb-2">
-                        {field.label}
-                      </label>
-                      {field.type === "select" ? (
-                        <select
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key] || field.defaultOption}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value)
-                          }
-                        >
-                          {field.options?.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
-                        <input
-                          type={field.type}
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key]}
-                          placeholder={field.placeholder}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value)
-                          }
-                        />
-                      )}
-                    </>
-                  )}
+                  {field.type == "image"
+                    ? <></>
+                    : field.type == "location"
+                    ? <></>
+                    : (
+                      <>
+                        <label className="block font-medium mb-2">
+                          {field.label}
+                        </label>
+                        {field.type === "select"
+                          ? (
+                            <select
+                              className="input bg-surface-container-high w-full"
+                              value={formData[field.key] || field.defaultOption}
+                              onChange={(e) =>
+                                handleChange(
+                                  field.key,
+                                  e.target.value,
+                                  field.type,
+                                )}
+                            >
+                              {field.options?.map((option) => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
+                          )
+                          : (
+                            <input
+                              type={field.type}
+                              className="input bg-surface-container-high w-full"
+                              value={formData[field.key]}
+                              placeholder={field.placeholder}
+                              onChange={(e) =>
+                                handleChange(
+                                  field.key,
+                                  e.target.value,
+                                  field.type,
+                                )}
+                            />
+                          )}
+                      </>
+                    )}
                 </div>
               ))}
               <div className="mb-4">

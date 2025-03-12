@@ -1,7 +1,6 @@
 import { WidgetOption } from "@/components/widgetEditor/WidgetCreator";
 import { countryOptions } from "@/lib/country";
-import { getCountryDataList, ICountryData } from 'countries-list'
-
+import { getCountryDataList, ICountryData } from "countries-list";
 
 export const widgetOptions: WidgetOption[] = [
   {
@@ -10,8 +9,18 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/fediverse.svg",
     imageLinkDarkTheme: "/widgeteditor/fediverse.svg",
     fields: [
-      { key: "link", label: "Link", type: "url", placeholder: "https://pixelfed.social/@username" },
-      { key: "fediverseHandle", label: "Fediverse Handle", type: "string", placeholder: "@username@mastodon.social" },
+      {
+        key: "link",
+        label: "Link",
+        type: "url",
+        placeholder: "https://pixelfed.social/@username",
+      },
+      {
+        key: "fediverseHandle",
+        label: "Fediverse Handle",
+        type: "string",
+        placeholder: "@username@mastodon.social",
+      },
     ],
     variants: [{ index: 1 }, { index: 2 }],
     sizes: [
@@ -27,7 +36,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/mastodon.svg",
     imageLinkDarkTheme: "/widgeteditor/mastodon.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "mastodon.social" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "mastodon.social",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
@@ -44,7 +58,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/pixelfed.webp",
     imageLinkDarkTheme: "/widgeteditor/pixelfed.webp",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "pixelfed.social" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "pixelfed.social",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -61,7 +80,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/lemmy.svg",
     imageLinkDarkTheme: "/widgeteditor/lemmy.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "lemmy.ml" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "lemmy.ml",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -79,7 +103,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/peertube.svg",
     imageLinkDarkTheme: "/widgeteditor/peertube.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "clip.place" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "clip.place",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -112,7 +141,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/bookwyrm.png",
     imageLinkDarkTheme: "/widgeteditor/bookwyrm.png",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "bookwyrm.social" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "bookwyrm.social",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -129,7 +163,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/matrix-black.svg",
     imageLinkDarkTheme: "/widgeteditor/matrix-white.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "matrix.org" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "matrix.org",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -146,7 +185,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/bluesky.svg",
     imageLinkDarkTheme: "/widgeteditor/bluesky.svg",
     fields: [
-      { key: "handle", label: "Handle", type: "text", placeholder: "username.bsky.social" },
+      {
+        key: "handle",
+        label: "Handle",
+        type: "text",
+        placeholder: "username.bsky.social",
+      },
     ],
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }],
     sizes: [
@@ -162,7 +206,12 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/neodb.svg",
     imageLinkDarkTheme: "/widgeteditor/neodb.svg",
     fields: [
-      { key: "instance", label: "Instance", type: "text", placeholder: "neodb.social" },
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "neodb.social",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
@@ -225,7 +274,9 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/codeberg.svg",
     imageLinkDarkTheme: "/widgeteditor/codeberg.svg",
     fields: [{ key: "username", label: "Username", type: "text" }],
-    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }, { index: 6 }],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, {
+      index: 5,
+    }, { index: 6 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
@@ -267,7 +318,26 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/kofi.svg",
     imageLinkDarkTheme: "/widgeteditor/kofi.svg",
     fields: [{ key: "username", label: "Username", type: "text" }],
-    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, {
+      index: 5,
+    }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "location",
+    name: "Location",
+    imageLink: "/widgeteditor/location_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/location_white.svg",
+    fields: [
+      { key: "location", label: "Location", type: "location" },
+      { key: "zoom", label: "Zoom", type: "number" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
@@ -281,9 +351,9 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/image_black.svg",
     imageLinkDarkTheme: "/widgeteditor/image_white.svg",
     fields: [
-      { key: "image", label: "Image", type: "image"},
-      { key: "link", label: "Link", type: "text"},
-      ],
+      { key: "image", label: "Image", type: "image" },
+      { key: "link", label: "Link", type: "text" },
+    ],
     variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
@@ -302,7 +372,7 @@ export const widgetOptions: WidgetOption[] = [
         key: "countryName",
         label: "Country",
         type: "select",
-        options: countryOptions
+        options: countryOptions,
       },
     ],
     variants: [{ index: 1 }],
@@ -338,7 +408,12 @@ export const widgetOptions: WidgetOption[] = [
     name: "Email",
     imageLink: "/widgeteditor/mail.svg",
     imageLinkDarkTheme: "/widgeteditor/mail_white.svg",
-    fields: [{ key: "email", label: "E-Mail", type: "email", placeholder: "someone@example.com" }],
+    fields: [{
+      key: "email",
+      label: "E-Mail",
+      type: "email",
+      placeholder: "someone@example.com",
+    }],
     variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
@@ -354,9 +429,14 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/link.svg",
     imageLinkDarkTheme: "/widgeteditor/link_white.svg",
     fields: [
-      { key: "label", label: "Label", type: "text"},
-      { key: "link", label: "Link", type: "url", placeholder: "https://somewebsite.com" }
-      ],
+      { key: "label", label: "Label", type: "text" },
+      {
+        key: "link",
+        label: "Link",
+        type: "url",
+        placeholder: "https://somewebsite.com",
+      },
+    ],
     variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
@@ -379,5 +459,4 @@ export const widgetOptions: WidgetOption[] = [
       { cols: 2, rows: 2 },
     ],
   },
-
 ];

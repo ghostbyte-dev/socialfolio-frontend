@@ -10,7 +10,8 @@ export interface WidgetProps {
 }
 
 export interface WidgetSize {
-  cols: number; rows: number;
+  cols: number;
+  rows: number;
 }
 
 export interface MastodonData {
@@ -65,6 +66,12 @@ export interface VernissageData {
   username: string;
 }
 
+export interface LocationWidgetData {
+  lon: string;
+  lat: string;
+  zoom: number;
+}
+
 export interface TextData {
   text: string;
 }
@@ -99,7 +106,7 @@ export interface KofiData {
 
 export interface ImageWidgetData {
   image: string;
-  link: string | undefined
+  link: string | undefined;
 }
 
 export interface NoteWidgetData {
@@ -120,7 +127,6 @@ export interface LinkData {
 }
 
 export interface EmptyWidgetData {
-
 }
 
 export interface GithubApiData {
@@ -132,7 +138,7 @@ export interface GithubApiData {
   followers: number;
   following: number;
   publicRepos: number;
-  contributions: ContributionsCollection
+  contributions: ContributionsCollection;
 }
 
 export interface ContributionsCollection {
@@ -153,5 +159,20 @@ export interface ContributionDay {
   weekday: number;
 }
 
-export type WidgetData = MastodonData | GitHubData | ImageWidgetData | LiberaPayData | TextData | PixelfedData | BuymeacoffeeData | EmptyWidgetData | NoteWidgetData | EmailData | CodebergData  | MatrixData | LinkData | PeertubeData;
-export type WidgetApiData = MastodonApiData | GithubApiData
+export type WidgetData =
+  | MastodonData
+  | GitHubData
+  | ImageWidgetData
+  | LiberaPayData
+  | TextData
+  | PixelfedData
+  | BuymeacoffeeData
+  | EmptyWidgetData
+  | NoteWidgetData
+  | EmailData
+  | CodebergData
+  | MatrixData
+  | LinkData
+  | PeertubeData
+  | LocationWidgetData;
+export type WidgetApiData = MastodonApiData | GithubApiData;

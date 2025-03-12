@@ -14,6 +14,7 @@ import { LemmyWidget } from "@/components/widgets/LemmyWidget";
 import { LiberaPayWidget } from "@/components/widgets/LiberaPayWidget";
 import { LinkWidget } from "@/components/widgets/LinkWidget";
 import { ListenBrainzWidget } from "@/components/widgets/ListenBrainzWidget";
+import { LocationWidget } from "@/components/widgets/LocationWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NeoDbWidget } from "@/components/widgets/NeoDBWidget";
@@ -38,6 +39,7 @@ import {
   LiberaPayData,
   LinkData,
   ListenBrainzData,
+  LocationWidgetData,
   MastodonData,
   MatrixData,
   NeoDBData,
@@ -143,7 +145,7 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "bookwyrm":
+    case "bookwyrm":
       return (
         <BookWyrmWiget
           data={widget.data as BookWyrmWidgetData}
@@ -165,28 +167,28 @@ export function WidgetFactory({
           editWidget={editWidget}
         />
       );
-      case "listenbrainz":
-        return (
-          <ListenBrainzWidget
-            data={widget.data as ListenBrainzData}
-            size={widget.size}
-            variant={widget.variant}
-            isOwner={isOwner}
-            deleteWidget={deleteWidget}
-            editWidget={editWidget}
-          />
-        );
-      case "recordclub":
-        return (
-          <RecordClubWidget
-            data={widget.data as RecordClubData}
-            size={widget.size}
-            variant={widget.variant}
-            isOwner={isOwner}
-            deleteWidget={deleteWidget}
-            editWidget={editWidget}
-          />
-        );
+    case "listenbrainz":
+      return (
+        <ListenBrainzWidget
+          data={widget.data as ListenBrainzData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "recordclub":
+      return (
+        <RecordClubWidget
+          data={widget.data as RecordClubData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
     case "neodb":
       return (
         <NeoDbWidget
@@ -259,6 +261,17 @@ export function WidgetFactory({
       return (
         <KofiWidget
           data={widget.data as KofiData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "location":
+      return (
+        <LocationWidget
+          data={widget.data as LocationWidgetData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

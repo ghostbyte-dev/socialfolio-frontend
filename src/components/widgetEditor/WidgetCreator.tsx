@@ -48,7 +48,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const { data: session } = useSession();
 
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
-    null
+    null,
   );
 
   const mutation = useMutation({
@@ -92,7 +92,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
       );
 
       return { previousWidgets };
@@ -103,7 +103,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
