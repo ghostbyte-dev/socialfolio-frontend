@@ -82,7 +82,7 @@ export default function WidgetsGrid({
   );
 }
 
-export function WidgetsGridDisplay({isOwner, widgets, deleteWidget}: {isOwner: boolean, widgets: WidgetProps[], deleteWidget: (id: string) => void}) {
+export function WidgetsGridDisplay({isOwner, widgets, deleteWidget, preview = false}: {isOwner: boolean, widgets: WidgetProps[], deleteWidget: (id: string) => void, preview?: boolean}) {
   const [editModal, setEditModal] = useState<WidgetProps | undefined>(undefined)
 
   return (
@@ -108,6 +108,7 @@ export function WidgetsGridDisplay({isOwner, widgets, deleteWidget}: {isOwner: b
                 isOwner={isOwner}
                 deleteWidget={() => deleteWidget(widget.id)}
                 editWidget={() => setEditModal(widget)}
+                preview={preview}
               />
             </div>
           </div>

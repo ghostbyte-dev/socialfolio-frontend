@@ -63,7 +63,7 @@ export function WeatherWidget({
                 widgetApiData.current.weatherCode
               )}.svg`}
               alt={getWeatherIcon(widgetApiData.current.weatherCode)}
-              className="w-[80%] h-[80%] object-contain"
+              className="w-full h-full object-contain"
             />
           )}
         </div>

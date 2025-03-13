@@ -124,9 +124,8 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const handleSave = (formData: any, variant: number) => {
     if (!selectedWidget) return;
 
-    // Create data object dynamically based on user input
     const widgetData = selectedWidget.fields.reduce((acc, field) => {
-      acc[field.key] = formData[field.key] || ""; // Use user input or default to empty string
+      acc[field.key] = formData[field.key] || "";
       return acc;
     }, {} as Record<string, string>);
     const createWidgetRequest: ICreateWidgetRequest = {
