@@ -36,7 +36,7 @@ export function GlassPhotoWidget({
           <img
             src="/widgets/glassphoto/glass-wordmark-black.svg"
             alt="NeoDB logo"
-            className="w-[50%] h-[50%] object-contain block dark:hidden"
+            className="w-[50%] h-[50%] object-contain"
           />
         </div>
       )}
