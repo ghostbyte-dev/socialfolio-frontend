@@ -22,8 +22,8 @@ export function ListenBrainzWidget({ data, size, variant, isOwner, deleteWidget,
       {variant == 1 && (
           <div className="h-full w-full flex justify-center items-center">
             <img
-              src="/widgeteditor/listenbrainz.svg"
-              alt="LiberaPay logo"
+              src="/widgeteditor/listenBrainz.svg"
+              alt="ListenBrainz logo"
               className="w-[60%] h-[60%] object-contain"
             />
           </div>

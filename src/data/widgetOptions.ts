@@ -246,8 +246,8 @@ export const widgetOptions: WidgetOption[] = [
   {
     id: "listenbrainz",
     name: "ListenBrainz",
-    imageLink: "/widgeteditor/listenbrainz.svg",
-    imageLinkDarkTheme: "/widgeteditor/listenbrainz.svg",
+    imageLink: "/widgeteditor/listenBrainz.svg",
+    imageLinkDarkTheme: "/widgeteditor/listenBrainz.svg",
     fields: [
       { key: "username", label: "Username", type: "text" },
     ],
