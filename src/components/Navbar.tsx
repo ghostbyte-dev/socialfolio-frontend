@@ -13,6 +13,7 @@ import Close from "@/assets/icons/close.svg";
 import Logo from "@/assets/icons/logo.svg";
 import Settings from "./Settings";
 import { FocusTrap } from "focus-trap-react";
+import ShareModal from "./ShareModal";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -21,6 +22,7 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSettingsModalOpen, setIsSettingsModalOpen] =
     useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const jwt = session?.user?.jwt;
@@ -130,6 +132,17 @@ export default function Navbar() {
 
                     <button
                       onClick={() => {
+                        setIsShareModalOpen(true);
+                        setDropdownOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 font-bold text-sm rounded hover:bg-surface"
+                      role="menuitem"
+                    >
+                      Share
+                    </button>
+
+                    <button
+                      onClick={() => {
                         setIsSettingsModalOpen(true);
                         setDropdownOpen(false);
                       }}
@@ -213,6 +226,13 @@ export default function Navbar() {
             <Settings
               user={user}
               onClose={() => setIsSettingsModalOpen(false)}
+            />
+          )}
+
+          {isShareModalOpen && user && (
+            <ShareModal
+              user={user}
+              onClose={() => setIsShareModalOpen(false)}
             />
           )}
         </div>
