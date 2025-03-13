@@ -9,26 +9,34 @@ interface ShareModalProps {
   onClose: () => void;
 }
 
-const qrCode = new QRCodeStyling({
-  width: 280,
-  height: 280,
-  type: "svg",
-  image: "/logo.svg",
-  dotsOptions: {
-    color: "#4267b2",
-    type: "rounded",
-  },
-  imageOptions: {
-    margin: 10,
-    imageSize: 0.5,
-  },
-});
-
 export default function ShareModal({ user, onClose }: ShareModalProps) {
   const ref = useRef<HTMLDivElement>(null);
-
+  const [qrCode, setQrCode] = useState<QRCodeStyling | null>(null); // Store QR code instance
   const [bgColor, setBgColor] = useState("#ffffff");
   const [primaryColor, setPrimaryColor] = useState("#4169E1");
+
+
+  useEffect(() => {
+    // Create QRCode instance **only on client**
+    setQrCode(
+      new QRCodeStyling({
+        width: 280,
+        height: 280,
+        type: "svg",
+        image: "/logo.svg",
+        dotsOptions: {
+          color: "#4267b2",
+          type: "rounded",
+        },
+        imageOptions: {
+          margin: 10,
+          imageSize: 0.5,
+        },
+      })
+    );
+  }, []);
+
+
   useEffect(() => {
     const tempDiv = document.createElement("div");
     tempDiv.className = "bg-surface-container text-primary";
@@ -44,15 +52,17 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
   }, []);
 
   useEffect(() => {
+    if (!qrCode) return;
     if (ref.current) {
       qrCode.update({
         data: "https://socialfolio.me/" + user.username,
       });
       qrCode.append(ref.current);
     }
-  }, []);
+  }, [qrCode]);
 
   useEffect(() => {
+    if (!qrCode) return;
     qrCode.update({
       backgroundOptions: {
         color: bgColor,
@@ -62,7 +72,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
         type: "rounded",
       },
     });
-  }, [bgColor]);
+  }, [bgColor, qrCode]);
 
   const copyToClipboard = async () => {
     try {
