@@ -81,7 +81,12 @@ export default function WidgetPropsSelector({
   }, [selectedWidget]);
 
   return (
-    <div className={"flex-1 p-8 h-full w-full overflow-y-scroll " + (selectedWidget == null ? "" : "")}>
+    <div
+      className={
+        "flex-1 p-8 h-full w-full overflow-y-scroll " +
+        (selectedWidget == null ? "" : "")
+      }
+    >
       <div className="flex">
         <button
           onClick={goBack}
@@ -147,6 +152,14 @@ export default function WidgetPropsSelector({
                     );
                   }}
                 />
+              ) : field.type == "textArea" ? (
+                <textarea
+                  className="input bg-surface-container-high w-full"
+                  value={formData[field.key] ?? ""}
+                  onChange={(e) =>
+                    handleChange(field.key, e.target.value, field.type)
+                  }
+                ></textarea>
               ) : (
                 <input
                   type={field.type}

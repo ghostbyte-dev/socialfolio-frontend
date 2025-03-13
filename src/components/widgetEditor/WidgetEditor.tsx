@@ -205,7 +205,15 @@ export default function EditWidgetModal({
                               ))}
                             </select>
                           )
-                          : (
+                          : field.type == "textArea" ? (
+                            <textarea
+                              className="input bg-surface-container-high w-full"
+                              value={formData[field.key]}
+                              onChange={(e) =>
+                                handleChange(field.key, e.target.value, field.type)
+                              }
+                            ></textarea>
+                          ) : (
                             <input
                               type={field.type}
                               className="input bg-surface-container-high w-full"

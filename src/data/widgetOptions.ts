@@ -487,8 +487,8 @@ export const widgetOptions: WidgetOption[] = [
     name: "Note",
     imageLink: "/widgeteditor/note.svg",
     imageLinkDarkTheme: "/widgeteditor/note_white.svg",
-    fields: [{ key: "note", label: "Note", type: "text" }],
-    variants: [{ index: 1 }],
+    fields: [{ key: "note", label: "Note", type: "textArea" }],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }, { index: 6 } ],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
