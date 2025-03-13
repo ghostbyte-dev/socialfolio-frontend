@@ -8,6 +8,7 @@ import { CountryWidget } from "@/components/widgets/CountryWidget";
 import { EmailWidget } from "@/components/widgets/EmailWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
 import { GithubWidget } from "@/components/widgets/GithubWidget";
+import { GlassPhotoWidget } from "@/components/widgets/GlassPhotoWidget";
 import { ImageWidget } from "@/components/widgets/ImageWidget";
 import { KofiWidget } from "@/components/widgets/KofiWidget";
 import { LemmyWidget } from "@/components/widgets/LemmyWidget";
@@ -34,6 +35,7 @@ import {
   EmailData,
   FediverseData,
   GitHubData,
+  GlassPhotoData,
   ImageWidgetData,
   KofiData,
   LemmyWidgetData,
@@ -195,6 +197,17 @@ export function WidgetFactory({
       return (
         <NeoDbWidget
           data={widget.data as NeoDBData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "glassphoto":
+      return (
+        <GlassPhotoWidget
+          data={widget.data as GlassPhotoData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

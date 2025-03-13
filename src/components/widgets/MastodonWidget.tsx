@@ -126,17 +126,15 @@ export function MastodonWidget({
       )}
 
       {variant == 3 && (
-        <div className="h-full w-full p-[15%] bg-[#6364ff] text-white flex justify-between flex-col">
-          <Image
+        <div className="h-full w-full p-6 sm:p-5 md:p-8 bg-[#6364ff] text-white flex justify-between flex-col">
+          <img
             src="/widgets/mastodon/mastodon-logo-white.webp"
             alt="Mastodon logo"
-            width={56}
-            height={56}
-            className="object-contain"
+            className="object-contain w-14 sm:w-16 md:w-16 lg:w-16"
           />
           <div>
-            <h3 className="font-bold text-4xl mb-4">Mastodon</h3>
-            <span>
+            <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-1 mt-2">Mastodon</h3>
+            <span className="text-xs sm:text-md">
               @{data.username}@{data.instance?.replace(/^https?\:\/\//i, "")}
             </span>
           </div>

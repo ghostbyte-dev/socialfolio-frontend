@@ -39,6 +39,10 @@ export interface NeoDBData {
   instance: string;
 }
 
+export interface GlassPhotoData {
+  username: string;
+}
+
 export interface BlueskyData {
   handle: string;
 }

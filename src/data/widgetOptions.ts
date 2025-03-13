@@ -223,6 +223,27 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "glassphoto",
+    name: "Glass (glass.photo)",
+    imageLink: "/widgeteditor/glassphoto.svg",
+    imageLinkDarkTheme: "/widgeteditor/glassphoto.svg",
+    fields: [
+      {
+        key: "username",
+        label: "Username",
+        type: "text",
+        placeholder: "Username",
+      },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "listenbrainz",
     name: "ListenBrainz",
     imageLink: "/widgeteditor/listenbrainz.svg",
