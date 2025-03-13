@@ -22,7 +22,7 @@ export default function StatsSection() {
       case "note":
         return { text: "This is a sample note." };
       case "link":
-        return { link: "https://link.com", label: "link" };
+        return { link: "https://example.com", label: "example.com" };
       case "country":
         return { countryName: "Austria" };
       case "image":
