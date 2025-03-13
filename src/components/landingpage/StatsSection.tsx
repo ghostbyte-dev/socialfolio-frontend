@@ -31,6 +31,10 @@ export default function StatsSection() {
         };
       case "email":
         return { email: "default@example.com" }; // Default email
+      case "location":
+        return { lon: "39.2", lat: "-6.17", zoom: 9 };
+      case "weather":
+        return { lon: "39.2", lat: "-6.17" };
       default:
         return {};
     }
