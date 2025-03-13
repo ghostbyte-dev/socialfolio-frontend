@@ -291,6 +291,7 @@ export function WidgetFactory({
           isOwner={isOwner}
           deleteWidget={deleteWidget}
           editWidget={editWidget}
+          preview={preview}
         />
       );
     case "country":
