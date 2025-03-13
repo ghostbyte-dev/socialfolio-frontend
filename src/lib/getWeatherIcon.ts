@@ -18,8 +18,21 @@ export const getWeatherIcon = (code: number): string => {
     }
 
     // Rain (non-freezing and freezing)
-    if (code >= 60 && code <= 69 || code >= 80 && code <= 82) {
-        return "rain-icon";  // Rain
+
+    if (code >= 60 && code <= 61) {
+        return "rain-light-icon";  // Rain
+    }
+
+    if (code >= 62 && code <= 63) {
+        return "rain-moderate-icon";  // Rain
+    }
+
+    if (code >= 64 && code <= 65 || code >= 80 && code <= 82) {
+        return "rain-heavy-icon";  // Rain
+    }
+
+    if (code >= 66 && code <= 69) {
+        return "rain-snow-icon";
     }
 
     // Snow (general and specific fall)
