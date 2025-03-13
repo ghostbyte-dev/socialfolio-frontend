@@ -91,7 +91,7 @@ function NoteWidgetVariant2({
 
   return (
     <div className="h-full w-full p-[10%] flex justify-center items-center">
-      <pre className="font-mono max-w-full overflow-hidden whitespace-wrap text-[5px]">
+      <pre className="font-mono max-w-full overflow-hidden whitespace-wrap text-[4px] sm:text-[5px]">
         {asciiNote || "Loading..."}
       </pre>
     </div>
