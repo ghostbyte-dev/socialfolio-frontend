@@ -3,6 +3,7 @@ import Image from "next/image";
 import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import Save from "@/assets/icons/save.svg";
 
 interface ShareModalProps {
   user: IUser;
@@ -15,13 +16,13 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
   const [bgColor, setBgColor] = useState("#ffffff");
   const [primaryColor, setPrimaryColor] = useState("#4169E1");
 
-
   useEffect(() => {
     // Create QRCode instance **only on client**
     setQrCode(
       new QRCodeStyling({
         width: 280,
         height: 280,
+        margin: 20,
         type: "svg",
         image: "/logo.svg",
         dotsOptions: {
@@ -35,7 +36,6 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
       })
     );
   }, []);
-
 
   useEffect(() => {
     const tempDiv = document.createElement("div");
@@ -76,11 +76,20 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText("https://socialfolio.me/" + user.username);
-      toast.success("copied to clipboard")
+      await navigator.clipboard.writeText(
+        "https://socialfolio.me/" + user.username
+      );
+      toast.success("copied to clipboard");
     } catch (err) {
       console.error("Failed to copy:", err);
     }
+  };
+
+  const onDownloadClick = () => {
+    if (!qrCode) return;
+    qrCode.download({
+      extension: "webp",
+    });
   };
 
   return (
@@ -92,7 +101,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
         className="relative bg-surface-container rounded-2xl shadow-lg flex overflow-hidden flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="basis-full flex flex-col overflow-y-scroll p-6 sm:p-10 gap-4">
+        <div className="basis-full flex flex-col overflow-y-scroll p-6 sm:p-8 gap-4">
           <div className="flex justify-center items-centers">
             <div ref={ref}></div>
           </div>
@@ -109,6 +118,13 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
             />
             <p>{user.username}</p>
           </div>
+          <button
+            className="flex flex-row gap-2 justify-center w-full hover:cursor-pointer"
+            onClick={onDownloadClick}
+          >
+            <Save className="w-6 h-6" />
+            <p>Save QR-Code</p>
+          </button>
         </div>
       </div>
     </div>
