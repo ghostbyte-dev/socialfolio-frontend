@@ -41,6 +41,7 @@ export function WeatherWidget({
         elevation: 0,
         current: {
           weatherCode: 0,
+          temperature: "30°C"
         },
         isDay: true,
       }
@@ -65,6 +66,21 @@ export function WeatherWidget({
               alt={getWeatherIcon(widgetApiData.current.weatherCode)}
               className="w-full h-full object-contain"
             />
+          )}
+        </div>
+      )}
+      {variant == 2 && (
+        <div className="h-full w-full flex flex-col justify-center items-center py-5">
+          {widgetApiData && (
+            <>
+            <img
+              src={`widgets/weather/${iconFolder}/${getWeatherIcon(
+                widgetApiData.current.weatherCode
+              )}.svg`}
+              alt={getWeatherIcon(widgetApiData.current.weatherCode)}
+              className="w-full h-full object-contain"
+            />
+            <p className="text-xl font-bold">{widgetApiData.current.temperature}</p></>
           )}
         </div>
       )}

@@ -31,6 +31,7 @@ export interface WeatherApiData {
   elevation: number;
   current: {
     weatherCode: number;
+    temperature: string;
   }
   isDay: boolean
 }
