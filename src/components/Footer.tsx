@@ -58,7 +58,7 @@ export default function Footer() {
       <div className="p-4 w-full flex justify-center items-center">
         <div className="text-center">
           Developed with 💙 by{" "}
-          <Link href="/daniebeler" className="font-bold hover:underline">
+          <Link href="https://ghostbyte.dev" className="font-bold hover:underline">
             Ghostbyte
           </Link>{" "}
         </div>
