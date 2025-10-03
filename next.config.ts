@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withPlausibleProxy } from "next-plausible";
 
 const nextConfig: NextConfig = {
   images: {
@@ -42,4 +43,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPlausibleProxy({
+  customDomain: "https://plausible.ghostbyte.dev",
+  scriptName: "script.hash.outbound-links",
+})(nextConfig);

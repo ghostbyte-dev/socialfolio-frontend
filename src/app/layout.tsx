@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "next-themes";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import PlausibleProvider from "next-plausible";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,14 +38,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-surface min-h-screen`}
       >
-        <ThemeProvider>
-          <SpeedInsights />
-          <Toaster />
-          <QueryClientProvider client={queryClient}>
-            <SessionProvider><div className="overflow-x-hidden break-words">{children}</div></SessionProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </ThemeProvider>
+        <PlausibleProvider
+          domain="socialfolio.me"
+          selfHosted
+          trackOutboundLinks
+          hash
+        >
+          <ThemeProvider>
+            <SpeedInsights />
+            <Toaster />
+            <QueryClientProvider client={queryClient}>
+              <SessionProvider>
+                <div className="overflow-x-hidden break-words">{children}</div>
+              </SessionProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+          </ThemeProvider>
+        </PlausibleProvider>
       </body>
     </html>
   );
