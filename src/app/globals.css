@@ -15,8 +15,8 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --color-surface: #121318;
-  --color-surface-container: #1e1f25;
+  --color-surface: #090c10;
+  --color-surface-container: #0d1117;
   --color-surface-container-high: #17171b;
   --color-on-surface: #e3e2e9;
   --color-primary: #4169E1;
@@ -24,13 +24,13 @@
   --color-primary-container: #314683;
   --color-on-primary: #ffffff;
   --color-text: #fff;
-  --color-outline: #8f909a;
+  --color-outline: #30363d;
 }
 
 /* Light Theme */
 [data-theme="light"] {
-  --color-surface: #faf8ff; /* Light cream */
-  --color-surface-container: #eeedf4; /* Soft light yellow */
+  --color-surface: #f7f2f2; /* Light cream */
+  --color-surface-container: #fff; /* Soft light yellow */
   --color-surface-container-high: #e2e0e8; /* Pale yellow-beige */
   --color-on-surface: #1a1b21; /* Darker text color for better readability */
   --color-primary: #4169E1; /* Orange */
@@ -109,5 +109,15 @@
 
   button {
     cursor: pointer;
+  }
+
+  .wrapper {
+      @apply h-full w-full dark:border-2 dark:border-outline rounded-4xl shadow-md bg-surface-container duration-300 ease-in-out overflow-hidden;
+  }
+
+  .wrapper.clickable {
+    @variant hover {
+      @apply hover:scale-95 cursor-pointer;
+    }
   }
 }

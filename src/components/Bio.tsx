@@ -3,7 +3,7 @@ import DisplayName from "./DisplayName";
 import Description from "./Description";
 import { IUser } from "@/types/user-type";
 
-export default function Bio({
+export default function Bio({ 
   isOwner,
   user,
 }: {
@@ -11,12 +11,13 @@ export default function Bio({
   user: IUser;
 }) {
   return (
-    <div className="flex flex-wrap sm:flex-nowrap justify-center sm:justify-start">
-      <div className="sm:mr-5">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense">
+      <div className="hidden xl:block"></div>
+      <div className="sm:mr-5 col-span-1 md:col-span-1">
         <Avatar url={user.avatar} isOwner={isOwner} />
       </div>
 
-      <div className="flex flex-col items-center sm:items-start justify-center mt-5 sm:mt-0 w-full sm:w-auto">
+      <div className="flex col-span-2 md:col-span-2 lg:col-span-3 xl:col-span-2 flex-col mt-5 sm:mt-0 w-full sm:w-auto">
         <DisplayName
           name={user.displayName?.trim() ? user.displayName : user.username}
           isOwner={isOwner}

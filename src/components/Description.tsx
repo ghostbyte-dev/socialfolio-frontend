@@ -48,7 +48,7 @@ export default function Description({
   return (
     <div className="group relative" tabIndex={0}>
       {description.trim() && (
-        <p className="text-xl text-center sm:text-start break-words max-w-screen sm:max-w-none px-10 sm:px-0">
+        <p className="text-xl break-words max-w-screen sm:max-w-none sm:px-0">
           {description}
         </p>
       )}

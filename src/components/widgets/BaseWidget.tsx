@@ -33,10 +33,10 @@ export function BaseWidget({
 
   return (
     <div
-      className={`h-full w-full dark:border-2 dark:border-outline rounded-2xl shadow-md bg-surface-container duration-300 ease-in-out overflow-hidden group
+      className={`wrapper
       ${
         isClickable && !(isOwner && isTouch())
-          ? "hover:scale-95 cursor-pointer"
+          ? "clickable"
           : ""
       }`}
       role="link"
