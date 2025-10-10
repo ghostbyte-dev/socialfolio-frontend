@@ -46,7 +46,7 @@ export default function DisplayName({
 
   return (
     <div className="group relative" tabIndex={0}>
-      <h1 className="text-3xl font-bold mb-4 text-center sm:text-star break-words max-w-screen sm:max-w-none px-10 sm:px-0">
+      <h1 className="text-3xl font-bold mb-4 text-start break-words max-w-screen sm:max-w-none">
         {name}
       </h1>
 
