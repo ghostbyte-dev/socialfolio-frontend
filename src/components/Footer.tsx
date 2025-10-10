@@ -2,67 +2,78 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <nav className="bg-surface-container">
-      <div className="p-4 flex justify-evenly items-center">
-        <div className="flex flex-col">
-          <Link href="/imprint" className="mb-3 font-bold hover:underline">
+    <footer className="w-full">
+      <div className="bg-surface-container flex justify-center py-20">
+
+      
+      <div className="grid grid-cols-5 container">
+        <div>
+          <h4 className="text-xl font-bold">Socialfolio</h4>
+          <p>Fief fuuf</p>
+        </div>
+
+        <div className="">
+          <h4 className="font-bold mb-3">Account</h4>
+          <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
+            <Link href="/auth/login" className="hover:text-white">
+            Log in
+          </Link>
+          <Link href="/auth/register" className="hover:text-white">
+            Sign up
+          </Link>
+          </nav>
+        </div>
+
+        <div className="">
+          <h4 className="font-bold mb-3">Account</h4>
+          <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
+            <Link href="/auth/login" className="hover:text-white">
+            Log in
+          </Link>
+          <Link href="/auth/register" className="hover:text-white">
+            Sign up
+          </Link>
+          </nav>
+        </div>
+
+        <div className="">
+          <h4 className="font-bold mb-3">Social</h4>
+          <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
+            <Link href="/auth/login" className="hover:text-white">
+            Mastodon
+          </Link>
+          <Link href="/auth/register" className="hover:text-white">
+            Github
+          </Link>
+          <Link href="/auth/register" className="hover:text-white">
+            Socialfolio
+          </Link>
+          </nav>
+        </div>
+
+        <div className="">
+          <h4 className="font-bold mb-3">Legal</h4>
+          <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
+            <Link href="/imprint" className="hover:text-white">
             Imprint
           </Link>
-          <Link href="/credits" className=" font-bold hover:underline">
+          <Link href="/credits" className="hover:text-white">
             Credits
           </Link>
-        </div>
-
-        <div>
-          <span className="text-xl font-bold">Stay up to date:</span>
-          <div className="mt-3 flex">
-            <Link href="socialfolio">
-              <img
-                className="mr-4"
-                src="/icons/socialfolio-logo.svg"
-                alt="Socialfolio logo"
-                height={45}
-                width={45}
-              ></img>
-            </Link>
-
-            <Link href="https://techhub.social/@socialfolio">
-              <img
-                className="mr-4"
-                src="/icons/mastodon.svg"
-                alt="Mastodon logo"
-                height={42}
-                width={42}
-              ></img>
-            </Link>
-
-            <Link href="https://github.com/Hiebeler/socialfolio-frontend">
-              <img
-                src="/icons/github-logo-dark.webp"
-                alt="Github logo"
-                height={45}
-                width={45}
-                className="block dark:hidden"
-              ></img>
-              <img
-                src="/icons/github-logo-white.webp"
-                alt="Github logo"
-                height={42}
-                width={42}
-                className="hidden dark:block"
-              ></img>
-            </Link>
-          </div>
+          </nav>
         </div>
       </div>
-      <div className="p-4 w-full flex justify-center items-center">
-        <div className="text-center">
-          Developed with 💙 by{" "}
+      
+      </div>
+
+      
+      <div className="p-3 w-full flex justify-center items-center bg-primary text-on-primary">
+        <div className="text-center text-sm">
           <Link href="https://ghostbyte.dev" className="font-bold hover:underline">
-            Ghostbyte
+            A Ghostbyte Production
           </Link>{" "}
         </div>
       </div>
-    </nav>
+    </footer>
   );
 }

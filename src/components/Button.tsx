@@ -9,7 +9,7 @@ const Button: React.FC<ButtonProps> = ({ children, link }) => {
   return (
     <a href={link}>
       <button className="button rounded-xl">
-        <span className="relative z-10 transition-colors text-white duration-300 ease-in-out">
+        <span className="relative z-10 transition-colors duration-300 ease-in-out">
           {children}
         </span>
       </button>
