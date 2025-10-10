@@ -1,13 +1,13 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 import { useQuery } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import Close from "@/assets/icons/close.svg";
 import Logo from "@/assets/icons/logo.svg";
@@ -20,11 +20,14 @@ export default function Navbar() {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isSettingsModalOpen, setIsSettingsModalOpen] =
-    useState<boolean>(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(
+    false,
+  );
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [accountDeletionPopup, setAccountDeletionPopup] = useState<boolean>(
+    false,
+  );
   const jwt = session?.user?.jwt;
 
   const { data: user } = useQuery({
@@ -39,6 +42,10 @@ export default function Navbar() {
     signOut({ redirect: false });
     setDropdownOpen(false);
     router.push("/auth/login");
+  };
+
+  const openAccountDeletionPopup = () => {
+    setAccountDeletionPopup(true);
   };
 
   // Close dropdown if clicked outside
@@ -98,14 +105,13 @@ export default function Navbar() {
                 id="menu-button"
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() =>
+                  setDropdownOpen(!dropdownOpen)}
               >
                 <Image
-                  src={
-                    user.avatar.trim() === ""
-                      ? "/defaults/default-avatar.jpg"
-                      : user.avatar
-                  }
+                  src={user.avatar.trim() === ""
+                    ? "/defaults/default-avatar.jpg"
+                    : user.avatar}
                   alt="User Avatar"
                   width={44}
                   height={44}
@@ -158,6 +164,13 @@ export default function Navbar() {
                       role="menuitem"
                     >
                       Logout
+                    </button>
+                    <button
+                      onClick={openAccountDeletionPopup}
+                      className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
+                      role="menuitem"
+                    >
+                      Delete Account
                     </button>
                   </div>
                 </div>
@@ -234,6 +247,25 @@ export default function Navbar() {
               user={user}
               onClose={() => setIsShareModalOpen(false)}
             />
+          )}
+
+          {isShareModalOpen && user && (
+            <div
+              className="fixed inset-0 bg-black/50 flex justify-center items-center"
+              onClick={() => setAccountDeletionPopup(false)}
+            >
+              <div
+                className="relative bg-surface-container w-[80%] lg:w-[60%] lg:h-[80%] rounded-2xl shadow-lg flex overflow-hidden flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3>
+                  Are you shure you want to delete this Account, this action is
+                  irreversible
+                </h3>
+                <button>cancel</button>
+                <button>delete</button>
+              </div>
+            </div>
           )}
         </div>
       </FocusTrap>

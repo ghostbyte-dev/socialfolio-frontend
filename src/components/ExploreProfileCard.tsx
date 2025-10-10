@@ -10,14 +10,14 @@ export default function ExploreProfileCard({
     <Link href={"/" + profile.username} className="h-full">
       <div
         key={profile.id}
-        className="bg-surface-container rounded-2xl h-full shadow-md p-4 duration-300 ease-in-out hover:scale-95"
+        className="wrapper clickable p-4"
       >
         <div className="flex">
           <div className="min-w-28 min-h-24 mr-4">
             <img
               src={profile.avatar || "/defaults/default-avatar.jpg"}
               alt={profile.username}
-              className="w-24 h-24 rounded-xl"
+              className="w-24 h-24 rounded-2xl"
             />
           </div>
           <div
