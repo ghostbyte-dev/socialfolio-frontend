@@ -97,7 +97,7 @@ export default function Avatar({
             alt=""
             width={200}
             height={200}
-            className="rounded-2xl"
+            className="wrapper border-0"
             priority
           />
         </>
