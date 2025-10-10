@@ -8,7 +8,7 @@ import Laptop from "@/assets/icons/laptop-outline.svg";
 
 export const ThemeSwitcher = ({
   bgColor = "bg-surface-container",
-  activeColor = "bg-surface-container-high",
+  activeColor = "bg-primary text-on-primary",
   isFocusable = true,
 }: {
   bgColor?: string;
