@@ -1,4 +1,4 @@
-import { ExploreProfile } from "@/services/explore.service";
+import type { ExploreProfile } from "@/services/explore.service";
 import Link from "next/link";
 
 export default function ExploreProfileCard({
@@ -7,11 +7,8 @@ export default function ExploreProfileCard({
   profile: ExploreProfile;
 }) {
   return (
-    <Link href={"/" + profile.username} className="h-full">
-      <div
-        key={profile.id}
-        className="wrapper clickable p-4"
-      >
+    <Link href={`/${profile.username}`} className="h-full">
+      <div key={profile.id} className="wrapper clickable p-4">
         <div className="flex">
           <div className="min-w-28 min-h-24 mr-4">
             <img
@@ -31,7 +28,7 @@ export default function ExploreProfileCard({
           </div>
         </div>
 
-        {profile.description && profile.description.length && (
+        {profile.description?.length && (
           <p className="text-gray-500 dark:text-gray-400 mt-4">
             {profile.description}
           </p>

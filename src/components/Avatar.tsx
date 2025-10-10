@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import { useSession } from "next-auth/react";
-import { IUser } from "@/types/user-type";
+import type { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import React from "react";
-import { Point, Area } from "react-easy-crop";
+import type { Point, Area } from "react-easy-crop";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "@/lib/cropImage";
 import SubmitButton from "./SubmitButton";
@@ -91,16 +91,14 @@ export default function Avatar({
           </div>
         </>
       ) : (
-        <>
-          <Image
-            src={avatarUrl}
-            alt=""
-            width={200}
-            height={200}
-            className="wrapper border-0"
-            priority
-          />
-        </>
+        <Image
+          src={avatarUrl}
+          alt=""
+          width={200}
+          height={200}
+          className="wrapper border-0"
+          priority
+        />
       )}
 
       {isEditing && file && (

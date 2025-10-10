@@ -1,6 +1,6 @@
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { WidgetService } from "@/services/widget.service";
-import { GitHubData, WidgetProps } from "@/types/widget-types";
+import type { GitHubData, WidgetProps } from "@/types/widget-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -21,7 +21,9 @@ export default function WidgetsGrid({
   username: string;
   isOwner: boolean;
 }) {
-  const [editModal, setEditModal] = useState<WidgetProps | undefined>(undefined)
+  const [editModal, setEditModal] = useState<WidgetProps | undefined>(
+    undefined
+  );
   const queryClient = useQueryClient();
   const { data: session, status } = useSession();
   const sessionStatus = status ?? "loading";
@@ -32,7 +34,8 @@ export default function WidgetsGrid({
     error,
   } = useQuery({
     queryKey: ["widgetsofuser", username],
-    queryFn: () => WidgetService.getUsersWidgets(username, session?.user?.jwt ?? ""),
+    queryFn: () =>
+      WidgetService.getUsersWidgets(username, session?.user?.jwt ?? ""),
     enabled: !!username && sessionStatus !== "loading",
   });
 
@@ -78,18 +81,36 @@ export default function WidgetsGrid({
   }
 
   return (
-    <WidgetsGridDisplay isOwner={isOwner} widgets={displayedWidgets} deleteWidget={(id: string) => deleteWidget.mutate(id)}/>
+    <WidgetsGridDisplay
+      isOwner={isOwner}
+      widgets={displayedWidgets}
+      deleteWidget={(id: string) => deleteWidget.mutate(id)}
+    />
   );
 }
 
-export function WidgetsGridDisplay({isOwner, widgets, deleteWidget, preview = false}: {isOwner: boolean, widgets: WidgetProps[], deleteWidget: (id: string) => void, preview?: boolean}) {
-  const [editModal, setEditModal] = useState<WidgetProps | undefined>(undefined)
+export function WidgetsGridDisplay({
+  isOwner,
+  widgets,
+  deleteWidget,
+  preview = false,
+}: {
+  isOwner: boolean;
+  widgets: WidgetProps[];
+  deleteWidget: (id: string) => void;
+  preview?: boolean;
+}) {
+  const [editModal, setEditModal] = useState<WidgetProps | undefined>(
+    undefined
+  );
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense"
-    style={{
-      gridAutoRows: "minmax(50px, 1fr)", // Adjust the minimum row height as needed
-    }}>
+    <div
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense"
+      style={{
+        gridAutoRows: "minmax(50px, 1fr)", // Adjust the minimum row height as needed
+      }}
+    >
       {widgets.map((widget) => {
         const aspectRatio = widget.size.rows / widget.size.cols; // Calculate aspect ratio (height/width)
         return (
@@ -102,7 +123,7 @@ export function WidgetsGridDisplay({isOwner, widgets, deleteWidget, preview = fa
               paddingBottom: `${aspectRatio * 100}%`, // Maintain aspect ratio
             }}
           >
-          <div className="absolute inset-0">
+            <div className="absolute inset-0">
               <WidgetFactory
                 widget={widget}
                 isOwner={isOwner}
@@ -115,9 +136,16 @@ export function WidgetsGridDisplay({isOwner, widgets, deleteWidget, preview = fa
         );
       })}
 
-      {editModal && isOwner? <>
-        <EditWidgetModal widgetProps={editModal} onClose={() => setEditModal(undefined) } />
-      </>: <></>}
+      {editModal && isOwner ? (
+        <>
+          <EditWidgetModal
+            widgetProps={editModal}
+            onClose={() => setEditModal(undefined)}
+          />
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

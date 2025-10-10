@@ -46,7 +46,7 @@ export default function Description({
     "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
-    <div className="group relative" tabIndex={0}>
+    <div className="group relative">
       {description.trim() && (
         <p className="text-xl break-words max-w-screen sm:max-w-none sm:px-0">
           {description}
@@ -59,7 +59,8 @@ export default function Description({
 
       {isOwner && (
         <button
-        aria-label="Edit profile description"
+          type="button"
+          aria-label="Edit profile description"
           onClick={handleOpenPopup}
           className={`absolute top-[-10px] right-0 sm:right-[-40px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
         >
@@ -80,10 +81,15 @@ export default function Description({
                 placeholder="Desription..."
               />
               <div className="flex justify-end gap-2 mt-5">
-                <button onClick={handleClosePopup} className="button-outlined">
+                <button
+                  type="button"
+                  onClick={handleClosePopup}
+                  className="button-outlined"
+                >
                   Cancel
                 </button>
                 <button
+                  type="button"
                   className="button"
                   onClick={() => mutation.mutate(editedDescription)}
                 >

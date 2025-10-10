@@ -1,6 +1,10 @@
 import Button from "./Button";
 
-export default function EmailVerificationFailed({message}: {message: string}) {
+export default function EmailVerificationFailed({
+  message,
+}: {
+  message: string;
+}) {
   return (
     <section className="p-4 w-full flex flex-col justify-center items-center text-center">
       <img
