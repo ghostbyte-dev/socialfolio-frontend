@@ -1,6 +1,5 @@
-import { WidgetOption } from "@/components/widgetEditor/WidgetCreator";
+import type { WidgetOption } from "@/components/widgetEditor/WidgetCreator";
 import { countryOptions } from "@/lib/country";
-import { getCountryDataList, ICountryData } from "countries-list";
 
 export const widgetOptions: WidgetOption[] = [
   {
@@ -488,7 +487,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/note.svg",
     imageLinkDarkTheme: "/widgeteditor/note_white.svg",
     fields: [{ key: "note", label: "Note", type: "textArea" }],
-    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }, { index: 6 } ],
+    variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }, { index: 6 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },

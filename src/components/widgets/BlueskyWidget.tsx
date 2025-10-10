@@ -1,4 +1,4 @@
-import { BlueskyData } from "@/types/widget-types";
+import type { BlueskyData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Bluesky from "@/assets/icons/bluesky.svg";
 

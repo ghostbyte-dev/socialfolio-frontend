@@ -1,4 +1,4 @@
-import { IUser } from "@/types/user-type";
+import type { IUser } from "@/types/user-type";
 import Image from "next/image";
 import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef, useState } from "react";
@@ -77,7 +77,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(
-        "https://socialfolio.me/" + user.username
+        `https://socialfolio.me/${user.username}`
       );
       toast.success("copied to clipboard");
     } catch (err) {

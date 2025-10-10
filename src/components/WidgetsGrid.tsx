@@ -21,9 +21,6 @@ export default function WidgetsGrid({
   username: string;
   isOwner: boolean;
 }) {
-  const [editModal, setEditModal] = useState<WidgetProps | undefined>(
-    undefined
-  );
   const queryClient = useQueryClient();
   const { data: session, status } = useSession();
   const sessionStatus = status ?? "loading";
@@ -59,7 +56,7 @@ export default function WidgetsGrid({
 
       return { previousWidgets };
     },
-    onError: (err, id: string, context: any) => {
+    onError: (_err, _id: string, context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
         context.previousWidgets
@@ -137,12 +134,10 @@ export function WidgetsGridDisplay({
       })}
 
       {editModal && isOwner ? (
-        <>
-          <EditWidgetModal
-            widgetProps={editModal}
-            onClose={() => setEditModal(undefined)}
-          />
-        </>
+        <EditWidgetModal
+          widgetProps={editModal}
+          onClose={() => setEditModal(undefined)}
+        />
       ) : (
         <></>
       )}

@@ -10,21 +10,30 @@ interface ImageWidgetProps {
   editWidget: () => void;
 }
 
-export function ImageWidget({ data, size, variant, isOwner, deleteWidget, editWidget }: ImageWidgetProps) {
+export function ImageWidget({
+  data,
+  size,
+  variant,
+  isOwner,
+  deleteWidget,
+  editWidget,
+}: ImageWidgetProps) {
   const onClick = () => {
     const url = data.link;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <BaseWidget isOwner={isOwner} isClickable={data.link ? true : false} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={!!data.link}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      onClick={onClick}
+    >
       {variant == 1 && (
         <div className={`h-full w-full variant-${variant}`}>
-          <img
-            src={data.image}
-            alt=""
-            className="w-full h-full object-cover"
-          />
+          <img src={data.image} alt="" className="w-full h-full object-cover" />
         </div>
       )}
     </BaseWidget>

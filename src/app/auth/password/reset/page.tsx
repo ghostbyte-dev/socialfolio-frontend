@@ -14,20 +14,17 @@ export default function RequestPasswordReset() {
 
   const requestPasswordReset = useMutation({
     mutationFn: (email: string) =>
-      toast.promise(
-        AuthService.requestReset(email),
-        {
-          loading: "Sending reset link...",
-          success: "Reset link got sent to you",
-          error: (err) => `Error: ${err.message}`,
-        }
-      ),
+      toast.promise(AuthService.requestReset(email), {
+        loading: "Sending reset link...",
+        success: "Reset link got sent to you",
+        error: (err) => `Error: ${err.message}`,
+      }),
     onError: (error: Error) => {
       setError(error.message);
     },
     onSuccess: () => {
       setError("");
-    }
+    },
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +50,10 @@ export default function RequestPasswordReset() {
         />
         {error && <p className="text-red-500">{error}</p>}
 
-        <SubmitButton text="Send reset link" isLoading={requestPasswordReset.isPending} />
+        <SubmitButton
+          text="Send reset link"
+          isLoading={requestPasswordReset.isPending}
+        />
       </form>
     </div>
   );

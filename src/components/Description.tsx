@@ -1,12 +1,10 @@
 import { useState } from "react";
-import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import { useSession } from "next-auth/react";
-import { IUser } from "@/types/user-type";
+import type { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import Pencil from "@/assets/icons/pencil-outline.svg";
-import { isTouch } from "@/lib/isTouch";
 import { FocusTrap } from "focus-trap-react";
 
 export default function Description({
@@ -35,7 +33,7 @@ export default function Description({
 
   const mutation = useMutation({
     mutationFn: (description: string) =>
-      UserService.updateDescription(description, session?.user.jwt ?? ""),
+      UserService.updateDescription(description, session?.user?.jwt ?? ""),
     onSuccess: (data: IUser, variables, context) => {
       queryClient.setQueryData(["otheruser", username], data);
       handleClosePopup();

@@ -77,7 +77,7 @@ export default function HeroSection({
         </h2>
       </div>
       {loggedInUsername ? (
-        <Button link={"/" + loggedInUsername}>My Profile</Button>
+        <Button link={`/${loggedInUsername}`}>My Profile</Button>
       ) : (
         <Button link="/auth/login">Get Started</Button>
       )}

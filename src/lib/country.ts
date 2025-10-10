@@ -13,7 +13,7 @@ export const countryOptions = [
 ].sort((a, b) => a.localeCompare(b));
 
 export function countryNameToCode(countryName: string): string {
-  const additionalRegion = additionalRegions.find((it) => it.name == countryName)
+  const additionalRegion = additionalRegions.find((it) => it.name === countryName)
   if (additionalRegion) {
     return additionalRegion.code;
   }

@@ -26,7 +26,7 @@ import { RecordClubWidget } from "@/components/widgets/RecordClubWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
 import { WeatherWidget } from "@/components/widgets/WeatherWidget";
-import {
+import type {
   BlueskyData,
   BookWyrmWidgetData,
   BuymeacoffeeData,

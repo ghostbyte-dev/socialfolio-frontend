@@ -4,9 +4,9 @@ import EmailVerificationFailed from "@/components/EmailVerificationFailed";
 import EmailVerifiedPage from "@/components/EmailVerifiedPage";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import { AuthService } from "@/services/auth.service";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function Verify() {

@@ -45,38 +45,41 @@ export default function ResetPasswordPage() {
 
   return (
     <>
-    <title>Reset password - Socialfolio</title>
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="input"
-          required
-        />
-        <input
-          type="password"
-          name="repeatPassword"
-          placeholder="Password"
-          value={formData.repeatPassword}
-          onChange={handleChange}
-          className="input"
-          required
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <button
-          disabled={formData.password != formData.repeatPassword}
-          type="submit"
-          className="button w-full"
+      <title>Reset password - Socialfolio</title>
+      <div className="w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 flex flex-col w-full"
         >
-          Reset
-        </button>
-      </form>
-      {resetPassword.isPending ? <p>Loading...</p> : <></>}
-    </div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+          <input
+            type="password"
+            name="repeatPassword"
+            placeholder="Password"
+            value={formData.repeatPassword}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+          {error && <p className="text-red-500">{error}</p>}
+          <button
+            disabled={formData.password != formData.repeatPassword}
+            type="submit"
+            className="button w-full"
+          >
+            Reset
+          </button>
+        </form>
+        {resetPassword.isPending ? <p>Loading...</p> : <></>}
+      </div>
     </>
   );
 }

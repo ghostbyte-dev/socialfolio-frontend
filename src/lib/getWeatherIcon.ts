@@ -51,13 +51,13 @@ export const getWeatherIcon = (code: number): string => {
         return "rain-snow-icon";
     }
 
-    if (code >= 87 && code <= 90 || code === 79 ) {
+    if (code >= 87 && code <= 90 || code === 79) {
         return "hail-icon";
     }
 
     // Thunderstorm (all levels)
     if (code >= 91 && code <= 99 || code == 29) {
-        return "thunderstorm-icon"; 
+        return "thunderstorm-icon";
     }
 
     // Fog and Ice Fog

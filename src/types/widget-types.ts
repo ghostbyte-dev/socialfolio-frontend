@@ -1,4 +1,4 @@
-import { MastodonApiData, WeatherApiData } from "@/components/widgets/MastodonWidget";
+import type { MastodonApiData, WeatherApiData } from "@/components/widgets/MastodonWidget";
 
 export interface WidgetProps {
   id: string;
@@ -135,9 +135,6 @@ export interface LinkData {
   label: string | undefined;
 }
 
-export interface EmptyWidgetData {
-}
-
 export interface GithubApiData {
   username: string;
   name: string;
@@ -176,7 +173,6 @@ export type WidgetData =
   | TextData
   | PixelfedData
   | BuymeacoffeeData
-  | EmptyWidgetData
   | NoteWidgetData
   | EmailData
   | CodebergData
