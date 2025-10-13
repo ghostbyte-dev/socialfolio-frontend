@@ -172,6 +172,7 @@ function CropAvatar({
 
         <div className="flex justify-end gap-2 bottom-0 p-6">
           <button
+            type="button"
             onClick={handleClosePopup}
             className="button-outlined"
             disabled={uploadAvatar.isPending}
