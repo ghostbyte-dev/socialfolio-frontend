@@ -56,7 +56,7 @@ export const getWeatherIcon = (code: number): string => {
     }
 
     // Thunderstorm (all levels)
-    if (code >= 91 && code <= 99 || code == 29) {
+    if (code >= 91 && code <= 99 || code === 29) {
         return "thunderstorm-icon";
     }
 

@@ -15,13 +15,13 @@ export default function Footer() {
           <div className="mt-8">
             <h4 className="font-bold mb-3">Account</h4>
             <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
-              <Link href="/auth/login" className="hover:text-white">
+              <Link href="/auth/login" className="hover:text-text">
                 Log in
               </Link>
-              <Link href="/auth/register" className="hover:text-white">
+              <Link href="/auth/register" className="hover:text-text">
                 Sign up
               </Link>
-              <Link href="/explore" className="hover:text-white">
+              <Link href="/explore" className="hover:text-text">
                 Explore
               </Link>
             </nav>
@@ -32,17 +32,17 @@ export default function Footer() {
             <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
               <Link
                 href="https://techhub.social/@socialfolio"
-                className="hover:text-white"
+                className="hover:text-text"
               >
                 Mastodon
               </Link>
               <Link
                 href="https://github.com/ghostbyte-dev/socialfolio-frontend"
-                className="hover:text-white"
+                className="hover:text-text"
               >
                 Github
               </Link>
-              <Link href="/socialfolio" className="hover:text-white">
+              <Link href="/socialfolio" className="hover:text-text">
                 Socialfolio
               </Link>
             </nav>
@@ -51,13 +51,13 @@ export default function Footer() {
           <div className="mt-8">
             <h4 className="font-bold mb-3">Developers</h4>
             <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
-              <Link href="/ghostbyte" className="hover:text-white">
+              <Link href="/ghostbyte" className="hover:text-text">
                 Ghostbyte
               </Link>
-              <Link href="/daniebeler" className="hover:text-white">
+              <Link href="/daniebeler" className="hover:text-text">
                 Daniel
               </Link>
-              <Link href="/hiebeler05" className="hover:text-white">
+              <Link href="/hiebeler05" className="hover:text-text">
                 Emanuel
               </Link>
             </nav>
@@ -66,10 +66,10 @@ export default function Footer() {
           <div className="mt-8">
             <h4 className="font-bold mb-3">Legal</h4>
             <nav className="text-slate-400 text-sm space-y-1 flex flex-col">
-              <Link href="/imprint" className="hover:text-white">
+              <Link href="/imprint" className="hover:text-text">
                 Imprint
               </Link>
-              <Link href="/credits" className="hover:text-white">
+              <Link href="/credits" className="hover:text-text">
                 Credits
               </Link>
             </nav>

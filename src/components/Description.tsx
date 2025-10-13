@@ -34,7 +34,7 @@ export default function Description({
   const mutation = useMutation({
     mutationFn: (description: string) =>
       UserService.updateDescription(description, session?.user?.jwt ?? ""),
-    onSuccess: (data: IUser, variables, context) => {
+    onSuccess: (data: IUser) => {
       queryClient.setQueryData(["otheruser", username], data);
       handleClosePopup();
     },
