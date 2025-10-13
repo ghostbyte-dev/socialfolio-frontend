@@ -1,4 +1,4 @@
-import { getCountryCode, getCountryData, getCountryDataList, ICountryData } from "countries-list";
+import { getCountryCode, getCountryDataList, type ICountryData } from "countries-list";
 
 export const additionalRegions = [
   { name: "Scotland", parent: "United Kingdom", code: "gb-sct" },
@@ -13,10 +13,10 @@ export const countryOptions = [
 ].sort((a, b) => a.localeCompare(b));
 
 export function countryNameToCode(countryName: string): string {
-    const additionalRegion = additionalRegions.find((it) => it.name == countryName)
-    if (additionalRegion) {
-      return additionalRegion.code;
-    }
-    
-    return getCountryCode(countryName).toString().toLowerCase();
+  const additionalRegion = additionalRegions.find((it) => it.name === countryName)
+  if (additionalRegion) {
+    return additionalRegion.code;
   }
+
+  return getCountryCode(countryName).toString().toLowerCase();
+}

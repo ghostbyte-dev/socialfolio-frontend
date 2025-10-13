@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 interface ButtonProps {
   children: string;
@@ -8,8 +8,8 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ children, link }) => {
   return (
     <a href={link}>
-      <button className="button rounded-xl">
-        <span className="relative z-10 transition-colors text-white duration-300 ease-in-out">
+      <button type="button" className="button rounded-xl">
+        <span className="relative z-10 transition-colors duration-300 ease-in-out">
           {children}
         </span>
       </button>

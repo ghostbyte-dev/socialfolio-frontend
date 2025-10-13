@@ -23,7 +23,9 @@ export function AddNewWidget({ size }: AddNewWidgetProps) {
       >
         <div className="h-full w-full flex justify-center items-center flex-col hover:cursor-pointer">
           <Add className="w-[64px] h-[64px]" />
-          <span className="md:mt-5 font-bold text-xl md:text-2xl">Add Widget</span>
+          <span className="md:mt-5 font-bold text-xl md:text-2xl">
+            Add Widget
+          </span>
         </div>
       </BaseWidget>
       {isOpen && <WidgetEditor onClose={() => setIsOpen(false)} />}{" "}

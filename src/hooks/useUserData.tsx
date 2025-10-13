@@ -1,8 +1,7 @@
 const REAL_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-
 export const getUserSelf = async (token?: string) => {
-  const res = await fetch(REAL_API_URL + "/api/user/self", {
+  const res = await fetch(`${REAL_API_URL}/api/user/self`, {
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
     },
@@ -14,4 +13,3 @@ export const getUserSelf = async (token?: string) => {
 
   return res.json();
 };
-

@@ -3,9 +3,9 @@ import SubmitButton from "./SubmitButton";
 import QuestionIcon from "@/assets/icons/question.svg";
 import Close from "@/assets/icons/close.svg";
 import { useSession } from "next-auth/react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
-import { IUser, Status } from "@/types/user-type";
+import type { IUser, Status } from "@/types/user-type";
 import toast from "react-hot-toast";
 
 interface SettingsProps {

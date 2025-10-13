@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import type React from "react";
+import { useRef, useState } from "react";
 
 type LocationData = {
   lat: string;
@@ -26,7 +27,7 @@ const LocationInput: React.FC<LocationInputProps> = ({ onLocationChange }) => {
     debounceTimer.current = setTimeout(() => {
       if (value.length > 2) {
         fetch(
-          `https://api.locationiq.com/v1/autocomplete?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&`,
+          `https://api.locationiq.com/v1/autocomplete?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&`
         )
           .then((response) => response.json())
           .then((response: LocationData[]) => setSuggestions(response))

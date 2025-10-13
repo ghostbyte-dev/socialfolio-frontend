@@ -4,16 +4,12 @@ import { StatsWidget } from "../widgets/StatsWidget";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 
 export default function StatsSection() {
-  const {
-    data: stats,
-    isPending,
-    error,
-  } = useQuery({
+  const { data: stats } = useQuery({
     queryKey: ["stats"],
     queryFn: StatsService.getStats,
   });
 
-  const getDefaultWidgetData = (type: string, variant: number) => {
+  const getDefaultWidgetData = (type: string) => {
     switch (type) {
       case "github":
         return { username: "Hiebeler" };

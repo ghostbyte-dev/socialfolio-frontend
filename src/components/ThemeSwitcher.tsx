@@ -8,7 +8,7 @@ import Laptop from "@/assets/icons/laptop-outline.svg";
 
 export const ThemeSwitcher = ({
   bgColor = "bg-surface-container",
-  activeColor = "bg-surface-container-high",
+  activeColor = "bg-primary text-on-primary",
   isFocusable = true,
 }: {
   bgColor?: string;
@@ -29,33 +29,34 @@ export const ThemeSwitcher = ({
   const tabIndex = isFocusable ? 0 : -1;
 
   return (
-    <div className={"relative rounded-xl p-1 " + bgColor}>
+    <div className={`relative rounded-xl p-1 ${bgColor}`}>
       <button
+        type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("system")}
-        className={
-          "rounded-lg p-2 " + (theme === "system" ? activeColor : bgColor)
-        }
+        className={`rounded-lg p-2 ${
+          theme === "system" ? activeColor : bgColor
+        }`}
         aria-label="System Theme"
       >
         <Laptop className="w-[20px] h-[20px]" />
       </button>
       <button
+        type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("light")}
-        className={
-          "rounded-lg p-2 " + (theme === "light" ? activeColor : bgColor)
-        }
+        className={`rounded-lg p-2 ${
+          theme === "light" ? activeColor : bgColor
+        }`}
         aria-label="Light Theme"
       >
         <Sunny className="w-[20px] h-[20px]" />
       </button>
       <button
+        type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("dark")}
-        className={
-          "rounded-lg p-2 " + (theme === "dark" ? activeColor : bgColor)
-        }
+        className={`rounded-lg p-2 ${theme === "dark" ? activeColor : bgColor}`}
         aria-label="Dark Theme"
       >
         <Moon className="w-[20px] h-[20px]" />

@@ -1,4 +1,4 @@
-import { WidgetProps } from "@/types/widget-types";
+import type { WidgetProps } from "@/types/widget-types";
 
 export const landingpageWidgets: WidgetProps[] = [
   {

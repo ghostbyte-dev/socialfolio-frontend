@@ -37,7 +37,7 @@ export const register = async (credentials: RegisterCredentials): Promise<Regist
       password: credentials.password,
       redirect: false, // Avoid full page reload, handle errors manually
     });
-    
+
     const session = await getSession();
     if (!session?.user) {
       throw new Error("Failed to retrieve user session");
@@ -50,7 +50,8 @@ export const register = async (credentials: RegisterCredentials): Promise<Regist
       jwt: session.user.jwt,
       success: true,
       message: "Registering successful",
-    };  } catch (error) {
+    };
+  } catch (error) {
     return { success: false, message: (error as Error).message };
   }
 };

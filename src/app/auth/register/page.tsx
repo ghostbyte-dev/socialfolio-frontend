@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { register, RegisterCredentials } from "@/lib/auth/register";
+import { register, type RegisterCredentials } from "@/lib/auth/register";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
@@ -36,12 +36,12 @@ export default function RegisterPage() {
       return;
     }
     toast.success("Registered successfully");
-    router.push("/" + result.username);
+    router.push(`/${result.username}`);
   };
 
   return (
     <>
-    <title>Register - Socialfolio</title>
+      <title>Register - Socialfolio</title>
       <div className="w-full">
         <h1 className="text-5xl font-bold mb-5">Register</h1>
 

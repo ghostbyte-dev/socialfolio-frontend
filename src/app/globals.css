@@ -13,32 +13,30 @@
   --color-outline: #dcdbd1;
 }
 
-/* Dark Theme */
 [data-theme="dark"] {
   --color-surface: #090c10;
   --color-surface-container: #0d1117;
   --color-surface-container-high: #17171b;
   --color-on-surface: #e3e2e9;
-  --color-primary: #4169E1;
-  --color-primary-high: #5478e4;
+  --color-primary: #fdc700;
+  --color-primary-high: #fdcd1a;
   --color-primary-container: #314683;
-  --color-on-primary: #ffffff;
+  --color-on-primary: #020618;
   --color-text: #fff;
   --color-outline: #30363d;
 }
 
-/* Light Theme */
 [data-theme="light"] {
-  --color-surface: #f7f2f2; /* Light cream */
-  --color-surface-container: #fff; /* Soft light yellow */
-  --color-surface-container-high: #e2e0e8; /* Pale yellow-beige */
-  --color-on-surface: #1a1b21; /* Darker text color for better readability */
-  --color-primary: #4169E1; /* Orange */
-  --color-primary-high: #5478e4;
-  --color-primary-container: #96aef6; /* Light orange container */
-  --color-on-primary: #ffffff;
-  --color-text: #333; /* Slightly darker text for contrast */
-  --color-outline: #757780; /* Soft orange outline */
+  --color-surface: #f7f2f2;
+  --color-surface-container: #fff;
+  --color-surface-container-high: #e2e0e8;
+  --color-on-surface: #1a1b21;
+  --color-primary: #fdc700;
+  --color-primary-high: #fdcd1a;
+  --color-primary-container: #96aef6;
+  --color-on-primary: #020618;
+  --color-text: #333;
+  --color-outline: #757780;
 }
 
 
@@ -46,73 +44,29 @@
 
 @layer components {
   .input {
-    border-radius: var(--radius-sm);
-    border-style: var(--tw-border-style);
-    background-color: var(--color-surface-container);
-    border-width: 1px;
-    border: none;
-    padding: calc(var(--spacing) * 2);
-    width: 100%;
-    border-radius: var(--radius-xl);
-    padding-left: 15px;
-    @variant focus {
-      border-color: var(--color-primary);
-      outline-style: solid;
-      outline-width: 3px;
-      outline-color: var(--color-primary);
-    }
+    @apply w-full rounded-xl bg-surface-container border border-transparent px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary;
   }
+
 
   .button {
-    background-color: var(--color-primary);
-    padding-block: calc(var(--spacing) * 2);
-    padding-inline: calc(var(--spacing) * 4); /* 1rem = 16px */;
-    border-radius: var(--radius-xl);
-    color: var(--color-on-primary);
-    font-weight: bold;
-    @variant hover {
-      background-color: var(--color-primary-high)
-    }
-  }
+    @apply bg-primary text-on-primary font-bold rounded-xl px-4 py-2;
 
-  .disabled-button {
-    background-color: var(--color-primary-high);
-    padding-block: calc(var(--spacing) * 2);
-    padding-inline: calc(var(--spacing) * 4) /* 1rem = 16px */;
-    border-radius: var(--radius-xl);
-    color: var(--color-on-primary);
-    font-weight: bold;
+    @variant hover {
+      @apply bg-primary-high;
+    }
   }
 
   .button-outlined {
-    border-color: var(--color-on-surface);
-    border-width: 1px;
-    padding-block: calc(var(--spacing) * 2);
-    padding-inline: calc(var(--spacing) * 4) /* 1rem = 16px */;
-    border-radius: var(--radius-xl);
-    color: var(--color-on-surface);
-    @variant hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-    }
+    @apply border border-[var(--color-on-surface)] text-[var(--color-on-surface)] rounded-[var(--radius-xl)] py-[calc(var(--spacing)*2)] px-[calc(var(--spacing)*4)] transition-colors duration-200 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)];
   }
 
-  .disabled-button-outlined {
-    border-color: var(--color-on-surface);
-    padding-block: calc(var(--spacing) * 2);
-    padding-inline: calc(var(--spacing) * 4) /* 1rem = 16px */;
-    border-radius: var(--radius-xl);
-    color: var(--color-on-surface);
-    border-width: 1px;
-
-  }
 
   button {
-    cursor: pointer;
+    @apply cursor-pointer;
   }
 
   .wrapper {
-      @apply h-full w-full dark:border-2 dark:border-outline rounded-4xl shadow-md bg-surface-container duration-300 ease-in-out overflow-hidden;
+    @apply h-full w-full dark:border-2 dark:border-outline rounded-4xl shadow-xs bg-surface-container duration-300 ease-in-out overflow-hidden;
   }
 
   .wrapper.clickable {

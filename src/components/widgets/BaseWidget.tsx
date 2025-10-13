@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import type React from "react";
 import Pencil from "@/assets/icons/pencil-outline.svg";
 import Close from "@/assets/icons/close.svg";
 import { isTouch } from "@/lib/isTouch";
@@ -20,7 +20,6 @@ export function BaseWidget({
   editWidget,
   onClick = () => {},
 }: BaseWidgetProps) {
-  
   const click = () => {
     if (isClickable && !(isOwner && isTouch())) {
       onClick();
@@ -34,11 +33,7 @@ export function BaseWidget({
   return (
     <div
       className={`wrapper
-      ${
-        isClickable && !(isOwner && isTouch())
-          ? "clickable"
-          : ""
-      }`}
+      ${isClickable && !(isOwner && isTouch()) ? "clickable" : ""}`}
       role="link"
       tabIndex={0}
       onClick={click}
@@ -54,6 +49,7 @@ export function BaseWidget({
       {isOwner && (
         <>
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               deleteWidget();
@@ -72,6 +68,7 @@ export function BaseWidget({
           </button>
 
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               editWidget();

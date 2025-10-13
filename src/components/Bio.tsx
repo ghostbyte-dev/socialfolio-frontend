@@ -1,9 +1,9 @@
 import Avatar from "./Avatar";
 import DisplayName from "./DisplayName";
 import Description from "./Description";
-import { IUser } from "@/types/user-type";
+import type { IUser } from "@/types/user-type";
 
-export default function Bio({ 
+export default function Bio({
   isOwner,
   user,
 }: {

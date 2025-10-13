@@ -1,12 +1,10 @@
 import { useState } from "react";
-import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import { useSession } from "next-auth/react";
-import { IUser } from "@/types/user-type";
+import type { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import Pencil from "@/assets/icons/pencil-outline.svg";
-import { isTouch } from "@/lib/isTouch";
 import { FocusTrap } from "focus-trap-react";
 
 export default function DisplayName({
@@ -35,7 +33,7 @@ export default function DisplayName({
   const mutation = useMutation({
     mutationFn: (name: string) =>
       UserService.updateDisplayName(name, session?.user.jwt ?? ""),
-    onSuccess: (data: IUser, variables, context) => {
+    onSuccess: (data: IUser) => {
       queryClient.setQueryData(["otheruser", username], data);
       handleClosePopup();
     },
@@ -45,14 +43,15 @@ export default function DisplayName({
     "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
-    <div className="group relative" tabIndex={0}>
+    <div className="group relative">
       <h1 className="text-3xl font-bold mb-4 text-start break-words max-w-screen sm:max-w-none">
         {name}
       </h1>
 
       {isOwner && (
         <button
-        aria-label="Edit display name"
+          type="button"
+          aria-label="Edit display name"
           onClick={handleOpenPopup}
           className={`absolute top-[-10px] right-0 sm:right-[-40px] p-2 rounded-full bg-on-surface shadow-md scale-75 opacity-0 ease-in-out duration-300 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
         >
@@ -72,10 +71,15 @@ export default function DisplayName({
                 className="input bg-surface-container-high"
               />
               <div className="flex justify-end gap-2 mt-5">
-                <button onClick={handleClosePopup} className="button-outlined">
+                <button
+                  type="button"
+                  onClick={handleClosePopup}
+                  className="button-outlined"
+                >
                   Cancel
                 </button>
                 <button
+                  type="button"
                   className="button"
                   onClick={() => mutation.mutate(editedName)}
                 >
