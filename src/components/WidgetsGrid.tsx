@@ -2,9 +2,9 @@ import { WidgetFactory } from "@/lib/WidgetFactory";
 import { WidgetService } from "@/services/widget.service";
 import type { GitHubData, WidgetProps } from "@/types/widget-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import EditWidgetModal from "./widgetEditor/WidgetEditor";
+import { useAuth } from "@/context/AuthContext";
 
 const addNewWidget: WidgetProps = {
   id: "0",
@@ -22,8 +22,7 @@ export default function WidgetsGrid({
   isOwner: boolean;
 }) {
   const queryClient = useQueryClient();
-  const { data: session, status } = useSession();
-  const sessionStatus = status ?? "loading";
+  const { token } = useAuth();
 
   const {
     data: widgets = [],
@@ -31,14 +30,12 @@ export default function WidgetsGrid({
     error,
   } = useQuery({
     queryKey: ["widgetsofuser", username],
-    queryFn: () =>
-      WidgetService.getUsersWidgets(username, session?.user?.jwt ?? ""),
-    enabled: !!username && sessionStatus !== "loading",
+    queryFn: () => WidgetService.getUsersWidgets(username, token ?? ""),
+    enabled: !!username,
   });
 
   const deleteWidget = useMutation({
-    mutationFn: (id: string) =>
-      WidgetService.deleteWidget(id, session?.user.jwt ?? ""),
+    mutationFn: (id: string) => WidgetService.deleteWidget(id, token ?? ""),
     onMutate: async (id: string) => {
       await queryClient.cancelQueries({
         queryKey: ["widgetsofuser", username],

@@ -1,6 +1,5 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
@@ -14,21 +13,20 @@ import Logo from "@/assets/icons/logo.svg";
 import Settings from "./Settings";
 import { FocusTrap } from "focus-trap-react";
 import ShareModal from "./ShareModal";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
-  const { data: session, status } = useSession();
+  const { token, user: authUser, logout } = useAuth();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(
-    false,
-  );
+  const [isSettingsModalOpen, setIsSettingsModalOpen] =
+    useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [accountDeletionPopup, setAccountDeletionPopup] = useState<boolean>(
-    false,
-  );
-  const jwt = session?.user?.jwt;
+  const [accountDeletionPopup, setAccountDeletionPopup] =
+    useState<boolean>(false);
+  const jwt = token;
 
   const { data: user } = useQuery({
     queryKey: ["self"],
@@ -39,7 +37,7 @@ export default function Navbar() {
   });
 
   const handleLogout = () => {
-    signOut({ redirect: false });
+    logout();
     setDropdownOpen(false);
     router.push("/auth/login");
   };
@@ -93,11 +91,9 @@ export default function Navbar() {
             <ThemeSwitcher />
           </div>
 
-          {status === "unauthenticated" && (
-            <Button link="/auth/login">Log in</Button>
-          )}
+          {authUser && <Button link="/auth/login">Log in</Button>}
 
-          {status === "authenticated" && user && (
+          {authUser && user && (
             <div className="relative inline-block text-left" ref={dropdownRef}>
               <button
                 type="button"
@@ -105,13 +101,14 @@ export default function Navbar() {
                 id="menu-button"
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
-                onClick={() =>
-                  setDropdownOpen(!dropdownOpen)}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 <Image
-                  src={user.avatar.trim() === ""
-                    ? "/defaults/default-avatar.jpg"
-                    : user.avatar}
+                  src={
+                    user.avatar.trim() === ""
+                      ? "/defaults/default-avatar.jpg"
+                      : user.avatar
+                  }
                   alt="User Avatar"
                   width={44}
                   height={44}
@@ -128,7 +125,7 @@ export default function Navbar() {
                 >
                   <div className="" role="none">
                     <Link
-                      href={"/" + user.username}
+                      href={`/${user.username}`}
                       className="block px-4 py-2 text-sm font-bold rounded hover:bg-surface"
                       role="menuitem"
                       onClick={() => setDropdownOpen(false)}
@@ -137,6 +134,7 @@ export default function Navbar() {
                     </Link>
 
                     <button
+                      type="button"
                       onClick={() => {
                         setIsShareModalOpen(true);
                         setDropdownOpen(false);
@@ -148,6 +146,7 @@ export default function Navbar() {
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => {
                         setIsSettingsModalOpen(true);
                         setDropdownOpen(false);
@@ -159,6 +158,7 @@ export default function Navbar() {
                     </button>
 
                     <button
+                      type="button"
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
@@ -166,6 +166,7 @@ export default function Navbar() {
                       Logout
                     </button>
                     <button
+                      type="button"
                       onClick={openAccountDeletionPopup}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"

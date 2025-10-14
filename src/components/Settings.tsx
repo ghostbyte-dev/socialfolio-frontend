@@ -2,11 +2,11 @@ import { useState } from "react";
 import SubmitButton from "./SubmitButton";
 import QuestionIcon from "@/assets/icons/question.svg";
 import Close from "@/assets/icons/close.svg";
-import { useSession } from "next-auth/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import type { IUser, Status } from "@/types/user-type";
 import toast from "react-hot-toast";
+import { useAuth } from "@/context/AuthContext";
 
 interface SettingsProps {
   user: IUser;
@@ -15,16 +15,15 @@ interface SettingsProps {
 
 export default function Settings({ user, onClose }: SettingsProps) {
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
-  const jwt = session?.user?.jwt;
-  const username = session?.user?.username;
+  const { token, user: authUser } = useAuth();
+  const username = authUser?.username;
 
   const [status, setStatus] = useState<Status>(user.status);
   const [isStatusInfoOpen, setIsStatusInfoOpen] = useState<boolean>();
 
   const updateStatus = useMutation({
     mutationFn: (status: Status) =>
-      toast.promise(UserService.updateStatus(status, jwt ?? ""), {
+      toast.promise(UserService.updateStatus(status, token ?? ""), {
         loading: "loading...",
         success: "Saved successfully",
         error: (err) => `Error: ${err.message}`,
@@ -67,6 +66,7 @@ export default function Settings({ user, onClose }: SettingsProps) {
                 <option value="disabled">Disabled</option>
               </select>
               <button
+                type="button"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsStatusInfoOpen(true);

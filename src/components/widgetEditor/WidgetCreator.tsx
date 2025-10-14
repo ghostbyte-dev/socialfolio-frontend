@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
-import { useSession } from "next-auth/react";
 import { WidgetProps } from "@/types/widget-types";
 import { useParams } from "next/navigation";
 import Close from "@/assets/icons/close.svg";
@@ -9,6 +8,7 @@ import toast from "react-hot-toast";
 import WidgetTypeSelector from "./WidgetTypeSelector";
 import WidgetPropsSelector from "./WidgetPropsSelector";
 import { FocusTrap } from "focus-trap-react";
+import { useAuth } from "@/context/AuthContext";
 
 export interface WidgetOption {
   id: string;
@@ -45,10 +45,10 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const username = params.username as string;
   const queryClient = useQueryClient();
 
-  const { data: session } = useSession();
+  const { token } = useAuth();
 
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
-    null,
+    null
   );
 
   const mutation = useMutation({
@@ -92,7 +92,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
       );
 
       return { previousWidgets };
@@ -103,7 +103,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets,
+        context.previousWidgets
       );
     },
     onSettled: () => {
@@ -140,7 +140,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
     mutation.mutate({
       data: createWidgetRequest,
-      jwt: session?.user.jwt ?? "",
+      jwt: token ?? "",
     });
   };
 
@@ -194,6 +194,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           </div>
 
           <button
+            type="button"
             aria-label="Close widget creator"
             onClick={onClose}
             onKeyDown={(e) => {

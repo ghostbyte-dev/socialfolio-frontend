@@ -2,12 +2,11 @@
 
 import HeroSection from "@/components/landingpage/HeroSection";
 import StatsSection from "@/components/landingpage/StatsSection";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
-  const { data: session, status } = useSession();
-  const loggedInUsername = session?.user?.username;
+  const { user } = useAuth();
+  const loggedInUsername = user?.username;
 
   return (
     <>

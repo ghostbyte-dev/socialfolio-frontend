@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
-import { useSession } from "next-auth/react";
 import type { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import React from "react";
@@ -10,6 +9,7 @@ import type { Point, Area } from "react-easy-crop";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "@/lib/cropImage";
 import SubmitButton from "./SubmitButton";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Avatar({
   url,
@@ -21,7 +21,7 @@ export default function Avatar({
   const params = useParams();
   const username = params.username as string;
   const [isEditing, setIsEditing] = useState(false);
-  const { data: session } = useSession();
+  const { token } = useAuth();
   const [file, setFile] = useState<string | undefined>();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState(
@@ -105,7 +105,7 @@ export default function Avatar({
         <CropAvatar
           imageUrl={file ?? ""}
           handleClosePopup={handleClosePopup}
-          jwt={session?.user.jwt ?? ""}
+          jwt={token ?? ""}
           username={username}
         />
       )}

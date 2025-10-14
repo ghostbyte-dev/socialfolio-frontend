@@ -1,5 +1,20 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
+export interface RegisterCredentials {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  id?: string;
+  username?: string;
+  jwt?: string;
+  email?: string;
+  success: boolean;
+  message: string;
+}
+
 const requestReset = async (email: string) => {
   const response = await fetch(`${API_URL}/api/auth/password/request`, {
     method: "POST",

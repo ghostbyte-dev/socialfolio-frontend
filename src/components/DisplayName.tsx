@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
-import { useSession } from "next-auth/react";
 import type { IUser } from "@/types/user-type";
 import { useParams } from "next/navigation";
 import Pencil from "@/assets/icons/pencil-outline.svg";
 import { FocusTrap } from "focus-trap-react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DisplayName({
   name,
@@ -20,7 +20,7 @@ export default function DisplayName({
   const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
   const [editedName, setEditedName] = useState<string>(name);
-  const { data: session } = useSession();
+  const { token } = useAuth();
 
   const handleOpenPopup = () => {
     setIsEditing(true);
@@ -32,7 +32,7 @@ export default function DisplayName({
 
   const mutation = useMutation({
     mutationFn: (name: string) =>
-      UserService.updateDisplayName(name, session?.user.jwt ?? ""),
+      UserService.updateDisplayName(name, token ?? ""),
     onSuccess: (data: IUser) => {
       queryClient.setQueryData(["otheruser", username], data);
       handleClosePopup();
