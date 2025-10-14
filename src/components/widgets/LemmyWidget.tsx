@@ -25,7 +25,7 @@ export function LemmyWidget({
       editWidget={editWidget}
       link={`${data.instance}/u/${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgeteditor/lemmy.svg"

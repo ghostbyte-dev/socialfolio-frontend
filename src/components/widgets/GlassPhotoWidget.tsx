@@ -25,7 +25,7 @@ export function GlassPhotoWidget({
       editWidget={editWidget}
       link={`https://glass.photo/${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#ffcc00] dark:bg-[ffd60A]">
           <img
             src="/widgets/glassphoto/glass-wordmark-black.svg"

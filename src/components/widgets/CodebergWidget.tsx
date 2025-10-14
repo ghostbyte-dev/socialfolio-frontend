@@ -40,7 +40,7 @@ export function CodebergWidget({
       editWidget={editWidget}
       link={`https://codeberg.org/${data.username}`}
     >
-      {(variant == 1 || variant == 2 || variant == 3 || variant == 4) && (
+      {(variant === 1 || variant === 2 || variant === 3 || variant === 4) && (
         <div
           className={"h-full w-full flex justify-center items-center"}
           style={{ backgroundColor: getBackground() }}
@@ -52,7 +52,7 @@ export function CodebergWidget({
           />
         </div>
       )}
-      {variant == 5 && (
+      {variant === 5 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgeteditor/codeberg.svg"
@@ -61,7 +61,7 @@ export function CodebergWidget({
           />
         </div>
       )}
-      {variant == 6 && (
+      {variant === 6 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgets/codeberg/codeberg_black.svg"

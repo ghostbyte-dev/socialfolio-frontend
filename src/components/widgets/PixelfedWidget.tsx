@@ -25,7 +25,7 @@ export function PixelfedWidget({
       editWidget={editWidget}
       link={`${data.instance}/@${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgets/pixelfed/pixelfed-logo.webp"

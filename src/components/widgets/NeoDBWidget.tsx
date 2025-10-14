@@ -25,7 +25,7 @@ export function NeoDbWidget({
       editWidget={editWidget}
       link={`${data.instance}/users/${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgets/neodb/neodb_dark.svg"

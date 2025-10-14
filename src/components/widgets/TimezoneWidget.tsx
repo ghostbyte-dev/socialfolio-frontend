@@ -1,4 +1,4 @@
-import { TimezoneData } from "@/types/widget-types";
+import type { TimezoneData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import Moonlight from "@/assets/icons/moonlight.svg";
 import Sunlight from "@/assets/icons/sunlight.svg";
@@ -14,7 +14,6 @@ interface TimezoneWidgetProps {
 
 export function TimezoneWidget({
   data,
-  size,
   variant,
   isOwner,
   deleteWidget,
@@ -42,16 +41,18 @@ export function TimezoneWidget({
       deleteWidget={deleteWidget}
       editWidget={editWidget}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex flex-col justify-center items-center">
           <span className="text-3xl font-bold">{formattedTime}</span>
           <span className="mt-1">local time</span>
         </div>
       )}
 
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full relative flex justify-center pt-8 md:pt-10">
-          <span className="text-2xl md:text-3xl font-bold">{formattedTime}</span>
+          <span className="text-2xl md:text-3xl font-bold">
+            {formattedTime}
+          </span>
           {isDaytime ? (
             <Sunlight className="absolute bottom-0 w-full" />
           ) : (

@@ -1,7 +1,7 @@
-import { WeatherWidgetData, WidgetApiData } from "@/types/widget-types";
+import type { WeatherWidgetData, WidgetApiData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import { useQuery } from "@tanstack/react-query";
-import { WeatherApiData } from "./MastodonWidget";
+import type { WeatherApiData } from "./MastodonWidget";
 import { WidgetService } from "@/services/widget.service";
 import { getWeatherIcon } from "@/lib/getWeatherIcon";
 
@@ -18,19 +18,13 @@ interface WeatherWidgetProps {
 
 export function WeatherWidget({
   id,
-  data,
-  size,
   isOwner,
   variant,
   deleteWidget,
   editWidget,
   preview = false,
 }: WeatherWidgetProps) {
-  const {
-    data: apiData,
-    isLoading: widgetApiDataIsLoading,
-    error,
-  } = useQuery<WeatherApiData>({
+  const { data: apiData } = useQuery<WeatherApiData>({
     queryKey: ["mastodonWidgetData", id],
     queryFn: () => WidgetService.getWidgetData(id) as Promise<WeatherApiData>,
     enabled: id !== "",
@@ -41,13 +35,13 @@ export function WeatherWidget({
         elevation: 0,
         current: {
           weatherCode: 0,
-          temperature: "30°C"
+          temperature: "30°C",
         },
         isDay: true,
       }
     : apiData;
 
-    const iconFolder = widgetApiData?.isDay ? "day": "night"
+  const iconFolder = widgetApiData?.isDay ? "day" : "night";
 
   return (
     <BaseWidget
@@ -56,7 +50,7 @@ export function WeatherWidget({
       deleteWidget={deleteWidget}
       editWidget={editWidget}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
           {widgetApiData && (
             <img
@@ -69,18 +63,21 @@ export function WeatherWidget({
           )}
         </div>
       )}
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full flex flex-col justify-center items-center py-5">
           {widgetApiData && (
             <>
-            <img
-              src={`widgets/weather/${iconFolder}/${getWeatherIcon(
-                widgetApiData.current.weatherCode
-              )}.svg`}
-              alt={getWeatherIcon(widgetApiData.current.weatherCode)}
-              className="w-full h-full object-contain"
-            />
-            <p className="text-xl font-bold">{widgetApiData.current.temperature}</p></>
+              <img
+                src={`widgets/weather/${iconFolder}/${getWeatherIcon(
+                  widgetApiData.current.weatherCode
+                )}.svg`}
+                alt={getWeatherIcon(widgetApiData.current.weatherCode)}
+                className="w-full h-full object-contain"
+              />
+              <p className="text-xl font-bold">
+                {widgetApiData.current.temperature}
+              </p>
+            </>
           )}
         </div>
       )}

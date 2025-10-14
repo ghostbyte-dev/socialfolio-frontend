@@ -1,5 +1,6 @@
 import type { FediverseData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface FediverseWidgetProps {
   data: FediverseData;
@@ -12,7 +13,6 @@ interface FediverseWidgetProps {
 
 export function FediverseWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
@@ -26,22 +26,28 @@ export function FediverseWidget({
       editWidget={editWidget}
       link={data.link}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgeteditor/fediverse.svg"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgeteditor/fediverse.svg"
+              alt="Fediverse logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full flex flex-col justify-center items-center">
-          <img
-            src="/widgeteditor/fediverse.svg"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgeteditor/fediverse.svg"
+              alt="Fediverse logo"
+              fill
+              className="object-contain"
+            />
+          </div>
           <p>{data.fediverseHandle}</p>
         </div>
       )}

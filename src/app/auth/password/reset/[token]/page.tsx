@@ -71,7 +71,7 @@ export default function ResetPasswordPage() {
           />
           {error && <p className="text-red-500">{error}</p>}
           <button
-            disabled={formData.password != formData.repeatPassword}
+            disabled={formData.password !== formData.repeatPassword}
             type="submit"
             className="button w-full"
           >

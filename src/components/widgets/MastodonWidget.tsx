@@ -46,7 +46,7 @@ export function MastodonWidget({
   preview = false,
 }: MastodonWidgetProps) {
   const needApiData = (): boolean => {
-    if (variant == 1) {
+    if (variant === 1) {
       return false;
     } else {
       return true;

@@ -25,7 +25,7 @@ export function VernissageWidget({
       editWidget={editWidget}
       link={`https://vernissage.photos/@${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgets/vernissage/vernissage-white.svg"
@@ -39,7 +39,7 @@ export function VernissageWidget({
           />
         </div>
       )}
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgets/vernissage/vernissage-V-white.svg"

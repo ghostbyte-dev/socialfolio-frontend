@@ -55,11 +55,11 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
     if (!qrCode) return;
     if (ref.current) {
       qrCode.update({
-        data: "https://socialfolio.me/" + user.username,
+        data: `https://socialfolio.me/${user.username}`,
       });
       qrCode.append(ref.current);
     }
-  }, [qrCode]);
+  }, [qrCode, user.username]);
 
   useEffect(() => {
     if (!qrCode) return;
@@ -72,7 +72,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
         type: "rounded",
       },
     });
-  }, [bgColor, qrCode]);
+  }, [bgColor, qrCode, primaryColor]);
 
   const copyToClipboard = async () => {
     try {

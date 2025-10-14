@@ -1,4 +1,4 @@
-import { NoteWidgetData } from "@/types/widget-types";
+import type { NoteWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,6 @@ interface NoteWidgetProps {
 
 export function NoteWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
@@ -26,7 +25,7 @@ export function NoteWidget({
       deleteWidget={deleteWidget}
       editWidget={editWidget}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full p-[10%] flex justify-center items-center">
           <p className="break-words max-w-full">{data.note}</p>
         </div>
@@ -87,7 +86,7 @@ function NoteWidgetVariant2({
     if (data.note) {
       loadFiglet().catch(console.error);
     }
-  }, [data.note]);
+  }, [data.note, variant]);
 
   return (
     <div className="h-full w-full p-[10%] flex justify-center items-center">
