@@ -1,9 +1,8 @@
 "use client";
 
-import { LinkData } from "@/types/widget-types";
+import type { LinkData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import LinkIcon from "@/assets/icons/link.svg";
-import Link from "next/link";
 
 interface LinkWidgetProps {
   data: LinkData;
@@ -16,24 +15,18 @@ interface LinkWidgetProps {
 
 export function LinkWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
   editWidget,
 }: LinkWidgetProps) {
-  const onClick = () => {
-    const url = data.link;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={data.link}
     >
       {variant == 1 && (
         <div className="h-full w-full justify-center items-center flex flex-col">
@@ -41,7 +34,9 @@ export function LinkWidget({
 
           {data.link && (
             <p className="break-words max-w-full">
-              {data.label != "" && data.label ? data.label : data.link.replace(/^https?\:\/\//i, "")}
+              {data.label != "" && data.label
+                ? data.label
+                : data.link.replace(/^https?\:\/\//i, "")}
             </p>
           )}
         </div>

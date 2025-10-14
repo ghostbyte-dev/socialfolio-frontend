@@ -1,4 +1,4 @@
-import { ImageWidgetData } from "@/types/widget-types";
+import type { ImageWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 
 interface ImageWidgetProps {
@@ -18,20 +18,15 @@ export function ImageWidget({
   deleteWidget,
   editWidget,
 }: ImageWidgetProps) {
-  const onClick = () => {
-    const url = data.link;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={!!data.link}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={data.link}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className={`h-full w-full variant-${variant}`}>
           <img src={data.image} alt="" className="w-full h-full object-cover" />
         </div>

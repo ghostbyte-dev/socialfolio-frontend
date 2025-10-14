@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (formData.password == formData.repeatPassword) {
+    if (formData.password === formData.repeatPassword) {
       resetPassword.mutate(formData.password);
     }
   };

@@ -91,7 +91,7 @@ export default function Navbar() {
             <ThemeSwitcher />
           </div>
 
-          {authUser && <Button link="/auth/login">Log in</Button>}
+          {!authUser && <Button link="/auth/login">Log in</Button>}
 
           {authUser && user && (
             <div className="relative inline-block text-left" ref={dropdownRef}>

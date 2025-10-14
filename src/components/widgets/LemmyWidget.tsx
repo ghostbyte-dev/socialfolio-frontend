@@ -1,6 +1,5 @@
-import { PixelfedData } from "@/types/widget-types";
+import type { PixelfedData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Link from "next/link";
 
 interface LemmyWidgetProps {
   data: PixelfedData;
@@ -11,22 +10,29 @@ interface LemmyWidgetProps {
   editWidget: () => void;
 }
 
-export function LemmyWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: LemmyWidgetProps) {
-  const onClick = () => {
-    const url = data.instance + "/u/" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-
+export function LemmyWidget({
+  data,
+  isOwner,
+  variant,
+  deleteWidget,
+  editWidget,
+}: LemmyWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={true}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      link={`${data.instance}/u/${data.username}`}
+    >
       {variant == 1 && (
-          <div className="h-full w-full flex justify-center items-center">
-            <img
-              src="/widgeteditor/lemmy.svg"
-              alt="Pixelfed logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+        <div className="h-full w-full flex justify-center items-center">
+          <img
+            src="/widgeteditor/lemmy.svg"
+            alt="Pixelfed logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
     </BaseWidget>
   );

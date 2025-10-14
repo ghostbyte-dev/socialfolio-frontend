@@ -1,4 +1,4 @@
-import { ListenBrainzData } from "@/types/widget-types";
+import type { ListenBrainzData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 
 interface ListenBrainzWidgetProps {
@@ -10,23 +10,29 @@ interface ListenBrainzWidgetProps {
   editWidget: () => void;
 }
 
-export function ListenBrainzWidget({ data, size, variant, isOwner, deleteWidget, editWidget }: ListenBrainzWidgetProps) {
-
-  const onClick = () => {
-    const url = "https://listenbrainz.org/user/" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-
+export function ListenBrainzWidget({
+  data,
+  variant,
+  isOwner,
+  deleteWidget,
+  editWidget,
+}: ListenBrainzWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
-      {variant == 1 && (
-          <div className="h-full w-full flex justify-center items-center">
-            <img
-              src="/widgeteditor/listenBrainz.svg"
-              alt="ListenBrainz logo"
-              className="w-[60%] h-[60%] object-contain"
-            />
-          </div>
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={true}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      link={`https://listenbrainz.org/user/${data.username}`}
+    >
+      {variant === 1 && (
+        <div className="h-full w-full flex justify-center items-center">
+          <img
+            src="/widgeteditor/listenBrainz.svg"
+            alt="ListenBrainz logo"
+            className="w-[60%] h-[60%] object-contain"
+          />
+        </div>
       )}
     </BaseWidget>
   );

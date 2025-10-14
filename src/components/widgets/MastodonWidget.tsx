@@ -1,6 +1,5 @@
-import { MastodonData } from "@/types/widget-types";
+import type { MastodonData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
 
@@ -32,8 +31,8 @@ export interface WeatherApiData {
   current: {
     weatherCode: number;
     temperature: string;
-  }
-  isDay: boolean
+  };
+  isDay: boolean;
 }
 
 export function MastodonWidget({
@@ -54,15 +53,13 @@ export function MastodonWidget({
     }
   };
 
-  const {
-    data: apiData,
-    isLoading: widgetApiDataIsLoading,
-    error,
-  } = useQuery<MastodonApiData>({
-    queryKey: ["mastodonWidgetData", id],
-    queryFn: () => WidgetService.getWidgetData(id) as Promise<MastodonApiData>,
-    enabled: needApiData() && id !== "",
-  });
+  const { data: apiData, isLoading: widgetApiDataIsLoading } =
+    useQuery<MastodonApiData>({
+      queryKey: ["mastodonWidgetData", id],
+      queryFn: () =>
+        WidgetService.getWidgetData(id) as Promise<MastodonApiData>,
+      enabled: needApiData() && id !== "",
+    });
 
   const widgetApiData = preview
     ? {
@@ -75,20 +72,15 @@ export function MastodonWidget({
       }
     : apiData;
 
-  const onClick = () => {
-    const url = data.instance + "/@" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={`${data.instance}/@${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
           <img
             src="/widgets/mastodon/mastodon-logo-white.webp"
@@ -98,7 +90,7 @@ export function MastodonWidget({
         </div>
       )}
 
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full p-8">
           {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
           {widgetApiData && (
@@ -126,7 +118,7 @@ export function MastodonWidget({
         </div>
       )}
 
-      {variant == 3 && (
+      {variant === 3 && (
         <div className="h-full w-full p-6 sm:p-5 md:p-8 bg-[#6364ff] text-white flex justify-between flex-col">
           <img
             src="/widgets/mastodon/mastodon-logo-white.webp"
@@ -134,7 +126,9 @@ export function MastodonWidget({
             className="object-contain w-14 sm:w-16 md:w-16 lg:w-16"
           />
           <div>
-            <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-1 mt-2">Mastodon</h3>
+            <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-1 mt-2">
+              Mastodon
+            </h3>
             <span className="text-xs sm:text-md">
               @{data.username}@{data.instance?.replace(/^https?\:\/\//i, "")}
             </span>

@@ -9,7 +9,7 @@ interface AddNewWidgetProps {
   size: { cols: number; rows: number };
 }
 
-export function AddNewWidget({ size }: AddNewWidgetProps) {
+export function AddNewWidget({ size: _size }: AddNewWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

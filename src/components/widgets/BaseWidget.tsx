@@ -10,6 +10,7 @@ export interface BaseWidgetProps {
   deleteWidget: () => void;
   editWidget: () => void;
   onClick?: () => void;
+  link?: string;
 }
 
 export function BaseWidget({
@@ -19,6 +20,7 @@ export function BaseWidget({
   deleteWidget,
   editWidget,
   onClick = () => {},
+  link,
 }: BaseWidgetProps) {
   const click = () => {
     if (isClickable && !(isOwner && isTouch())) {
@@ -31,20 +33,30 @@ export function BaseWidget({
     : "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
-    <div
-      className={`wrapper
+    <div className="wrapper w-full h-full">
+      {link && (
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      )}
+
+      {!link && (
+        <div
+          className={`h-full w-full
       ${isClickable && !(isOwner && isTouch()) ? "clickable" : ""}`}
-      role="link"
-      tabIndex={0}
-      onClick={click}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          click();
-        }
-      }}
-    >
-      {children}
+          role="link"
+          tabIndex={0}
+          onClick={click}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              click();
+            }
+          }}
+        >
+          {children}
+        </div>
+      )}
 
       {isOwner && (
         <>
