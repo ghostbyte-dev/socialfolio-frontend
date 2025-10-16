@@ -1,7 +1,7 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-interface User {
+export interface User {
   id: string;
   email: string;
   username: string;

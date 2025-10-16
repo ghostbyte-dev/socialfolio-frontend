@@ -7,6 +7,7 @@ import Link from "next/link";
 import SubmitButton from "@/components/SubmitButton";
 import { login, registerUser } from "@/lib/auth";
 import type { RegisterCredentials } from "@/services/auth.service";
+import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
@@ -17,6 +18,7 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { setToken } = useAuth(); // 👈 new auth context
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +34,7 @@ export default function RegisterPage() {
       toast.success("Registered successfully");
 
       // Auto-login after registration
-      const user = await login(formData.email, formData.password);
+      const user = await login(formData.email, formData.password, setToken);
       toast.success(`Welcome, ${user.username}!`);
       router.push(`/${user.username}`);
     } catch (err) {

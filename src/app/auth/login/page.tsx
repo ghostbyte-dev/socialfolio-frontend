@@ -29,14 +29,7 @@ export default function LoginPage() {
 
     try {
       // Call backend login
-      const data = await loginApi(formData.email, formData.password);
-
-      // Save token & user in context
-      setToken(data.jwt, {
-        id: data.id,
-        username: data.username,
-        email: data.email,
-      });
+      const data = await loginApi(formData.email, formData.password, setToken);
 
       toast.success(`Welcome, ${data.username}!`);
       router.push(`/${data.username}`);

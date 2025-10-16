@@ -1,3 +1,5 @@
+import type { User as AuthContextUser } from "@/context/AuthContext";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 export interface User {
@@ -21,7 +23,7 @@ export interface LoginResponse {
     message: string;
 }
 
-export async function login(email: string, password: string): Promise<User> {
+export async function login(email: string, password: string, setToken: (token: string | null, userData?: AuthContextUser | null) => void): Promise<User> {
     const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -30,12 +32,18 @@ export async function login(email: string, password: string): Promise<User> {
 
     if (!res.ok) {
         const err = await res.json();
+        console.error(err.message);
         throw new Error(err.message || "Login failed");
     }
 
     const user = await res.json();
-    // Optionally store token in localStorage if not using cookies
-    localStorage.setItem("token", user.jwt);
+
+    setToken(user.jwt, {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+    });
+
     return user;
 }
 
@@ -52,9 +60,9 @@ export async function registerUser(username: string, email: string, password: st
 }
 
 export function logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwt");
 }
 
 export function getToken(): string | null {
-    return localStorage.getItem("token");
+    return localStorage.getItem("jwt");
 }
