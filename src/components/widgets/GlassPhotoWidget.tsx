@@ -1,4 +1,4 @@
-import { GlassPhotoData, NeoDBData } from "@/types/widget-types";
+import type { GlassPhotoData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 
 interface GlassPhotoWidgetProps {
@@ -12,26 +12,20 @@ interface GlassPhotoWidgetProps {
 
 export function GlassPhotoWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
   editWidget,
 }: GlassPhotoWidgetProps) {
-  const onClick = () => {
-    const url = "https://glass.photo/" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={`https://glass.photo/${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#ffcc00] dark:bg-[ffd60A]">
           <img
             src="/widgets/glassphoto/glass-wordmark-black.svg"

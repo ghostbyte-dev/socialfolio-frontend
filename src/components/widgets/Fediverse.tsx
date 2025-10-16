@@ -1,5 +1,6 @@
-import { FediverseData } from "@/types/widget-types";
+import type { FediverseData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface FediverseWidgetProps {
   data: FediverseData;
@@ -10,32 +11,45 @@ interface FediverseWidgetProps {
   editWidget: () => void;
 }
 
-export function FediverseWidget({ data, size, isOwner, variant, deleteWidget, editWidget }: FediverseWidgetProps) {
-  const onClick = () => {
-    const url = data.link;
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-
+export function FediverseWidget({
+  data,
+  isOwner,
+  variant,
+  deleteWidget,
+  editWidget,
+}: FediverseWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
-      {variant == 1 && (
-          <div className="h-full w-full flex justify-center items-center">
-            <img
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={true}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      link={data.link}
+    >
+      {variant === 1 && (
+        <div className="h-full w-full flex justify-center items-center">
+          <div className="w-1/2 h-1/2 relative">
+            <Image
               src="/widgeteditor/fediverse.svg"
-              alt="Pixelfed logo"
-              className="w-[50%] h-[50%] object-contain"
+              alt="Fediverse logo"
+              fill
+              className="object-contain"
             />
           </div>
+        </div>
       )}
-      {variant == 2 && (
-          <div className="h-full w-full flex flex-col justify-center items-center">
-            <img
+      {variant === 2 && (
+        <div className="h-full w-full flex flex-col justify-center items-center">
+          <div className="w-1/2 h-1/2 relative">
+            <Image
               src="/widgeteditor/fediverse.svg"
-              alt="Pixelfed logo"
-              className="w-[50%] h-[50%] object-contain"
+              alt="Fediverse logo"
+              fill
+              className="object-contain"
             />
-            <p>{data.fediverseHandle}</p>
           </div>
+          <p>{data.fediverseHandle}</p>
+        </div>
       )}
     </BaseWidget>
   );

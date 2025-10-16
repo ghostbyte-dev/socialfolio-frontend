@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { login, type LoginCredentials } from "@/lib/auth/login";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import SubmitButton from "@/components/SubmitButton";
+import { login as loginApi, type LoginCredentials } from "@/lib/auth";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState<LoginCredentials>({
@@ -15,6 +16,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { setToken } = useAuth(); // 👈 new auth context
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,20 +25,21 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-
     setLoading(true);
 
-    const result = await login(formData);
+    try {
+      // Call backend login
+      const data = await loginApi(formData.email, formData.password, setToken);
 
-    setLoading(false);
-
-    if (!result.success) {
-      toast.error(result.message);
-      setError(result.message);
-      return;
+      toast.success(`Welcome, ${data.username}!`);
+      router.push(`/${data.username}`);
+    } catch (err) {
+      const msg = (err as Error).message || "Login failed";
+      toast.error(msg);
+      setError(msg);
+    } finally {
+      setLoading(false);
     }
-    toast.success("Logged in");
-    router.push(`/${result.username}`);
   };
 
   return (

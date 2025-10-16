@@ -1,6 +1,5 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
@@ -14,9 +13,10 @@ import Logo from "@/assets/icons/logo.svg";
 import Settings from "./Settings";
 import { FocusTrap } from "focus-trap-react";
 import ShareModal from "./ShareModal";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
-  const { data: session, status } = useSession();
+  const { token, user: authUser, logout } = useAuth();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ export default function Navbar() {
   const [accountDeletionPopup, setAccountDeletionPopup] = useState<boolean>(
     false,
   );
-  const jwt = session?.user?.jwt;
+  const jwt = token;
 
   const { data: user } = useQuery({
     queryKey: ["self"],
@@ -39,7 +39,7 @@ export default function Navbar() {
   });
 
   const handleLogout = () => {
-    signOut({ redirect: false });
+    logout();
     setDropdownOpen(false);
     router.push("/auth/login");
   };
@@ -93,11 +93,9 @@ export default function Navbar() {
             <ThemeSwitcher />
           </div>
 
-          {status === "unauthenticated" && (
-            <Button link="/auth/login">Log in</Button>
-          )}
+          {!authUser && <Button link="/auth/login">Log in</Button>}
 
-          {status === "authenticated" && user && (
+          {authUser && user && (
             <div className="relative inline-block text-left" ref={dropdownRef}>
               <button
                 type="button"
@@ -128,7 +126,7 @@ export default function Navbar() {
                 >
                   <div className="" role="none">
                     <Link
-                      href={"/" + user.username}
+                      href={`/${user.username}`}
                       className="block px-4 py-2 text-sm font-bold rounded hover:bg-surface"
                       role="menuitem"
                       onClick={() => setDropdownOpen(false)}
@@ -137,6 +135,7 @@ export default function Navbar() {
                     </Link>
 
                     <button
+                      type="button"
                       onClick={() => {
                         setIsShareModalOpen(true);
                         setDropdownOpen(false);
@@ -148,6 +147,7 @@ export default function Navbar() {
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => {
                         setIsSettingsModalOpen(true);
                         setDropdownOpen(false);
@@ -159,19 +159,23 @@ export default function Navbar() {
                     </button>
 
                     <button
+                      type="button"
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Logout
                     </button>
-                    <button
+                    {
+                      /*  <button
+                      type="button"
                       onClick={openAccountDeletionPopup}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Delete Account
-                    </button>
+                    </button>*/
+                    }
                   </div>
                 </div>
               )}
@@ -247,25 +251,6 @@ export default function Navbar() {
               user={user}
               onClose={() => setIsShareModalOpen(false)}
             />
-          )}
-
-          {isShareModalOpen && user && (
-            <div
-              className="fixed inset-0 bg-black/50 flex justify-center items-center"
-              onClick={() => setAccountDeletionPopup(false)}
-            >
-              <div
-                className="relative bg-surface-container w-[80%] lg:w-[60%] lg:h-[80%] rounded-2xl shadow-lg flex overflow-hidden flex-col"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h3>
-                  Are you shure you want to delete this Account, this action is
-                  irreversible
-                </h3>
-                <button>cancel</button>
-                <button>delete</button>
-              </div>
-            </div>
           )}
         </div>
       </FocusTrap>

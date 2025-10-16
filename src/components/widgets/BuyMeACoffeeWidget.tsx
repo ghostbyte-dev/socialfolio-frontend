@@ -1,7 +1,5 @@
-import { BuymeacoffeeData, LiberaPayData, PixelfedData } from "@/types/widget-types";
+import type { BuymeacoffeeData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Link from "next/link";
-import Image from "next/image";
 
 interface BuyMeACoffeeWidgetProps {
   data: BuymeacoffeeData;
@@ -12,23 +10,29 @@ interface BuyMeACoffeeWidgetProps {
   editWidget: () => void;
 }
 
-export function BuyMeACoffeeWidget({ data, size, variant, isOwner, deleteWidget, editWidget }: BuyMeACoffeeWidgetProps) {
-
-  const onClick = () => {
-    const url = "https://buymeacoffee.com/" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-
+export function BuyMeACoffeeWidget({
+  data,
+  variant,
+  isOwner,
+  deleteWidget,
+  editWidget,
+}: BuyMeACoffeeWidgetProps) {
   return (
-    <BaseWidget isOwner={isOwner} isClickable={true} deleteWidget={deleteWidget} editWidget={editWidget} onClick={onClick}>
-      {variant == 1 && (
-          <div className="h-full w-full flex justify-center items-center bg-[#ffdd00]">
-            <img
-              src="/widgets/buymeacoffee/buymeacoffee.svg"
-              alt="Buy me a Coffee logo"
-              className="w-[50%] h-[50%] object-contain"
-            />
-          </div>
+    <BaseWidget
+      isOwner={isOwner}
+      isClickable={true}
+      deleteWidget={deleteWidget}
+      editWidget={editWidget}
+      link={`https://buymeacoffee.com/${data.username}`}
+    >
+      {variant === 1 && (
+        <div className="h-full w-full flex justify-center items-center bg-[#ffdd00]">
+          <img
+            src="/widgets/buymeacoffee/buymeacoffee.svg"
+            alt="Buy me a Coffee logo"
+            className="w-[50%] h-[50%] object-contain"
+          />
+        </div>
       )}
     </BaseWidget>
   );

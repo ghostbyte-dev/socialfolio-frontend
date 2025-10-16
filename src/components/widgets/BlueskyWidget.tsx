@@ -1,6 +1,6 @@
 import type { BlueskyData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Bluesky from "@/assets/icons/bluesky.svg";
+import Image from "next/image";
 
 interface BlueskyWidgetProps {
   data: BlueskyData;
@@ -13,56 +13,61 @@ interface BlueskyWidgetProps {
 
 export function BlueskyWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
   editWidget,
 }: BlueskyWidgetProps) {
-  const onClick = () => {
-    const url = "https://bsky.app/profile/" + data.handle;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={`https://bsky.app/profile/${data.handle}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#1185fe]">
-          <img
-            src="/widgets/bluesky/bluesky_white.svg"
-            alt="Bluesky logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/bluesky/bluesky_white.svg"
+              alt="Bluesky logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgeteditor/bluesky.svg"
-            alt="Bluesky logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/bluesky/bluesky.svg"
+              alt="Bluesky logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
 
-      {variant == 3 && (
+      {variant === 3 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgets/bluesky/bluesky_white.svg"
-            alt="Bluesky logo"
-            className="w-[50%] h-[50%] object-contain hidden dark:block"
-          />
-          <img
-            src="/widgets/bluesky/bluesky_black.svg"
-            alt="Bluesky logo"
-            className="w-[50%] h-[50%] object-contain block dark:hidden"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/bluesky/bluesky_white.svg"
+              alt="Bluesky logo"
+              fill
+              className="object-contain hidden dark:block"
+            />
+
+            <Image
+              src="/widgets/bluesky/bluesky_black.svg"
+              alt="Bluesky logo"
+              fill
+              className="object-contain block dark:hidden"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

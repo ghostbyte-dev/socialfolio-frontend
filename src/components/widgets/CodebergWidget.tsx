@@ -1,4 +1,4 @@
-import { CodebergData } from "@/types/widget-types";
+import type { CodebergData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 
 interface CodebergWidgetProps {
@@ -12,16 +12,11 @@ interface CodebergWidgetProps {
 
 export function CodebergWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
   editWidget,
 }: CodebergWidgetProps) {
-  const onClick = () => {
-    const url = "https://codeberg.org/" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
   const getBackground = () => {
     switch (variant) {
       case 1:
@@ -43,9 +38,9 @@ export function CodebergWidget({
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={`https://codeberg.org/${data.username}`}
     >
-      {(variant == 1 || variant == 2 || variant == 3 || variant == 4) && (
+      {(variant === 1 || variant === 2 || variant === 3 || variant === 4) && (
         <div
           className={"h-full w-full flex justify-center items-center"}
           style={{ backgroundColor: getBackground() }}
@@ -57,7 +52,7 @@ export function CodebergWidget({
           />
         </div>
       )}
-      {variant == 5 && (
+      {variant === 5 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgeteditor/codeberg.svg"
@@ -66,7 +61,7 @@ export function CodebergWidget({
           />
         </div>
       )}
-      {variant == 6 && (
+      {variant === 6 && (
         <div className="h-full w-full flex justify-center items-center">
           <img
             src="/widgets/codeberg/codeberg_black.svg"

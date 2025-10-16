@@ -1,4 +1,4 @@
-import {
+import type {
   ContributionDay,
   ContributionsCollection,
   ContributionsWeek,
@@ -9,7 +9,6 @@ import {
 import { BaseWidget } from "./BaseWidget";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
 
@@ -32,11 +31,11 @@ export function GithubWidget({
   isOwner,
   deleteWidget,
   editWidget,
-  preview = false
+  preview = false,
 }: GithubWidgetProps) {
   const [widgetSize, setWidgetSize] = useState(size);
   const needApiData = (): boolean => {
-    if (variant == 3) {
+    if (variant === 3) {
       return true;
     } else {
       return false;
@@ -55,15 +54,15 @@ export function GithubWidget({
 
   const widgetApiData: GithubApiData | undefined = preview
     ? {
-      username: "Profile",
-      name: "Profile",
-      avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
-      url: "",
-      location: "",
-      followers: 0,
-      following: 0,
-      publicRepos: 0,
-      contributions: generateContributionsData()
+        username: "Profile",
+        name: "Profile",
+        avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
+        url: "",
+        location: "",
+        followers: 0,
+        following: 0,
+        publicRepos: 0,
+        contributions: generateContributionsData(),
       }
     : apiData;
 
@@ -82,7 +81,7 @@ export function GithubWidget({
     contributions: ContributionsCollection,
     size: WidgetSize
   ): ContributionsCollection => {
-    let numberOfWeeks = getDisplayedWeeks(size);
+    const numberOfWeeks = getDisplayedWeeks(size);
     const newContributions = { ...contributions };
     newContributions.weeks = contributions.weeks.slice(-numberOfWeeks);
     return newContributions;
@@ -135,20 +134,15 @@ export function GithubWidget({
     return customColors[1];
   }
 
-  const onClick = () => {
-    const url = "https://github.com/" + data.username;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <BaseWidget
       isOwner={isOwner}
       isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      onClick={onClick}
+      link={`https://github.com/${data.username}`}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#171515]">
           <img
             src="/widgets/github/github-logo-white.webp"
@@ -158,7 +152,7 @@ export function GithubWidget({
         </div>
       )}
 
-      {variant == 2 && (
+      {variant === 2 && (
         <div className="h-full w-full flex justify-center items-center bg-[#fff]">
           <img
             src="/widgets/github/github-logo-dark.webp"
@@ -168,7 +162,7 @@ export function GithubWidget({
         </div>
       )}
 
-      {variant == 3 && (
+      {variant === 3 && (
         <div className="h-full w-full flex flex-col p-4 sm:p-8">
           {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
           {widgetApiDataError ? <p>{widgetApiDataError.message}</p> : <></>}
@@ -182,7 +176,7 @@ export function GithubWidget({
                 />
                 <span
                   className={
-                    (widgetSize.cols == 1 ? "text-xs" : "text-md") +
+                    (widgetSize.cols === 1 ? "text-xs" : "text-md") +
                     "sm:text-xl "
                   }
                 >
@@ -190,30 +184,24 @@ export function GithubWidget({
                 </span>
               </div>
               {widgetSize.rows > 1 && widgetSize.cols > 1 ? (
-                <>
-                  <div className="flex justify-between mt-5">
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm sm:text-lg">Followers</span>
-                      <span className="font-bold">
-                        {widgetApiData.followers}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm sm:text-lg">Following</span>
-                      <span className="font-bold">
-                        {widgetApiData.following}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm sm:text-lg">Public Repos</span>
-                      <span className="font-bold">
-                        {widgetApiData.publicRepos}
-                      </span>
-                    </div>
+                <div className="flex justify-between mt-5">
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm sm:text-lg">Followers</span>
+                    <span className="font-bold">{widgetApiData.followers}</span>
                   </div>
-                </>
+
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm sm:text-lg">Following</span>
+                    <span className="font-bold">{widgetApiData.following}</span>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm sm:text-lg">Public Repos</span>
+                    <span className="font-bold">
+                      {widgetApiData.publicRepos}
+                    </span>
+                  </div>
+                </div>
               ) : (
                 <></>
               )}

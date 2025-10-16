@@ -2,13 +2,13 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "next-themes";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PlausibleProvider from "next-plausible";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,9 +48,9 @@ export default function RootLayout({
             <SpeedInsights />
             <Toaster />
             <QueryClientProvider client={queryClient}>
-              <SessionProvider>
+              <AuthProvider>
                 <div className="overflow-x-hidden break-words">{children}</div>
-              </SessionProvider>
+              </AuthProvider>
               <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
           </ThemeProvider>

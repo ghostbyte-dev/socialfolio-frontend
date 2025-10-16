@@ -4,6 +4,7 @@ import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Save from "@/assets/icons/save.svg";
+import Copy from "@/assets/icons/copy.svg";
 
 interface ShareModalProps {
   user: IUser;
@@ -33,7 +34,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
           margin: 10,
           imageSize: 0.5,
         },
-      })
+      }),
     );
   }, []);
 
@@ -55,11 +56,11 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
     if (!qrCode) return;
     if (ref.current) {
       qrCode.update({
-        data: "https://socialfolio.me/" + user.username,
+        data: `https://socialfolio.me/${user.username}`,
       });
       qrCode.append(ref.current);
     }
-  }, [qrCode]);
+  }, [qrCode, user.username]);
 
   useEffect(() => {
     if (!qrCode) return;
@@ -72,12 +73,12 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
         type: "rounded",
       },
     });
-  }, [bgColor, qrCode]);
+  }, [bgColor, qrCode, primaryColor]);
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(
-        `https://socialfolio.me/${user.username}`
+        `https://socialfolio.me/${user.username}`,
       );
       toast.success("copied to clipboard");
     } catch (err) {
@@ -95,32 +96,33 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
   return (
     <div
       className="fixed inset-0 bg-black/50 flex justify-center items-center"
+      role="dialog"
       onClick={onClose}
+      onKeyUp={(e) => e.key === "Escape" ? onClose() : () => {}}
+      tabIndex={-1}
     >
       <div
         className="relative bg-surface-container rounded-2xl shadow-lg flex overflow-hidden flex-col"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        onKeyDown={() => {}}
       >
         <div className="basis-full flex flex-col overflow-y-scroll p-6 sm:p-8 gap-4">
           <div className="flex justify-center items-centers">
             <div ref={ref}></div>
           </div>
-          <div
-            className="flex flex-row gap-2 justify-center w-full hover:cursor-pointer"
+          <button
+            className="flex flex-row gap-2 justify-center items-center w-full hover:cursor-pointer text-sm"
             onClick={copyToClipboard}
+            type="button"
           >
-            <Image
-              src={user.avatar}
-              alt="avatar"
-              height={24}
-              width={24}
-              className="rounded-md"
-            />
-            <p>{user.username}</p>
-          </div>
+            <Copy className="w-4 h-4" />
+            copy to clipboard
+          </button>
           <button
             className="flex flex-row gap-2 justify-center w-full hover:cursor-pointer"
             onClick={onDownloadClick}
+            type="button"
           >
             <Save className="w-6 h-6" />
             <p>Save QR-Code</p>

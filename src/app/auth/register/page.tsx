@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { register, type RegisterCredentials } from "@/lib/auth/register";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import SubmitButton from "@/components/SubmitButton";
+import { login, registerUser } from "@/lib/auth";
+import type { RegisterCredentials } from "@/services/auth.service";
+import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
@@ -16,6 +18,7 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { setToken } = useAuth(); // 👈 new auth context
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,17 +29,19 @@ export default function RegisterPage() {
     setError(null);
     setLoading(true);
 
-    const result = await register(formData);
+    try {
+      await registerUser(formData.username, formData.email, formData.password);
+      toast.success("Registered successfully");
 
-    setLoading(false);
-
-    if (!result.success) {
-      toast.error(result.message);
-      setError(result.message);
-      return;
+      // Auto-login after registration
+      const user = await login(formData.email, formData.password, setToken);
+      toast.success(`Welcome, ${user.username}!`);
+      router.push(`/${user.username}`);
+    } catch (err) {
+      toast.error((err as Error).message);
+    } finally {
+      setLoading(false);
     }
-    toast.success("Registered successfully");
-    router.push(`/${result.username}`);
   };
 
   return (

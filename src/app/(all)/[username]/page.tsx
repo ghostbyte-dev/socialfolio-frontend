@@ -5,12 +5,11 @@ import ErrorPage from "@/components/ErrorPage";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import UserNotFoundPage from "@/components/UserNotFoundPage";
 import WidgetsGrid from "@/components/WidgetsGrid";
+import { useAuth } from "@/context/AuthContext";
 import { AuthService } from "@/services/auth.service";
 import { UserService } from "@/services/user.service";
 import { Status } from "@/types/user-type";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
-import Head from "next/head";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -19,14 +18,12 @@ export default function UserPage() {
   const params = useParams();
   const username = params.username as string;
 
-  const { data: session, status } = useSession();
-  const sessionStatus = status ?? "loading";
-  const loggedInUsername = session?.user?.username;
+  const { token, user: authUser } = useAuth();
+  const loggedInUsername = authUser?.username;
 
   const isOwner = username === loggedInUsername;
 
   const [userNotFound, setUserNotFound] = useState(false);
-  const jwt = session?.user?.jwt;
 
   useEffect(() => {
     document.title = username + " - Socialfolio";
@@ -40,7 +37,7 @@ export default function UserPage() {
     queryKey: ["otheruser", username],
     queryFn: async () => {
       try {
-        return await UserService.getUser(username, jwt);
+        return await UserService.getUser(username, token ?? "");
       } catch (err: any) {
         if (err.message === "UserNotFound") {
           setUserNotFound(true);
@@ -49,7 +46,7 @@ export default function UserPage() {
         throw err;
       }
     },
-    enabled: !!username && sessionStatus !== "loading",
+    enabled: !!username,
   });
 
   const resendVerificationCode = useMutation({
@@ -69,16 +66,17 @@ export default function UserPage() {
 
   return (
     <>
-      {isOwner && user.status == Status.Unverified && (
+      {isOwner && user.status === Status.Unverified && (
         <div className="w-full h-10 bg-red-500 flex justify-center items-center">
           <span className="text-white font-bold">
             Your profile is not visible until you verify your email
           </span>
 
           <button
+            type="button"
             className="bg-black text-sm text-white px-3 py-1 rounded-lg ml-3"
             onClick={() => {
-              resendVerificationCode.mutate(jwt!);
+              resendVerificationCode.mutate(token ?? "");
             }}
           >
             Resend Verification Email
