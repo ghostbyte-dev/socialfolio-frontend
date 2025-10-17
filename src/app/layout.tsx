@@ -11,7 +11,6 @@ import PlausibleProvider from "next-plausible";
 import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -36,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-surface min-h-screen`}
+        className={`${geistSans.className} ${geistMono.variable} antialiased bg-surface min-h-screen`}
       >
         <PlausibleProvider
           domain="socialfolio.me"
