@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const storedToken = localStorage.getItem("jwt");
     const storedUser = localStorage.getItem("user");
     if (storedToken) setTokenState(storedToken);
+    console.log(storedToken);
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 

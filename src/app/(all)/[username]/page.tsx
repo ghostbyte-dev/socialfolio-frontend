@@ -37,6 +37,7 @@ export default function UserPage() {
     queryKey: ["otheruser", username],
     queryFn: async () => {
       try {
+        console.log(token);
         return await UserService.getUser(username, token ?? "");
       } catch (err: any) {
         if (err.message === "UserNotFound") {

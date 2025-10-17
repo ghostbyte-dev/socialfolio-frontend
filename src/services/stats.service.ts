@@ -1,6 +1,6 @@
 export interface WidgetStats {
   type: string;
-  mostUsedVariant: number;
+  mostUsedVariant?: number; // not used anymore in new version, 
   count: number;
 }
 
@@ -26,6 +26,23 @@ const getStats = async (): Promise<StatsResponse> => {
   return res.json();
 };
 
+const getWidgetStats = async (): Promise<WidgetStats[]> => {
+  const headers: HeadersInit = {
+    "Content-Type": "application/json"
+  }
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stats/widgets`, {
+    headers: headers,
+  }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch stats");
+  }
+
+  return res.json();
+};
+
 export const StatsService = {
-  getStats
+  getStats,
+  getWidgetStats
 }

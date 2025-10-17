@@ -76,11 +76,9 @@ export default function HeroSection({
           A simple, open-source way to share your socials in one place
         </h2>
       </div>
-      {loggedInUsername ? (
-        <Button link={`/${loggedInUsername}`}>My Profile</Button>
-      ) : (
-        <Button link="/auth/login">Get Started</Button>
-      )}
+      {loggedInUsername
+        ? <Button link={`/${loggedInUsername}`}>My Profile</Button>
+        : <Button link="/auth/login">Get Started</Button>}
     </section>
   );
 }
