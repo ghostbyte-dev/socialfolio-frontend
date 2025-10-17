@@ -3,7 +3,6 @@
 import HeroSection from "@/components/landingpage/HeroSection";
 import StatsSection from "@/components/landingpage/StatsSection";
 import { useAuth } from "@/context/AuthContext";
-import Link from "next/link";
 
 export default function Home() {
   const { user } = useAuth();
