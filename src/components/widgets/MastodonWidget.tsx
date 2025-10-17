@@ -2,6 +2,7 @@ import type { MastodonData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
+import Image from "next/image";
 
 interface MastodonWidgetProps {
   id: string;
@@ -38,7 +39,6 @@ export interface WeatherApiData {
 export function MastodonWidget({
   id,
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
@@ -81,28 +81,35 @@ export function MastodonWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#6364ff] relative group">
-          <img
-            src="/widgets/mastodon/mastodon-logo-white.webp"
-            alt="Mastodon logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/mastodon/mastodon-logo-white.webp"
+              alt="Mastodon logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
 
       {variant === 2 && (
         <div className="h-full w-full p-8">
-          {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
+          {widgetApiDataIsLoading && <p>Loading...</p>}
           {widgetApiData && (
             <>
               <div className="flex flex-row gap-4 items-center">
-                <img
+                <Image
                   src="/widgets/mastodon/mastodon-logo-white.webp"
                   alt="Mastodon logo"
+                  height={64}
+                  width={64}
                   className="w-16 h-16 object-contain hidden dark:block"
                 />
-                <img
+                <Image
                   src="/widgets/mastodon/mastodon-logo-black.webp"
                   alt="Mastodon logo"
+                  height={64}
+                  width={64}
                   className="w-16 h-16 object-contain block dark:hidden"
                 />
                 <p className="text-xl">{widgetApiData.displayName}</p>
@@ -119,9 +126,11 @@ export function MastodonWidget({
 
       {variant === 3 && (
         <div className="h-full w-full p-6 sm:p-5 md:p-8 bg-[#6364ff] text-white flex justify-between flex-col">
-          <img
+          <Image
             src="/widgets/mastodon/mastodon-logo-white.webp"
             alt="Mastodon logo"
+            height={64}
+            width={64}
             className="object-contain w-14 sm:w-16 md:w-16 lg:w-16"
           />
           <div>
@@ -129,7 +138,7 @@ export function MastodonWidget({
               Mastodon
             </h3>
             <span className="text-xs sm:text-md">
-              @{data.username}@{data.instance?.replace(/^https?\:\/\//i, "")}
+              @{data.username}@{data.instance?.replace(/^https?:\/\//i, "")}
             </span>
           </div>
         </div>

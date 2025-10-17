@@ -1,5 +1,6 @@
 import type { RecordClubData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface RecordClubWigetProps {
   data: RecordClubData;
@@ -26,11 +27,14 @@ export function RecordClubWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgeteditor/recordClub.png"
-            alt="LiberaPay logo"
-            className="w-[60%] h-[60%] object-contain"
-          />
+          <div className="w-3/5 h-3/5 relative">
+            <Image
+              src="/widgeteditor/recordClub.png"
+              alt="RecordClub logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

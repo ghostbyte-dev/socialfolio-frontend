@@ -9,11 +9,11 @@ interface StatsWidgetProps {
 export function StatsWidget({ stat, name, variant }: StatsWidgetProps) {
   var additionalCSS = "";
 
-  if (variant == 1) {
+  if (variant === 1) {
     additionalCSS = "bg-green-600";
-  } else if (variant == 2) {
+  } else if (variant === 2) {
     additionalCSS = "bg-blue-600";
-  } else if (variant == 3) {
+  } else if (variant === 3) {
     additionalCSS = "bg-orange-600";
   }
 

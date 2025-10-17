@@ -65,17 +65,11 @@ export default function Avatar({
             accept="image/*"
             tabIndex={-1}
           />
-          <div
+          <button
+            type="button"
             onClick={handleClick}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleClick();
-              }
-            }}
             className="cursor-pointer group relative"
             tabIndex={0}
-            role="button"
           >
             <Image
               src={file ?? avatarUrl}
@@ -88,7 +82,7 @@ export default function Avatar({
             <div className="flex opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
               <p className="text-white">Upload Avatar</p>
             </div>
-          </div>
+          </button>
         </>
       ) : (
         <Image
