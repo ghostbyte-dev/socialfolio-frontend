@@ -5,11 +5,7 @@ import { useState } from "react";
 import WidgetEditor from "../widgetEditor/WidgetCreator";
 import Add from "@/assets/icons/add.svg";
 
-interface AddNewWidgetProps {
-  size: { cols: number; rows: number };
-}
-
-export function AddNewWidget({ size: _size }: AddNewWidgetProps) {
+export function AddNewWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +23,7 @@ export function AddNewWidget({ size: _size }: AddNewWidgetProps) {
           </span>
         </div>
       </BaseWidget>
-      {isOpen && <WidgetEditor onClose={() => setIsOpen(false)} />}{" "}
+      {isOpen && <WidgetEditor onClose={() => setIsOpen(false)} />}
     </>
   );
 }

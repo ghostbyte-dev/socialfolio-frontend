@@ -364,7 +364,7 @@ export function WidgetFactory({
       );
 
     case "newwidget":
-      return <AddNewWidget size={widget.size} />;
+      return <AddNewWidget />;
     default:
       return (
         <BaseWidget
