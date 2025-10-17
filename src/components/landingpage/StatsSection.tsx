@@ -60,77 +60,81 @@ export default function StatsSection() {
           />
         </div>
 
-        {stats?.userCount && stats.widgetCount !== 0 && (
-          <div className="w-56 h-56 m-10 rotate-[7deg]">
-            <StatsWidget
-              stat={(stats?.widgetCount / stats.userCount).toFixed(2) ?? ""}
-              name="Average widgets per profile"
-              variant={3}
-            />
-          </div>
-        )}
+        {(stats?.userCount && stats.widgetCount !== 0)
+          ? (
+            <div className="w-56 h-56 m-10 rotate-[7deg]">
+              <StatsWidget
+                stat={(stats?.widgetCount / stats.userCount).toFixed(2) ?? ""}
+                name="Average widgets per profile"
+                variant={3}
+              />
+            </div>
+          )
+          : <div></div>}
       </div>
 
-      {stats && (
-        <div>
-          <div className="flex justify-center mt-10 mb-10">
-            <h2 className="text-4xl font-bold">Most used widgets</h2>
+      {stats && stats.mostUsedWidgets.length >= 2
+        ? (
+          <div>
+            <div className="flex justify-center mt-10 mb-10">
+              <h2 className="text-4xl font-bold">Most used widgets</h2>
+            </div>
+            <div className="flex w-full flex-wrap justify-center mt-10 md:mt-14">
+              <div className="w-56 h-56 m-10 rotate-[-2deg] mt-20">
+                <WidgetFactory
+                  widget={{
+                    type: stats?.mostUsedWidgets[2].type ?? "note",
+                    id: "1",
+                    size: { cols: 1, rows: 1 },
+                    data: getDefaultWidgetData(
+                      stats.mostUsedWidgets[2].type,
+                    ) as WidgetData,
+                    variant: stats.mostUsedWidgets[2].mostUsedVariant,
+                  }}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                  preview={true}
+                />
+              </div>
+              <div className="w-56 h-56 m-10 rotate-[1deg]">
+                <WidgetFactory
+                  widget={{
+                    type: stats?.mostUsedWidgets[0].type ?? "note",
+                    id: "1",
+                    size: { cols: 1, rows: 1 },
+                    data: getDefaultWidgetData(
+                      stats.mostUsedWidgets[0].type,
+                    ) as WidgetData,
+                    variant: stats.mostUsedWidgets[0].mostUsedVariant,
+                  }}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                  preview={true}
+                />
+              </div>
+              <div className="w-56 h-56 m-10 rotate-[4deg] mt-20">
+                <WidgetFactory
+                  widget={{
+                    type: stats?.mostUsedWidgets[1].type ?? "note",
+                    id: "1",
+                    size: { cols: 1, rows: 1 },
+                    data: getDefaultWidgetData(
+                      stats.mostUsedWidgets[1].type,
+                    ) as WidgetData,
+                    variant: stats.mostUsedWidgets[1].mostUsedVariant,
+                  }}
+                  isOwner={false}
+                  deleteWidget={() => {}}
+                  editWidget={() => {}}
+                  preview={true}
+                />
+              </div>
+            </div>
           </div>
-          <div className="flex w-full flex-wrap justify-center mt-10 md:mt-14">
-            <div className="w-56 h-56 m-10 rotate-[-2deg] mt-20">
-              <WidgetFactory
-                widget={{
-                  type: stats?.mostUsedWidgets[2].type ?? "note",
-                  id: "1",
-                  size: { cols: 1, rows: 1 },
-                  data: getDefaultWidgetData(
-                    stats.mostUsedWidgets[2].type
-                  ) as WidgetData,
-                  variant: stats.mostUsedWidgets[2].mostUsedVariant,
-                }}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-                preview={true}
-              />
-            </div>
-            <div className="w-56 h-56 m-10 rotate-[1deg]">
-              <WidgetFactory
-                widget={{
-                  type: stats?.mostUsedWidgets[0].type ?? "note",
-                  id: "1",
-                  size: { cols: 1, rows: 1 },
-                  data: getDefaultWidgetData(
-                    stats.mostUsedWidgets[0].type
-                  ) as WidgetData,
-                  variant: stats.mostUsedWidgets[0].mostUsedVariant,
-                }}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-                preview={true}
-              />
-            </div>
-            <div className="w-56 h-56 m-10 rotate-[4deg] mt-20">
-              <WidgetFactory
-                widget={{
-                  type: stats?.mostUsedWidgets[1].type ?? "note",
-                  id: "1",
-                  size: { cols: 1, rows: 1 },
-                  data: getDefaultWidgetData(
-                    stats.mostUsedWidgets[1].type
-                  ) as WidgetData,
-                  variant: stats.mostUsedWidgets[1].mostUsedVariant,
-                }}
-                isOwner={false}
-                deleteWidget={() => {}}
-                editWidget={() => {}}
-                preview={true}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+        )
+        : <div></div>}
     </section>
   );
 }
