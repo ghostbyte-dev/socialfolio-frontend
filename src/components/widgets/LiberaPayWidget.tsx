@@ -21,7 +21,6 @@ export function LiberaPayWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://liberapay.com/${data.username}`}

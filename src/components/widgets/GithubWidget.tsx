@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { WidgetService } from "@/services/widget.service";
 import { useEffect, useMemo, useState } from "react";
 import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
+import Image from "next/image";
 
 interface GithubWidgetProps {
   id: string;
@@ -137,41 +138,48 @@ export function GithubWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://github.com/${data.username}`}
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#171515]">
-          <img
-            src="/widgets/github/github-logo-white.webp"
-            alt="Mastodon logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/github/github-logo-white.webp"
+              alt="Github logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
 
       {variant === 2 && (
         <div className="h-full w-full flex justify-center items-center bg-[#fff]">
-          <img
-            src="/widgets/github/github-logo-dark.webp"
-            alt="Mastodon logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/github/github-logo-dark.webp"
+              alt="Github logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
 
       {variant === 3 && (
         <div className="h-full w-full flex flex-col p-4 sm:p-8">
-          {widgetApiDataIsLoading ? <p>Loading...</p> : <></>}
-          {widgetApiDataError ? <p>{widgetApiDataError.message}</p> : <></>}
-          {widgetApiData ? (
+          {widgetApiDataIsLoading && <p>Loading...</p>}
+          {widgetApiDataError && <p>{widgetApiDataError.message}</p>}
+          {widgetApiData && (
             <>
               <div className="flex flex-row items-center gap-2 sm:gap-4">
-                <img
+                <Image
                   src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
                   alt="Mastodon logo"
+                  height={40}
+                  width={40}
                   className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
                 />
                 <span
@@ -183,7 +191,7 @@ export function GithubWidget({
                   {widgetApiData.name}
                 </span>
               </div>
-              {widgetSize.rows > 1 && widgetSize.cols > 1 ? (
+              {widgetSize.rows > 1 && widgetSize.cols > 1 && (
                 <div className="flex justify-between mt-5">
                   <div className="flex flex-col items-center">
                     <span className="text-sm sm:text-lg">Followers</span>
@@ -202,8 +210,6 @@ export function GithubWidget({
                     </span>
                   </div>
                 </div>
-              ) : (
-                <></>
               )}
               <div
                 className="grid mt-3 sm:mt-5 grid-flow-col"
@@ -237,8 +243,6 @@ export function GithubWidget({
                 )}
               </div>
             </>
-          ) : (
-            <></>
           )}
         </div>
       )}

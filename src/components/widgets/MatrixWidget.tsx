@@ -20,7 +20,6 @@ export function MatrixWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://matrix.to/#/@${data.username}:${data.instance}`}

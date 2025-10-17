@@ -1,5 +1,6 @@
 import type { CodebergData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface CodebergWidgetProps {
   data: CodebergData;
@@ -31,11 +32,10 @@ export function CodebergWidget({
         return "";
     }
   };
-  const background = "bg-[" + getBackground() + "]";
+
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://codeberg.org/${data.username}`}
@@ -45,34 +45,45 @@ export function CodebergWidget({
           className={"h-full w-full flex justify-center items-center"}
           style={{ backgroundColor: getBackground() }}
         >
-          <img
-            src="/widgets/codeberg/codeberg.svg"
-            alt="Codeberg logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/codeberg/codeberg.svg"
+              alt="Codeberg logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
       {variant === 5 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgeteditor/codeberg.svg"
-            alt="Codeberg logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgeteditor/codeberg.svg"
+              alt="Codeberg logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
       {variant === 6 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgets/codeberg/codeberg_black.svg"
-            alt="Codeberg logo"
-            className="w-[50%] h-[50%] object-contain block dark:hidden"
-          />
-          <img
-            src="/widgets/codeberg/codeberg.svg"
-            alt="Codeberg logo"
-            className="w-[50%] h-[50%] object-contain hidden dark:block"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/codeberg/codeberg_black.svg"
+              alt="Codeberg logo"
+              fill
+              className="object-contain block dark:hidden"
+            />
+
+            <Image
+              src="/widgets/codeberg/codeberg.svg"
+              alt="Codeberg logo"
+              fill
+              className="object-contain hidden dark:block"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

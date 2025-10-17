@@ -28,7 +28,6 @@ export function EmailWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       onClick={onClick}

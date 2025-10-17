@@ -1,5 +1,6 @@
 import type { GlassPhotoData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface GlassPhotoWidgetProps {
   data: GlassPhotoData;
@@ -20,18 +21,20 @@ export function GlassPhotoWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://glass.photo/${data.username}`}
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center bg-[#ffcc00] dark:bg-[ffd60A]">
-          <img
-            src="/widgets/glassphoto/glass-wordmark-black.svg"
-            alt="NeoDB logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/glassphoto/glass-wordmark-black.svg"
+              alt="NeoDB logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

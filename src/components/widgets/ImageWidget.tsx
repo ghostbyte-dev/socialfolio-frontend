@@ -21,7 +21,6 @@ export function ImageWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={!!data.link}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={data.link}

@@ -1,4 +1,4 @@
-import { CountryWidgetData } from "@/types/widget-types";
+import type { CountryWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import { countryNameToCode } from "@/lib/country";
 
@@ -13,7 +13,6 @@ interface CountryWidgetProps {
 
 export function CountryWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,
@@ -24,16 +23,18 @@ export function CountryWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={false}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <div
           className="h-full w-full flex justify-center items-center"
-          style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}
-        >
-        </div>
+          style={{
+            backgroundImage: `url(${backgroundImageUrl})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
+        ></div>
       )}
     </BaseWidget>
   );

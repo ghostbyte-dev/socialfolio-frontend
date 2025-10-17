@@ -20,7 +20,6 @@ export function KofiWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://ko-fi.com/${data.username}`}

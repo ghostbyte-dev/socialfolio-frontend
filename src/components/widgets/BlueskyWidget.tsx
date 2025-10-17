@@ -21,7 +21,6 @@ export function BlueskyWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://bsky.app/profile/${data.handle}`}
