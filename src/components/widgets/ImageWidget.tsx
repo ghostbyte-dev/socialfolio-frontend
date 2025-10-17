@@ -1,5 +1,6 @@
 import type { ImageWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface ImageWidgetProps {
   data: ImageWidgetData;
@@ -12,7 +13,6 @@ interface ImageWidgetProps {
 
 export function ImageWidget({
   data,
-  size,
   variant,
   isOwner,
   deleteWidget,
@@ -26,8 +26,8 @@ export function ImageWidget({
       link={data.link}
     >
       {variant === 1 && (
-        <div className={`h-full w-full variant-${variant}`}>
-          <img src={data.image} alt="" className="w-full h-full object-cover" />
+        <div className={`h-full w-full relative variant-${variant}`}>
+          <Image src={data.image} alt="" fill className="object-cover" />
         </div>
       )}
     </BaseWidget>

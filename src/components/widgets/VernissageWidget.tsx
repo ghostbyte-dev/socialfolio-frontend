@@ -1,5 +1,6 @@
 import type { VernissageData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface VernissageWidgetProps {
   data: VernissageData;
@@ -26,30 +27,40 @@ export function VernissageWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgets/vernissage/vernissage-white.svg"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] hidden dark:block"
-          />
-          <img
-            src="/widgets/vernissage/vernissage-black.svg"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] block dark:hidden"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/vernissage/vernissage-black.svg"
+              alt="Vernissage logo"
+              fill
+              className="object-contain block dark:hidden"
+            />
+
+            <Image
+              src="/widgets/vernissage/vernissage-white.svg"
+              alt="Vernissage logo"
+              fill
+              className="object-contain hidden dark:block"
+            />
+          </div>
         </div>
       )}
       {variant === 2 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgets/vernissage/vernissage-V-white.svg"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] hidden dark:block"
-          />
-          <img
-            src="/widgets/vernissage/vernissage-V-black.svg"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] block dark:hidden"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/vernissage/vernissage-V-black.svg"
+              alt="Vernissage logo"
+              fill
+              className="object-contain block dark:hidden"
+            />
+
+            <Image
+              src="/widgets/vernissage/vernissage-V-white.svg"
+              alt="Vernissage logo"
+              fill
+              className="object-contain hidden dark:block"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

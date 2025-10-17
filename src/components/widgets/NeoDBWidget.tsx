@@ -1,5 +1,6 @@
 import type { NeoDBData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface NeoDBWidgetProps {
   data: NeoDBData;
@@ -26,16 +27,21 @@ export function NeoDbWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgets/neodb/neodb_dark.svg"
-            alt="NeoDB logo"
-            className="w-[50%] h-[50%] object-contain block dark:hidden"
-          />
-          <img
-            src="/widgets/neodb/neodb_light.svg"
-            alt="NeoDB logo"
-            className="w-[50%] h-[50%] object-contain hidden dark:block"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/neodb/neodb_dark.svg"
+              alt="NeoDB logo"
+              fill
+              className="object-contain block dark:hidden"
+            />
+
+            <Image
+              src="/widgets/neodb/neodb_light.svg"
+              alt="NeoDB logo"
+              fill
+              className="object-contain hidden dark:block"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

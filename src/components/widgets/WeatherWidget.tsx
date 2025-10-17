@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { WeatherApiData } from "./MastodonWidget";
 import { WidgetService } from "@/services/widget.service";
 import { getWeatherIcon } from "@/lib/getWeatherIcon";
+import Image from "next/image";
 
 interface WeatherWidgetProps {
   id: string;
@@ -50,14 +51,15 @@ export function WeatherWidget({
       editWidget={editWidget}
     >
       {variant === 1 && (
-        <div className="h-full w-full flex justify-center items-center">
+        <div className="h-full w-full flex justify-center items-center relative">
           {widgetApiData && (
-            <img
+            <Image
               src={`widgets/weather/${iconFolder}/${getWeatherIcon(
                 widgetApiData.current.weatherCode
               )}.svg`}
               alt={getWeatherIcon(widgetApiData.current.weatherCode)}
-              className="w-full h-full object-contain"
+              fill
+              className="object-contain"
             />
           )}
         </div>
@@ -66,13 +68,17 @@ export function WeatherWidget({
         <div className="h-full w-full flex flex-col justify-center items-center py-5">
           {widgetApiData && (
             <>
-              <img
-                src={`widgets/weather/${iconFolder}/${getWeatherIcon(
-                  widgetApiData.current.weatherCode
-                )}.svg`}
-                alt={getWeatherIcon(widgetApiData.current.weatherCode)}
-                className="w-full h-full object-contain"
-              />
+              <div className="w-full h-full relative">
+                <Image
+                  src={`widgets/weather/${iconFolder}/${getWeatherIcon(
+                    widgetApiData.current.weatherCode
+                  )}.svg`}
+                  alt={getWeatherIcon(widgetApiData.current.weatherCode)}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
               <p className="text-xl font-bold">
                 {widgetApiData.current.temperature}
               </p>
