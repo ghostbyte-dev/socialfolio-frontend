@@ -2,6 +2,7 @@
 
 import HeroSection from "@/components/landingpage/HeroSection";
 import StatsSection from "@/components/landingpage/StatsSection";
+import WidgetsSection from "@/components/landingpage/WidgetsSection";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
@@ -15,6 +16,8 @@ export default function Home() {
         <HeroSection loggedInUsername={loggedInUsername} />
 
         <StatsSection />
+
+        <WidgetsSection />
       </div>
     </>
   );
