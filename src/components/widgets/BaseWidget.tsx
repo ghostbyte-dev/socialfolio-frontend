@@ -20,7 +20,7 @@ export function BaseWidget({
   onClick,
   link,
 }: BaseWidgetProps) {
-  const isClickable = !!(link || onClick);
+  const isClickable = !!(link || onClick) && !(isOwner && isTouch());
 
   const handleClick = onClick ?? (() => {});
 
@@ -35,29 +35,28 @@ export function BaseWidget({
     : "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
-    <div className="wrapper w-full h-full">
+    <div className="relative w-full h-full group">
+      {!isClickable && <div className="w-full h-full wrapper">{children}</div>}
+
       {link && (
-        <a href={link} target="_blank" rel="noopener noreferrer">
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="wrapper clickable w-full h-full block"
+        >
           {children}
         </a>
       )}
 
-      {!link && (
-        <div
-          className={`h-full w-full
-      ${isClickable && !(isOwner && isTouch()) ? "clickable" : ""}`}
-          role="link"
-          tabIndex={0}
+      {!link && isClickable && (
+        <button
+          type="button"
+          className="h-full w-full wrapper clickable"
           onClick={click}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              click();
-            }
-          }}
         >
           {children}
-        </div>
+        </button>
       )}
 
       {isOwner && (
@@ -76,7 +75,7 @@ export function BaseWidget({
               }
             }}
             aria-label="Delete widget"
-            className={`top-4 left-4 absolute bg-red-500 rounded-full h-8 w-8 flex justify-center items-center scale-75  ease-in-out duration-300 opacity-0 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
+            className={`top-4 left-4 z-50 absolute bg-red-500 rounded-full h-8 w-8 flex justify-center items-center scale-75  ease-in-out duration-300 opacity-0 hover:cursor-pointer group-hover:opacity-100 group-hover:scale-100 hover:scale-110! ${touchStyle}`}
           >
             <Close className="w-[10px] h-[10px] text-white" />
           </button>
