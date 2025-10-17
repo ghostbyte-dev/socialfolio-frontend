@@ -1,4 +1,4 @@
-import { LocationWidgetData } from "@/types/widget-types";
+import type { LocationWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 import { useMemo, useRef } from "react";
 import "leaflet/dist/leaflet.css";
@@ -15,7 +15,6 @@ interface LocationWidgetProps {
 
 export function LocationWidget({
   data,
-  size,
   isOwner,
   variant,
   deleteWidget,

@@ -1,5 +1,6 @@
 import type { ListenBrainzData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface ListenBrainzWidgetProps {
   data: ListenBrainzData;
@@ -26,11 +27,14 @@ export function ListenBrainzWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgeteditor/listenBrainz.svg"
-            alt="ListenBrainz logo"
-            className="w-[60%] h-[60%] object-contain"
-          />
+          <div className="w-3/5 h-3/5 relative">
+            <Image
+              src="/widgeteditor/listenBrainz.svg"
+              alt="ListenBrainz logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

@@ -1,5 +1,6 @@
 import type { PixelfedData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
+import Image from "next/image";
 
 interface PixelfedWidgetProps {
   data: PixelfedData;
@@ -26,11 +27,14 @@ export function PixelfedWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <img
-            src="/widgets/pixelfed/pixelfed-logo.webp"
-            alt="Pixelfed logo"
-            className="w-[50%] h-[50%] object-contain"
-          />
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/pixelfed/pixelfed-logo.webp"
+              alt="Pixelfed logo"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       )}
     </BaseWidget>

@@ -20,14 +20,12 @@ export default function Navbar() {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(
-    false,
-  );
+  const [isSettingsModalOpen, setIsSettingsModalOpen] =
+    useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [accountDeletionPopup, setAccountDeletionPopup] = useState<boolean>(
-    false,
-  );
+  const [accountDeletionPopup, setAccountDeletionPopup] =
+    useState<boolean>(false);
   const jwt = token;
 
   const { data: user } = useQuery({
@@ -103,13 +101,14 @@ export default function Navbar() {
                 id="menu-button"
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
-                onClick={() =>
-                  setDropdownOpen(!dropdownOpen)}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 <Image
-                  src={user.avatar.trim() === ""
-                    ? "/defaults/default-avatar.jpg"
-                    : user.avatar}
+                  src={
+                    user.avatar.trim() === ""
+                      ? "/defaults/default-avatar.jpg"
+                      : user.avatar
+                  }
                   alt="User Avatar"
                   width={44}
                   height={44}
@@ -166,16 +165,14 @@ export default function Navbar() {
                     >
                       Logout
                     </button>
-                    {
-                      /*  <button
+                    {/*  <button
                       type="button"
                       onClick={openAccountDeletionPopup}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Delete Account
-                    </button>*/
-                    }
+                    </button>*/}
                   </div>
                 </div>
               )}

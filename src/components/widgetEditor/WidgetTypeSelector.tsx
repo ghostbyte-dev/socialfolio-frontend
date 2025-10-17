@@ -1,5 +1,5 @@
 import { widgetOptions } from "@/data/widgetOptions";
-import { WidgetOption } from "./WidgetCreator";
+import type { WidgetOption } from "./WidgetCreator";
 
 interface WidgetTypeSelectorProps {
   selectedWidget: WidgetOption | null;
