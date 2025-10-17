@@ -166,6 +166,7 @@ export interface ContributionDay {
 }
 
 export type WidgetData =
+  {}
   | MastodonData
   | GitHubData
   | ImageWidgetData

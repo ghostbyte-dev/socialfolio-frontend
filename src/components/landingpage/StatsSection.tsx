@@ -2,6 +2,7 @@ import { StatsService } from "@/services/stats.service";
 import { useQuery } from "@tanstack/react-query";
 import { StatsWidget } from "../widgets/StatsWidget";
 import { WidgetFactory } from "@/lib/WidgetFactory";
+import { WidgetData } from "@/types/widget-types";
 
 export default function StatsSection() {
   const { data: stats } = useQuery({
@@ -59,7 +60,7 @@ export default function StatsSection() {
           />
         </div>
 
-        {stats?.userCount && stats.widgetCount != 0 && (
+        {stats?.userCount && stats.widgetCount !== 0 && (
           <div className="w-56 h-56 m-10 rotate-[7deg]">
             <StatsWidget
               stat={(stats?.widgetCount / stats.userCount).toFixed(2) ?? ""}
@@ -83,9 +84,8 @@ export default function StatsSection() {
                   id: "1",
                   size: { cols: 1, rows: 1 },
                   data: getDefaultWidgetData(
-                    stats.mostUsedWidgets[2].type,
-                    stats.mostUsedWidgets[2].mostUsedVariant
-                  ),
+                    stats.mostUsedWidgets[2].type
+                  ) as WidgetData,
                   variant: stats.mostUsedWidgets[2].mostUsedVariant,
                 }}
                 isOwner={false}
@@ -101,9 +101,8 @@ export default function StatsSection() {
                   id: "1",
                   size: { cols: 1, rows: 1 },
                   data: getDefaultWidgetData(
-                    stats.mostUsedWidgets[0].type,
-                    stats.mostUsedWidgets[0].mostUsedVariant
-                  ),
+                    stats.mostUsedWidgets[0].type
+                  ) as WidgetData,
                   variant: stats.mostUsedWidgets[0].mostUsedVariant,
                 }}
                 isOwner={false}
@@ -119,9 +118,8 @@ export default function StatsSection() {
                   id: "1",
                   size: { cols: 1, rows: 1 },
                   data: getDefaultWidgetData(
-                    stats.mostUsedWidgets[1].type,
-                    stats.mostUsedWidgets[1].mostUsedVariant
-                  ),
+                    stats.mostUsedWidgets[1].type
+                  ) as WidgetData,
                   variant: stats.mostUsedWidgets[1].mostUsedVariant,
                 }}
                 isOwner={false}
