@@ -21,7 +21,6 @@ export function NoteWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={false}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
     >

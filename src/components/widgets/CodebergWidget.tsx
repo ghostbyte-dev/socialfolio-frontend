@@ -35,7 +35,6 @@ export function CodebergWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://codeberg.org/${data.username}`}

@@ -18,12 +18,7 @@ export function StatsWidget({ stat, name, variant }: StatsWidgetProps) {
   }
 
   return (
-    <BaseWidget
-      isOwner={false}
-      isClickable={false}
-      deleteWidget={() => {}}
-      editWidget={() => {}}
-    >
+    <BaseWidget isOwner={false} deleteWidget={() => {}} editWidget={() => {}}>
       <div
         className={
           "h-full w-full flex flex-col text-white justify-center bg- items-center " +

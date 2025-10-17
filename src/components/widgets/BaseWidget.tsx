@@ -6,7 +6,6 @@ import { isTouch } from "@/lib/isTouch";
 export interface BaseWidgetProps {
   children: React.ReactNode;
   isOwner: boolean;
-  isClickable: boolean;
   deleteWidget: () => void;
   editWidget: () => void;
   onClick?: () => void;
@@ -16,15 +15,18 @@ export interface BaseWidgetProps {
 export function BaseWidget({
   children,
   isOwner,
-  isClickable,
   deleteWidget,
   editWidget,
-  onClick = () => {},
+  onClick,
   link,
 }: BaseWidgetProps) {
+  const isClickable = !!(link || onClick);
+
+  const handleClick = onClick ?? (() => {});
+
   const click = () => {
     if (isClickable && !(isOwner && isTouch())) {
-      onClick();
+      handleClick();
     }
   };
 

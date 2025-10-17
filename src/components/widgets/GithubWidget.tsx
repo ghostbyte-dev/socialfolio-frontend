@@ -137,7 +137,6 @@ export function GithubWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://github.com/${data.username}`}

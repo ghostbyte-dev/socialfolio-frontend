@@ -16,7 +16,6 @@ export function AddNewWidget({ size: _size }: AddNewWidgetProps) {
     <>
       <BaseWidget
         isOwner={false}
-        isClickable={true}
         deleteWidget={() => {}}
         editWidget={() => {}}
         onClick={() => setIsOpen(true)}

@@ -369,7 +369,6 @@ export function WidgetFactory({
       return (
         <BaseWidget
           isOwner={false}
-          isClickable={true}
           deleteWidget={deleteWidget}
           editWidget={editWidget}
         >

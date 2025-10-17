@@ -20,7 +20,6 @@ export function GlassPhotoWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`https://glass.photo/${data.username}`}

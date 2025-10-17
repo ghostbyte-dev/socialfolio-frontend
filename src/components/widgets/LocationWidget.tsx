@@ -36,7 +36,6 @@ export function LocationWidget({
     return (
       <BaseWidget
         isOwner={isOwner}
-        isClickable={false}
         deleteWidget={deleteWidget}
         editWidget={editWidget}
       >
@@ -48,18 +47,17 @@ export function LocationWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={false}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
     >
-      {variant == 1 && (
+      {variant === 1 && (
         <Map
           position={{ lon: data.lon, lat: data.lat }}
           zoom={data.zoom}
           light={true}
         />
       )}
-      {variant == 2 && (
+      {variant === 2 && (
         <Map
           position={{ lon: data.lon, lat: data.lat }}
           zoom={data.zoom}

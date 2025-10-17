@@ -20,7 +20,6 @@ export function BookWyrmWiget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`${data.instance}/user/${data.username}`}

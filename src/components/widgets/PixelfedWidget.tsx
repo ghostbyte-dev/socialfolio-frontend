@@ -20,7 +20,6 @@ export function PixelfedWidget({
   return (
     <BaseWidget
       isOwner={isOwner}
-      isClickable={true}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
       link={`${data.instance}/@${data.username}`}
