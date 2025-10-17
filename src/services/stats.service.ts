@@ -1,6 +1,5 @@
 export interface WidgetStats {
   type: string;
-  //TODO: remove when merged in backend, as soon as backend is live
   mostUsedVariant?: number; // not used anymore in new version, 
   count: number;
 }
