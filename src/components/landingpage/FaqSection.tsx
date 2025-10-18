@@ -29,13 +29,14 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="mt-40 w-full">
+    // biome-ignore lint/correctness/useUniqueElementIds: <>
+    <section className="pt-40 w-full" id="faq">
       <div className="content-wrapper max-w-3xl flex flex-col items-center space-y-4">
         <h2 className="text-4xl font-bold mb-8">FAQ</h2>
 
         {faqData.map((item, index) => (
           <button
-            key={index}
+            key={item.question}
             type="button"
             className="w-full wrapper py-5 px-5"
             onClick={() => toggle(index)}

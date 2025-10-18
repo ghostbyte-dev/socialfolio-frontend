@@ -85,6 +85,10 @@
     }
   }
 
+  .floating-wrapper {
+    @apply h-12 flex items-center justify-center rounded-full text-on-surface shadow-xs bg-surface-container border-2 border-surface dark:border-outline overflow-hidden;
+  }
+
   .bg-grid-pattern {
     background-color: #fff;
     background:

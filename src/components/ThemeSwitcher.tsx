@@ -27,12 +27,12 @@ export const ThemeSwitcher = ({
   const tabIndex = isFocusable ? 0 : -1;
 
   return (
-    <div className={`relative rounded-xl p-1 text-text ${bgColor}`}>
+    <div className={`relative floating-wrapper p-1 ${bgColor}`}>
       <button
         type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("system")}
-        className={`rounded-lg p-1.5 ${
+        className={`rounded-full h-9 w-9 p-1 flex items-center justify-center ${
           theme === "system" ? activeColor : bgColor
         }`}
         aria-label="System Theme"
@@ -43,7 +43,7 @@ export const ThemeSwitcher = ({
         type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("light")}
-        className={`rounded-lg p-1.5 ${
+        className={`rounded-full h-9 w-9 p-1 flex items-center justify-center ${
           theme === "light" ? activeColor : bgColor
         }`}
         aria-label="Light Theme"
@@ -54,7 +54,7 @@ export const ThemeSwitcher = ({
         type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("dark")}
-        className={`rounded-lg p-1.5 ${
+        className={`rounded-full h-9 w-9 p-1 flex items-center justify-center ${
           theme === "dark" ? activeColor : bgColor
         }`}
         aria-label="Dark Theme"
