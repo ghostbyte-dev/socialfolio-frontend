@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Button from "./Button";
 import { useQuery } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
@@ -14,6 +14,7 @@ import Settings from "./Settings";
 import { FocusTrap } from "focus-trap-react";
 import ShareModal from "./ShareModal";
 import { useAuth } from "@/context/AuthContext";
+import { MenuIcon } from "lucide-react";
 
 export default function Navbar() {
   const { token, user: authUser, logout } = useAuth();
@@ -27,6 +28,9 @@ export default function Navbar() {
   const [accountDeletionPopup, setAccountDeletionPopup] =
     useState<boolean>(false);
   const jwt = token;
+
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   const { data: user } = useQuery({
     queryKey: ["self"],
@@ -67,21 +71,32 @@ export default function Navbar() {
   }, [dropdownOpen]);
 
   return (
-    <>
-      <nav className="py-4 px-8 flex justify-between items-center relative">
-        <div className="flex items-center">
-          <Link
-            href="/"
-            className="duration-300 flex items-center ease-in-out hover:scale-95"
-          >
-            <Logo className="w-[44px] h-[44px]" />
+    <div
+      className={
+        isHome ? "bg-primary text-on-primary" : "bg-surface text-on-surface"
+      }
+    >
+      <nav className="mt-5 py-2 content-wrapper max-w-[1400px] flex justify-between items-center relative">
+        <div className="flex items-center z-20">
+          <Link href="/" className="flex items-center">
+            <Logo className="w-[34px] h-[34px]" />
 
             <span className="text-xl font-semibold ml-2">Socialfolio</span>
           </Link>
+        </div>
 
-          <div className="hidden md:block pl-8">
+        <div className="hidden md:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center space-x-5 text-md">
+          <div className="space-x-5 px-4 py-2 floating-wrapper">
+            <Link href="/#features">
+              <span className="hover:underline">Features</span>
+            </Link>
+
             <Link href="/explore">
-              <span className="text-lg hover:underline">Explore</span>
+              <span className="hover:underline">Explore</span>
+            </Link>
+
+            <Link href="/#faq">
+              <span className="hover:underline">FAQ</span>
             </Link>
           </div>
         </div>
@@ -91,14 +106,20 @@ export default function Navbar() {
             <ThemeSwitcher />
           </div>
 
-          {!authUser && <Button link="/auth/login">Log in</Button>}
+          {!authUser && (
+            <Link
+              href="/auth/login"
+              className="floating-wrapper px-4 font-bold cursor-pointe z-20"
+            >
+              Log in
+            </Link>
+          )}
 
           {authUser && user && (
             <div className="relative inline-block text-left" ref={dropdownRef}>
               <button
                 type="button"
-                className="inline-flex w-full justify-center gap-x-1.5"
-                id="menu-button"
+                className="inline-flex w-full justify-center floating-wrapper"
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -112,7 +133,7 @@ export default function Navbar() {
                   alt="User Avatar"
                   width={44}
                   height={44}
-                  className="rounded-xl"
+                  className="rounded-full p-1"
                 />
               </button>
 
@@ -183,19 +204,17 @@ export default function Navbar() {
             <button
               type="button"
               aria-label="open menu"
-              className={`flex flex-col items-end py-5 pl-4 md:hidden font-bold`}
+              className="floating-wrapper ml-3 md:hidden aspect-square"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <span className="mb-[8px] h-[3px] w-8 bg-text" />
-              <span className="mb-[8px] h-[3px] w-8 bg-text" />
-              <span className="h-[3px] w-8 bg-text" />
+              <MenuIcon />
             </button>
           </div>
         </div>
       </nav>
       <FocusTrap active={isOpen}>
         <div
-          className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-surface-container duration-500 "
+          className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-surface-container text-on-surface duration-500 "
           style={{ width: isOpen ? "75vw" : "0vw" }}
           tabIndex={isOpen ? 0 : -1}
         >
@@ -251,6 +270,6 @@ export default function Navbar() {
           )}
         </div>
       </FocusTrap>
-    </>
+    </div>
   );
 }
