@@ -1,15 +1,9 @@
 import { StatsService, type WidgetStats } from "@/services/stats.service";
 import { useQuery } from "@tanstack/react-query";
-import { StatsWidget } from "../widgets/StatsWidget";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import type { WidgetData } from "@/types/widget-types";
 
 export default function WidgetsSection() {
-  const { data: stats } = useQuery({
-    queryKey: ["stats"],
-    queryFn: StatsService.getStats,
-  });
-
   const { data: widgetStats } = useQuery({
     queryKey: ["widgetStats"],
     queryFn: StatsService.getWidgetStats,
@@ -51,7 +45,7 @@ export default function WidgetsSection() {
       <div
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense w-full mt-10 px-4"
         style={{
-          gridAutoRows: "minmax(50px, 1fr)", // Adjust the minimum row height as needed
+          gridAutoRows: "minmax(50px, 1fr)",
         }}
       >
         {widgetStats?.map((widget: WidgetStats) => {
@@ -82,13 +76,9 @@ export default function WidgetsSection() {
                   editWidget={() => {}}
                   preview={true}
                 />
-                <div
-                  className="absolute inset-0 bg-black/70 rounded-4xl flex items-center justify-center 
-               opacity-0 scale-95 transition-all duration-300 ease-out 
-               group-hover:opacity-100 group-hover:scale-100"
-                >
+                <div className="absolute inset-0 bg-black/30 rounded-4xl flex items-center justify-center opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:backdrop-blur-md">
                   <p className="text-white text-lg font-semibold">
-                    used {widget.count} times
+                    Used {widget.count} times
                   </p>
                 </div>
               </div>
