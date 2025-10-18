@@ -1,5 +1,3 @@
-import { landingpageWidgets } from "@/data/landingPageData";
-import { WidgetFactory } from "@/lib/WidgetFactory";
 import Button from "../Button";
 
 export default function HeroSection({
@@ -8,77 +6,41 @@ export default function HeroSection({
   loggedInUsername: string | undefined;
 }) {
   return (
-    <section className="flex flex-col items-center">
-      <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
-        Link All Your Socials in Style
-      </h1>
+    <section className="w-full bg-primary text-on-primary relative mb-">
+      <div className="flex flex-col items-center max-w-7xl w-4/5 mx-auto mt-20">
+        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
+          Link All Your Socials in Style
+        </h1>
 
-      <div className="flex justify-center items-center my-10 md:my-20">
-        <div className="flex max-w-screen">
-          <div className="w-60 aspect-square rotate-[-10deg] translate-x-1/2 overflow-hidden">
-            <WidgetFactory
-              widget={landingpageWidgets[0]}
-              isOwner={false}
-              deleteWidget={() => {}}
-              editWidget={() => {}}
-            />
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-xl mb-6 text-center">
+            A simple, open-source way to share your socials in one place
+          </h2>
+        </div>
+        {loggedInUsername ? (
+          <a href={`/${loggedInUsername}`}>
+            <button
+              type="button"
+              className="button bg-surface text-on-surface rounded-xl"
+            >
+              <span className="relative z-10 transition-colors duration-300 ease-in-out">
+                My profile
+              </span>
+            </button>
+          </a>
+        ) : (
+          <Button link="/auth/login">Get Started</Button>
+        )}
 
-          <div className="w-60 aspect-square rotate-[-5deg] translate-x-1/4">
-            <WidgetFactory
-              widget={landingpageWidgets[1]}
-              isOwner={false}
-              deleteWidget={() => {}}
-              editWidget={() => {}}
-            />
-          </div>
-
-          <div className="w-60 aspect-square">
-            <WidgetFactory
-              widget={landingpageWidgets[2]}
-              isOwner={false}
-              deleteWidget={() => {}}
-              editWidget={() => {}}
-            />
-          </div>
-
-          <div className="w-60 aspect-square rotate-[10deg] -translate-x-1/4">
-            <WidgetFactory
-              widget={landingpageWidgets[3]}
-              isOwner={false}
-              deleteWidget={() => {}}
-              editWidget={() => {}}
-            />
-          </div>
-
-          <div className="w-60 aspect-square rotate-[13deg] -translate-x-1/2 hidden md:block">
-            <WidgetFactory
-              widget={landingpageWidgets[4]}
-              isOwner={false}
-              deleteWidget={() => {}}
-              editWidget={() => {}}
-            />
-          </div>
-
-          <div className="w-60 aspect-square rotate-[10deg] translate-y-10 -translate-x-3/4 hidden md:block">
-            <WidgetFactory
-              widget={landingpageWidgets[5]}
-              isOwner={false}
-              deleteWidget={() => {}}
-              editWidget={() => {}}
-            />
-          </div>
+        <div className=" pt-20 z-20 mt-20">
+          <img
+            src="/img/screenshot3.png"
+            alt=""
+            className="w-full rounded-3xl border-2 border-primary shadow-yellow-500"
+          />
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl mb-6 text-center">
-          A simple, open-source way to share your socials in one place
-        </h2>
-      </div>
-      {loggedInUsername
-        ? <Button link={`/${loggedInUsername}`}>My Profile</Button>
-        : <Button link="/auth/login">Get Started</Button>}
+      <div className="absolute z-0 bottom-0 left-0 right-0 h-20 md:h-40 lg:h-60 bg-gradient-to-b from-surface to-surface"></div>
     </section>
   );
 }

@@ -29,7 +29,7 @@ export const ThemeSwitcher = ({
   const tabIndex = isFocusable ? 0 : -1;
 
   return (
-    <div className={`relative rounded-xl p-1 ${bgColor}`}>
+    <div className={`relative rounded-xl p-1 text-text ${bgColor}`}>
       <button
         type="button"
         tabIndex={tabIndex}

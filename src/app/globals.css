@@ -42,6 +42,12 @@
 
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+@layer base {
+  *::selection {
+    @apply bg-primary text-on-primary;
+  }
+}
+
 @layer components {
   .input {
     @apply w-full rounded-xl bg-surface-container border border-transparent px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary;
@@ -73,6 +79,16 @@
     @variant hover {
       @apply hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600;
     }
+  }
+
+  .bg-grid-pattern {
+    background-color: #fff;
+    background:
+      radial-gradient(circle, transparent 20%, #fdc700 20%, #fdc700 80%, transparent 80%, transparent),
+      radial-gradient(circle, transparent 20%, #fdc700 20%, #fdc700 80%, transparent 80%, transparent) 25px 25px,
+      linear-gradient(#fdce26 2px, transparent 2px) 0 -1px,
+      linear-gradient(90deg, #fdce26 2px, #fdc700 2px) -1px 0;
+    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
   }
 
 }

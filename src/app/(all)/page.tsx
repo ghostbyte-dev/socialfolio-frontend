@@ -1,7 +1,9 @@
 "use client";
 
+import FeatureSection from "@/components/landingpage/FeatureSection";
 import HeroSection from "@/components/landingpage/HeroSection";
 import StatsSection from "@/components/landingpage/StatsSection";
+import WidgetsSection from "@/components/landingpage/WidgetsSection";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
@@ -14,7 +16,11 @@ export default function Home() {
       <div className="items-center flex flex-col mb-20">
         <HeroSection loggedInUsername={loggedInUsername} />
 
+        <FeatureSection />
+
         <StatsSection />
+
+        <WidgetsSection />
       </div>
     </>
   );

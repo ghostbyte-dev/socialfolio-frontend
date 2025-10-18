@@ -26,7 +26,7 @@ export default function UserPage() {
   const [userNotFound, setUserNotFound] = useState(false);
 
   useEffect(() => {
-    document.title = username + " - Socialfolio";
+    document.title = `${username} - Socialfolio`;
   }, [username]);
 
   const {
