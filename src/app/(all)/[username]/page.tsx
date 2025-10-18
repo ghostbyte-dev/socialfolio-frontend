@@ -84,7 +84,7 @@ export default function UserPage() {
           </button>
         </div>
       )}
-      <div className="max-w-7xl w-4/5 mx-auto flex flex-col items-center my-20">
+      <div className=" flex flex-col items-center my-20 content-wrapper">
         <section className="mb-16 w-full">
           <Bio isOwner={isOwner} user={user} />
         </section>

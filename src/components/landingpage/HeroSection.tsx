@@ -7,7 +7,7 @@ export default function HeroSection({
 }) {
   return (
     <section className="w-full bg-primary text-on-primary relative mb-">
-      <div className="flex flex-col items-center max-w-7xl w-4/5 mx-auto mt-20">
+      <div className="flex flex-col items-center content-wrapper mt-20">
         <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
           Link All Your Socials in Style
         </h1>

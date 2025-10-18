@@ -1,5 +1,6 @@
 "use client";
 
+import FaqSection from "@/components/landingpage/FaqSection";
 import FeatureSection from "@/components/landingpage/FeatureSection";
 import HeroSection from "@/components/landingpage/HeroSection";
 import StatsSection from "@/components/landingpage/StatsSection";
@@ -21,6 +22,8 @@ export default function Home() {
         <StatsSection />
 
         <WidgetsSection />
+
+        <FaqSection />
       </div>
     </>
   );

@@ -37,7 +37,7 @@ export default function WidgetsSection() {
   };
 
   return (
-    <section className="mt-20 max-w-7xl w-4/5 mx-auto flex flex-col items-center">
+    <section className="mt-20 content-wrapper flex flex-col items-center">
       <div className="flex justify-center mt-10">
         <h2 className="text-4xl font-bold">Widgets</h2>
       </div>
