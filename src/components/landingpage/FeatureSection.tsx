@@ -1,4 +1,13 @@
-import Button from "../Button";
+import {
+  Github,
+  GlobeLock,
+  Layout,
+  Link,
+  LockOpen,
+  Search,
+  Users,
+} from "lucide-react";
+import FeatureContainer from "./FeatureContainer";
 
 export default function FeatureSection() {
   return (
@@ -17,40 +26,40 @@ export default function FeatureSection() {
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* 1. Customizable Layouts */}
-          <div className="rounded-3xl bg-green-400 text-black px-5 py-10">
-            <h3 className="text-2xl font-bold mb-3">Customizable Layouts</h3>
-            <p>
-              Make your Socialfolio truly yours. Choose layouts, colors, and
-              widget styles that fit your personal brand or aesthetic.
-            </p>
-          </div>
+          <FeatureContainer
+            title="Customizable Layouts"
+            description="Make your Socialfolio truly yours. Choose layouts, colors, and widget styles that fit your personal brand or aesthetic."
+            icon={Layout}
+          />
 
           {/* 2. Unified Profiles */}
-          <div className="rounded-3xl bg-yellow-400 text-black px-5 py-10">
-            <h3 className="text-2xl font-bold mb-3">Unified Profiles</h3>
-            <p>
-              Bring all your social links, websites, and projects together in
-              one elegant profile — from Mastodon to GitHub to Bluesky.
-            </p>
-          </div>
+          <FeatureContainer
+            title="Unified Profiles"
+            description="Bring all your social links, websites, and projects together in one elegant profile — from Mastodon to GitHub to Bluesky."
+            icon={Users}
+          />
 
-          {/* 3. Privacy First */}
-          <div className="rounded-3xl bg-blue-400 text-white px-5 py-10">
-            <h3 className="text-2xl font-bold mb-3">Privacy First</h3>
-            <p>
-              Socialfolio never tracks or sells your data. You stay in control —
-              always.
-            </p>
-          </div>
+          <FeatureContainer
+            title="Explore & Discover"
+            description="Find inspiration and connect with others. Browse beautifully crafted profiles from creators, developers, and communities across the Fediverse — all in one place. See how others express their online identity and share your own with the world."
+            icon={Search}
+          />
 
           {/* 4. Open & Evolving */}
-          <div className="rounded-3xl bg-purple-500 text-white px-5 py-10">
-            <h3 className="text-2xl font-bold mb-3">Open & Evolving</h3>
-            <p>
-              Built by the community, for the community. Socialfolio is
-              open-source and constantly improving with your feedback.
-            </p>
-          </div>
+          <FeatureContainer
+            title="Open & Evolving"
+            description="Build by the community, for the community. Socialfolio is open-source and constantly improving with your feedback."
+            icon={LockOpen}
+            button={
+              <a
+                href="https://github.com/ghostbyte-dev/socialfolio-frontend"
+                className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
+              >
+                <Github className="mr-2 h-4 w-4" />
+                View on Github
+              </a>
+            }
+          />
         </div>
       </div>
     </section>
