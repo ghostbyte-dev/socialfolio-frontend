@@ -2,9 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import Moon from "@/assets/icons/moon-outline.svg";
-import Sunny from "@/assets/icons/sunny-outline.svg";
-import Laptop from "@/assets/icons/laptop-outline.svg";
+import { LaptopIcon, MoonIcon, SunIcon } from "lucide-react";
 
 export const ThemeSwitcher = ({
   bgColor = "bg-surface-container",
@@ -34,32 +32,34 @@ export const ThemeSwitcher = ({
         type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("system")}
-        className={`rounded-lg p-2 ${
+        className={`rounded-lg p-1.5 ${
           theme === "system" ? activeColor : bgColor
         }`}
         aria-label="System Theme"
       >
-        <Laptop className="w-[20px] h-[20px]" />
+        <LaptopIcon size={22} />
       </button>
       <button
         type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("light")}
-        className={`rounded-lg p-2 ${
+        className={`rounded-lg p-1.5 ${
           theme === "light" ? activeColor : bgColor
         }`}
         aria-label="Light Theme"
       >
-        <Sunny className="w-[20px] h-[20px]" />
+        <SunIcon size={22} />
       </button>
       <button
         type="button"
         tabIndex={tabIndex}
         onClick={() => setTheme("dark")}
-        className={`rounded-lg p-2 ${theme === "dark" ? activeColor : bgColor}`}
+        className={`rounded-lg p-1.5 ${
+          theme === "dark" ? activeColor : bgColor
+        }`}
         aria-label="Dark Theme"
       >
-        <Moon className="w-[20px] h-[20px]" />
+        <MoonIcon size={22} />
       </button>
     </div>
   );
