@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <>
-      <section className="bg-primary py-30 mt-40 w-full flex justify-center text-on-primary">
+      <section className="bg-primary py-30 mt-40 w-full flex justify-center text-on-primary selection:bg-surface selection:text-on-surface">
         <div className="container flex flex-col items-center justify-center">
           <p className="text-2xl font-semibold max-w-2xl px-5 text-center">
             Bring all your social profiles together in one place. Start your

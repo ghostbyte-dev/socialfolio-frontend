@@ -35,7 +35,7 @@ export default function FaqSection() {
 
         {faqData.map((item, index) => (
           <button
-            key={index}
+            key={item.question}
             type="button"
             className="w-full wrapper py-5 px-5"
             onClick={() => toggle(index)}
