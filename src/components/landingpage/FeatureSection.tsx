@@ -30,7 +30,7 @@ export default function FeatureSection() {
             <h3 className="text-2xl font-bold mb-3">Unified Profiles</h3>
             <p>
               Bring all your social links, websites, and projects together in
-              one elegant profile — from Mastodon to GitHub to Instagram.
+              one elegant profile — from Mastodon to GitHub to Bluesky.
             </p>
           </div>
 
