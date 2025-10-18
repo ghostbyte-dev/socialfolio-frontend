@@ -71,6 +71,10 @@
     @apply cursor-pointer;
   }
 
+  .content-wrapper {
+    @apply max-w-7xl w-10/12 md:w-4/5 mx-auto;
+  }
+
   .wrapper {
     @apply h-full w-full rounded-4xl shadow-xs bg-surface-container dark:border-2 dark:border-outline overflow-hidden transition-all duration-300 ease-in-out;
   }

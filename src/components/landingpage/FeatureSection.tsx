@@ -3,7 +3,7 @@ import Button from "../Button";
 export default function FeatureSection() {
   return (
     <section className="w-full text-on-surface relative mb-20">
-      <div className="flex flex-col items-center max-w-7xl w-4/5 mx-auto mt-20">
+      <div className="flex flex-col items-center content-wrapper mt-20">
         <h2 className="text-center text-2xl md:text-3xl lg:text-4xl mt-10 lg:mt-20 font-bold mb-3">
           Your online identity, beautifully organized
         </h2>

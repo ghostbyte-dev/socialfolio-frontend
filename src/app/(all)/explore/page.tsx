@@ -36,7 +36,7 @@ export default function Explore() {
           <h1 className="text-6xl font-bold mb-6">Explore</h1>
         </section>
 
-        <section className="w-full max-w-6xl px-4 mb-20">
+        <section className="content-wrapper mb-20">
           {isPending && <LoadingIndicator />}
           {error && <ErrorPage message={error.message} />}
           {data && (
