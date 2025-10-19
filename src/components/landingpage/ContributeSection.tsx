@@ -1,4 +1,4 @@
-import { Github, Link } from "lucide-react";
+import { Github } from "lucide-react";
 import Image from "next/image";
 import LiberaPayLogo from "@/assets/icons/liberaPayLogo.svg";
 
@@ -27,7 +27,7 @@ const ContributeSection = () => {
                             directly in the repository.
                         </p>
 
-                        <div className="mt-4 flex flex-col md:flex-row gap-2">
+                        <div className="mt-4 flex flex-col lg:flex-row gap-2">
                             <a
                                 href="https://github.com/ghostbyte-dev/socialfolio-frontend"
                                 className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
@@ -78,7 +78,7 @@ const ContributeSection = () => {
                             difference and helps us bring new ideas to life
                             faster.
                         </p>
-                        <div className="mt-4 flex flex-row gap-2">
+                        <div className="mt-4 flex sm:flex-row flex-col gap-2">
                             <a
                                 href="https://www.buymeacoffee.com/daniebeler"
                                 target="_blank"

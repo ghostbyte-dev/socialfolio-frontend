@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 export interface FeatureContainerProps {
   title: string;
