@@ -46,6 +46,12 @@
   *::selection {
     @apply bg-primary text-on-primary;
   }
+
+  h1,
+  h2,
+  .headline-font {
+    font-family: var(--font-heading), sans-serif;
+  }
 }
 
 @layer components {
