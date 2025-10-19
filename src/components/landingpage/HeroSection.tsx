@@ -33,10 +33,22 @@ export default function HeroSection({
         )}
 
         <div className=" pt-20 z-20 mt-20">
+          <div className="p-3 bg-surface-container-high rounded-t-2xl flex items-center space-x-4">
+            <div className="space-x-1.5 hidden md:flex">
+              <div className="bg-red-500 rounded-full h-4 w-4" />
+              <div className="bg-yellow-500 rounded-full h-4 w-4" />
+              <div className="bg-green-500 rounded-full h-4 w-4" />
+            </div>
+
+            <div className="wrapper md:w-fit px-3 py-1 md:px-6 text-on-surface text-center">
+              <span className="text-gray-500">https://</span>
+              socialfolio.me/daniebeler
+            </div>
+          </div>
           <img
             src="/img/screenshot3.png"
             alt=""
-            className="w-full rounded-3xl border-2 border-primary shadow-yellow-500"
+            className="w-full rounded-b-3xl borde border-primary shadow-yellow-500"
           />
         </div>
       </div>
