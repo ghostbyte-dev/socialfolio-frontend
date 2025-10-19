@@ -24,7 +24,7 @@ export default function AuthLayout({
   if (user) return null;
 
   return (
-    <div className="w-full h-screen flex flex-col">
+    <div className="w-full h-screen flex flex-col bg-primary">
       <div className="h-16">
         <Navbar />
       </div>
@@ -32,7 +32,7 @@ export default function AuthLayout({
         className="w-full h-full flex flex-row flex-wrap p-6 items-center justify-center"
         style={{ height: "calc(100vh - 64px)" }}
       >
-        <div className="basis-full sm:basis-1/2 lg:basis-1/2 flex items-center px-5 md:px-10 lg:px-20 max-w-xl">
+        <div className="basis-full sm:basis-1/2 lg:basis-1/2 flex items-center py-5 md:py-10 lg:py-20 px-5 md:px-10 lg:px-20 max-w-xl bg-surface rounded-3xl">
           {children}
         </div>
       </div>

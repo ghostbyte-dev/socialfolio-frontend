@@ -4,12 +4,12 @@ import { WidgetService } from "@/services/widget.service";
 import type { WidgetProps, WidgetSize } from "@/types/widget-types";
 import { useParams } from "next/navigation";
 import { WidgetsGridDisplay } from "../WidgetsGrid";
-import Close from "@/assets/icons/close.svg";
 import toast from "react-hot-toast";
 import SubmitButton from "../SubmitButton";
 import { widgetOptions } from "@/data/widgetOptions";
 import { FocusTrap } from "focus-trap-react";
 import { useAuth } from "@/context/AuthContext";
+import { XIcon } from "lucide-react";
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;
@@ -138,7 +138,7 @@ export default function EditWidgetModal({
             }}
             className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
           >
-            <Close className="w-[10px] h-[10px]" />
+            <XIcon size={18} />
           </button>
         </div>
       </div>
@@ -177,9 +177,9 @@ export default function EditWidgetModal({
               </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  {field.type == "image" ? (
+                  {field.type === "image" ? (
                     <></>
-                  ) : field.type == "location" ? (
+                  ) : field.type === "location" ? (
                     <></>
                   ) : (
                     <>
@@ -274,17 +274,12 @@ export default function EditWidgetModal({
           </div>
 
           <button
+            type="button"
             aria-label="Close edit widget menu"
             onClick={onClose}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault(); // Prevent scrolling when pressing space
-                onClose();
-              }
-            }}
             className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
           >
-            <Close className="w-[10px] h-[10px]" />
+            <XIcon size={18} />
           </button>
         </div>
       </div>
