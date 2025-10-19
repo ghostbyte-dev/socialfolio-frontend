@@ -8,7 +8,7 @@ export default function HeroSection({
   return (
     <section className="w-full bg-primary text-on-primary relative selection:bg-surface selection:text-on-surface">
       <div className="flex flex-col items-center content-wrapper mt-20">
-        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl mt-10 lg:mt-20 font-bold mb-6">
+        <h1 className="text-center text-4xl md:text-5xl lg:text-7xl mt-10 lg:mt-20 font-bold mb-6">
           Link All Your Socials in Style
         </h1>
 
@@ -29,7 +29,16 @@ export default function HeroSection({
             </button>
           </a>
         ) : (
-          <Button link="/auth/login">Get Started</Button>
+          <a href={`/auth/login`}>
+            <button
+              type="button"
+              className="button bg-surface text-on-surface rounded-xl"
+            >
+              <span className="relative z-10 transition-colors duration-300 ease-in-out">
+                Get Started
+              </span>
+            </button>
+          </a>
         )}
 
         <div className=" pt-20 z-20 mt-20">
