@@ -1,12 +1,11 @@
 import { useState } from "react";
 import SubmitButton from "./SubmitButton";
-import QuestionIcon from "@/assets/icons/question.svg";
-import Close from "@/assets/icons/close.svg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import type { IUser, Status } from "@/types/user-type";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
+import { CircleQuestionMarkIcon, XIcon } from "lucide-react";
 
 interface SettingsProps {
   user: IUser;
@@ -73,7 +72,7 @@ export default function Settings({ user, onClose }: SettingsProps) {
                 }}
                 aria-label="Status explanation"
               >
-                <QuestionIcon className="w-8 h-8" />
+                <CircleQuestionMarkIcon size={24} />
               </button>
             </div>
           </form>
@@ -132,12 +131,13 @@ function StatusInfoDialog({ onClose }: { onClose: () => void }) {
           Your profile is completely hidden from others. Only you can view it
           when logged in.
         </p>
-        <div
+        <button
+          type="button"
           onClick={onClose}
           className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
         >
-          <Close className="w-[10px] h-[10px]" />
-        </div>
+          <XIcon size={18} />
+        </button>
       </div>
     </div>
   );

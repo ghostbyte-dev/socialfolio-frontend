@@ -1,6 +1,6 @@
 import type { LinkData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import LinkIcon from "@/assets/icons/link.svg";
+import { LinkIcon } from "lucide-react";
 
 interface LinkWidgetProps {
   data: LinkData;
@@ -26,7 +26,7 @@ export function LinkWidget({
       link={data.link}
     >
       {variant === 1 && (
-        <div className="h-full w-full justify-center items-center flex flex-col">
+        <div className="h-full w-full justify-center items-center flex flex-col space-y-2">
           <LinkIcon className="w-[30%] h-[30%]" />
 
           {data.link && (

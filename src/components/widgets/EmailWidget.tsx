@@ -2,7 +2,7 @@
 
 import type { EmailData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Mail from "@/assets/icons/mail.svg";
+import { MailIcon } from "lucide-react";
 
 interface EmailWidgetProps {
   data: EmailData;
@@ -34,12 +34,12 @@ export function EmailWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <Mail className="w-[50%] h-[50%]" />
+          <MailIcon className="w-[50%] h-[50%]" />
         </div>
       )}
       {variant === 2 && (
         <div className="h-full w-full justify-center items-center flex flex-col">
-          <Mail className="w-[50%] h-[50%]" />
+          <MailIcon className="w-[50%] h-[50%]" />
           <p className="break-words max-w-full">{data.email}</p>
         </div>
       )}

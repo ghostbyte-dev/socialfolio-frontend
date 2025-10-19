@@ -2,19 +2,17 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import Button from "./Button";
 import { useQuery } from "@tanstack/react-query";
 import { UserService } from "@/services/user.service";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import Close from "@/assets/icons/close.svg";
 import Logo from "@/assets/icons/logo.svg";
 import Settings from "./Settings";
 import { FocusTrap } from "focus-trap-react";
 import ShareModal from "./ShareModal";
 import { useAuth } from "@/context/AuthContext";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, XIcon } from "lucide-react";
 
 export default function Navbar() {
   const { token, user: authUser, logout } = useAuth();
@@ -30,7 +28,7 @@ export default function Navbar() {
   const jwt = token;
 
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = pathname === "/" || pathname.startsWith("/auth");
 
   const { data: user } = useQuery({
     queryKey: ["self"],
@@ -231,7 +229,7 @@ export default function Navbar() {
               tabIndex={isOpen ? 0 : -1}
               aria-label="Close Menu"
             >
-              <Close className="w-[18px] h-[18px]" />
+              <XIcon />
             </button>
           </div>
 

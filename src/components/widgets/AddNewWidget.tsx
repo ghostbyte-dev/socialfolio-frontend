@@ -3,7 +3,7 @@
 import { BaseWidget } from "./BaseWidget";
 import { useState } from "react";
 import WidgetEditor from "../widgetEditor/WidgetCreator";
-import Add from "@/assets/icons/add.svg";
+import { PlusIcon } from "lucide-react";
 
 export function AddNewWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +17,7 @@ export function AddNewWidget() {
         onClick={() => setIsOpen(true)}
       >
         <div className="h-full w-full flex justify-center items-center flex-col hover:cursor-pointer">
-          <Add className="w-[64px] h-[64px]" />
+          <PlusIcon size={56} />
           <span className="md:mt-5 font-bold text-xl md:text-2xl">
             Add Widget
           </span>

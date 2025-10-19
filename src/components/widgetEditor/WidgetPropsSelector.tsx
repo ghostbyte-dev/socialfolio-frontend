@@ -1,12 +1,11 @@
 "use client";
 
-import { WidgetOption } from "./WidgetCreator";
+import type { WidgetOption } from "./WidgetCreator";
 import { useEffect, useState } from "react";
-import ArrowBack from "@/assets/icons/arrow-back.svg";
 import LocationInput from "../LocationInput";
-import { WidgetProps } from "@/types/widget-types";
-import { WidgetsGridDisplay } from "../WidgetsGrid";
+import type { WidgetProps } from "@/types/widget-types";
 import { WidgetFactory } from "@/lib/WidgetFactory";
+import { ArrowLeftIcon } from "lucide-react";
 
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption | null;
@@ -89,11 +88,12 @@ export default function WidgetPropsSelector({
     >
       <div className="flex">
         <button
+          type="button"
           onClick={goBack}
           className="mr-2 md:hidden"
           aria-label="Back to widget type seletion"
         >
-          <ArrowBack className="w-6 h-6" />
+          <ArrowLeftIcon size={16} />
         </button>
         {selectedWidget != null && (
           <h2 className="text-xl font-bold">Create widget</h2>

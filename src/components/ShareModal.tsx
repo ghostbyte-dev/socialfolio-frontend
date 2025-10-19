@@ -1,10 +1,9 @@
 import type { IUser } from "@/types/user-type";
+import { ClipboardIcon, DownloadIcon } from "lucide-react";
 import Image from "next/image";
 import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import Save from "@/assets/icons/save.svg";
-import Copy from "@/assets/icons/copy.svg";
 
 interface ShareModalProps {
   user: IUser;
@@ -34,7 +33,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
           margin: 10,
           imageSize: 0.5,
         },
-      }),
+      })
     );
   }, []);
 
@@ -78,7 +77,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(
-        `https://socialfolio.me/${user.username}`,
+        `https://socialfolio.me/${user.username}`
       );
       toast.success("copied to clipboard");
     } catch (err) {
@@ -98,7 +97,7 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
       className="fixed inset-0 bg-black/50 flex justify-center items-center"
       role="dialog"
       onClick={onClose}
-      onKeyUp={(e) => e.key === "Escape" ? onClose() : () => {}}
+      onKeyUp={(e) => (e.key === "Escape" ? onClose() : () => {})}
       tabIndex={-1}
     >
       <div
@@ -116,15 +115,15 @@ export default function ShareModal({ user, onClose }: ShareModalProps) {
             onClick={copyToClipboard}
             type="button"
           >
-            <Copy className="w-4 h-4" />
-            copy to clipboard
+            <ClipboardIcon size={18} />
+            Copy to clipboard
           </button>
           <button
-            className="flex flex-row gap-2 justify-center w-full hover:cursor-pointer"
+            className="flex flex-row gap-2 justify-center w-full hover:cursor-pointer text-sm"
             onClick={onDownloadClick}
             type="button"
           >
-            <Save className="w-6 h-6" />
+            <DownloadIcon size={18} />
             <p>Save QR-Code</p>
           </button>
         </div>

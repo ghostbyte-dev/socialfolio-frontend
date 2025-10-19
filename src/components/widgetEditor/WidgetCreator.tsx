@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ICreateWidgetRequest, WidgetService } from "@/services/widget.service";
-import { WidgetProps } from "@/types/widget-types";
+import {
+  type ICreateWidgetRequest,
+  WidgetService,
+} from "@/services/widget.service";
+import type { WidgetProps } from "@/types/widget-types";
 import { useParams } from "next/navigation";
-import Close from "@/assets/icons/close.svg";
 import toast from "react-hot-toast";
 import WidgetTypeSelector from "./WidgetTypeSelector";
 import WidgetPropsSelector from "./WidgetPropsSelector";
 import { FocusTrap } from "focus-trap-react";
 import { useAuth } from "@/context/AuthContext";
+import { XIcon } from "lucide-react";
 
 export interface WidgetOption {
   id: string;
@@ -205,7 +208,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
             }}
             className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
           >
-            <Close className="w-[10px] h-[10px]" />
+            <XIcon size={18} />
           </button>
         </div>
       </div>
