@@ -1,6 +1,6 @@
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { Karla, Petrona } from "next/font/google";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -10,13 +10,15 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import PlausibleProvider from "next-plausible";
 import { AuthProvider } from "@/context/AuthContext";
 
-const geistSans = Geist({
+const textFont = Karla({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Merienda
+const headingFont = Petrona({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["700"],
 });
 
 export default function RootLayout({
@@ -35,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${geistSans.className} ${geistMono.variable} antialiased bg-surface min-h-screen`}
+        className={`${textFont.className} ${headingFont.variable} antialiased bg-surface min-h-screen`}
       >
         <PlausibleProvider
           domain="socialfolio.me"

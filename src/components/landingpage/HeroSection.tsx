@@ -13,9 +13,9 @@ export default function HeroSection({
         </h1>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xl mb-6 text-center">
+          <p className="text-xl mb-6 text-center">
             A simple, open-source way to share your socials in one place
-          </h2>
+          </p>
         </div>
         {loggedInUsername ? (
           <a href={`/${loggedInUsername}`}>

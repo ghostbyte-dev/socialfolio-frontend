@@ -11,10 +11,10 @@ export default function FeatureSection() {
         </h2>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg mb-6 text-center">
+          <p className="text-lg mb-6 text-center">
             Highlight your social links, projects, and passions — all in one
             minimal and flexible space.
-          </h2>
+          </p>
         </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
