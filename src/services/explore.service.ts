@@ -15,11 +15,11 @@ export interface ExploreProfilesResponse {
 }
 
 const EXPLORE_PROFILES_LIMIT: number = 30;
-const getProfiles = async (cursor: string = ""): Promise<ExploreProfilesResponse> => {
+const getProfiles = async (cursor: string = "", limit: number = EXPLORE_PROFILES_LIMIT): Promise<ExploreProfilesResponse> => {
   const headers: HeadersInit = {
     "Content-Type": "application/json"
   }
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/explore/profiles?limit=${EXPLORE_PROFILES_LIMIT}&cursor=${cursor}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/explore/profiles?limit=${limit}&cursor=${cursor}`, {
     headers: headers,
   }
   );
