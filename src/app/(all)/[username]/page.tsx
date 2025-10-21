@@ -2,7 +2,7 @@ import UserClientPage from "@/components/UserClientPage";
 import { UserService } from "@/services/user.service";
 
 export async function generateMetadata(
-  { params }: { params: { username: string } },
+  { params }: { params: Promise<{ username: string }> },
 ) {
   const { username } = await params;
 
