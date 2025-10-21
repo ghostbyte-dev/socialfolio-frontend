@@ -3,9 +3,9 @@ import Navbar from "@/components/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Socialfolio - Share all your socials",
+  title: "Socialfolio – All your socials in one place",
   description:
-    "A simple, open-source way to share your socials in one place, show of your Mastodon, Pixelfed, personal Website, ...",
+    "Showcase your Mastodon, Pixelfed, website, and more – an open-source platform to share all your socials easily in one link.",
   alternates: {
     canonical: "https://socialfolio.me",
   },
