@@ -105,11 +105,28 @@ const uploadAvatar = async (
   return response.json();
 }
 
+const deleteUser = async (
+  jwt: string
+): Promise<void> => {
+  const response = await fetch(`${API_URL}/api/user/account`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    }
+  });
+
+  if (!response.ok) throw new Error("Failed to delete user");
+
+  return
+}
+
 export const UserService = {
   getSelf,
   getUser,
   updateDisplayName,
   updateDescription,
   updateStatus,
-  uploadAvatar
+  uploadAvatar,
+  deleteUser
 };
