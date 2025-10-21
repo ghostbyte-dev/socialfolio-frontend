@@ -1,6 +1,6 @@
 import type { IUser, Status } from "@/types/user-type";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.socialfolio.me" as string;
 
 const getSelf = async (jwt: string): Promise<IUser> => {
   const headers: HeadersInit = jwt ? {

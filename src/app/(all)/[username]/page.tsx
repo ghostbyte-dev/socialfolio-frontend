@@ -4,7 +4,7 @@ import { UserService } from "@/services/user.service";
 export async function generateMetadata(
   { params }: { params: { username: string } },
 ) {
-  const { username } = params;
+  const { username } = await params;
 
   try {
     const user = await UserService.getUser(username, undefined);
