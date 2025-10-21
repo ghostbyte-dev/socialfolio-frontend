@@ -38,7 +38,7 @@ export default function EditWidgetModal({
   const [priority, setPriority] = useState<number>(widgetData.priority ?? 1);
 
   const handleChange = (key: string, value: string, type: string) => {
-    if (type == "number") {
+    if (type === "number") {
       widgetData.data = {
         ...widgetData.data,
         [key]: Number(value),
@@ -57,7 +57,7 @@ export default function EditWidgetModal({
     mutation.mutate({ data: widgetData, jwt: token ?? "" });
   };
   const selectedWidget = widgetOptions.find(
-    (widgetOption) => widgetOption.id == widgetData.type
+    (widgetOption) => widgetOption.id == widgetData.type,
   );
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -97,7 +97,7 @@ export default function EditWidgetModal({
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
       );
 
       return { previousWidgets };
@@ -108,7 +108,7 @@ export default function EditWidgetModal({
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
@@ -148,7 +148,7 @@ export default function EditWidgetModal({
   return (
     <FocusTrap>
       <div
-        className="fixed inset-0 flex justify-center items-center bg-black/50"
+        className="fixed inset-0 flex justify-center items-center bg-black/50 z-50"
         onClick={() => onClose()}
       >
         <div
@@ -177,50 +177,64 @@ export default function EditWidgetModal({
               </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  {field.type === "image" ? (
-                    <></>
-                  ) : field.type === "location" ? (
-                    <></>
-                  ) : (
-                    <>
-                      <label className="block font-medium mb-2">
-                        {field.label}
-                      </label>
-                      {field.type === "select" ? (
-                        <select
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key] || field.defaultOption}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value, field.type)
-                          }
-                        >
-                          {field.options?.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      ) : field.type == "textArea" ? (
-                        <textarea
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key]}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value, field.type)
-                          }
-                        ></textarea>
-                      ) : (
-                        <input
-                          type={field.type}
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key]}
-                          placeholder={field.placeholder}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value, field.type)
-                          }
-                        />
-                      )}
-                    </>
-                  )}
+                  {field.type === "image"
+                    ? <></>
+                    : field.type === "location"
+                    ? <></>
+                    : (
+                      <>
+                        <label className="block font-medium mb-2">
+                          {field.label}
+                        </label>
+                        {field.type === "select"
+                          ? (
+                            <select
+                              className="input bg-surface-container-high w-full"
+                              value={formData[field.key] || field.defaultOption}
+                              onChange={(e) =>
+                                handleChange(
+                                  field.key,
+                                  e.target.value,
+                                  field.type,
+                                )}
+                            >
+                              {field.options?.map((option) => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
+                          )
+                          : field.type == "textArea"
+                          ? (
+                            <textarea
+                              className="input bg-surface-container-high w-full"
+                              value={formData[field.key]}
+                              onChange={(e) =>
+                                handleChange(
+                                  field.key,
+                                  e.target.value,
+                                  field.type,
+                                )}
+                            >
+                            </textarea>
+                          )
+                          : (
+                            <input
+                              type={field.type}
+                              className="input bg-surface-container-high w-full"
+                              value={formData[field.key]}
+                              placeholder={field.placeholder}
+                              onChange={(e) =>
+                                handleChange(
+                                  field.key,
+                                  e.target.value,
+                                  field.type,
+                                )}
+                            />
+                          )}
+                      </>
+                    )}
                 </div>
               ))}
               <div className="mb-4">
