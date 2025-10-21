@@ -6,15 +6,15 @@ export default function FeatureSection() {
     // biome-ignore lint/correctness/useUniqueElementIds: <>
     <section className="w-full text-on-surface relative mb-20" id="features">
       <div className="flex flex-col items-center content-wrapper mt-20">
-        <h2 className="text-center text-2xl md:text-3xl lg:text-4xl mt-10 lg:mt-20 font-bold mb-3">
+        <h2 className="text-center text-4xl md:text-5xl lg:text-5xl mt-10 lg:mt-20 font-bold mb-3">
           Your online identity, beautifully organized
         </h2>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg mb-6 text-center">
+          <p className="text-lg mb-6 text-center">
             Highlight your social links, projects, and passions — all in one
             minimal and flexible space.
-          </h2>
+          </p>
         </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">

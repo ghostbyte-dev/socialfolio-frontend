@@ -21,8 +21,8 @@ export default function Footer() {
 
       <footer className="w-full">
         <div className="bg-surface-container flex justify-center pt-20 pb-28">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 container px-5">
-            <div className="mt-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 container px-5">
+            <div className="mt-8 col-span-2 lg:col-span-1">
               <h4 className="font-bold mb-3">Socialfolio</h4>
               <p className="text-slate-400 text-sm">
                 Link All Your Socials in Style

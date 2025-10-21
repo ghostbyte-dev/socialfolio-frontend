@@ -83,24 +83,28 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="hidden md:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center space-x-5 text-md">
+        <div className="hidden lg:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center space-x-5 text-md">
           <div className="space-x-5 px-4 py-2 floating-wrapper">
-            <Link href="/#features">
-              <span className="hover:underline">Features</span>
-            </Link>
-
             <Link href="/explore">
               <span className="hover:underline">Explore</span>
+            </Link>
+
+            <Link href="/#features">
+              <span className="hover:underline">Features</span>
             </Link>
 
             <Link href="/#faq">
               <span className="hover:underline">FAQ</span>
             </Link>
+
+            <Link href="/#contribute">
+              <span className="hover:underline">Contribute</span>
+            </Link>
           </div>
         </div>
 
         <div className="flex items-center">
-          <div className="mr-3 hidden md:block">
+          <div className="mr-3 hidden lg:block">
             <ThemeSwitcher />
           </div>
 
@@ -202,7 +206,7 @@ export default function Navbar() {
             <button
               type="button"
               aria-label="open menu"
-              className="floating-wrapper ml-3 md:hidden aspect-square"
+              className="floating-wrapper ml-3 lg:hidden aspect-square"
               onClick={() => setIsOpen(!isOpen)}
             >
               <MenuIcon />
