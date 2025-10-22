@@ -1,7 +1,7 @@
-import Avatar from "./Avatar";
-import DisplayName from "./DisplayName";
-import Description from "./Description";
 import type { IUser } from "@/types/user-type";
+import Avatar from "./Avatar";
+import Description from "./Description";
+import DisplayName from "./DisplayName";
 
 export default function Bio({
   isOwner,

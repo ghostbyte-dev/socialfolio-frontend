@@ -1,6 +1,6 @@
-import type { ExploreProfile } from "@/services/explore.service";
 import Image from "next/image";
 import Link from "next/link";
+import type { ExploreProfile } from "@/services/explore.service";
 
 export default function ExploreProfileCard({
   profile,

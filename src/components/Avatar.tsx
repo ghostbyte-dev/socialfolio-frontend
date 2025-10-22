@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import type { Area, Point } from "react-easy-crop";
+import Cropper from "react-easy-crop";
+import { useAuth } from "@/context/AuthContext";
+import getCroppedImg from "@/lib/cropImage";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
-import { useParams } from "next/navigation";
-import React from "react";
-import type { Point, Area } from "react-easy-crop";
-import Cropper from "react-easy-crop";
-import getCroppedImg from "@/lib/cropImage";
 import SubmitButton from "./SubmitButton";
-import { useAuth } from "@/context/AuthContext";
 
 export default function Avatar({
   url,

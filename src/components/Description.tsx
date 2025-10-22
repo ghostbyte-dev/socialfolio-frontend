@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FocusTrap } from "focus-trap-react";
+import { PencilIcon } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
-import { useParams } from "next/navigation";
-import { FocusTrap } from "focus-trap-react";
-import { useAuth } from "@/context/AuthContext";
-import { PencilIcon } from "lucide-react";
 
 export default function Description({
   description,

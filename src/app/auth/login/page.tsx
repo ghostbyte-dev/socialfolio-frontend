@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import SubmitButton from "@/components/SubmitButton";
-import { login as loginApi, type LoginCredentials } from "@/lib/auth";
 import { useAuth } from "@/context/AuthContext";
+import { type LoginCredentials, login as loginApi } from "@/lib/auth";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState<LoginCredentials>({
