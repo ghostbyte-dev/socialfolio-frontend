@@ -1,32 +1,16 @@
-"use client";
+import type { Metadata } from "next";
+import ExploreUsers from "@/components/ExploreUsers";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import React from "react";
-import ErrorPage from "@/components/ErrorPage";
-import ExploreProfileCard from "@/components/ExploreProfileCard";
-import LoadingIndicator from "@/components/LoadingIndicator";
-import SubmitButton from "@/components/SubmitButton";
-import {
-  type ExploreProfile,
-  ExploreService,
-} from "@/services/explore.service";
+export const metadata: Metadata = {
+  title: "Explore - Discover amazing Socialfolio profiles",
+  description:
+    "Browse and discover Socialfolio profiles from across the Fediverse. Find creators, developers, and communities sharing all their socials in one place.",
+  alternates: {
+    canonical: "https://socialfolio.me/explore",
+  },
+};
 
 export default function Explore() {
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isPending,
-  } = useInfiniteQuery({
-    queryKey: ["projects"],
-    queryFn: ({ pageParam }: { pageParam: string }) =>
-      ExploreService.getProfiles(pageParam),
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-    initialPageParam: "",
-  });
-
   return (
     <>
       <title>Explore - Socialfolio</title>
@@ -36,35 +20,7 @@ export default function Explore() {
           <h1 className="text-6xl font-bold mb-6 cursive-font">Explore</h1>
         </section>
 
-        <section className="content-wrapper mb-20">
-          {isPending && <LoadingIndicator />}
-          {error && <ErrorPage message={error.message} />}
-          {data && (
-            <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {data.pages.map((group, i) => (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: <>
-                  <React.Fragment key={i}>
-                    {group.profiles.map((profile: ExploreProfile) => (
-                      <div key={profile.id} className="h-full">
-                        <ExploreProfileCard profile={profile} />
-                      </div>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </div>
-              <div className="flex justify-center w-full mt-5">
-                <SubmitButton
-                  text={hasNextPage ? "Load More" : "End reached"}
-                  isDisabled={!hasNextPage || isFetchingNextPage}
-                  isLoading={isFetchingNextPage}
-                  isFullWidth={false}
-                  onClick={() => fetchNextPage()}
-                />
-              </div>
-            </div>
-          )}
-        </section>
+        <ExploreUsers />
       </div>
     </>
   );

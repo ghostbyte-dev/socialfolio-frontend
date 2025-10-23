@@ -13,18 +13,21 @@ import { FocusTrap } from "focus-trap-react";
 import ShareModal from "./ShareModal";
 import { useAuth } from "@/context/AuthContext";
 import { MenuIcon, XIcon } from "lucide-react";
+import DeleteUserModal from "./DeleteUserModal";
 
 export default function Navbar() {
   const { token, user: authUser, logout } = useAuth();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isSettingsModalOpen, setIsSettingsModalOpen] =
-    useState<boolean>(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(
+    false,
+  );
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [accountDeletionPopup, setAccountDeletionPopup] =
-    useState<boolean>(false);
+  const [accountDeletionPopup, setAccountDeletionPopup] = useState<boolean>(
+    false,
+  );
   const jwt = token;
 
   const pathname = usePathname();
@@ -70,9 +73,9 @@ export default function Navbar() {
 
   return (
     <div
-      className={
-        isHome ? "bg-primary text-on-primary" : "bg-surface text-on-surface"
-      }
+      className={isHome
+        ? "bg-primary text-on-primary"
+        : "bg-surface text-on-surface"}
     >
       <nav className="mt-5 py-2 content-wrapper max-w-[1400px] flex justify-between items-center relative">
         <div className="flex items-center z-20">
@@ -124,14 +127,13 @@ export default function Navbar() {
                 className="inline-flex w-full justify-center floating-wrapper"
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() =>
+                  setDropdownOpen(!dropdownOpen)}
               >
                 <Image
-                  src={
-                    user.avatar.trim() === ""
-                      ? "/defaults/default-avatar.jpg"
-                      : user.avatar
-                  }
+                  src={user.avatar.trim() === ""
+                    ? "/defaults/default-avatar.jpg"
+                    : user.avatar}
                   alt="User Avatar"
                   width={44}
                   height={44}
@@ -141,7 +143,7 @@ export default function Navbar() {
 
               {dropdownOpen && (
                 <div
-                  className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface-container ring-1 shadow-lg ring-black/5 focus:outline-none"
+                  className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface-container ring-1 shadow-lg ring-black/5 focus:outline-none text-on-surface"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"
@@ -188,14 +190,14 @@ export default function Navbar() {
                     >
                       Logout
                     </button>
-                    {/*  <button
+                    <button
                       type="button"
                       onClick={openAccountDeletionPopup}
                       className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Delete Account
-                    </button>*/}
+                    </button>
                   </div>
                 </div>
               )}
@@ -268,6 +270,12 @@ export default function Navbar() {
             <ShareModal
               user={user}
               onClose={() => setIsShareModalOpen(false)}
+            />
+          )}
+
+          {accountDeletionPopup && user && (
+            <DeleteUserModal
+              onClose={() => setAccountDeletionPopup(false)}
             />
           )}
         </div>

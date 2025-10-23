@@ -51,7 +51,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const { token } = useAuth();
 
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
-    null
+    null,
   );
 
   const mutation = useMutation({
@@ -95,7 +95,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
       );
 
       return { previousWidgets };
@@ -106,7 +106,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
@@ -150,7 +150,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   return (
     <FocusTrap>
       <div
-        className="fixed inset-0 bg-black/50 flex justify-center items-center"
+        className="fixed inset-0 bg-black/50 flex justify-center items-center z-50"
         onClick={onClose}
       >
         <div
