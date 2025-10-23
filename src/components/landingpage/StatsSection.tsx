@@ -1,5 +1,5 @@
-import { StatsService } from "@/services/stats.service";
 import { useQuery } from "@tanstack/react-query";
+import { StatsService } from "@/services/stats.service";
 import { StatsWidget } from "../widgets/StatsWidget";
 
 export default function StatsSection() {
@@ -11,10 +11,6 @@ export default function StatsSection() {
   return (
     <section className="mt-40 w-full bg-primary text-on-primary py-16">
       <div className="container mx-auto flex flex-col items-center">
-        {/* <div className="flex justify-center">
-          <h2 className="text-4xl font-bold">Stats</h2>
-        </div> */}
-
         <div className="flex w-full flex-wrap justify-center mt- md:mt-">
           <div className="w-56 h-56 m-10">
             <StatsWidget

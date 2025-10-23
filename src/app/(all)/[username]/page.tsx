@@ -1,5 +1,9 @@
 "use client";
 
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Bio from "@/components/Bio";
 import ErrorPage from "@/components/ErrorPage";
 import LoadingIndicator from "@/components/LoadingIndicator";
@@ -9,10 +13,6 @@ import { useAuth } from "@/context/AuthContext";
 import { AuthService } from "@/services/auth.service";
 import { UserService } from "@/services/user.service";
 import { Status } from "@/types/user-type";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 export default function UserPage() {
   const params = useParams();

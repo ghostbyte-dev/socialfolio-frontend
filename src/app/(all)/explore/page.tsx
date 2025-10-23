@@ -1,5 +1,7 @@
 "use client";
 
+import { useInfiniteQuery } from "@tanstack/react-query";
+import React from "react";
 import ErrorPage from "@/components/ErrorPage";
 import ExploreProfileCard from "@/components/ExploreProfileCard";
 import LoadingIndicator from "@/components/LoadingIndicator";
@@ -8,8 +10,6 @@ import {
   type ExploreProfile,
   ExploreService,
 } from "@/services/explore.service";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import React from "react";
 
 export default function Explore() {
   const {
@@ -33,7 +33,7 @@ export default function Explore() {
 
       <div className="items-center flex flex-col">
         <section className="flex flex-col items-center mb-20 mt-20">
-          <h1 className="text-6xl font-bold mb-6">Explore</h1>
+          <h1 className="text-6xl font-bold mb-6 cursive-font">Explore</h1>
         </section>
 
         <section className="content-wrapper mb-20">

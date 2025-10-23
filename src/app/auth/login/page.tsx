@@ -46,7 +46,7 @@ export default function LoginPage() {
     <>
       <title>Login - Socialfolio</title>
       <div className="w-full">
-        <h1 className="text-5xl font-bold mb-5">Login</h1>
+        <h1 className="text-5xl font-bold mb-5 cursive-font">Login</h1>
 
         <p className="mb-5">
           Need an account yet?{" "}

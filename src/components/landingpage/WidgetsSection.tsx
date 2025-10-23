@@ -1,6 +1,6 @@
-import { StatsService, type WidgetStats } from "@/services/stats.service";
 import { useQuery } from "@tanstack/react-query";
 import { WidgetFactory } from "@/lib/WidgetFactory";
+import { StatsService, type WidgetStats } from "@/services/stats.service";
 import type { WidgetData } from "@/types/widget-types";
 
 export default function WidgetsSection() {
@@ -39,7 +39,7 @@ export default function WidgetsSection() {
   return (
     <section className="mt-20 content-wrapper flex flex-col items-center">
       <div className="flex justify-center mt-10">
-        <h2 className="text-5xl font-bold">Widgets</h2>
+        <h2 className="text-5xl font-bold cursive-font">Widgets</h2>
       </div>
 
       <div

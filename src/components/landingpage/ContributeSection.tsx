@@ -7,7 +7,7 @@ const ContributeSection = () => {
     // biome-ignore lint/correctness/useUniqueElementIds: <>
     <section className="pt-40 w-full" id="contribute">
       <div className="content-wrapper  flex flex-col items-center space-y-4">
-        <h2 className="text-5xl font-bold mb-8">Contribute</h2>
+        <h2 className="text-5xl font-bold mb-8 cursive-font">Contribute</h2>
 
         <div className="grid grid-cols-2 w-full gap-8">
           <div className="wrapper p-8 col-span-2 md:col-span-1">
