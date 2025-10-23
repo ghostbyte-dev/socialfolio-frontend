@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 const faqData = [
   {
@@ -32,7 +32,7 @@ export default function FaqSection() {
     // biome-ignore lint/correctness/useUniqueElementIds: <>
     <section className="pt-40 w-full" id="faq">
       <div className="content-wrapper max-w-3xl flex flex-col items-center space-y-4">
-        <h2 className="text-5xl font-bold mb-8">FAQ</h2>
+        <h2 className="text-5xl font-bold mb-8 cursive-font">FAQ</h2>
 
         {faqData.map((item, index) => (
           <button

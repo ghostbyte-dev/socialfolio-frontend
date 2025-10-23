@@ -1,6 +1,7 @@
 "use client";
 
 import ContributeSection from "@/components/landingpage/ContributeSection";
+import ExploreSection from "@/components/landingpage/ExploreSection";
 import FaqSection from "@/components/landingpage/FaqSection";
 import FeatureSection from "@/components/landingpage/FeatureSection";
 import HeroSection from "@/components/landingpage/HeroSection";
@@ -20,9 +21,11 @@ export default function Home() {
 
         <FeatureSection />
 
-        <StatsSection />
+        <ExploreSection />
 
         <WidgetsSection />
+
+        <StatsSection />
 
         <FaqSection />
 

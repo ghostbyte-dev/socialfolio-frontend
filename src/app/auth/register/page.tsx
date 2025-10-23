@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import SubmitButton from "@/components/SubmitButton";
+import { useAuth } from "@/context/AuthContext";
 import { login, registerUser } from "@/lib/auth";
 import type { RegisterCredentials } from "@/services/auth.service";
-import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterCredentials>({
@@ -48,7 +48,7 @@ export default function RegisterPage() {
     <>
       <title>Register - Socialfolio</title>
       <div className="w-full">
-        <h1 className="text-5xl font-bold mb-5">Register</h1>
+        <h1 className="text-5xl font-bold mb-5 cursive-font">Register</h1>
 
         <p className="mb-5">
           Already have an account?{" "}

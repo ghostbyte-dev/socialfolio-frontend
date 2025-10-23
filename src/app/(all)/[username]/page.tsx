@@ -1,9 +1,11 @@
 import UserClientPage from "@/components/UserClientPage";
 import { UserService } from "@/services/user.service";
 
-export async function generateMetadata(
-  { params }: { params: Promise<{ username: string }> },
-) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) {
   const { username } = await params;
 
   try {
@@ -11,8 +13,7 @@ export async function generateMetadata(
 
     return {
       title: `${user.username} - Socialfolio`,
-      description:
-        `View ${user.username}'s Socialfolio profile with their connected Fediverse and social accounts.`,
+      description: `View ${user.username}'s Socialfolio profile with their connected Fediverse and social accounts.`,
       openGraph: {
         title: `${user.username} - Socialfolio`,
         description: `Discover ${user.username}'s online presence.`,
