@@ -1,33 +1,31 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { FocusTrap } from "focus-trap-react";
+import { MenuIcon, XIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { UserService } from "@/services/user.service";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ThemeSwitcher } from "./ThemeSwitcher";
 import Logo from "@/assets/icons/logo.svg";
-import Settings from "./Settings";
-import { FocusTrap } from "focus-trap-react";
-import ShareModal from "./ShareModal";
 import { useAuth } from "@/context/AuthContext";
-import { MenuIcon, XIcon } from "lucide-react";
+import { UserService } from "@/services/user.service";
 import DeleteUserModal from "./DeleteUserModal";
+import Settings from "./Settings";
+import ShareModal from "./ShareModal";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export default function Navbar() {
   const { token, user: authUser, logout } = useAuth();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(
-    false,
-  );
+  const [isSettingsModalOpen, setIsSettingsModalOpen] =
+    useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [accountDeletionPopup, setAccountDeletionPopup] = useState<boolean>(
-    false,
-  );
+  const [accountDeletionPopup, setAccountDeletionPopup] =
+    useState<boolean>(false);
   const jwt = token;
 
   const pathname = usePathname();
@@ -73,14 +71,20 @@ export default function Navbar() {
 
   return (
     <div
-      className={isHome
-        ? "bg-primary text-on-primary"
-        : "bg-surface text-on-surface"}
+      className={
+        isHome ? "bg-primary text-on-primary" : "bg-surface text-on-surface"
+      }
     >
       <nav className="mt-5 py-2 content-wrapper max-w-[1400px] flex justify-between items-center relative">
         <div className="flex items-center z-20">
           <Link href="/" className="flex items-center">
-            <Logo className="w-[34px] h-[34px]" />
+            <Logo
+              className={
+                isHome
+                  ? "w-[34px] h-[34px] text-on-primary"
+                  : "w-[34px] h-[34px] text-primary"
+              }
+            />
 
             <span className="text-xl font-semibold ml-2">Socialfolio</span>
           </Link>
@@ -127,13 +131,14 @@ export default function Navbar() {
                 className="inline-flex w-full justify-center floating-wrapper"
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
-                onClick={() =>
-                  setDropdownOpen(!dropdownOpen)}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 <Image
-                  src={user.avatar.trim() === ""
-                    ? "/defaults/default-avatar.jpg"
-                    : user.avatar}
+                  src={
+                    user.avatar.trim() === ""
+                      ? "/defaults/default-avatar.jpg"
+                      : user.avatar
+                  }
                   alt="User Avatar"
                   width={44}
                   height={44}
@@ -274,9 +279,7 @@ export default function Navbar() {
           )}
 
           {accountDeletionPopup && user && (
-            <DeleteUserModal
-              onClose={() => setAccountDeletionPopup(false)}
-            />
+            <DeleteUserModal onClose={() => setAccountDeletionPopup(false)} />
           )}
         </div>
       </FocusTrap>
