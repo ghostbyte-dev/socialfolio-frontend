@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { widgetOptions } from "@/data/widgetOptions";
 import type { WidgetOption } from "./WidgetCreator";
 
@@ -7,45 +8,36 @@ interface WidgetTypeSelectorProps {
 }
 
 export default function WidgetTypeSelector({
-  selectedWidget,
   handleSelectWidget,
 }: WidgetTypeSelectorProps) {
   return (
-    <div className="w-full h-full bg-surface-container-high p-4 border-r overflow-y-scroll">
-      <h2 className="text-lg font-bold mb-4">Select a Widget</h2>
-      <ul>
+    <div className="w-full h-full p-4 border-r overflow-y-scroll">
+      <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4">
         {widgetOptions.map((widget) => (
-          <li
+          <button
             key={widget.id}
-            tabIndex={0}
-            role="button"
-            className={`p-3 flex items-center gap-3 cursor-pointer rounded-lg ${
-              selectedWidget?.id === widget.id
-                ? "bg-primary-container"
-                : "hover:bg-primary-container"
-            }`}
             onClick={() => handleSelectWidget(widget)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleSelectWidget(widget);
-              }
-            }}
+            type="button"
+            className="flex flex-col justify-evenly items-center space-y-3 py-5 wrapper clickable"
           >
-            <img
+            <Image
               src={widget.imageLink}
               alt={widget.name}
-              className="w-8 h-8 dark:hidden"
+              height={46}
+              width={46}
+              className="dark:hidden"
             />
-            <img
+            <Image
               src={widget.imageLinkDarkTheme}
               alt={widget.name}
-              className="w-8 h-8 hidden dark:block"
+              height={46}
+              width={46}
+              className="hidden dark:block"
             />
-            <span>{widget.name}</span>
-          </li>
+            <p className="font-bold">{widget.name}</p>
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

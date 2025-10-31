@@ -1,17 +1,17 @@
-import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FocusTrap } from "focus-trap-react";
+import { XIcon } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useAuth } from "@/context/AuthContext";
 import {
   type ICreateWidgetRequest,
   WidgetService,
 } from "@/services/widget.service";
 import type { WidgetProps } from "@/types/widget-types";
-import { useParams } from "next/navigation";
-import toast from "react-hot-toast";
-import WidgetTypeSelector from "./WidgetTypeSelector";
 import WidgetPropsSelector from "./WidgetPropsSelector";
-import { FocusTrap } from "focus-trap-react";
-import { useAuth } from "@/context/AuthContext";
-import { XIcon } from "lucide-react";
+import WidgetTypeSelector from "./WidgetTypeSelector";
 
 export interface WidgetOption {
   id: string;
@@ -51,7 +51,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const { token } = useAuth();
 
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
-    null,
+    null
   );
 
   const mutation = useMutation({
@@ -95,7 +95,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
       );
 
       return { previousWidgets };
@@ -106,7 +106,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets,
+        context.previousWidgets
       );
     },
     onSettled: () => {
@@ -154,62 +154,42 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
         onClick={onClose}
       >
         <div
-          className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex overflow-hidden"
+          className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg flex flex-col overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Left Sidebar - Widget Options */}
-          {selectedWidget == null && (
-            <div className="md:hidden w-full">
-              <div className="w-full h-full">
-                <WidgetTypeSelector
-                  selectedWidget={selectedWidget}
-                  handleSelectWidget={handleSelectWidget}
-                />
-              </div>
+          <div className="bg-primary p-3 mx-2 mt-2 rounded-xl relative flex justify-between">
+            <div></div>
+
+            <button
+              type="button"
+              aria-label="Close widget creator"
+              onClick={onClose}
+              className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+            >
+              <XIcon size={18} />
+            </button>
+
+            <div className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center text-lg text-center font-bold">
+              Select a Widget
             </div>
-          )}
-          <div className="w-1/3 hidden md:block">
-            <WidgetTypeSelector
-              selectedWidget={selectedWidget}
-              handleSelectWidget={handleSelectWidget}
-            />
           </div>
 
-          {/* Right Side - Widget Configuration */}
-          {selectedWidget != null && (
-            <div className="block md:hidden w-full">
-              <div className="w-full h-full">
-                <WidgetPropsSelector
-                  selectedWidget={selectedWidget}
-                  handleSave={handleSave}
-                  goBack={() => setSelectedWidget(null)}
-                />
-              </div>
-            </div>
-          )}
+          <div className="h-full w-full overflow-y-scroll">
+            {selectedWidget == null && (
+              <WidgetTypeSelector
+                selectedWidget={selectedWidget}
+                handleSelectWidget={handleSelectWidget}
+              />
+            )}
 
-          <div className="hidden md:block w-full h-full">
-            <WidgetPropsSelector
-              selectedWidget={selectedWidget}
-              handleSave={handleSave}
-              goBack={() => setSelectedWidget(null)}
-            />
+            {selectedWidget != null && (
+              <WidgetPropsSelector
+                selectedWidget={selectedWidget}
+                handleSave={handleSave}
+                goBack={() => setSelectedWidget(null)}
+              />
+            )}
           </div>
-
-          <button
-            type="button"
-            aria-label="Close widget creator"
-            onClick={onClose}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault(); // Prevent scrolling when pressing space
-                onClose();
-              }
-            }}
-            className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
-          >
-            <XIcon size={18} />
-          </button>
         </div>
       </div>
     </FocusTrap>
