@@ -18,6 +18,7 @@ import { LinkedinWidget } from "@/components/widgets/LinkedinWidget";
 import { LinkWidget } from "@/components/widgets/LinkWidget";
 import { ListenBrainzWidget } from "@/components/widgets/ListenBrainzWidget";
 import { LocationWidget } from "@/components/widgets/LocationWidget";
+import { LoopsWidget } from "@/components/widgets/LoopsWidget";
 import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NeoDbWidget } from "@/components/widgets/NeoDBWidget";
@@ -27,6 +28,7 @@ import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { RecordClubWidget } from "@/components/widgets/RecordClubWidget";
 import { RedditWidget } from "@/components/widgets/RedditWidget";
 import { StravaWidget } from "@/components/widgets/StravaWidget";
+import { ThreadsWidget } from "@/components/widgets/ThreadsWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
 import { WeatherWidget } from "@/components/widgets/WeatherWidget";
@@ -49,6 +51,7 @@ import type {
   LinkedinData,
   ListenBrainzData,
   LocationWidgetData,
+  LoopsData,
   MastodonData,
   MatrixData,
   NeoDBData,
@@ -58,6 +61,7 @@ import type {
   RecordClubData,
   RedditData,
   StravaData,
+  ThreadsData,
   TimezoneData,
   VernissageData,
   WeatherWidgetData,
@@ -95,6 +99,17 @@ export function WidgetFactory({
       return (
         <PixelfedWidget
           data={widget.data as PixelfedData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "loops":
+      return (
+        <LoopsWidget
+          data={widget.data as LoopsData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
@@ -183,6 +198,17 @@ export function WidgetFactory({
       return (
         <InstagramWidget
           data={widget.data as InstagramData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "threads":
+      return (
+        <ThreadsWidget
+          data={widget.data as ThreadsData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
