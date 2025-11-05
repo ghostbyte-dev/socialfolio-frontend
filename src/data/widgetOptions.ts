@@ -349,6 +349,70 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "instagram",
+    name: "Instagram",
+    imageLink: "/widgeteditor/instagram.svg",
+    imageLinkDarkTheme: "/widgeteditor/instagram.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "reddit",
+    name: "Reddit",
+    imageLink: "/widgeteditor/reddit.svg",
+    imageLinkDarkTheme: "/widgeteditor/reddit.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "strava",
+    name: "Strava",
+    imageLink: "/widgeteditor/strava.svg",
+    imageLinkDarkTheme: "/widgeteditor/strava.svg",
+    fields: [
+      { key: "username", label: "Id", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "linkedin",
+    name: "Linkedin",
+    imageLink: "/widgeteditor/linkedin.svg",
+    imageLinkDarkTheme: "/widgeteditor/linkedin.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "location",
     name: "Location",
     imageLink: "/widgeteditor/location_black.svg",
