@@ -74,6 +74,28 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "loops",
+    name: "Loops",
+    imageLink: "/widgeteditor/loops.png",
+    imageLinkDarkTheme: "/widgeteditor/loops.png",
+    fields: [
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "loops.video",
+      },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "lemmy",
     name: "Lemmy",
     imageLink: "/widgeteditor/lemmy.svg",
@@ -353,6 +375,22 @@ export const widgetOptions: WidgetOption[] = [
     name: "Instagram",
     imageLink: "/widgeteditor/instagram.svg",
     imageLinkDarkTheme: "/widgeteditor/instagram.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "threads",
+    name: "Threads",
+    imageLink: "/widgeteditor/threads.svg",
+    imageLinkDarkTheme: "/widgeteditor/threads.svg",
     fields: [
       { key: "username", label: "Username", type: "text" },
     ],

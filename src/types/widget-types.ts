@@ -24,6 +24,11 @@ export interface PixelfedData {
   instance: string;
 }
 
+export interface LoopsData {
+  username: string;
+  instance: string;
+}
+
 export interface BookWyrmWidgetData {
   username: string;
   instance: string;
@@ -48,6 +53,10 @@ export interface BlueskyData {
 }
 
 export interface InstagramData {
+  username: string;
+}
+
+export interface ThreadsData {
   username: string;
 }
 
