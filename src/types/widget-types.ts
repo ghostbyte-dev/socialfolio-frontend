@@ -47,6 +47,22 @@ export interface BlueskyData {
   handle: string;
 }
 
+export interface InstagramData {
+  username: string;
+}
+
+export interface StravaData {
+  username: string;
+}
+
+export interface LinkedinData {
+  username: string;
+}
+
+export interface RedditData {
+  username: string;
+}
+
 export interface MatrixData {
   username: string;
   instance: string;
