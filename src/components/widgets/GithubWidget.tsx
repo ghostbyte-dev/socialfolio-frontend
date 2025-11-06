@@ -1,3 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
+import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
+import { WidgetService } from "@/services/widget.service";
 import type {
   ContributionDay,
   ContributionsCollection,
@@ -7,11 +12,6 @@ import type {
   WidgetSize,
 } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { useQuery } from "@tanstack/react-query";
-import { WidgetService } from "@/services/widget.service";
-import { useEffect, useMemo, useState } from "react";
-import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
-import Image from "next/image";
 
 interface GithubWidgetProps {
   id: string;
@@ -55,16 +55,16 @@ export function GithubWidget({
 
   const widgetApiData: GithubApiData | undefined = preview
     ? {
-        username: "Profile",
-        name: "Profile",
-        avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
-        url: "",
-        location: "",
-        followers: 0,
-        following: 0,
-        publicRepos: 0,
-        contributions: generateContributionsData(),
-      }
+      username: "Profile",
+      name: "Profile",
+      avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
+      url: "",
+      location: "",
+      followers: 0,
+      following: 0,
+      publicRepos: 0,
+      contributions: generateContributionsData(),
+    }
     : apiData;
 
   const getDisplayedWeeks = (size: WidgetSize): number => {
@@ -80,7 +80,7 @@ export function GithubWidget({
 
   const getContributions = (
     contributions: ContributionsCollection,
-    size: WidgetSize
+    size: WidgetSize,
   ): ContributionsCollection => {
     const numberOfWeeks = getDisplayedWeeks(size);
     const newContributions = { ...contributions };
@@ -96,7 +96,7 @@ export function GithubWidget({
     console.log(
       "Recalculating contributions:",
       widgetSize,
-      widgetApiData?.contributions
+      widgetApiData?.contributions,
     );
     const contributions = getContributions(
       widgetApiData?.contributions ?? {
@@ -104,7 +104,7 @@ export function GithubWidget({
         colors: [],
         totalContributions: 0,
       },
-      widgetSize
+      widgetSize,
     );
     return contributions;
   }, [widgetSize, widgetApiData?.contributions]);
@@ -124,7 +124,7 @@ export function GithubWidget({
     const maxContributions = Math.max(
       ...widgetApiData.contributions.weeks.flatMap((c: ContributionsWeek) =>
         c.contributionDays.map((d: ContributionDay) => d.contributionCount)
-      )
+      ),
     );
     if (contributionCount === 0) return customColors[0]; // No contribution
     const intensity = contributionCount / maxContributions;
@@ -183,10 +183,8 @@ export function GithubWidget({
                   className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
                 />
                 <span
-                  className={
-                    (widgetSize.cols === 1 ? "text-xs" : "text-md") +
-                    "sm:text-xl "
-                  }
+                  className={(widgetSize.cols === 1 ? "text-xs" : "text-md") +
+                    "sm:text-xl "}
                 >
                   {widgetApiData.name}
                 </span>
@@ -225,21 +223,30 @@ export function GithubWidget({
                   maxHeight: "161px",
                 }}
               >
-                {displayedContributions.weeks.map((week: ContributionsWeek) =>
-                  week.contributionDays.map((day: ContributionDay) => (
-                    <div
-                      key={day.date}
-                      className="rounded-xs"
-                      style={{
-                        backgroundColor: contributionDayColor(
-                          day.contributionCount
-                        ),
-                        width: "100%",
-                        height: "100%",
-                        maxHeight: "20px",
-                      }}
-                    ></div>
-                  ))
+                {displayedContributions.weeks.map(
+                  (week: ContributionsWeek, weekIndex: number) =>
+                    week.contributionDays.map(
+                      (day: ContributionDay, dayIndex: number) => (
+                        <div
+                          key={day.date}
+                          className="rounded-xs"
+                          style={{
+                            backgroundColor: contributionDayColor(
+                              day.contributionCount,
+                            ),
+                            width: "100%",
+                            height: "100%",
+                            maxHeight: "20px",
+                            opacity: 0,
+                            animation: "fade-in 0.4s ease-out both",
+                            animationDelay: `${
+                              weekIndex * 90 + dayIndex * 40
+                            }ms`, // delay by column & row
+                          }}
+                        >
+                        </div>
+                      ),
+                    ),
                 )}
               </div>
             </>
