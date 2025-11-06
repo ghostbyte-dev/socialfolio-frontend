@@ -68,6 +68,35 @@ export interface LinkedinData {
   username: string;
 }
 
+export interface FacebookData {
+  username: string;
+}
+
+export interface XData {
+  username: string;
+}
+
+export interface PinterestData {
+  username: string;
+}
+
+export interface YoutubeData {
+  handle: string;
+}
+
+export interface TelegramData {
+  username: string;
+}
+
+export interface SocialfolioData {
+  username: string;
+}
+
+export interface GitlabData {
+  instance: string;
+  username: string;
+}
+
 export interface RedditData {
   username: string;
 }
