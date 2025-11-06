@@ -23,7 +23,7 @@ export function GitlabWidget({
       isOwner={isOwner}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      link={`https://${data.instance}/@${data.username}`}
+      link={`https://${data.instance}/${data.username}`}
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
