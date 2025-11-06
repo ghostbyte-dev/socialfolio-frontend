@@ -48,7 +48,7 @@ export default function RegisterPage() {
     <>
       <title>Register - Socialfolio</title>
       <div className="w-full">
-        <h1 className="text-5xl font-bold mb-5 cursive-font">Register</h1>
+        <h1 className="text-5xl font-bold mb-5">Register</h1>
 
         <p className="mb-5">
           Already have an account?{" "}

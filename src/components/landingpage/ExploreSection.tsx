@@ -26,8 +26,13 @@ export default function ExploreSection() {
           />
 
           <ExploreProfileButton
-            image="/landingpage/avatars/pixelix.png"
+            image="/landingpage/avatars/pixelix.webp"
             username="pixelix"
+          />
+
+          <ExploreProfileButton
+            image="/landingpage/avatars/socialfolio.webp"
+            username="socialfolio"
           />
         </div>
 
