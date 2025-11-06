@@ -546,6 +546,86 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "dribbble",
+    name: "Dribbble",
+    imageLink: "/widgeteditor/dribbble.svg",
+    imageLinkDarkTheme: "/widgeteditor/dribbble.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "patreon",
+    name: "Patreon",
+    imageLink: "/widgeteditor/patreon_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/patreon_white.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "paypal",
+    name: "PayPal",
+    imageLink: "/widgeteditor/paypal.svg",
+    imageLinkDarkTheme: "/widgeteditor/paypal.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "producthunt",
+    name: "Product Hunt",
+    imageLink: "/widgeteditor/producthunt.svg",
+    imageLinkDarkTheme: "/widgeteditor/producthunt.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "openstreetmap",
+    name: "OpenStreetMap",
+    imageLink: "/widgeteditor/openstreetmap.svg",
+    imageLinkDarkTheme: "/widgeteditor/openstreetmap.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "gitlab",
     name: "GitLab",
     imageLink: "/widgeteditor/gitlab.svg",

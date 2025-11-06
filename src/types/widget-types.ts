@@ -101,6 +101,26 @@ export interface RedditData {
   username: string;
 }
 
+export interface DribbbleData {
+  username: string;
+}
+
+export interface PatreonData {
+  username: string;
+}
+
+export interface PaypalData {
+  username: string;
+}
+
+export interface ProducthuntData {
+  username: string;
+}
+
+export interface OpenstreetmapData {
+  username: string;
+}
+
 export interface MatrixData {
   username: string;
   instance: string;
