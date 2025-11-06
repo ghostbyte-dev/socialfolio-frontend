@@ -117,7 +117,6 @@ export const widgetOptions: WidgetOption[] = [
       { cols: 2, rows: 2 },
     ],
   },
-
   {
     id: "peertube",
     name: "Peertube",
@@ -440,6 +439,124 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/linkedin.svg",
     imageLinkDarkTheme: "/widgeteditor/linkedin.svg",
     fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "facebook",
+    name: "Facebook",
+    imageLink: "/widgeteditor/facebook.png",
+    imageLinkDarkTheme: "/widgeteditor/facebook.png",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "x",
+    name: "X (Twitter)",
+    imageLink: "/widgeteditor/x.svg",
+    imageLinkDarkTheme: "/widgeteditor/x.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "pinterest",
+    name: "Pinterest",
+    imageLink: "/widgeteditor/pinterest.svg",
+    imageLinkDarkTheme: "/widgeteditor/pinterest.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "youtube",
+    name: "YouTube",
+    imageLink: "/widgeteditor/youtube.svg",
+    imageLinkDarkTheme: "/widgeteditor/youtube.svg",
+    fields: [
+      { key: "handle", label: "Handle", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "telegram",
+    name: "Telegram",
+    imageLink: "/widgeteditor/telegram.svg",
+    imageLinkDarkTheme: "/widgeteditor/telegram.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "socialfolio",
+    name: "Socialfolio",
+    imageLink: "/widgeteditor/socialfolio.svg",
+    imageLinkDarkTheme: "/widgeteditor/socialfolio.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "gitlab",
+    name: "GitLab",
+    imageLink: "/widgeteditor/gitlab.svg",
+    imageLinkDarkTheme: "/widgeteditor/gitlab.svg",
+    fields: [
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "gitlab.com",
+      },
       { key: "username", label: "Username", type: "text" },
     ],
     variants: [{ index: 1 }],
