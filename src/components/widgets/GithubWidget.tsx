@@ -35,6 +35,9 @@ export function GithubWidget({
   preview = false,
 }: GithubWidgetProps) {
   const [widgetSize, setWidgetSize] = useState(size);
+  const [hovered, setHovered] = useState<{ week: number; day: number } | null>(
+    null,
+  );
   const needApiData = (): boolean => {
     if (variant === 3) {
       return true;
@@ -227,26 +230,45 @@ export function GithubWidget({
                 {displayedContributions.weeks.map(
                   (week: ContributionsWeek, weekIndex: number) =>
                     week.contributionDays.map(
-                      (day: ContributionDay, dayIndex: number) => (
-                        <div
-                          key={day.date}
-                          className="rounded-xs"
-                          style={{
-                            backgroundColor: contributionDayColor(
-                              day.contributionCount,
-                            ),
-                            width: "100%",
-                            height: "100%",
-                            maxHeight: "20px",
-                            opacity: 0,
-                            animation: "fade-in 0.4s ease-out both",
-                            animationDelay: `${
-                              weekIndex * 90 + dayIndex * 40
-                            }ms`, // delay by column & row
-                          }}
-                        >
-                        </div>
-                      ),
+                      (day: ContributionDay, dayIndex: number) => {
+                        const isHovered = hovered?.week === weekIndex &&
+                          hovered?.day === dayIndex;
+                        const dist = hovered
+                          ? Math.abs(hovered.week - weekIndex) +
+                            Math.abs(hovered.day - dayIndex)
+                          : Infinity;
+
+                        let scale = 1;
+                        if (dist === 0) scale = 0.7; // directly hovered
+                        else if (dist === 1) scale = 0.85; // immediate neighbors
+                        else if (dist === 2) scale = 0.95; // slightly further
+                        else scale = 1;
+                        return (
+                          <div
+                            key={day.date}
+                            className={`rounded-xs duration-150 transition-transform ease-out`}
+                            onMouseEnter={() => {
+                              setHovered({ week: weekIndex, day: dayIndex });
+                            }}
+                            onMouseLeave={() => setHovered(null)}
+                            style={{
+                              backgroundColor: contributionDayColor(
+                                day.contributionCount,
+                              ),
+                              width: "100%",
+                              height: "100%",
+                              maxHeight: "20px",
+                              opacity: 0,
+                              animation: `fade-in 0.4s ease-out forwards`,
+                              animationDelay: `${
+                                weekIndex * 90 + dayIndex * 40
+                              }ms`,
+                              transform: `scale(${scale})`,
+                            }}
+                          >
+                          </div>
+                        );
+                      },
                     ),
                 )}
               </div>
