@@ -93,3 +93,13 @@
     @apply h-12 flex items-center justify-center rounded-full text-on-surface shadow-xs bg-surface-container border-2 border-surface dark:border-outline overflow-hidden;
   }
 }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
