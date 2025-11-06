@@ -58,7 +58,7 @@ export default function FeatureSection() {
           {/* 4. Open & Evolving */}
           <FeatureContainer
             title="Open & Evolving"
-            description="Build by the community, for the community. Socialfolio is open-source and constantly improving with your feedback."
+            description="Built by the community, for the community. Socialfolio is open-source and constantly improving with your feedback."
             icon={LockOpen}
             button={
               <a
