@@ -1,7 +1,8 @@
-import { ExploreProfile, ExploreService } from "@/services/explore.service";
-import { IUser } from "@/types/user-type";
-import { url } from "inspector";
-import { MetadataRoute } from "next/types";
+import type { MetadataRoute } from "next/types";
+import {
+    type ExploreProfile,
+    ExploreService,
+} from "@/services/explore.service";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     let index = 0;
@@ -14,12 +15,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         index++;
     }
 
-    const userPages: MetadataRoute.Sitemap = profiles.map((profile: ExploreProfile) => ({
-        url: `https://socialfolio.me/${profile.username}`,
-        changeFrequency: "weekly",
-        priority: 0.2,
-        lastModified: new Date()
-    }))
+    const userPages: MetadataRoute.Sitemap = profiles.map(
+        (profile: ExploreProfile) => ({
+            url: `https://socialfolio.me/${profile.username}`,
+            changeFrequency: "weekly",
+            priority: 0.2,
+            lastModified: new Date(),
+        }),
+    );
 
     return [
         {
@@ -40,6 +43,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: "monthly",
             priority: 0.1,
         },
-        ...userPages
-    ]
+        ...userPages,
+    ];
 }

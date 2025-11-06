@@ -35,7 +35,9 @@ export function BaseWidget({
 
   return (
     <div className="relative w-full h-full group">
-      {!isClickable && <div className="w-full h-full wrapper">{children}</div>}
+      {!isClickable && !link && (
+        <div className="w-full h-full wrapper">{children}</div>
+      )}
 
       {link && (
         <a

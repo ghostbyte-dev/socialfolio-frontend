@@ -1,10 +1,10 @@
 "use client";
 
-import { AuthService } from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { AuthService } from "@/services/auth.service";
 
 export default function ResetPasswordPage() {
   const params = useParams();
