@@ -231,8 +231,6 @@ export function GithubWidget({
                   (week: ContributionsWeek, weekIndex: number) =>
                     week.contributionDays.map(
                       (day: ContributionDay, dayIndex: number) => {
-                        const isHovered = hovered?.week === weekIndex &&
-                          hovered?.day === dayIndex;
                         const dist = hovered
                           ? Math.abs(hovered.week - weekIndex) +
                             Math.abs(hovered.day - dayIndex)
