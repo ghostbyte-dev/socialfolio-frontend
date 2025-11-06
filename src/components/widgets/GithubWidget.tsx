@@ -135,6 +135,8 @@ export function GithubWidget({
     return customColors[1];
   }
 
+  console.log(widgetApiData?.avatar);
+
   return (
     <BaseWidget
       isOwner={isOwner}
@@ -167,7 +169,6 @@ export function GithubWidget({
           </div>
         </div>
       )}
-
       {variant === 3 && (
         <div className="h-full w-full flex flex-col p-4 sm:p-8">
           {widgetApiDataIsLoading && <p>Loading...</p>}
@@ -177,9 +178,9 @@ export function GithubWidget({
               <div className="flex flex-row items-center gap-2 sm:gap-4">
                 <Image
                   src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
-                  alt="Mastodon logo"
-                  height={40}
-                  width={40}
+                  alt="Github logo"
+                  height={64}
+                  width={64}
                   className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
                 />
                 <span
