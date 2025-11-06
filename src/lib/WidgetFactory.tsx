@@ -5,6 +5,7 @@ import { BookWyrmWiget } from "@/components/widgets/BookWyrmWidget";
 import { BuyMeACoffeeWidget } from "@/components/widgets/BuyMeACoffeeWidget";
 import { CodebergWidget } from "@/components/widgets/CodebergWidget";
 import { CountryWidget } from "@/components/widgets/CountryWidget";
+import { DribbbleWidget } from "@/components/widgets/DribbbleWidget";
 import { EmailWidget } from "@/components/widgets/EmailWidget";
 import { FacebookWidget } from "@/components/widgets/FacebookWidget";
 import { FediverseWidget } from "@/components/widgets/Fediverse";
@@ -25,9 +26,13 @@ import { MastodonWidget } from "@/components/widgets/MastodonWidget";
 import { MatrixWidget } from "@/components/widgets/MatrixWidget";
 import { NeoDbWidget } from "@/components/widgets/NeoDBWidget";
 import { NoteWidget } from "@/components/widgets/NoteWidget";
+import { OpenstreetmapWidget } from "@/components/widgets/OpenstreetmapWidget";
+import { PatreonWidget } from "@/components/widgets/PatreonWidget";
+import { PaypalWidget } from "@/components/widgets/PaypalWidget";
 import { PeertubeWidget } from "@/components/widgets/Peertube";
 import { PinterestWidget } from "@/components/widgets/PinterestWidget";
 import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
+import { ProducthuntWidget } from "@/components/widgets/ProducthuntWidget";
 import { RecordClubWidget } from "@/components/widgets/RecordClubWidget";
 import { RedditWidget } from "@/components/widgets/RedditWidget";
 import { SocialfolioWidget } from "@/components/widgets/SocialfolioWidget";
@@ -45,6 +50,7 @@ import type {
   BuymeacoffeeData,
   CodebergData,
   CountryWidgetData,
+  DribbbleData,
   EmailData,
   FacebookData,
   FediverseData,
@@ -65,9 +71,13 @@ import type {
   MatrixData,
   NeoDBData,
   NoteWidgetData,
+  OpenstreetmapData,
+  PatreonData,
+  PaypalData,
   PeertubeData,
   PinterestData,
   PixelfedData,
+  ProducthuntData,
   RecordClubData,
   RedditData,
   SocialfolioData,
@@ -333,6 +343,61 @@ export function WidgetFactory({
       return (
         <GitlabWidget
           data={widget.data as GitlabData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "openstreetmap":
+      return (
+        <OpenstreetmapWidget
+          data={widget.data as OpenstreetmapData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "producthunt":
+      return (
+        <ProducthuntWidget
+          data={widget.data as ProducthuntData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "dribbble":
+      return (
+        <DribbbleWidget
+          data={widget.data as DribbbleData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "patreon":
+      return (
+        <PatreonWidget
+          data={widget.data as PatreonData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "paypal":
+      return (
+        <PaypalWidget
+          data={widget.data as PaypalData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
