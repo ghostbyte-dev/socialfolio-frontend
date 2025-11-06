@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { SocialfolioData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface WidgetProps {
   data: SocialfolioData;
@@ -26,10 +26,23 @@ export function SocialfolioWidget({
       link={`https://socialfolio.me/${data.username}`}
     >
       {variant === 1 && (
-        <div className="h-full w-full flex justify-center items-center bg-[#fff]">
+        <div className="h-full w-full flex justify-center items-center bg-[#fdc700]">
           <div className="w-1/2 h-1/2 relative">
             <Image
-              src="/widgets/instagram/instagram_logo.svg"
+              src="/widgets/socialfolio/socialfolio_dark.svg"
+              alt="Socialfolio logo"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
+
+      {variant === 2 && (
+        <div className="h-full w-full flex justify-center items-center">
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/socialfolio/socialfolio_yellow.svg"
               alt="Socialfolio logo"
               fill
               className="object-contain"

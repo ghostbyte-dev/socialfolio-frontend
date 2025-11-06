@@ -457,7 +457,7 @@ export const widgetOptions: WidgetOption[] = [
     fields: [
       { key: "username", label: "Username", type: "text" },
     ],
-    variants: [{ index: 1 }],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
@@ -489,7 +489,7 @@ export const widgetOptions: WidgetOption[] = [
     fields: [
       { key: "username", label: "Username", type: "text" },
     ],
-    variants: [{ index: 1 }],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
@@ -537,7 +537,7 @@ export const widgetOptions: WidgetOption[] = [
     fields: [
       { key: "username", label: "Username", type: "text" },
     ],
-    variants: [{ index: 1 }],
+    variants: [{ index: 1 }, { index: 2 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },

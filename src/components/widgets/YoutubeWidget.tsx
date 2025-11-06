@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { YoutubeData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface WidgetProps {
   data: YoutubeData;
@@ -26,10 +26,10 @@ export function YoutubeWidget({
       link={`https://youtube.com/${data.handle}`}
     >
       {variant === 1 && (
-        <div className="h-full w-full flex justify-center items-center bg-[#fff]">
-          <div className="w-1/2 h-1/2 relative">
+        <div className="h-full w-full flex justify-center items-center bg-[#ff0033]">
+          <div className="w-2/3 h-2/3 relative">
             <Image
-              src="/widgets/instagram/instagram_logo.svg"
+              src="/widgets/youtube/youtube.svg"
               alt="YouTube logo"
               fill
               className="object-contain"

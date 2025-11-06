@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { PinterestData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface WidgetProps {
   data: PinterestData;
@@ -26,10 +26,22 @@ export function PinterestWidget({
       link={`https://pinterest.com/${data.username}`}
     >
       {variant === 1 && (
-        <div className="h-full w-full flex justify-center items-center bg-[#fff]">
+        <div className="h-full w-full flex justify-center items-center">
           <div className="w-1/2 h-1/2 relative">
             <Image
-              src="/widgets/instagram/instagram_logo.svg"
+              src="/widgets/pinterest/pinterest.svg"
+              alt="Pinterest logo"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
+      {variant === 2 && (
+        <div className="h-full w-full flex justify-center items-center">
+          <div className="w-3/4 h-3/4 relative">
+            <Image
+              src="/widgets/pinterest/pinterest_text.svg"
               alt="Pinterest logo"
               fill
               className="object-contain"

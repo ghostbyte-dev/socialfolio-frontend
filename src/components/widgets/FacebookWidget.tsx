@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { FacebookData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface WidgetProps {
   data: FacebookData;
@@ -26,6 +26,18 @@ export function FacebookWidget({
       link={`https://facebook.com/${data.username}`}
     >
       {variant === 1 && (
+        <div className="h-full w-full flex justify-center items-center bg-[#1773ea]">
+          <div className="w-1/2 h-1/2 relative">
+            <Image
+              src="/widgets/facebook/facebook.svg"
+              alt="Facebook logo"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
+      {variant === 2 && (
         <div className="h-full w-full flex justify-center items-center">
           <div className="w-1/2 h-1/2 relative">
             <Image
