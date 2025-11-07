@@ -615,7 +615,7 @@ export const widgetOptions: WidgetOption[] = [
     imageLink: "/widgeteditor/signal.svg",
     imageLinkDarkTheme: "/widgeteditor/signal.svg",
     fields: [
-      { key: "link", label: "Link", type: "text" },
+      { key: "link", label: "Link", type: "url" },
     ],
     variants: [{ index: 1 }],
     sizes: [
