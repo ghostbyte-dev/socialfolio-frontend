@@ -117,6 +117,14 @@ export interface ProducthuntData {
   username: string;
 }
 
+export interface ThreemaData {
+  id: string;
+}
+
+export interface SignalData {
+  link: string;
+}
+
 export interface OpenstreetmapData {
   username: string;
 }

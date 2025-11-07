@@ -35,10 +35,12 @@ import { PixelfedWidget } from "@/components/widgets/PixelfedWidget";
 import { ProducthuntWidget } from "@/components/widgets/ProducthuntWidget";
 import { RecordClubWidget } from "@/components/widgets/RecordClubWidget";
 import { RedditWidget } from "@/components/widgets/RedditWidget";
+import { SignalWidget } from "@/components/widgets/SignalWidget";
 import { SocialfolioWidget } from "@/components/widgets/SocialfolioWidget";
 import { StravaWidget } from "@/components/widgets/StravaWidget";
 import { TelegramWidget } from "@/components/widgets/TelegramWidget";
 import { ThreadsWidget } from "@/components/widgets/ThreadsWidget";
+import { ThreemaWidget } from "@/components/widgets/ThreemaWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
 import { WeatherWidget } from "@/components/widgets/WeatherWidget";
@@ -80,10 +82,12 @@ import type {
   ProducthuntData,
   RecordClubData,
   RedditData,
+  SignalData,
   SocialfolioData,
   StravaData,
   TelegramData,
   ThreadsData,
+  ThreemaData,
   TimezoneData,
   VernissageData,
   WeatherWidgetData,
@@ -510,6 +514,28 @@ export function WidgetFactory({
       return (
         <KofiWidget
           data={widget.data as KofiData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "threema":
+      return (
+        <ThreemaWidget
+          data={widget.data as ThreemaData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "signal":
+      return (
+        <SignalWidget
+          data={widget.data as SignalData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
