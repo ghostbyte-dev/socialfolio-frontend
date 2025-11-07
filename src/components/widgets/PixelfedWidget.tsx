@@ -1,6 +1,7 @@
+import { motion } from "motion/react";
+import Image from "next/image";
 import type { PixelfedData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface PixelfedWidgetProps {
   data: PixelfedData;
@@ -27,14 +28,18 @@ export function PixelfedWidget({
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
-          <div className="w-1/2 h-1/2 relative">
+          <motion.div
+            className="w-1/2 h-1/2 relative"
+            animate={{ rotate: 720 }}
+            transition={{ type: "spring", bounce: 0.7, duration: 2 }}
+          >
             <Image
               src="/widgets/pixelfed/pixelfed-logo.webp"
               alt="Pixelfed logo"
               fill
               className="object-contain"
             />
-          </div>
+          </motion.div>
         </div>
       )}
     </BaseWidget>
