@@ -610,6 +610,38 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "signal",
+    name: "Signal",
+    imageLink: "/widgeteditor/signal.svg",
+    imageLinkDarkTheme: "/widgeteditor/signal.svg",
+    fields: [
+      { key: "link", label: "Link", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "threema",
+    name: "Threema",
+    imageLink: "/widgeteditor/threema_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/threema_white.svg",
+    fields: [
+      { key: "id", label: "ID", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "openstreetmap",
     name: "OpenStreetMap",
     imageLink: "/widgeteditor/openstreetmap.svg",
