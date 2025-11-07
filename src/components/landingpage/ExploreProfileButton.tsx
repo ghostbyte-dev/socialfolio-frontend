@@ -14,7 +14,7 @@ const ExploreProfileButton = ({
   return (
     <Link
       href={`/${username}`}
-      className="relative group rounded-full w-[72px] h-[72px] block"
+      className="relative group rounded-full w-[72px] h-[72px] block m-3"
     >
       <Image
         src={image}

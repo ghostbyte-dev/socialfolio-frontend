@@ -9,7 +9,7 @@ export default function ExploreSection() {
           Explore other Socialfolios
         </h2>
 
-        <div className="w-full flex justify-center mt-5 mb-8 space-x-5">
+        <div className="w-full flex flex-wrap justify-center mt-5 mb-8">
           <ExploreProfileButton
             image="/landingpage/avatars/daniebeler.webp"
             username="daniebeler"
@@ -23,6 +23,16 @@ export default function ExploreSection() {
           <ExploreProfileButton
             image="/landingpage/avatars/ghostbyte.png"
             username="ghostbyte"
+          />
+
+          <ExploreProfileButton
+            image="/landingpage/avatars/pixelix.webp"
+            username="pixelix"
+          />
+
+          <ExploreProfileButton
+            image="/landingpage/avatars/socialfolio.webp"
+            username="socialfolio"
           />
         </div>
 
