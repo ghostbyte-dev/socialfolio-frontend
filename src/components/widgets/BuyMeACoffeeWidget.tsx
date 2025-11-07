@@ -1,6 +1,7 @@
+import { motion } from "motion/react";
+import Image from "next/image";
 import type { BuymeacoffeeData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface BuyMeACoffeeWidgetProps {
   data: BuymeacoffeeData;
@@ -26,16 +27,39 @@ export function BuyMeACoffeeWidget({
       link={`https://buymeacoffee.com/${data.username}`}
     >
       {variant === 1 && (
-        <div className="h-full w-full flex justify-center items-center bg-[#ffdd00]">
-          <div className="w-1/2 h-1/2 relative">
+        <motion.div
+          className="h-full w-full flex justify-center items-center bg-[#ffdd00]"
+          whileHover="hover"
+        >
+          <motion.div
+            className="w-1/2 h-1/2 relative"
+            initial={{ rotate: 0 }}
+            animate={{ rotate: [0, -10, 10, -6, 6, 0] }}
+            variants={{
+              hover: {
+                rotate: [
+                  0,
+                  -Math.random() * 10,
+                  Math.random() * 10,
+                  -Math.random() * 6,
+                  Math.random() * 6,
+                  0,
+                ],
+                transition: {
+                  duration: 1,
+                  ease: "easeInOut",
+                },
+              },
+            }}
+          >
             <Image
               src="/widgets/buymeacoffee/buymeacoffee.svg"
               alt="Buy me a Coffee logo"
               fill
               className="object-contain"
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </BaseWidget>
   );

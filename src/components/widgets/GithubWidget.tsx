@@ -222,7 +222,6 @@ export function GithubWidget({
                       .weeks.length
                   }, 1fr)`,
                   gridTemplateRows: "repeat(7, 1fr)",
-                  gap: "3px",
                   height: "100%",
                   maxHeight: "161px",
                 }}
@@ -231,41 +230,48 @@ export function GithubWidget({
                   (week: ContributionsWeek, weekIndex: number) =>
                     week.contributionDays.map(
                       (day: ContributionDay, dayIndex: number) => {
-                        const isHovered = hovered?.week === weekIndex &&
-                          hovered?.day === dayIndex;
                         const dist = hovered
                           ? Math.abs(hovered.week - weekIndex) +
                             Math.abs(hovered.day - dayIndex)
                           : Infinity;
 
                         let scale = 1;
-                        if (dist === 0) scale = 0.7; // directly hovered
-                        else if (dist === 1) scale = 0.85; // immediate neighbors
-                        else if (dist === 2) scale = 0.95; // slightly further
-                        else scale = 1;
+                        if (dist === 0) {
+                          scale = 0.7; // directly hovered
+                        } else if (dist === 1) {
+                          scale = 0.85; // immediate neighbors
+                        } else if (dist === 2) {
+                          scale = 0.95; // slightly further
+                        } else scale = 1;
                         return (
+                          // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
                           <div
                             key={day.date}
-                            className={`rounded-xs duration-150 transition-transform ease-out`}
                             onMouseEnter={() => {
                               setHovered({ week: weekIndex, day: dayIndex });
                             }}
                             onMouseLeave={() => setHovered(null)}
-                            style={{
-                              backgroundColor: contributionDayColor(
-                                day.contributionCount,
-                              ),
-                              width: "100%",
-                              height: "100%",
-                              maxHeight: "20px",
-                              opacity: 0,
-                              animation: `fade-in 0.4s ease-out forwards`,
-                              animationDelay: `${
-                                weekIndex * 90 + dayIndex * 40
-                              }ms`,
-                              transform: `scale(${scale})`,
-                            }}
+                            className="p-0.5"
                           >
+                            <div
+                              key={day.date}
+                              className={`rounded-xs duration-150 transition-transform ease-out`}
+                              style={{
+                                backgroundColor: contributionDayColor(
+                                  day.contributionCount,
+                                ),
+                                width: "100%",
+                                height: "100%",
+                                maxHeight: "20px",
+                                opacity: 0,
+                                animation: `fade-in 0.4s ease-out forwards`,
+                                animationDelay: `${
+                                  weekIndex * 90 + dayIndex * 40
+                                }ms`,
+                                transform: `scale(${scale})`,
+                              }}
+                            >
+                            </div>
                           </div>
                         );
                       },
