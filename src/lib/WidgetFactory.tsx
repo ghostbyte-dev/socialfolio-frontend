@@ -43,6 +43,7 @@ import { ThreadsWidget } from "@/components/widgets/ThreadsWidget";
 import { ThreemaWidget } from "@/components/widgets/ThreemaWidget";
 import { TimezoneWidget } from "@/components/widgets/TimezoneWidget";
 import { VernissageWidget } from "@/components/widgets/VernissageWidget";
+import { WattpadWidget } from "@/components/widgets/WattpadWidget";
 import { WeatherWidget } from "@/components/widgets/WeatherWidget";
 import { XWidget } from "@/components/widgets/XWidget";
 import { YoutubeWidget } from "@/components/widgets/YoutubeWidget";
@@ -90,6 +91,7 @@ import type {
   ThreemaData,
   TimezoneData,
   VernissageData,
+  WattpadData,
   WeatherWidgetData,
   WidgetProps,
   XData,
@@ -536,6 +538,17 @@ export function WidgetFactory({
       return (
         <SignalWidget
           data={widget.data as SignalData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+        />
+      );
+    case "wattpad":
+      return (
+        <WattpadWidget
+          data={widget.data as WattpadData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

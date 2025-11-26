@@ -610,6 +610,22 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "wattpad",
+    name: "Wattpad",
+    imageLink: "/widgeteditor/wattpad.png",
+    imageLinkDarkTheme: "/widgeteditor/wattpad.png",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "signal",
     name: "Signal",
     imageLink: "/widgeteditor/signal.svg",

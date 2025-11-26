@@ -117,6 +117,10 @@ export interface ProducthuntData {
   username: string;
 }
 
+export interface WattpadData {
+  username: string;
+}
+
 export interface ThreemaData {
   id: string;
 }
