@@ -23,7 +23,7 @@ export function ThreemaWidget({
       isOwner={isOwner}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
-      link={`https://threema.id${data.id}`}
+      link={`https://threema.id/${data.id}`}
     >
       {variant === 1 && (
         <div className="h-full w-full flex justify-center items-center">
