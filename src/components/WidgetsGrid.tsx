@@ -1,10 +1,10 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { WidgetService } from "@/services/widget.service";
 import type { GitHubData, WidgetProps } from "@/types/widget-types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
 import EditWidgetModal from "./widgetEditor/WidgetEditor";
-import { useAuth } from "@/context/AuthContext";
 
 const addNewWidget: WidgetProps = {
   id: "0",

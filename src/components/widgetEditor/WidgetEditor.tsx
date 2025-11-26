@@ -1,15 +1,15 @@
-import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FocusTrap } from "focus-trap-react";
+import { XIcon } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useAuth } from "@/context/AuthContext";
+import { widgetCategories } from "@/data/widgetOptions";
 import { WidgetService } from "@/services/widget.service";
 import type { WidgetProps, WidgetSize } from "@/types/widget-types";
-import { useParams } from "next/navigation";
-import { WidgetsGridDisplay } from "../WidgetsGrid";
-import toast from "react-hot-toast";
 import SubmitButton from "../SubmitButton";
-import { widgetOptions } from "@/data/widgetOptions";
-import { FocusTrap } from "focus-trap-react";
-import { useAuth } from "@/context/AuthContext";
-import { XIcon } from "lucide-react";
+import { WidgetsGridDisplay } from "../WidgetsGrid";
 
 interface WidgetEditorProps {
   widgetProps: WidgetProps;
@@ -56,9 +56,9 @@ export default function EditWidgetModal({
   const handleSave = () => {
     mutation.mutate({ data: widgetData, jwt: token ?? "" });
   };
-  const selectedWidget = widgetOptions.find(
-    (widgetOption) => widgetOption.id == widgetData.type,
-  );
+  const selectedWidget = widgetCategories
+    .flatMap((category) => category.widgets)
+    .find((widgetOption) => widgetOption.id === widgetData.type);
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const [cols, rows] = e.target.value.split("x").map(Number);
@@ -97,7 +97,7 @@ export default function EditWidgetModal({
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
       );
 
       return { previousWidgets };
@@ -108,7 +108,7 @@ export default function EditWidgetModal({
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets,
+        context.previousWidgets
       );
     },
     onSettled: () => {
@@ -177,64 +177,50 @@ export default function EditWidgetModal({
               </div>
               {selectedWidget.fields.map((field) => (
                 <div key={field.key} className="mb-4">
-                  {field.type === "image"
-                    ? <></>
-                    : field.type === "location"
-                    ? <></>
-                    : (
-                      <>
-                        <label className="block font-medium mb-2">
-                          {field.label}
-                        </label>
-                        {field.type === "select"
-                          ? (
-                            <select
-                              className="input bg-surface-container-high w-full"
-                              value={formData[field.key] || field.defaultOption}
-                              onChange={(e) =>
-                                handleChange(
-                                  field.key,
-                                  e.target.value,
-                                  field.type,
-                                )}
-                            >
-                              {field.options?.map((option) => (
-                                <option key={option} value={option}>
-                                  {option}
-                                </option>
-                              ))}
-                            </select>
-                          )
-                          : field.type == "textArea"
-                          ? (
-                            <textarea
-                              className="input bg-surface-container-high w-full"
-                              value={formData[field.key]}
-                              onChange={(e) =>
-                                handleChange(
-                                  field.key,
-                                  e.target.value,
-                                  field.type,
-                                )}
-                            >
-                            </textarea>
-                          )
-                          : (
-                            <input
-                              type={field.type}
-                              className="input bg-surface-container-high w-full"
-                              value={formData[field.key]}
-                              placeholder={field.placeholder}
-                              onChange={(e) =>
-                                handleChange(
-                                  field.key,
-                                  e.target.value,
-                                  field.type,
-                                )}
-                            />
-                          )}
-                      </>
-                    )}
+                  {field.type === "image" ? (
+                    <></>
+                  ) : field.type === "location" ? (
+                    <></>
+                  ) : (
+                    <>
+                      <label className="block font-medium mb-2">
+                        {field.label}
+                      </label>
+                      {field.type === "select" ? (
+                        <select
+                          className="input bg-surface-container-high w-full"
+                          value={formData[field.key] || field.defaultOption}
+                          onChange={(e) =>
+                            handleChange(field.key, e.target.value, field.type)
+                          }
+                        >
+                          {field.options?.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      ) : field.type == "textArea" ? (
+                        <textarea
+                          className="input bg-surface-container-high w-full"
+                          value={formData[field.key]}
+                          onChange={(e) =>
+                            handleChange(field.key, e.target.value, field.type)
+                          }
+                        ></textarea>
+                      ) : (
+                        <input
+                          type={field.type}
+                          className="input bg-surface-container-high w-full"
+                          value={formData[field.key]}
+                          placeholder={field.placeholder}
+                          onChange={(e) =>
+                            handleChange(field.key, e.target.value, field.type)
+                          }
+                        />
+                      )}
+                    </>
+                  )}
                 </div>
               ))}
               <div className="mb-4">

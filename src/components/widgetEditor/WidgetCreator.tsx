@@ -149,15 +149,19 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
   return (
     <FocusTrap>
+      {/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
+      {/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
       <div
         className="fixed inset-0 bg-black/50 flex justify-center items-center z-50"
         onClick={onClose}
       >
+        {/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
+        {/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <div
-          className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg flex flex-col overflow-hidden"
+          className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg wrapper flex flex-col overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="bg-primary p-3 mx-2 mt-2 rounded-xl relative flex justify-between">
+          <div className="p-3 mx-2 mt-2 rounded-xl relative flex justify-between">
             <div></div>
 
             <button
