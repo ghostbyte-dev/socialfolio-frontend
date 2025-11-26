@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { StatsService, type WidgetStats } from "@/services/stats.service";
 import type { WidgetData } from "@/types/widget-types";
+import { isTouch } from "@/lib/isTouch";
 
 export default function WidgetsSection() {
   const { data: widgetStats } = useQuery({
@@ -62,7 +63,7 @@ export default function WidgetsSection() {
                 paddingBottom: `${aspectRatio * 100}%`, // Maintain aspect ratio
               }}
             >
-              <div className="absolute inset-0 group">
+              <div className="absolute inset-0 group" tabIndex={0}>
                 <WidgetFactory
                   widget={{
                     type: widget.type,
@@ -76,7 +77,13 @@ export default function WidgetsSection() {
                   editWidget={() => {}}
                   preview={true}
                 />
-                <div className="absolute inset-0 bg-black/30 rounded-4xl flex items-center justify-center opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:backdrop-blur-md">
+                <div
+                  className={`absolute inset-0 bg-black/30 rounded-4xl flex items-center justify-center opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:backdrop-blur-md ${
+                    isTouch()
+                      ? "group-focus:opacity-100 group-focus:backdrop-blur-md"
+                      : ""
+                  }`}
+                >
                   <p className="text-white text-lg font-semibold">
                     Used {widget.count} times
                   </p>

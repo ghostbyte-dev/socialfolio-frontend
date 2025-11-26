@@ -24,6 +24,11 @@ export interface PixelfedData {
   instance: string;
 }
 
+export interface LoopsData {
+  username: string;
+  instance: string;
+}
+
 export interface BookWyrmWidgetData {
   username: string;
   instance: string;
@@ -45,6 +50,83 @@ export interface GlassPhotoData {
 
 export interface BlueskyData {
   handle: string;
+}
+
+export interface InstagramData {
+  username: string;
+}
+
+export interface ThreadsData {
+  username: string;
+}
+
+export interface StravaData {
+  username: string;
+}
+
+export interface LinkedinData {
+  username: string;
+}
+
+export interface FacebookData {
+  username: string;
+}
+
+export interface XData {
+  username: string;
+}
+
+export interface PinterestData {
+  username: string;
+}
+
+export interface YoutubeData {
+  handle: string;
+}
+
+export interface TelegramData {
+  username: string;
+}
+
+export interface SocialfolioData {
+  username: string;
+}
+
+export interface GitlabData {
+  instance: string;
+  username: string;
+}
+
+export interface RedditData {
+  username: string;
+}
+
+export interface DribbbleData {
+  username: string;
+}
+
+export interface PatreonData {
+  username: string;
+}
+
+export interface PaypalData {
+  username: string;
+}
+
+export interface ProducthuntData {
+  username: string;
+}
+
+export interface ThreemaData {
+  id: string;
+}
+
+export interface SignalData {
+  link: string;
+}
+
+export interface OpenstreetmapData {
+  username: string;
 }
 
 export interface MatrixData {

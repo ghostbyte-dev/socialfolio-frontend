@@ -1,3 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
+import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
+import { WidgetService } from "@/services/widget.service";
 import type {
   ContributionDay,
   ContributionsCollection,
@@ -7,11 +12,6 @@ import type {
   WidgetSize,
 } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { useQuery } from "@tanstack/react-query";
-import { WidgetService } from "@/services/widget.service";
-import { useEffect, useMemo, useState } from "react";
-import { generateContributionsData } from "@/lib/generatePreviewGithubContributions";
-import Image from "next/image";
 
 interface GithubWidgetProps {
   id: string;
@@ -35,6 +35,9 @@ export function GithubWidget({
   preview = false,
 }: GithubWidgetProps) {
   const [widgetSize, setWidgetSize] = useState(size);
+  const [hovered, setHovered] = useState<{ week: number; day: number } | null>(
+    null,
+  );
   const needApiData = (): boolean => {
     if (variant === 3) {
       return true;
@@ -55,16 +58,16 @@ export function GithubWidget({
 
   const widgetApiData: GithubApiData | undefined = preview
     ? {
-        username: "Profile",
-        name: "Profile",
-        avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
-        url: "",
-        location: "",
-        followers: 0,
-        following: 0,
-        publicRepos: 0,
-        contributions: generateContributionsData(),
-      }
+      username: "Profile",
+      name: "Profile",
+      avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
+      url: "",
+      location: "",
+      followers: 0,
+      following: 0,
+      publicRepos: 0,
+      contributions: generateContributionsData(),
+    }
     : apiData;
 
   const getDisplayedWeeks = (size: WidgetSize): number => {
@@ -80,7 +83,7 @@ export function GithubWidget({
 
   const getContributions = (
     contributions: ContributionsCollection,
-    size: WidgetSize
+    size: WidgetSize,
   ): ContributionsCollection => {
     const numberOfWeeks = getDisplayedWeeks(size);
     const newContributions = { ...contributions };
@@ -96,7 +99,7 @@ export function GithubWidget({
     console.log(
       "Recalculating contributions:",
       widgetSize,
-      widgetApiData?.contributions
+      widgetApiData?.contributions,
     );
     const contributions = getContributions(
       widgetApiData?.contributions ?? {
@@ -104,7 +107,7 @@ export function GithubWidget({
         colors: [],
         totalContributions: 0,
       },
-      widgetSize
+      widgetSize,
     );
     return contributions;
   }, [widgetSize, widgetApiData?.contributions]);
@@ -124,7 +127,7 @@ export function GithubWidget({
     const maxContributions = Math.max(
       ...widgetApiData.contributions.weeks.flatMap((c: ContributionsWeek) =>
         c.contributionDays.map((d: ContributionDay) => d.contributionCount)
-      )
+      ),
     );
     if (contributionCount === 0) return customColors[0]; // No contribution
     const intensity = contributionCount / maxContributions;
@@ -134,6 +137,8 @@ export function GithubWidget({
     if (intensity > 0.25) return customColors[2];
     return customColors[1];
   }
+
+  console.log(widgetApiData?.avatar);
 
   return (
     <BaseWidget
@@ -167,7 +172,6 @@ export function GithubWidget({
           </div>
         </div>
       )}
-
       {variant === 3 && (
         <div className="h-full w-full flex flex-col p-4 sm:p-8">
           {widgetApiDataIsLoading && <p>Loading...</p>}
@@ -177,16 +181,14 @@ export function GithubWidget({
               <div className="flex flex-row items-center gap-2 sm:gap-4">
                 <Image
                   src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
-                  alt="Mastodon logo"
-                  height={40}
-                  width={40}
+                  alt="Github logo"
+                  height={64}
+                  width={64}
                   className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
                 />
                 <span
-                  className={
-                    (widgetSize.cols === 1 ? "text-xs" : "text-md") +
-                    "sm:text-xl "
-                  }
+                  className={(widgetSize.cols === 1 ? "text-xs" : "text-md") +
+                    "sm:text-xl "}
                 >
                   {widgetApiData.name}
                 </span>
@@ -220,26 +222,60 @@ export function GithubWidget({
                       .weeks.length
                   }, 1fr)`,
                   gridTemplateRows: "repeat(7, 1fr)",
-                  gap: "3px",
                   height: "100%",
                   maxHeight: "161px",
                 }}
               >
-                {displayedContributions.weeks.map((week: ContributionsWeek) =>
-                  week.contributionDays.map((day: ContributionDay) => (
-                    <div
-                      key={day.date}
-                      className="rounded-xs"
-                      style={{
-                        backgroundColor: contributionDayColor(
-                          day.contributionCount
-                        ),
-                        width: "100%",
-                        height: "100%",
-                        maxHeight: "20px",
-                      }}
-                    ></div>
-                  ))
+                {displayedContributions.weeks.map(
+                  (week: ContributionsWeek, weekIndex: number) =>
+                    week.contributionDays.map(
+                      (day: ContributionDay, dayIndex: number) => {
+                        const dist = hovered
+                          ? Math.abs(hovered.week - weekIndex) +
+                            Math.abs(hovered.day - dayIndex)
+                          : Infinity;
+
+                        let scale = 1;
+                        if (dist === 0) {
+                          scale = 0.7; // directly hovered
+                        } else if (dist === 1) {
+                          scale = 0.85; // immediate neighbors
+                        } else if (dist === 2) {
+                          scale = 0.95; // slightly further
+                        } else scale = 1;
+                        return (
+                          // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
+                          <div
+                            key={day.date}
+                            onMouseEnter={() => {
+                              setHovered({ week: weekIndex, day: dayIndex });
+                            }}
+                            onMouseLeave={() => setHovered(null)}
+                            className="p-0.5"
+                          >
+                            <div
+                              key={day.date}
+                              className={`rounded-xs duration-150 transition-transform ease-out`}
+                              style={{
+                                backgroundColor: contributionDayColor(
+                                  day.contributionCount,
+                                ),
+                                width: "100%",
+                                height: "100%",
+                                maxHeight: "20px",
+                                opacity: 0,
+                                animation: `fade-in 0.4s ease-out forwards`,
+                                animationDelay: `${
+                                  weekIndex * 90 + dayIndex * 40
+                                }ms`,
+                                transform: `scale(${scale})`,
+                              }}
+                            >
+                            </div>
+                          </div>
+                        );
+                      },
+                    ),
                 )}
               </div>
             </>

@@ -74,6 +74,28 @@ export const widgetOptions: WidgetOption[] = [
     ],
   },
   {
+    id: "loops",
+    name: "Loops",
+    imageLink: "/widgeteditor/loops.png",
+    imageLinkDarkTheme: "/widgeteditor/loops.png",
+    fields: [
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "loops.video",
+      },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
     id: "lemmy",
     name: "Lemmy",
     imageLink: "/widgeteditor/lemmy.svg",
@@ -95,7 +117,6 @@ export const widgetOptions: WidgetOption[] = [
       { cols: 2, rows: 2 },
     ],
   },
-
   {
     id: "peertube",
     name: "Peertube",
@@ -341,6 +362,316 @@ export const widgetOptions: WidgetOption[] = [
     variants: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, {
       index: 5,
     }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    imageLink: "/widgeteditor/instagram.svg",
+    imageLinkDarkTheme: "/widgeteditor/instagram.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "threads",
+    name: "Threads",
+    imageLink: "/widgeteditor/threads.svg",
+    imageLinkDarkTheme: "/widgeteditor/threads.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "reddit",
+    name: "Reddit",
+    imageLink: "/widgeteditor/reddit.svg",
+    imageLinkDarkTheme: "/widgeteditor/reddit.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "strava",
+    name: "Strava",
+    imageLink: "/widgeteditor/strava.svg",
+    imageLinkDarkTheme: "/widgeteditor/strava.svg",
+    fields: [
+      { key: "username", label: "Id", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "linkedin",
+    name: "Linkedin",
+    imageLink: "/widgeteditor/linkedin.svg",
+    imageLinkDarkTheme: "/widgeteditor/linkedin.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "facebook",
+    name: "Facebook",
+    imageLink: "/widgeteditor/facebook.png",
+    imageLinkDarkTheme: "/widgeteditor/facebook.png",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "x",
+    name: "X (Twitter)",
+    imageLink: "/widgeteditor/x.svg",
+    imageLinkDarkTheme: "/widgeteditor/x.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "pinterest",
+    name: "Pinterest",
+    imageLink: "/widgeteditor/pinterest.svg",
+    imageLinkDarkTheme: "/widgeteditor/pinterest.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "youtube",
+    name: "YouTube",
+    imageLink: "/widgeteditor/youtube.svg",
+    imageLinkDarkTheme: "/widgeteditor/youtube.svg",
+    fields: [
+      { key: "handle", label: "Handle", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "telegram",
+    name: "Telegram",
+    imageLink: "/widgeteditor/telegram.svg",
+    imageLinkDarkTheme: "/widgeteditor/telegram.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "socialfolio",
+    name: "Socialfolio",
+    imageLink: "/widgeteditor/socialfolio.svg",
+    imageLinkDarkTheme: "/widgeteditor/socialfolio.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }, { index: 2 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "dribbble",
+    name: "Dribbble",
+    imageLink: "/widgeteditor/dribbble.svg",
+    imageLinkDarkTheme: "/widgeteditor/dribbble.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "patreon",
+    name: "Patreon",
+    imageLink: "/widgeteditor/patreon_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/patreon_white.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "paypal",
+    name: "PayPal",
+    imageLink: "/widgeteditor/paypal.svg",
+    imageLinkDarkTheme: "/widgeteditor/paypal.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "producthunt",
+    name: "Product Hunt",
+    imageLink: "/widgeteditor/producthunt.svg",
+    imageLinkDarkTheme: "/widgeteditor/producthunt.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "signal",
+    name: "Signal",
+    imageLink: "/widgeteditor/signal.svg",
+    imageLinkDarkTheme: "/widgeteditor/signal.svg",
+    fields: [
+      { key: "link", label: "Link", type: "url" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "threema",
+    name: "Threema",
+    imageLink: "/widgeteditor/threema_black.svg",
+    imageLinkDarkTheme: "/widgeteditor/threema_white.svg",
+    fields: [
+      { key: "id", label: "ID", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "openstreetmap",
+    name: "OpenStreetMap",
+    imageLink: "/widgeteditor/openstreetmap.svg",
+    imageLinkDarkTheme: "/widgeteditor/openstreetmap.svg",
+    fields: [
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
+    sizes: [
+      { cols: 1, rows: 1 },
+      { cols: 1, rows: 2 },
+      { cols: 2, rows: 1 },
+      { cols: 2, rows: 2 },
+    ],
+  },
+  {
+    id: "gitlab",
+    name: "GitLab",
+    imageLink: "/widgeteditor/gitlab.svg",
+    imageLinkDarkTheme: "/widgeteditor/gitlab.svg",
+    fields: [
+      {
+        key: "instance",
+        label: "Instance",
+        type: "text",
+        placeholder: "gitlab.com",
+      },
+      { key: "username", label: "Username", type: "text" },
+    ],
+    variants: [{ index: 1 }],
     sizes: [
       { cols: 1, rows: 1 },
       { cols: 1, rows: 2 },
