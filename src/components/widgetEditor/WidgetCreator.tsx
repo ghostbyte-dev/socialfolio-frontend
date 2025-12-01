@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FocusTrap } from "focus-trap-react";
-import { XIcon } from "lucide-react";
+import { ArrowLeft, XIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -162,7 +162,18 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="p-3 mx-2 mt-2 rounded-xl relative flex justify-between">
-            <div></div>
+            <div className="z-30">
+              {selectedWidget != null && (
+                <button
+                  type="button"
+                  aria-label="Close widget creator"
+                  onClick={() => setSelectedWidget(null)}
+                  className="z-30 text-on-primary bg-primary rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+              )}
+            </div>
 
             <button
               type="button"
@@ -174,7 +185,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
             </button>
 
             <div className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center text-lg text-center font-bold">
-              Select a Widget
+              {selectedWidget ? selectedWidget.name : "Select a Widget"}
             </div>
           </div>
 

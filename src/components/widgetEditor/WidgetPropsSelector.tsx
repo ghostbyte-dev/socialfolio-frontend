@@ -1,11 +1,11 @@
 "use client";
 
-import type { WidgetOption } from "./WidgetCreator";
-import { useEffect, useState } from "react";
-import LocationInput from "../LocationInput";
-import type { WidgetProps } from "@/types/widget-types";
-import { WidgetFactory } from "@/lib/WidgetFactory";
 import { ArrowLeftIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { WidgetFactory } from "@/lib/WidgetFactory";
+import type { WidgetProps } from "@/types/widget-types";
+import LocationInput from "../LocationInput";
+import type { WidgetOption } from "./WidgetCreator";
 
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption | null;
@@ -86,24 +86,13 @@ export default function WidgetPropsSelector({
         (selectedWidget == null ? "" : "")
       }
     >
-      <div className="flex">
-        <button
-          type="button"
-          onClick={goBack}
-          className="mr-2 md:hidden"
-          aria-label="Back to widget type seletion"
-        >
-          <ArrowLeftIcon size={16} />
-        </button>
-        {selectedWidget != null && (
-          <h2 className="text-xl font-bold">Create widget</h2>
-        )}
-      </div>
-
       {selectedWidget ? (
         <div className="mt-4">
           <div className="mb-4">
-            <label className="block font-medium mb-2">Variant</label>
+            <p className="block font-medium mb-2">
+              {selectedWidget.variants.length} available variant
+              {selectedWidget.variants.length > 1 && "s"}
+            </p>
             <select
               className="input bg-surface-container-high w-full"
               value={variant}
