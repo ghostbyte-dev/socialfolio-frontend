@@ -13,13 +13,11 @@ import { FormInput } from "@/components/inputs/FormInput";
 import { useAuth } from "@/context/AuthContext";
 import { login as loginApi } from "@/lib/auth";
 
-// 1. Define the Schema
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(1, "Enter a password"),
 });
 
-// 2. Extract the Type
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
@@ -27,13 +25,13 @@ export default function LoginPage() {
   const router = useRouter();
   const { setToken } = useAuth();
 
-  // 3. Initialize Hook Form
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
+    mode: "onTouched",
     defaultValues: {
       email: "",
       password: "",

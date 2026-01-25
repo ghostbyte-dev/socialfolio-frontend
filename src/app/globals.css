@@ -117,6 +117,15 @@
   .floating-wrapper {
     @apply h-12 flex items-center justify-center rounded-full text-on-surface shadow-xs bg-surface-container border-2 border-surface dark:border-outline overflow-hidden;
   }
+
+  label,
+  .label {
+    @apply text-sm font-medium text-on-surface ml-1 mb-1;
+  }
+
+  .form-error {
+    @apply text-sm text-danger mt-1 ml-1;
+  }
 }
 
 @keyframes fade-in {
