@@ -1,8 +1,8 @@
 "use client";
 
+import { LaptopIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { LaptopIcon, MoonIcon, SunIcon } from "lucide-react";
 
 export const ThemeSwitcher = ({
   bgColor = "bg-surface-container",

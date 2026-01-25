@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Button } from "@/components/Button";
 import SubmitButton from "@/components/SubmitButton";
 import { useAuth } from "@/context/AuthContext";
 import { login, registerUser } from "@/lib/auth";
@@ -89,7 +90,7 @@ export default function RegisterPage() {
             required
           />
           {error && <p className="text-red-500">{error}</p>}
-          <SubmitButton text="Register" isLoading={loading} />
+          <Button type="submit" label="Register" isLoading={loading} />
         </form>
       </div>
     </>

@@ -13,6 +13,7 @@ import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import ConfirmationModal from "./ConfirmationModal";
 import DeleteUserModal from "./DeleteUserModal";
+import Popup from "./Popup";
 import Settings from "./Settings";
 import ShareModal from "./ShareModal";
 import { ThemeSwitcher } from "./ThemeSwitcher";
@@ -283,19 +284,28 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {isSettingsModalOpen && user && (
+          <Popup
+            isOpen={user !== undefined && isSettingsModalOpen}
+            onClose={() => setIsSettingsModalOpen(false)}
+            width="lg"
+          >
             <Settings
-              user={user}
+              user={user!}
               onClose={() => setIsSettingsModalOpen(false)}
             />
-          )}
+          </Popup>
 
-          {isShareModalOpen && user && (
+          <Popup
+            isOpen={user !== undefined && isShareModalOpen}
+            onClose={() => setIsShareModalOpen(false)}
+            width="md"
+            nopadding
+          >
             <ShareModal
-              user={user}
+              user={user!}
               onClose={() => setIsShareModalOpen(false)}
             />
-          )}
+          </Popup>
 
           <ConfirmationModal
             isOpen={accountDeletionPopup && user !== null}

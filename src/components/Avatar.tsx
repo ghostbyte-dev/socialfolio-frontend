@@ -8,6 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import getCroppedImg from "@/lib/cropImage";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
+import { Button } from "./Button";
 import SubmitButton from "./SubmitButton";
 
 export default function Avatar({
@@ -24,7 +25,7 @@ export default function Avatar({
   const [file, setFile] = useState<string | undefined>();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState(
-    url.trim() === "" ? "/defaults/default-avatar.jpg" : url
+    url.trim() === "" ? "/defaults/default-avatar.jpg" : url,
   );
 
   function handleChange(e: any) {
@@ -131,7 +132,7 @@ function CropAvatar({
     if (croppedAreaPixels) {
       const croppedImage: Blob = await getCroppedImg(
         imageUrl,
-        croppedAreaPixels
+        croppedAreaPixels,
       );
       uploadAvatar.mutate(croppedImage);
     }
@@ -172,10 +173,9 @@ function CropAvatar({
           >
             Cancel
           </button>
-          <SubmitButton
-            text="Save"
+          <Button
+            label="Save"
             isLoading={uploadAvatar.isPending}
-            isFullWidth={false}
             onClick={saveImage}
           />
         </div>

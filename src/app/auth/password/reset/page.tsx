@@ -1,10 +1,11 @@
 "use client";
 
-import SubmitButton from "@/components/SubmitButton";
-import { AuthService } from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Button } from "@/components/Button";
+import SubmitButton from "@/components/SubmitButton";
+import { AuthService } from "@/services/auth.service";
 
 export default function RequestPasswordReset() {
   const [formData, setFormData] = useState({
@@ -50,8 +51,9 @@ export default function RequestPasswordReset() {
         />
         {error && <p className="text-red-500">{error}</p>}
 
-        <SubmitButton
-          text="Send reset link"
+        <Button
+          type="submit"
+          label="Send reset link"
           isLoading={requestPasswordReset.isPending}
         />
       </form>

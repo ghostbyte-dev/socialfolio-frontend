@@ -4,6 +4,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { type WidgetProps, widgetSchemas } from "@/types/widget-types";
+import { Button } from "../Button";
 import LocationInput from "../LocationInput";
 import type { WidgetOption } from "./WidgetCreator";
 
@@ -50,7 +51,7 @@ export default function WidgetPropsSelector({
 
   const handleImageChange = (
     key: string,
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -141,7 +142,7 @@ export default function WidgetPropsSelector({
                     handleChange(
                       field.key,
                       JSON.stringify({ lat: place.lat, lon: place.lon }),
-                      "string"
+                      "string",
                     );
                   }}
                 />
@@ -177,14 +178,11 @@ export default function WidgetPropsSelector({
             />
           </div>
 
-          <button
+          <Button
+            label="Save Widget"
             onClick={() => handleSave(formData, variant)}
-            className="button"
             /* disabled={mutation.isPending} */
-          >
-            {/* {mutation.isPending ? "Saving..." : "Save Widget"} */}
-            Save Widget
-          </button>
+          />
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center">

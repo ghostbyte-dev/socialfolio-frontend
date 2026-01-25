@@ -1,11 +1,12 @@
-import { useState } from "react";
-import SubmitButton from "./SubmitButton";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { UserService } from "@/services/user.service";
-import type { IUser, Status } from "@/types/user-type";
+import { CircleQuestionMarkIcon, XIcon } from "lucide-react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
-import { CircleQuestionMarkIcon, XIcon } from "lucide-react";
+import { UserService } from "@/services/user.service";
+import type { IUser, Status } from "@/types/user-type";
+import { Button } from "./Button";
+import SubmitButton from "./SubmitButton";
 
 interface SettingsProps {
   user: IUser;
@@ -39,64 +40,49 @@ export default function Settings({ user, onClose }: SettingsProps) {
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 flex justify-center items-center"
-      onClick={onClose}
-    >
-      <div
-        className="relative bg-surface-container w-[80%] lg:w-[60%] lg:h-[80%] rounded-2xl shadow-lg flex overflow-hidden flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="basis-full flex flex-col overflow-y-scroll px-10 py-5 gap-4">
-          <h2 className="text-xl font-bold">Settings</h2>
+    <>
+      <div className="flex flex-col overflow-y-scroll gap-4 mb-20">
+        <h2 className="text-xl font-bold">Settings</h2>
 
-          <form className="flex flex-col gap-2" onSubmit={handleSave}>
-            <label>Status</label>
-            <div className="flex flex-row gap-2">
-              <select
-                name="status"
-                id="status"
-                className="input bg-surface-container-high"
-                value={status}
-                onChange={(e) => setStatus(e.target.value as Status)}
-              >
-                <option value="visible">Visible</option>
-                <option value="hidden">Hidden</option>
-                <option value="disabled">Disabled</option>
-              </select>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsStatusInfoOpen(true);
-                }}
-                aria-label="Status explanation"
-              >
-                <CircleQuestionMarkIcon size={24} />
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="bg-surface-container-high w-full rounded-b-2xl px-10 py-2 flex-row flex gap-2">
-          <div className="basis-full"></div>
-          <SubmitButton
-            text="Cancel"
-            onClick={onClose}
-            isOutlined={true}
-            isFullWidth={false}
-          />
-          <SubmitButton
-            text="Save"
-            isLoading={updateStatus.isPending}
-            onClick={handleSave}
-            isFullWidth={false}
-          />
-        </div>
-        {isStatusInfoOpen && (
-          <StatusInfoDialog onClose={() => setIsStatusInfoOpen(false)} />
-        )}
+        <form className="flex flex-col gap-2" onSubmit={handleSave}>
+          <label>Status</label>
+          <div className="flex flex-row gap-2">
+            <select
+              name="status"
+              id="status"
+              className="input bg-surface-container-high"
+              value={status}
+              onChange={(e) => setStatus(e.target.value as Status)}
+            >
+              <option value="visible">Visible</option>
+              <option value="hidden">Hidden</option>
+              <option value="disabled">Disabled</option>
+            </select>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsStatusInfoOpen(true);
+              }}
+              aria-label="Status explanation"
+            >
+              <CircleQuestionMarkIcon size={24} />
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+      <div className="w-full flex justify-end gap-2">
+        <Button label="Cancel" onClick={onClose} variant="neutral" />
+        <Button
+          label="Save"
+          isLoading={updateStatus.isPending}
+          onClick={handleSave}
+        />
+      </div>
+      {isStatusInfoOpen && (
+        <StatusInfoDialog onClose={() => setIsStatusInfoOpen(false)} />
+      )}
+    </>
   );
 }
 
