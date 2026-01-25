@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/Button";
-import SubmitButton from "@/components/SubmitButton";
 import { AuthService } from "@/services/auth.service";
 
 export default function RequestPasswordReset() {

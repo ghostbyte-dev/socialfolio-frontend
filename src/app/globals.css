@@ -96,11 +96,6 @@
     }
   }
 
-  .button-outlined {
-    @apply border border-[var(--color-on-surface)] text-[var(--color-on-surface)] rounded-[var(--radius-xl)] py-[calc(var(--spacing)*2)] px-[calc(var(--spacing)*4)] transition-colors duration-200 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)];
-  }
-
-
   button {
     @apply cursor-pointer;
   }

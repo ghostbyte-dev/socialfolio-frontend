@@ -10,7 +10,6 @@ import { Button } from "./Button";
 import ErrorPage from "./ErrorPage";
 import ExploreProfileCard from "./ExploreProfileCard";
 import LoadingIndicator from "./LoadingIndicator";
-import SubmitButton from "./SubmitButton";
 
 const ExploreUsers = () => {
   const {

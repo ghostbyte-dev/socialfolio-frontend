@@ -9,7 +9,6 @@ import getCroppedImg from "@/lib/cropImage";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
 import { Button } from "./Button";
-import SubmitButton from "./SubmitButton";
 
 export default function Avatar({
   url,
@@ -165,14 +164,12 @@ function CropAvatar({
         </div>
 
         <div className="flex justify-end gap-2 bottom-0 p-6">
-          <button
-            type="button"
+          <Button
+            label="Cancel"
+            variant="neutral"
             onClick={handleClosePopup}
-            className="button-outlined"
             disabled={uploadAvatar.isPending}
-          >
-            Cancel
-          </button>
+          />
           <Button
             label="Save"
             isLoading={uploadAvatar.isPending}

@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import type { IUser, Status } from "@/types/user-type";
 import { Button } from "./Button";
-import SubmitButton from "./SubmitButton";
+import SingleSelect from "./inputs/SingleSelect";
 
 interface SettingsProps {
   user: IUser;
@@ -20,6 +20,12 @@ export default function Settings({ user, onClose }: SettingsProps) {
 
   const [status, setStatus] = useState<Status>(user.status);
   const [isStatusInfoOpen, setIsStatusInfoOpen] = useState<boolean>();
+
+  const statusOptions = [
+    { value: "visible", label: "Visible" },
+    { value: "hidden", label: "Hidden" },
+    { value: "disabled", label: "Disabled" },
+  ];
 
   const updateStatus = useMutation({
     mutationFn: (status: Status) =>
@@ -45,19 +51,14 @@ export default function Settings({ user, onClose }: SettingsProps) {
         <h2 className="text-xl font-bold">Settings</h2>
 
         <form className="flex flex-col gap-2" onSubmit={handleSave}>
-          <label>Status</label>
           <div className="flex flex-row gap-2">
-            <select
-              name="status"
-              id="status"
-              className="input bg-surface-container-high"
+            <SingleSelect
+              label="Status"
+              options={statusOptions}
               value={status}
-              onChange={(e) => setStatus(e.target.value as Status)}
-            >
-              <option value="visible">Visible</option>
-              <option value="hidden">Hidden</option>
-              <option value="disabled">Disabled</option>
-            </select>
+              onValueChange={(val) => setStatus(val as Status)}
+              className="flex-1"
+            />
             <button
               type="button"
               onClick={(e) => {
