@@ -1,4 +1,4 @@
-import Button from "./Button";
+import { Button } from "./Button";
 
 export default function UserNotFoundPage() {
   return (
@@ -9,7 +9,7 @@ export default function UserNotFoundPage() {
         alt="404 Illustration"
       />
       <p className="mt-8 mb-5 text-2xl font-bold">This user does not exist</p>
-      <Button link="/">Go Back Home</Button>
+      <Button href="/" label="Go back home" />
     </section>
   );
 }

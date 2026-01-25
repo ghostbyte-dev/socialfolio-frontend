@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FocusTrap } from "focus-trap-react";
 import { XIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -8,7 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import { widgetCategories } from "@/data/widgetOptions";
 import { WidgetService } from "@/services/widget.service";
 import type { WidgetProps, WidgetSize } from "@/types/widget-types";
-import SubmitButton from "../SubmitButton";
+import { Button } from "../Button";
 import { WidgetsGridDisplay } from "../WidgetsGrid";
 
 interface WidgetEditorProps {
@@ -16,7 +15,7 @@ interface WidgetEditorProps {
   onClose: () => void;
 }
 
-export default function EditWidgetModal({
+export default function WidgetEditor({
   widgetProps,
   onClose,
 }: WidgetEditorProps) {
@@ -26,12 +25,15 @@ export default function EditWidgetModal({
   const username = params.username as string;
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState<Record<string, any>>(() => {
-    return Object.entries(widgetData.data || {}).reduce((acc, [key, value]) => {
-      if (typeof value === "string" || typeof value === "number") {
-        acc[key] = value;
-      }
-      return acc;
-    }, {} as Record<string, any>);
+    return Object.entries(widgetData.data || {}).reduce(
+      (acc, [key, value]) => {
+        if (typeof value === "string" || typeof value === "number") {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {} as Record<string, any>,
+    );
   });
   const [variant, setVariant] = useState<number>(widgetData.variant);
   const [selectedSize, setSelectedSize] = useState<WidgetSize>(widgetData.size);
@@ -97,7 +99,7 @@ export default function EditWidgetModal({
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
       );
 
       return { previousWidgets };
@@ -108,7 +110,7 @@ export default function EditWidgetModal({
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
@@ -118,171 +120,148 @@ export default function EditWidgetModal({
 
   if (!selectedWidget) {
     return (
-      <div
-        className="fixed inset-0 flex justify-center items-center bg-black/50"
-        onClick={() => onClose()}
-      >
-        <div
-          className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex flex-col"
-          onClick={(e) => e.stopPropagation()}
+      <div>
+        <p>An error occured</p>
+        {/** biome-ignore lint/a11y/useButtonType: <explanation> */}
+        <button
+          aria-label="Close edit widget menu"
+          onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault(); // Prevent scrolling when pressing space
+              onClose();
+            }
+          }}
+          className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
         >
-          <p>An error occured</p>
-          <button
-            aria-label="Close edit widget menu"
-            onClick={onClose}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault(); // Prevent scrolling when pressing space
-                onClose();
-              }
-            }}
-            className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
-          >
-            <XIcon size={18} />
-          </button>
-        </div>
+          <XIcon size={18} />
+        </button>
       </div>
     );
   }
 
   return (
-    <FocusTrap>
-      <div
-        className="fixed inset-0 flex justify-center items-center bg-black/50 z-50"
-        onClick={() => onClose()}
-      >
-        <div
-          className="relative bg-surface-container w-[80%] h-[80%] rounded-2xl shadow-lg flex flex-col"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="basis-full flex flex-col overflow-y-scroll px-10 py-5">
-            <h2 className="text-xl font-bold">Widget Editor</h2>
-            <div className="mt-4">
-              <div className="mb-4">
-                <label className="block font-medium mb-2">Variant</label>
-                <select
-                  className="input bg-surface-container-high w-full"
-                  value={variant}
-                  onChange={(e) => {
-                    setVariant(Number(e.target.value));
-                    widgetData.variant = Number(e.target.value);
-                  }}
-                >
-                  {selectedWidget.variants.map((variant) => (
-                    <option key={variant.index} value={variant.index}>
-                      Variant {variant.index}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {selectedWidget.fields.map((field) => (
-                <div key={field.key} className="mb-4">
-                  {field.type === "image" ? (
-                    <></>
-                  ) : field.type === "location" ? (
-                    <></>
-                  ) : (
-                    <>
-                      <label className="block font-medium mb-2">
-                        {field.label}
-                      </label>
-                      {field.type === "select" ? (
-                        <select
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key] || field.defaultOption}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value, field.type)
-                          }
-                        >
-                          {field.options?.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      ) : field.type == "textArea" ? (
-                        <textarea
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key]}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value, field.type)
-                          }
-                        ></textarea>
-                      ) : (
-                        <input
-                          type={field.type}
-                          className="input bg-surface-container-high w-full"
-                          value={formData[field.key]}
-                          placeholder={field.placeholder}
-                          onChange={(e) =>
-                            handleChange(field.key, e.target.value, field.type)
-                          }
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
+    <div>
+      <div className="basis-full flex flex-col overflow-y-scroll px-10 py-5">
+        <h2 className="text-xl font-bold">Widget Editor</h2>
+        <div className="mt-4">
+          <div className="mb-4">
+            <label className="block font-medium mb-2">Variant</label>
+            <select
+              className="input bg-surface-container-high w-full"
+              value={variant}
+              onChange={(e) => {
+                setVariant(Number(e.target.value));
+                widgetData.variant = Number(e.target.value);
+              }}
+            >
+              {selectedWidget.variants.map((variant) => (
+                <option key={variant.index} value={variant.index}>
+                  Variant {variant.index}
+                </option>
               ))}
-              <div className="mb-4">
-                <label className="block font-medium mb-2">Size</label>
-                <select
-                  className="input bg-surface-container-high w-full"
-                  value={`${selectedSize.cols}x${selectedSize.rows}`}
-                  onChange={handleSizeChange}
-                >
-                  {selectedWidget.sizes.map((size, index) => (
-                    <option key={index} value={`${size.cols}x${size.rows}`}>
-                      {size.cols}x{size.rows}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block font-medium mb-2">Priority</label>
-                <input
-                  className="input bg-surface-container-high w-full"
-                  type="number"
-                  value={priority}
-                  onChange={(e) => {
-                    setPriority(Number(e.target.value));
-                    widgetData.priority = Number(e.target.value);
-                  }}
-                />
-              </div>
-
-              <WidgetsGridDisplay
-                isOwner={false}
-                widgets={[widgetData]}
-                deleteWidget={() => {}}
-              />
+            </select>
+          </div>
+          {selectedWidget.fields.map((field) => (
+            <div key={field.key} className="mb-4">
+              {field.type === "image" ? (
+                <></>
+              ) : field.type === "location" ? (
+                <></>
+              ) : (
+                <>
+                  <label className="block font-medium mb-2">
+                    {field.label}
+                  </label>
+                  {field.type === "select" ? (
+                    <select
+                      className="input bg-surface-container-high w-full"
+                      value={formData[field.key] || field.defaultOption}
+                      onChange={(e) =>
+                        handleChange(field.key, e.target.value, field.type)
+                      }
+                    >
+                      {field.options?.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  ) : field.type == "textArea" ? (
+                    <textarea
+                      className="input bg-surface-container-high w-full"
+                      value={formData[field.key]}
+                      onChange={(e) =>
+                        handleChange(field.key, e.target.value, field.type)
+                      }
+                    ></textarea>
+                  ) : (
+                    <input
+                      type={field.type}
+                      className="input bg-surface-container-high w-full"
+                      value={formData[field.key]}
+                      placeholder={field.placeholder}
+                      onChange={(e) =>
+                        handleChange(field.key, e.target.value, field.type)
+                      }
+                    />
+                  )}
+                </>
+              )}
             </div>
+          ))}
+          <div className="mb-4">
+            <label className="block font-medium mb-2">Size</label>
+            <select
+              className="input bg-surface-container-high w-full"
+              value={`${selectedSize.cols}x${selectedSize.rows}`}
+              onChange={handleSizeChange}
+            >
+              {selectedWidget.sizes.map((size, index) => (
+                <option key={index} value={`${size.cols}x${size.rows}`}>
+                  {size.cols}x{size.rows}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="bg-surface-container-high w-full rounded-b-2xl px-10 py-2 flex-row flex gap-2">
-            <div className="basis-full"></div>
-            <SubmitButton
-              text="Cancel"
-              onClick={onClose}
-              isOutlined={true}
-              isFullWidth={false}
-            />
-            <SubmitButton
-              text="Save"
-              isLoading={mutation.isPending}
-              onClick={handleSave}
-              isFullWidth={false}
+          <div className="mb-4">
+            <label className="block font-medium mb-2">Priority</label>
+            <input
+              className="input bg-surface-container-high w-full"
+              type="number"
+              value={priority}
+              onChange={(e) => {
+                setPriority(Number(e.target.value));
+                widgetData.priority = Number(e.target.value);
+              }}
             />
           </div>
 
-          <button
-            type="button"
-            aria-label="Close edit widget menu"
-            onClick={onClose}
-            className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
-          >
-            <XIcon size={18} />
-          </button>
+          <WidgetsGridDisplay
+            isOwner={false}
+            widgets={[widgetData]}
+            deleteWidget={() => {}}
+          />
         </div>
       </div>
-    </FocusTrap>
+      <div className="bg-surface-container-high w-full rounded-b-2xl px-10 py-2 flex-row flex gap-2">
+        <div className="basis-full"></div>
+        <Button label="Cancel" onClick={onClose} variant="neutral" />
+        <Button
+          label="Save"
+          isLoading={mutation.isPending}
+          onClick={handleSave}
+        />
+      </div>
+
+      <button
+        type="button"
+        aria-label="Close edit widget menu"
+        onClick={onClose}
+        className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+      >
+        <XIcon size={18} />
+      </button>
+    </div>
   );
 }

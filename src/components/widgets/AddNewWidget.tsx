@@ -2,6 +2,7 @@
 
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
+import Popup from "../Popup";
 import WidgetEditor from "../widgetEditor/WidgetCreator";
 import { BaseWidget } from "./BaseWidget";
 
@@ -23,7 +24,15 @@ export function AddNewWidget() {
           </span>
         </div>
       </BaseWidget>
-      {isOpen && <WidgetEditor onClose={() => setIsOpen(false)} />}
+
+      <Popup
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        width="xl"
+        nopadding
+      >
+        <WidgetEditor onClose={() => setIsOpen(false)} />
+      </Popup>
     </>
   );
 }

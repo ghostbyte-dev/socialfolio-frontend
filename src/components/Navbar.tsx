@@ -1,15 +1,17 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FocusTrap } from "focus-trap-react";
 import { MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import Logo from "@/assets/icons/logo.svg";
 import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
+import ConfirmationModal from "./ConfirmationModal";
 import DeleteUserModal from "./DeleteUserModal";
 import Settings from "./Settings";
 import ShareModal from "./ShareModal";
@@ -27,6 +29,8 @@ export default function Navbar() {
   const [accountDeletionPopup, setAccountDeletionPopup] =
     useState<boolean>(false);
   const jwt = token;
+
+  const queryClient = useQueryClient();
 
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname.startsWith("/auth");
@@ -68,6 +72,21 @@ export default function Navbar() {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownOpen]);
+
+  const deleteUser = useMutation({
+    mutationFn: () =>
+      toast.promise(UserService.deleteUser(token ?? ""), {
+        loading: "loading...",
+        success: "Deleted account successfully",
+        error: (err) => `Error: ${err.message}`,
+      }),
+    onSuccess: (variables, context) => {
+      queryClient.clear();
+      setAccountDeletionPopup(false);
+      logout();
+      router.push("/");
+    },
+  });
 
   return (
     <div
@@ -190,7 +209,7 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
+                      className="block w-full text-left px-4 py-2 font-bold text-sm text-danger rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Logout
@@ -198,7 +217,7 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={openAccountDeletionPopup}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm text-red-600 rounded hover:bg-surface"
+                      className="block w-full text-left px-4 py-2 font-bold text-sm text-danger rounded hover:bg-surface"
                       role="menuitem"
                     >
                       Delete Account
@@ -278,9 +297,15 @@ export default function Navbar() {
             />
           )}
 
-          {accountDeletionPopup && user && (
-            <DeleteUserModal onClose={() => setAccountDeletionPopup(false)} />
-          )}
+          <ConfirmationModal
+            isOpen={accountDeletionPopup && user !== null}
+            onClose={() => setAccountDeletionPopup(false)}
+            actionVariant="danger"
+            title="Delete account"
+            description={`Are you sure you want to delete your account.`}
+            action={() => deleteUser.mutateAsync()}
+            actionLabel="Delete"
+          />
         </div>
       </FocusTrap>
     </div>

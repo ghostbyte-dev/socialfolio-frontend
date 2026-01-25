@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FocusTrap } from "focus-trap-react";
 import { ArrowLeft, XIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -39,11 +38,11 @@ interface Variant {
   index: number;
 }
 
-interface WidgetEditorProps {
+interface WidgetCreatorProps {
   onClose: () => void;
 }
 
-export default function WidgetEditor({ onClose }: WidgetEditorProps) {
+export default function WidgetCreator({ onClose }: WidgetCreatorProps) {
   const params = useParams();
   const username = params.username as string;
   const queryClient = useQueryClient();
@@ -51,7 +50,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const { token } = useAuth();
 
   const [selectedWidget, setSelectedWidget] = useState<WidgetOption | null>(
-    null
+    null,
   );
 
   const mutation = useMutation({
@@ -95,7 +94,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget]
+        (old: WidgetProps[] | undefined) => [...(old ?? []), newWidget],
       );
 
       return { previousWidgets };
@@ -106,7 +105,7 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
     onError: (context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
@@ -127,10 +126,13 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   const handleSave = (formData: any, variant: number) => {
     if (!selectedWidget) return;
 
-    const widgetData = selectedWidget.fields.reduce((acc, field) => {
-      acc[field.key] = formData[field.key] || "";
-      return acc;
-    }, {} as Record<string, string>);
+    const widgetData = selectedWidget.fields.reduce(
+      (acc, field) => {
+        acc[field.key] = formData[field.key] || "";
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
     const createWidgetRequest: ICreateWidgetRequest = {
       type: selectedWidget.id,
       variant: variant,
@@ -148,65 +150,51 @@ export default function WidgetEditor({ onClose }: WidgetEditorProps) {
   };
 
   return (
-    <FocusTrap>
-      {/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
-      {/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-      <div
-        className="fixed inset-0 bg-black/50 flex justify-center items-center z-50"
-        onClick={onClose}
-      >
-        {/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
-        {/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-        <div
-          className="relative bg-surface w-[80%] h-[80%] rounded-2xl shadow-lg wrapper flex flex-col overflow-hidden"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="p-3 mx-2 mt-2 rounded-xl relative flex justify-between">
-            <div className="z-30">
-              {selectedWidget != null && (
-                <button
-                  type="button"
-                  aria-label="Close widget creator"
-                  onClick={() => setSelectedWidget(null)}
-                  className="z-30 text-on-primary bg-primary rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
-                >
-                  <ArrowLeft size={18} />
-                </button>
-              )}
-            </div>
-
+    <div>
+      <div className="p-3 mx-2 mt-2 rounded-xl relative flex justify-between">
+        <div className="z-30">
+          {selectedWidget != null && (
             <button
               type="button"
               aria-label="Close widget creator"
-              onClick={onClose}
-              className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+              onClick={() => setSelectedWidget(null)}
+              className="z-30 text-on-primary bg-primary rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
             >
-              <XIcon size={18} />
+              <ArrowLeft size={18} />
             </button>
+          )}
+        </div>
 
-            <div className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center text-lg text-center font-bold">
-              {selectedWidget ? selectedWidget.name : "Select a Widget"}
-            </div>
-          </div>
+        <button
+          type="button"
+          aria-label="Close widget creator"
+          onClick={onClose}
+          className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+        >
+          <XIcon size={18} />
+        </button>
 
-          <div className="h-full w-full overflow-y-scroll">
-            {selectedWidget == null && (
-              <WidgetTypeSelector
-                selectedWidget={selectedWidget}
-                handleSelectWidget={handleSelectWidget}
-              />
-            )}
-
-            {selectedWidget != null && (
-              <WidgetPropsSelector
-                selectedWidget={selectedWidget}
-                handleSave={handleSave}
-                goBack={() => setSelectedWidget(null)}
-              />
-            )}
-          </div>
+        <div className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center text-lg text-center font-bold">
+          {selectedWidget ? selectedWidget.name : "Select a Widget"}
         </div>
       </div>
-    </FocusTrap>
+
+      <div className="h-full w-full overflow-y-scroll">
+        {selectedWidget == null && (
+          <WidgetTypeSelector
+            selectedWidget={selectedWidget}
+            handleSelectWidget={handleSelectWidget}
+          />
+        )}
+
+        {selectedWidget != null && (
+          <WidgetPropsSelector
+            selectedWidget={selectedWidget}
+            handleSave={handleSave}
+            goBack={() => setSelectedWidget(null)}
+          />
+        )}
+      </div>
+    </div>
   );
 }

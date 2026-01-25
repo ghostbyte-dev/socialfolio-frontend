@@ -1,5 +1,6 @@
 import {
   Github,
+  GithubIcon,
   GlobeIcon,
   Layout,
   LockOpen,
@@ -7,6 +8,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { Button } from "../Button";
 import FeatureContainer from "./FeatureContainer";
 
 export default function FeatureSection() {
@@ -45,13 +47,7 @@ export default function FeatureSection() {
             description="Find inspiration and connect with others. Browse beautifully crafted profiles from creators, developers, and communities across the Fediverse — all in one place. See how others express their online identity and share your own with the world."
             icon={Search}
             button={
-              <Link
-                href="/explore"
-                className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
-              >
-                <GlobeIcon className="mr-2 h-4 w-4" />
-                Explore pages
-              </Link>
+              <Button href="/explore" label="Explore pages" icon={GlobeIcon} />
             }
           />
 
@@ -61,13 +57,12 @@ export default function FeatureSection() {
             description="Built by the community, for the community. Socialfolio is open-source and constantly improving with your feedback."
             icon={LockOpen}
             button={
-              <a
+              <Button
                 href="https://github.com/ghostbyte-dev/socialfolio-frontend"
-                className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
-              >
-                <Github className="mr-2 h-4 w-4" />
-                View on Github
-              </a>
+                label="View on Github"
+                icon={GithubIcon}
+                external
+              />
             }
           />
         </div>

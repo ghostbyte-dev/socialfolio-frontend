@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Button } from "@/components/Button";
 import SubmitButton from "@/components/SubmitButton";
 import { useAuth } from "@/context/AuthContext";
 import { type LoginCredentials, login as loginApi } from "@/lib/auth";
@@ -79,7 +80,7 @@ export default function LoginPage() {
           />
           {error && <p className="text-red-500">{error}</p>}
 
-          <SubmitButton text="Login" isLoading={loading} />
+          <Button type="submit" label="Login" isLoading={loading} />
         </form>
 
         <div className="mt-3 flex justify-center">

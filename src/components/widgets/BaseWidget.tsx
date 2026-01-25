@@ -1,6 +1,6 @@
+import { PencilIcon, XIcon } from "lucide-react";
 import type React from "react";
 import { isTouch } from "@/lib/isTouch";
-import { PencilIcon, XIcon } from "lucide-react";
 
 export interface BaseWidgetProps {
   children: React.ReactNode;

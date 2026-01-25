@@ -3,7 +3,7 @@
 import { ArrowLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { WidgetFactory } from "@/lib/WidgetFactory";
-import type { WidgetProps } from "@/types/widget-types";
+import { type WidgetProps, widgetSchemas } from "@/types/widget-types";
 import LocationInput from "../LocationInput";
 import type { WidgetOption } from "./WidgetCreator";
 
@@ -27,6 +27,10 @@ export default function WidgetPropsSelector({
     data: {},
     type: selectedWidget?.id ?? "weather",
   });
+
+  const currentSchema: z.ZodObject<any> | null = selectedWidget
+    ? widgetSchemas[selectedWidget.id as WidgetSchemaKey]
+    : null;
 
   const handleChange = (key: string, value: string, type: string) => {
     if (type == "number") {
