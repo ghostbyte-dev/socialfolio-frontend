@@ -32,7 +32,6 @@ export default function RegisterPage() {
   const router = useRouter();
   const { setToken } = useAuth();
 
-  // 2. Initialize Hook Form
   const {
     register,
     handleSubmit,
@@ -66,53 +65,51 @@ export default function RegisterPage() {
   };
 
   return (
-    <>
+    <div className="w-full">
       <title>Register - Socialfolio</title>
-      <div className="w-full">
-        <h1 className="text-5xl font-bold mb-5">Register</h1>
+      <h1 className="text-5xl font-bold mb-5">Register</h1>
 
-        <p className="mb-5">
-          Already have an account?{" "}
-          <Link href="/auth/login" className="underline hover:text-primary">
-            Log in
-          </Link>
-        </p>
+      <p className="mb-5">
+        Already have an account?{" "}
+        <Link href="/auth/login" className="underline hover:text-primary">
+          Log in
+        </Link>
+      </p>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 flex flex-col w-full"
-        >
-          <FormInput
-            label="Username"
-            placeholder="johndoe"
-            {...register("username")}
-            error={errors.username?.message}
-          />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 flex flex-col w-full"
+      >
+        <FormInput
+          label="Username"
+          placeholder="johndoe"
+          {...register("username")}
+          error={errors.username?.message}
+        />
 
-          <FormInput
-            label="Email"
-            type="email"
-            placeholder="you@example.com"
-            {...register("email")}
-            error={errors.email?.message}
-          />
+        <FormInput
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+          {...register("email")}
+          error={errors.email?.message}
+        />
 
-          <FormInput
-            label="Password"
-            type="password"
-            placeholder="••••••••"
-            {...register("password")}
-            error={errors.password?.message}
-          />
+        <FormInput
+          label="Password"
+          type="password"
+          placeholder="••••••••"
+          {...register("password")}
+          error={errors.password?.message}
+        />
 
-          <Button
-            type="submit"
-            label="Register"
-            isLoading={loading}
-            disabled={!isValid || loading}
-          />
-        </form>
-      </div>
-    </>
+        <Button
+          type="submit"
+          label="Register"
+          isLoading={loading}
+          disabled={!isValid || loading}
+        />
+      </form>
+    </div>
   );
 }

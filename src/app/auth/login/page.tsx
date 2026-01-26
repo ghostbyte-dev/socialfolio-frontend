@@ -53,55 +53,53 @@ export default function LoginPage() {
   };
 
   return (
-    <>
+    <div className="w-full">
       <title>Login - Socialfolio</title>
-      <div className="w-full">
-        <h1 className="text-5xl font-bold mb-5">Login</h1>
+      <h1 className="text-5xl font-bold mb-5">Login</h1>
 
-        <p className="mb-5">
-          Need an account?{" "}
-          <Link href="/auth/register" className="underline hover:text-primary">
-            Register
-          </Link>
-        </p>
+      <p className="mb-5">
+        Need an account?{" "}
+        <Link href="/auth/register" className="underline hover:text-primary">
+          Register
+        </Link>
+      </p>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 flex flex-col w-full"
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 flex flex-col w-full"
+      >
+        <FormInput
+          label="Email"
+          type="email"
+          placeholder="Your email"
+          {...register("email")}
+          error={errors.email?.message}
+        />
+
+        <FormInput
+          label="Password"
+          type="password"
+          placeholder="••••••••"
+          {...register("password")}
+          error={errors.password?.message}
+        />
+
+        <Button
+          type="submit"
+          disabled={!isValid}
+          label="Login"
+          isLoading={loading}
+        />
+      </form>
+
+      <div className="mt-3 flex justify-center">
+        <Link
+          href="/auth/password/reset"
+          className="underline hover:text-primary"
         >
-          <FormInput
-            label="Email"
-            type="email"
-            placeholder="Your email"
-            {...register("email")}
-            error={errors.email?.message}
-          />
-
-          <FormInput
-            label="Password"
-            type="password"
-            placeholder="••••••••"
-            {...register("password")}
-            error={errors.password?.message}
-          />
-
-          <Button
-            type="submit"
-            disabled={!isValid}
-            label="Login"
-            isLoading={loading}
-          />
-        </form>
-
-        <div className="mt-3 flex justify-center">
-          <Link
-            href="/auth/password/reset"
-            className="underline hover:text-primary"
-          >
-            I forgot my password
-          </Link>
-        </div>
+          I forgot my password
+        </Link>
       </div>
-    </>
+    </div>
   );
 }

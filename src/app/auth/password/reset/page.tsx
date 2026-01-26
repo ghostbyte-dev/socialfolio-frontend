@@ -1,59 +1,73 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import * as z from "zod";
+
 import { Button } from "@/components/Button";
+import { FormInput } from "@/components/inputs/FormInput";
 import { AuthService } from "@/services/auth.service";
 
+const resetSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
+type ResetFormData = z.infer<typeof resetSchema>;
+
 export default function RequestPasswordReset() {
-  const [formData, setFormData] = useState({
-    email: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ResetFormData>({
+    resolver: zodResolver(resetSchema),
+    mode: "onTouched",
+    defaultValues: {
+      email: "",
+    },
   });
-  const [error, setError] = useState<string | null>(null);
 
   const requestPasswordReset = useMutation({
     mutationFn: (email: string) =>
       toast.promise(AuthService.requestReset(email), {
         loading: "Sending reset link...",
-        success: "Reset link got sent to you",
+        success: "Reset link sent to your email",
         error: (err) => `Error: ${err.message}`,
       }),
-    onError: (error: Error) => {
-      setError(error.message);
-    },
-    onSuccess: () => {
-      setError("");
-    },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    requestPasswordReset.mutate(formData.email);
+  const onSubmit = (data: ResetFormData) => {
+    requestPasswordReset.mutate(data.email);
   };
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
-        <input
+      <title>Reset password - Socialfolio</title>
+      <h1 className="text-3xl font-bold mb-5">Reset Password</h1>
+      <p className="mb-6">
+        Enter your email address and we'll send you a link to reset your
+        password.
+      </p>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 flex flex-col w-full"
+      >
+        <FormInput
+          label="Email Address"
           type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="input"
-          required
+          placeholder="you@example.com"
+          {...register("email")}
+          error={errors.email?.message}
         />
-        {error && <p className="text-red-500">{error}</p>}
 
         <Button
           type="submit"
           label="Send reset link"
           isLoading={requestPasswordReset.isPending}
+          disabled={!isValid || requestPasswordReset.isPending}
         />
       </form>
     </div>
