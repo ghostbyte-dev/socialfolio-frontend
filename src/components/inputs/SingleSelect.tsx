@@ -35,7 +35,7 @@ const SingleSelect = ({
 
       <Select.Root value={value} onValueChange={onValueChange}>
         {/* The Button that triggers the dropdown */}
-        <Select.Trigger className="flex items-center justify-between gap-2 px-4 py-2 text-sm border border-border rounded-lg text-white outline-none hover:bg-slate-800 transition-all focus:ring-2 focus:ring-primary w-full">
+        <Select.Trigger className="flex items-center justify-between gap-2 px-4 py-2 text-sm border border-outline rounded-xl text-white outline-none hover:bg-surface-container-high transition-all focus:ring-2 focus:ring-primary w-full">
           <Select.Value placeholder={placeholder} />
           <Select.Icon>
             <ChevronDown className="w-4 h-4 text-gray-500" />
@@ -47,7 +47,7 @@ const SingleSelect = ({
           <Select.Content
             position="popper"
             sideOffset={5}
-            className="z-[100] min-w-[var(--radix-select-trigger-width)] overflow-hidden bg-surface border border-border rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 backdrop-blur-md max-h-80"
+            className="z-100 min-w-(--radix-select-trigger-width) overflow-hidden bg-surface border border-outline rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 backdrop-blur-md max-h-80"
           >
             <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-[#0f172a] cursor-default text-white border-b border-border">
               <ChevronUp className="w-4 h-4" />
@@ -59,7 +59,7 @@ const SingleSelect = ({
                   key={opt.value}
                   value={opt.value}
                   disabled={opt.disabled}
-                  className="relative flex items-center w-full px-8 py-2 text-sm text-gray-300 rounded-lg outline-none cursor-default select-none data-highlighted:bg-primary data-highlighted:text-white data-disabled:opacity-40 transition-colors"
+                  className="relative flex items-center w-full px-8 py-2 text-sm text-on-surface rounded-lg outline-none cursor-default select-none data-highlighted:bg-primary data-highlighted:text-on-primary data-disabled:opacity-40 transition-colors"
                 >
                   <Select.ItemText>{opt.label}</Select.ItemText>
                   <Select.ItemIndicator className="absolute left-2 inline-flex items-center justify-center">

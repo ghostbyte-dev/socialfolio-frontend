@@ -84,7 +84,7 @@
 
 @layer components {
   .input {
-    @apply w-full rounded-xl bg-surface-container border border-transparent px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary;
+    @apply w-full rounded-xl border border-outline px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary;
   }
 
 

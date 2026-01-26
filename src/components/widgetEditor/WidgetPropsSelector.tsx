@@ -6,16 +6,23 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import type { z } from "zod";
 
 import { WidgetFactory } from "@/lib/WidgetFactory";
-import { type WidgetProps, widgetSchemas } from "@/types/widget-types";
+import {
+  type WidgetProps,
+  type WidgetSize,
+  widgetSchemas,
+} from "@/types/widget-types"; // Import WidgetSize
 import { Button } from "../Button";
-import { FormInput } from "../inputs/FormInput"; // Using your FormInput
+import { FormInput } from "../inputs/FormInput";
 import SingleSelect from "../inputs/SingleSelect";
 import LocationInput from "../LocationInput";
+import { WidgetsGridDisplay } from "../WidgetsGrid";
 import type { WidgetOption } from "./WidgetCreator";
+import { WidgetPreview } from "./WidgetPreview";
 
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption;
-  handleSave: (formData: any, variant: number) => void;
+  // Updated signature to include size
+  handleSave: (formData: any, variant: number, size: WidgetSize) => void;
   goBack: () => void;
 }
 
@@ -25,13 +32,15 @@ export default function WidgetPropsSelector({
 }: WidgetPropsSelectorProps) {
   const [variant, setVariant] = useState<number>(1);
 
-  // 1. Determine the schema based on selection
-  // Fallback to a loose schema if nothing is selected to prevent crashes
+  // 1. Initialize Size State (Defaulting to the first available size)
+  const [selectedSize, setSelectedSize] = useState<WidgetSize>(
+    selectedWidget.sizes[0] || { cols: 1, rows: 1 },
+  );
+
   const currentSchema = selectedWidget
     ? widgetSchemas[selectedWidget.id]
     : (null as unknown as z.ZodObject<any>);
 
-  // 2. Initialize Hook Form
   const {
     control,
     register,
@@ -44,15 +53,16 @@ export default function WidgetPropsSelector({
     mode: "onTouched",
   });
 
-  // 3. Watch form values for the Live Preview
   const watchedData = useWatch({ control });
 
-  // 4. Reset form when the selected widget changes
   useEffect(() => {
     if (selectedWidget) {
       setVariant(1);
+      // Reset to first size of the new widget
+      if (selectedWidget.sizes.length > 0) {
+        setSelectedSize(selectedWidget.sizes[0]);
+      }
 
-      // Build default values from the widget definition
       const defaults: Record<string, any> = {};
       selectedWidget.fields.forEach((field) => {
         if (field.defaultOption) defaults[field.key] = field.defaultOption;
@@ -62,7 +72,6 @@ export default function WidgetPropsSelector({
     }
   }, [selectedWidget, reset]);
 
-  // Helper for Image Upload
   const handleImageUpload = (
     key: string,
     event: React.ChangeEvent<HTMLInputElement>,
@@ -72,7 +81,6 @@ export default function WidgetPropsSelector({
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
-          // Update the form value with the base64 string
           setValue(key, reader.result.toString(), { shouldValidate: true });
         }
       };
@@ -80,9 +88,9 @@ export default function WidgetPropsSelector({
     }
   };
 
-  // Construct data for the preview component
+  // 2. Use selectedSize in the Preview
   const previewWidgetData: WidgetProps = {
-    size: { cols: 1, rows: 1 },
+    size: selectedSize,
     variant: variant,
     id: "preview",
     type: selectedWidget?.id ?? "weather",
@@ -90,18 +98,37 @@ export default function WidgetPropsSelector({
   };
 
   const onSubmit = (data: any) => {
-    handleSave(data, variant);
+    // 3. Pass selectedSize to handleSave
+    handleSave(data, variant, selectedSize);
   };
 
-  // Generate Variant Options for Select
   const variantOptions = selectedWidget.variants.map((v) => ({
-    value: v.index.toString(), // Select expects strings usually
+    value: v.index.toString(),
     label: `Variant ${v.index}`,
+  }));
+
+  // 4. Generate Size Options
+  const sizeOptions = selectedWidget.sizes.map((s) => ({
+    value: `${s.cols}x${s.rows}`,
+    label: `${s.cols} Columns x ${s.rows} Rows`,
   }));
 
   return (
     <div className="flex-1 p-8 h-full w-full overflow-y-scroll">
       <div className="mt-4">
+        {/* Size Selection */}
+        <div className="mb-4">
+          <SingleSelect
+            label="Widget Size"
+            options={sizeOptions}
+            value={`${selectedSize.cols}x${selectedSize.rows}`}
+            onValueChange={(val) => {
+              const [cols, rows] = val.split("x").map(Number);
+              setSelectedSize({ cols, rows });
+            }}
+          />
+        </div>
+
         {/* Variant Selection */}
         <div className="mb-4">
           <SingleSelect
@@ -112,7 +139,6 @@ export default function WidgetPropsSelector({
           />
         </div>
 
-        {/* Dynamic Fields Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           {selectedWidget.fields.map((field) => {
             const errorMessage = errors[field.key]?.message as
@@ -121,7 +147,6 @@ export default function WidgetPropsSelector({
 
             return (
               <div key={field.key}>
-                {/* Text & Number Inputs */}
                 {(field.type === "text" || field.type === "number") && (
                   <FormInput
                     label={field.label}
@@ -134,13 +159,11 @@ export default function WidgetPropsSelector({
                   />
                 )}
 
-                {/* Text Area */}
                 {field.type === "textArea" && (
                   <div className="flex flex-col gap-1">
-                    {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
                     <label className="text-sm font-medium">{field.label}</label>
                     <textarea
-                      className={`input bg-surface-container-high w-full ${errorMessage ? "border-red-500" : ""}`}
+                      className={`input bg-surface-container-high w-full p-2 rounded-md ${errorMessage ? "border-red-500" : ""}`}
                       rows={3}
                       {...register(field.key)}
                     />
@@ -152,7 +175,6 @@ export default function WidgetPropsSelector({
                   </div>
                 )}
 
-                {/* Select Dropdown */}
                 {field.type === "select" && field.options && (
                   <Controller
                     control={control}
@@ -171,10 +193,8 @@ export default function WidgetPropsSelector({
                   />
                 )}
 
-                {/* Image Upload */}
                 {field.type === "image" && (
                   <div className="flex flex-col gap-1">
-                    {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
                     <label className="text-sm font-medium">{field.label}</label>
                     <input
                       type="file"
@@ -190,10 +210,8 @@ export default function WidgetPropsSelector({
                   </div>
                 )}
 
-                {/* Location Input */}
                 {field.type === "location" && (
                   <div className="flex flex-col gap-1">
-                    {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
                     <label className="text-sm font-medium">{field.label}</label>
                     <LocationInput
                       onLocationChange={(place) => {
@@ -215,18 +233,10 @@ export default function WidgetPropsSelector({
             );
           })}
 
-          {/* Live Preview */}
           <div className="my-5">
             <p className="font-bold mb-2">Preview</p>
-            <div className="h-48 w-48">
-              <WidgetFactory
-                isOwner={false}
-                widget={previewWidgetData}
-                deleteWidget={() => {}}
-                preview={true}
-                editWidget={() => {}}
-              />
-            </div>
+
+            <WidgetPreview widget={previewWidgetData} />
           </div>
 
           <Button type="submit" label="Save Widget" disabled={!isValid} />

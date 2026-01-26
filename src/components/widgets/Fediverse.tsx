@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { FediverseData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface FediverseWidgetProps {
   data: FediverseData;

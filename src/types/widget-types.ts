@@ -22,57 +22,71 @@ export interface WidgetSize {
   rows: number;
 }
 
+export const instanceSchema = z
+  .string()
+  .min(1, "Instance is required")
+  .regex(
+    /^((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/,
+    "Enter a valid domain"
+  );
+
+export const usernameSchema = z
+  .string()
+  .min(1, "Username is required")
+  .regex(
+    /^[a-zA-Z0-9._]{1,30}$/,
+    "Enter a valid username"
+  );
+
 /* ---------------------------
    Zod schemas + inferred types
    --------------------------- */
 
-/* Mastodon (example: accept string for instance to allow domain or url) */
+/* Mastodon */
 export const MastodonSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  instance: z.string()
-    .min(1, "Instance is required")
-    .regex(/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i, "Enter a valid domain (e.g. mastodon.social)")
+  username: usernameSchema,
+  instance: instanceSchema
 });
 export type MastodonData = z.infer<typeof MastodonSchema>;
 
 /* Pixelfed */
 export const PixelfedSchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type PixelfedData = z.infer<typeof PixelfedSchema>;
 
 /* Loops */
 export const LoopsSchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type LoopsData = z.infer<typeof LoopsSchema>;
 
 /* BookWyrm */
 export const BookWyrmSchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type BookWyrmWidgetData = z.infer<typeof BookWyrmSchema>;
 
 /* Peertube */
 export const PeertubeSchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type PeertubeData = z.infer<typeof PeertubeSchema>;
 
 /* NeoDB */
 export const NeoDBSchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type NeoDBData = z.infer<typeof NeoDBSchema>;
 
 /* Glass (Glass.photo) */
 export const GlassPhotoSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type GlassPhotoData = z.infer<typeof GlassPhotoSchema>;
 
@@ -84,43 +98,43 @@ export type BlueskyData = z.infer<typeof BlueskySchema>;
 
 /* Instagram */
 export const InstagramSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type InstagramData = z.infer<typeof InstagramSchema>;
 
 /* Threads */
 export const ThreadsSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type ThreadsData = z.infer<typeof ThreadsSchema>;
 
 /* Strava */
 export const StravaSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type StravaData = z.infer<typeof StravaSchema>;
 
 /* Linkedin */
 export const LinkedinSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type LinkedinData = z.infer<typeof LinkedinSchema>;
 
 /* Facebook */
 export const FacebookSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type FacebookData = z.infer<typeof FacebookSchema>;
 
-/* X (Twitter) */
+/* X */
 export const XSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type XData = z.infer<typeof XSchema>;
 
 /* Pinterest */
 export const PinterestSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type PinterestData = z.infer<typeof PinterestSchema>;
 
@@ -132,50 +146,50 @@ export type YoutubeData = z.infer<typeof YoutubeSchema>;
 
 /* Telegram */
 export const TelegramSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type TelegramData = z.infer<typeof TelegramSchema>;
 
 /* SocialFolio */
 export const SocialfolioSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type SocialfolioData = z.infer<typeof SocialfolioSchema>;
 
 /* GitLab */
 export const GitlabSchema = z.object({
-  instance: z.string().min(1),
-  username: z.string().min(1),
+  instance: instanceSchema,
+  username: usernameSchema,
 });
 export type GitlabData = z.infer<typeof GitlabSchema>;
 
 /* Reddit */
 export const RedditSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type RedditData = z.infer<typeof RedditSchema>;
 
 /* Dribbble */
 export const DribbbleSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type DribbbleData = z.infer<typeof DribbbleSchema>;
 
 /* Patreon */
 export const PatreonSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type PatreonData = z.infer<typeof PatreonSchema>;
 
 /* Paypal */
 export const PaypalSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type PaypalData = z.infer<typeof PaypalSchema>;
 
 /* Product Hunt */
 export const ProducthuntSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type ProducthuntData = z.infer<typeof ProducthuntSchema>;
 
@@ -193,40 +207,40 @@ export type SignalData = z.infer<typeof SignalSchema>;
 
 /* OpenStreetMap */
 export const OpenstreetmapSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type OpenstreetmapData = z.infer<typeof OpenstreetmapSchema>;
 
 /* Matrix */
 export const MatrixSchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type MatrixData = z.infer<typeof MatrixSchema>;
 
 /* Generic Fediverse link + handle */
 export const FediverseSchema = z.object({
-  link: z.string().url(),
+  link: instanceSchema,
   fediverseHandle: z.string().min(1),
 });
 export type FediverseData = z.infer<typeof FediverseSchema>;
 
 /* Lemmy */
 export const LemmySchema = z.object({
-  username: z.string().min(1),
-  instance: z.string().min(1),
+  username: usernameSchema,
+  instance: instanceSchema,
 });
 export type LemmyWidgetData = z.infer<typeof LemmySchema>;
 
 /* Buymeacoffee */
 export const BuymeacoffeeSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type BuymeacoffeeData = z.infer<typeof BuymeacoffeeSchema>;
 
 /* Vernissage (assumed username) */
 export const VernissageSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type VernissageData = z.infer<typeof VernissageSchema>;
 
@@ -273,7 +287,7 @@ export const ContributionsCollectionSchema = z.object({
 });
 export type ContributionsCollection = z.infer<typeof ContributionsCollectionSchema>;
 
-export const GithubSchema = z.object({
+export const GithubApiSchema = z.object({
   username: z.string().min(1),
   name: z.string().nullable(),
   avatar: z.string().nullable(),
@@ -284,11 +298,16 @@ export const GithubSchema = z.object({
   publicRepos: z.number(),
   contributions: ContributionsCollectionSchema,
 });
-export type GithubApiData = z.infer<typeof GithubSchema>;
+export type GithubApiData = z.infer<typeof GithubApiSchema>;
+
+export const GithubSchema = z.object({
+  username: usernameSchema,
+});
+export type GithubData = z.infer<typeof GithubSchema>;
 
 /* Codeberg */
 export const CodebergSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type CodebergData = z.infer<typeof CodebergSchema>;
 
@@ -300,25 +319,25 @@ export type TimezoneData = z.infer<typeof TimezoneSchema>;
 
 /* LiberaPay */
 export const LiberaPaySchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type LiberaPayData = z.infer<typeof LiberaPaySchema>;
 
 /* Record Club */
 export const RecordClubSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type RecordClubData = z.infer<typeof RecordClubSchema>;
 
 /* ListenBrainz */
 export const ListenBrainzSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type ListenBrainzData = z.infer<typeof ListenBrainzSchema>;
 
 /* Kofi */
 export const KofiSchema = z.object({
-  username: z.string().min(1),
+  username: usernameSchema,
 });
 export type KofiData = z.infer<typeof KofiSchema>;
 

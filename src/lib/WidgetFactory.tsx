@@ -56,7 +56,7 @@ import type {
   EmailData,
   FacebookData,
   FediverseData,
-  GitHubData,
+  GithubApiData,
   GitlabData,
   GlassPhotoData,
   ImageWidgetData,
@@ -457,7 +457,7 @@ export function WidgetFactory({
       return (
         <GithubWidget
           id={widget.id}
-          data={widget.data as GitHubData}
+          data={widget.data as GithubApiData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
