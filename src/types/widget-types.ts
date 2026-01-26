@@ -29,7 +29,9 @@ export interface WidgetSize {
 /* Mastodon (example: accept string for instance to allow domain or url) */
 export const MastodonSchema = z.object({
   username: z.string().min(1, "Username is required"),
-  instance: z.string().min(1, "Instance is required"),
+  instance: z.string()
+    .min(1, "Instance is required")
+    .regex(/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i, "Enter a valid domain (e.g. mastodon.social)")
 });
 export type MastodonData = z.infer<typeof MastodonSchema>;
 

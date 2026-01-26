@@ -1,15 +1,20 @@
 "use client";
 
-import { ArrowLeftIcon } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import type { z } from "zod";
+
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { type WidgetProps, widgetSchemas } from "@/types/widget-types";
 import { Button } from "../Button";
+import { FormInput } from "../inputs/FormInput"; // Using your FormInput
+import SingleSelect from "../inputs/SingleSelect";
 import LocationInput from "../LocationInput";
 import type { WidgetOption } from "./WidgetCreator";
 
 interface WidgetPropsSelectorProps {
-  selectedWidget: WidgetOption | null;
+  selectedWidget: WidgetOption;
   handleSave: (formData: any, variant: number) => void;
   goBack: () => void;
 }
@@ -17,39 +22,48 @@ interface WidgetPropsSelectorProps {
 export default function WidgetPropsSelector({
   selectedWidget,
   handleSave,
-  goBack,
 }: WidgetPropsSelectorProps) {
-  const [formData, setFormData] = useState<Record<string, any>>({});
   const [variant, setVariant] = useState<number>(1);
-  const [widgetData, setWidgetData] = useState<WidgetProps>({
-    size: { cols: 1, rows: 1 },
-    variant: variant,
-    id: "1",
-    data: {},
-    type: selectedWidget?.id ?? "weather",
+
+  // 1. Determine the schema based on selection
+  // Fallback to a loose schema if nothing is selected to prevent crashes
+  const currentSchema = selectedWidget
+    ? widgetSchemas[selectedWidget.id]
+    : (null as unknown as z.ZodObject<any>);
+
+  // 2. Initialize Hook Form
+  const {
+    control,
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: currentSchema ? zodResolver(currentSchema) : undefined,
+    mode: "onTouched",
   });
 
-  const currentSchema: z.ZodObject<any> | null = selectedWidget
-    ? widgetSchemas[selectedWidget.id as WidgetSchemaKey]
-    : null;
+  // 3. Watch form values for the Live Preview
+  const watchedData = useWatch({ control });
 
-  const handleChange = (key: string, value: string, type: string) => {
-    if (type == "number") {
-      widgetData.data = {
-        ...widgetData.data,
-        [key]: Number(value),
-      };
-      setFormData((prev) => ({ ...prev, [key]: Number(value) }));
-    } else {
-      widgetData.data = {
-        ...widgetData.data,
-        [key]: value,
-      };
-      setFormData((prev) => ({ ...prev, [key]: value }));
+  // 4. Reset form when the selected widget changes
+  useEffect(() => {
+    if (selectedWidget) {
+      setVariant(1);
+
+      // Build default values from the widget definition
+      const defaults: Record<string, any> = {};
+      selectedWidget.fields.forEach((field) => {
+        if (field.defaultOption) defaults[field.key] = field.defaultOption;
+      });
+
+      reset(defaults);
     }
-  };
+  }, [selectedWidget, reset]);
 
-  const handleImageChange = (
+  // Helper for Image Upload
+  const handleImageUpload = (
     key: string,
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -58,138 +72,166 @@ export default function WidgetPropsSelector({
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
-          handleChange(key, reader.result.toString(), "string");
+          // Update the form value with the base64 string
+          setValue(key, reader.result.toString(), { shouldValidate: true });
         }
       };
       reader.readAsDataURL(file);
     }
   };
 
-  useEffect(() => {
-    setWidgetData((prev) => ({
-      ...prev,
-      variant: variant,
-    }));
-  }, [variant]);
+  // Construct data for the preview component
+  const previewWidgetData: WidgetProps = {
+    size: { cols: 1, rows: 1 },
+    variant: variant,
+    id: "preview",
+    type: selectedWidget?.id ?? "weather",
+    data: watchedData || {},
+  };
 
-  useEffect(() => {
-    if (!selectedWidget) return;
-    setVariant(1);
-    setWidgetData((prev) => ({ ...prev, type: selectedWidget.id }));
+  const onSubmit = (data: any) => {
+    handleSave(data, variant);
+  };
 
-    selectedWidget.fields.forEach((field) => {
-      if (field.type === "select" && field.defaultOption) {
-        handleChange(field.key, field.defaultOption, "string");
-      }
-    });
-  }, [selectedWidget]);
+  // Generate Variant Options for Select
+  const variantOptions = selectedWidget.variants.map((v) => ({
+    value: v.index.toString(), // Select expects strings usually
+    label: `Variant ${v.index}`,
+  }));
 
   return (
-    <div
-      className={
-        "flex-1 p-8 h-full w-full overflow-y-scroll " +
-        (selectedWidget == null ? "" : "")
-      }
-    >
-      {selectedWidget ? (
-        <div className="mt-4">
-          <div className="mb-4">
-            <p className="block font-medium mb-2">
-              {selectedWidget.variants.length} available variant
-              {selectedWidget.variants.length > 1 && "s"}
-            </p>
-            <select
-              className="input bg-surface-container-high w-full"
-              value={variant}
-              onChange={(e) => setVariant(Number(e.target.value))}
-            >
-              {selectedWidget.variants.map((variant) => (
-                <option key={variant.index} value={variant.index}>
-                  Variant {variant.index}
-                </option>
-              ))}
-            </select>
-          </div>
-          {selectedWidget.fields.map((field) => (
-            <div key={field.key} className="mb-4">
-              <label className="block font-medium mb-2">{field.label}</label>
-              {field.type === "select" ? (
-                <select
-                  className="input bg-surface-container-high w-full"
-                  value={formData[field.key] || field.defaultOption}
-                  onChange={(e) =>
-                    handleChange(field.key, e.target.value, "string")
-                  }
-                >
-                  {field.options?.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              ) : field.type == "image" ? (
-                <div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="input bg-surface-container-high w-full"
-                    onChange={(e) => handleImageChange(field.key, e)}
-                  />
-                </div>
-              ) : field.type == "location" ? (
-                <LocationInput
-                  onLocationChange={(place) => {
-                    handleChange(
-                      field.key,
-                      JSON.stringify({ lat: place.lat, lon: place.lon }),
-                      "string",
-                    );
-                  }}
-                />
-              ) : field.type == "textArea" ? (
-                <textarea
-                  className="input bg-surface-container-high w-full"
-                  value={formData[field.key] ?? ""}
-                  onChange={(e) =>
-                    handleChange(field.key, e.target.value, field.type)
-                  }
-                ></textarea>
-              ) : (
-                <input
-                  type={field.type}
-                  className="input bg-surface-container-high w-full"
-                  value={formData[field.key] ?? ""}
-                  placeholder={field.placeholder ?? field.label}
-                  onChange={(e) =>
-                    handleChange(field.key, e.target.value, field.type)
-                  }
-                />
-              )}
-            </div>
-          ))}
-
-          <div className="h-48 w-48 mb-5">
-            <WidgetFactory
-              isOwner={false}
-              widget={widgetData}
-              deleteWidget={() => {}}
-              preview={true}
-              editWidget={() => {}}
-            />
-          </div>
-
-          <Button
-            label="Save Widget"
-            onClick={() => handleSave(formData, variant)}
-            /* disabled={mutation.isPending} */
+    <div className="flex-1 p-8 h-full w-full overflow-y-scroll">
+      <div className="mt-4">
+        {/* Variant Selection */}
+        <div className="mb-4">
+          <SingleSelect
+            label={`${selectedWidget.variants.length} available variant${selectedWidget.variants.length > 1 ? "s" : ""}`}
+            options={variantOptions}
+            value={variant.toString()}
+            onValueChange={(val) => setVariant(Number(val))}
           />
         </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center">
-          <img src="/illustrations/select.svg" className="h-96" height={400} />
-          <p className="mt-4 font-bold">Select a widget to configure</p>
-        </div>
-      )}
+
+        {/* Dynamic Fields Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          {selectedWidget.fields.map((field) => {
+            const errorMessage = errors[field.key]?.message as
+              | string
+              | undefined;
+
+            return (
+              <div key={field.key}>
+                {/* Text & Number Inputs */}
+                {(field.type === "text" || field.type === "number") && (
+                  <FormInput
+                    label={field.label}
+                    type={field.type}
+                    placeholder={field.placeholder ?? field.label}
+                    error={errorMessage}
+                    {...register(field.key, {
+                      valueAsNumber: field.type === "number",
+                    })}
+                  />
+                )}
+
+                {/* Text Area */}
+                {field.type === "textArea" && (
+                  <div className="flex flex-col gap-1">
+                    {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <textarea
+                      className={`input bg-surface-container-high w-full ${errorMessage ? "border-red-500" : ""}`}
+                      rows={3}
+                      {...register(field.key)}
+                    />
+                    {errorMessage && (
+                      <span className="text-xs text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Select Dropdown */}
+                {field.type === "select" && field.options && (
+                  <Controller
+                    control={control}
+                    name={field.key}
+                    render={({ field: { onChange, value } }) => (
+                      <SingleSelect
+                        label={field.label}
+                        options={field.options!.map((opt) => ({
+                          value: opt,
+                          label: opt,
+                        }))}
+                        value={value}
+                        onValueChange={onChange}
+                      />
+                    )}
+                  />
+                )}
+
+                {/* Image Upload */}
+                {field.type === "image" && (
+                  <div className="flex flex-col gap-1">
+                    {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="input bg-surface-container-high w-full"
+                      onChange={(e) => handleImageUpload(field.key, e)}
+                    />
+                    {errorMessage && (
+                      <span className="text-xs text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Location Input */}
+                {field.type === "location" && (
+                  <div className="flex flex-col gap-1">
+                    {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <LocationInput
+                      onLocationChange={(place) => {
+                        setValue(
+                          field.key,
+                          JSON.stringify({ lat: place.lat, lon: place.lon }),
+                          { shouldValidate: true },
+                        );
+                      }}
+                    />
+                    {errorMessage && (
+                      <span className="text-xs text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Live Preview */}
+          <div className="my-5">
+            <p className="font-bold mb-2">Preview</p>
+            <div className="h-48 w-48">
+              <WidgetFactory
+                isOwner={false}
+                widget={previewWidgetData}
+                deleteWidget={() => {}}
+                preview={true}
+                editWidget={() => {}}
+              />
+            </div>
+          </div>
+
+          <Button type="submit" label="Save Widget" disabled={!isValid} />
+        </form>
+      </div>
     </div>
   );
 }
