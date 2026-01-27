@@ -8,7 +8,7 @@ import {
   type ICreateWidgetRequest,
   WidgetService,
 } from "@/services/widget.service";
-import type { WidgetProps } from "@/types/widget-types";
+import type { WidgetProps, WidgetSize } from "@/types/widget-types";
 import WidgetPropsSelector from "./WidgetPropsSelector";
 import WidgetTypeSelector from "./WidgetTypeSelector";
 
@@ -123,7 +123,12 @@ export default function WidgetCreator({ onClose }: WidgetCreatorProps) {
     ); */
   };
 
-  const handleSave = (formData: any, variant: number) => {
+  const handleSave = (
+    formData: any,
+    variant: number,
+    priority: number,
+    size: WidgetSize,
+  ) => {
     if (!selectedWidget) return;
 
     const widgetData = selectedWidget.fields.reduce(
@@ -136,10 +141,8 @@ export default function WidgetCreator({ onClose }: WidgetCreatorProps) {
     const createWidgetRequest: ICreateWidgetRequest = {
       type: selectedWidget.id,
       variant: variant,
-      size: {
-        cols: 1,
-        rows: 1,
-      },
+      size: size,
+      priority: priority,
       data: widgetData,
     };
 

@@ -22,7 +22,7 @@ export function WidgetPreview({ widget, className = "" }: WidgetPreviewProps) {
     >
       <div className="max-w-full overflow-auto p-4 flex justify-center">
         <div
-          className="relative overflow-hidden transition-all duration-500 ease-in-out flex-shrink-0"
+          className="relative overflow-hidden transition-all duration-500 ease-in-out shrink-0"
           style={{
             width: `${width}px`,
             height: `${height}px`,

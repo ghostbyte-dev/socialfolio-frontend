@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { PixelfedData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface LemmyWidgetProps {
   data: PixelfedData;

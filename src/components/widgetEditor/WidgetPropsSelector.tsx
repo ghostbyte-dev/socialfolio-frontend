@@ -20,7 +20,12 @@ import { WidgetPreview } from "./WidgetPreview";
 interface WidgetPropsSelectorProps {
   selectedWidget: WidgetOption;
   // Updated signature to include size
-  handleSave: (formData: any, variant: number, size: WidgetSize) => void;
+  handleSave: (
+    formData: any,
+    variant: number,
+    priority: number,
+    size: WidgetSize,
+  ) => void;
   goBack: () => void;
   initialData?: WidgetProps;
 }
@@ -34,6 +39,8 @@ export default function WidgetPropsSelector({
   const [selectedSize, setSelectedSize] = useState<WidgetSize>(
     initialData?.size ?? selectedWidget.sizes[0] ?? { cols: 1, rows: 1 },
   );
+
+  const [priority, setPriority] = useState<number>(initialData?.priority ?? 1);
 
   const {
     control,
@@ -102,7 +109,7 @@ export default function WidgetPropsSelector({
 
   const onSubmit = (data: any) => {
     // 3. Pass selectedSize to handleSave
-    handleSave(data, variant, selectedSize);
+    handleSave(data, variant, priority, selectedSize);
   };
 
   const variantOptions = selectedWidget.variants.map((v) => ({
@@ -131,6 +138,15 @@ export default function WidgetPropsSelector({
             }}
           />
         </div>
+
+        <FormInput
+          label="Priority"
+          type="number"
+          value={priority}
+          onChange={(e) => {
+            setPriority(Number(e.target.value));
+          }}
+        />
 
         {/* Variant Selection */}
         <div className="mb-4">

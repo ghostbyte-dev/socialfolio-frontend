@@ -48,7 +48,7 @@ export function TimezoneWidget({
 
         setTime(formatted);
         setIsDaytime(hour >= 6 && hour < 20);
-      } catch (e) {
+      } catch (_e) {
         // Fallback for invalid timezone strings during editing
         setTime("--:--");
       }

@@ -55,7 +55,7 @@ export default function WidgetEditor({
     onSuccess: () => {
       onClose();
     },
-    onError: (err, variables, context: any) => {
+    onError: (_err, _variables, context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
         context?.previousWidgets,
@@ -66,12 +66,18 @@ export default function WidgetEditor({
     },
   });
 
-  const handleSave = (formData: any, variant: number, size: WidgetSize) => {
+  const handleSave = (
+    formData: any,
+    variant: number,
+    priority: number,
+    size: WidgetSize,
+  ) => {
     // Construct the final widget object to save
     const updatedWidget: WidgetProps = {
       ...widgetProps, // Keep ID and type
       data: formData,
       variant,
+      priority,
       size,
     };
 
