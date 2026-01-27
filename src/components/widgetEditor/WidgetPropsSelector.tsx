@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import type { z } from "zod";
 
-import { WidgetFactory } from "@/lib/WidgetFactory";
 import {
   type WidgetProps,
   type WidgetSize,
@@ -15,7 +14,6 @@ import { Button } from "../Button";
 import { FormInput } from "../inputs/FormInput";
 import SingleSelect from "../inputs/SingleSelect";
 import LocationInput from "../LocationInput";
-import { WidgetsGridDisplay } from "../WidgetsGrid";
 import type { WidgetOption } from "./WidgetCreator";
 import { WidgetPreview } from "./WidgetPreview";
 
@@ -24,22 +22,18 @@ interface WidgetPropsSelectorProps {
   // Updated signature to include size
   handleSave: (formData: any, variant: number, size: WidgetSize) => void;
   goBack: () => void;
+  initialData?: WidgetProps;
 }
 
 export default function WidgetPropsSelector({
   selectedWidget,
   handleSave,
+  initialData,
 }: WidgetPropsSelectorProps) {
-  const [variant, setVariant] = useState<number>(1);
-
-  // 1. Initialize Size State (Defaulting to the first available size)
+  const [variant, setVariant] = useState<number>(initialData?.variant ?? 1);
   const [selectedSize, setSelectedSize] = useState<WidgetSize>(
-    selectedWidget.sizes[0] || { cols: 1, rows: 1 },
+    initialData?.size ?? selectedWidget.sizes[0] ?? { cols: 1, rows: 1 },
   );
-
-  const currentSchema = selectedWidget
-    ? widgetSchemas[selectedWidget.id]
-    : (null as unknown as z.ZodObject<any>);
 
   const {
     control,
@@ -48,29 +42,38 @@ export default function WidgetPropsSelector({
     setValue,
     reset,
     formState: { errors, isValid },
-  } = useForm({
-    resolver: currentSchema ? zodResolver(currentSchema) : undefined,
+  } = useForm<Record<string, any>>({
+    // 👈 Add this generic type here
+    resolver: widgetSchemas[selectedWidget.id]
+      ? zodResolver(widgetSchemas[selectedWidget.id])
+      : undefined,
     mode: "onTouched",
+    defaultValues: initialData?.data ?? {},
   });
 
   const watchedData = useWatch({ control });
 
   useEffect(() => {
     if (selectedWidget) {
-      setVariant(1);
-      // Reset to first size of the new widget
-      if (selectedWidget.sizes.length > 0) {
-        setSelectedSize(selectedWidget.sizes[0]);
+      if (initialData) {
+        // Edit Mode: Use existing values
+        setVariant(initialData.variant);
+        setSelectedSize(initialData.size);
+        reset(initialData.data);
+      } else {
+        // Creation Mode: Use defaults
+        setVariant(1);
+        if (selectedWidget.sizes.length > 0)
+          setSelectedSize(selectedWidget.sizes[0]);
+
+        const defaults: Record<string, any> = {};
+        selectedWidget.fields.forEach((field) => {
+          if (field.defaultOption) defaults[field.key] = field.defaultOption;
+        });
+        reset(defaults);
       }
-
-      const defaults: Record<string, any> = {};
-      selectedWidget.fields.forEach((field) => {
-        if (field.defaultOption) defaults[field.key] = field.defaultOption;
-      });
-
-      reset(defaults);
     }
-  }, [selectedWidget, reset]);
+  }, [selectedWidget, reset, initialData]);
 
   const handleImageUpload = (
     key: string,
