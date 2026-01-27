@@ -8,14 +8,13 @@ import type {
   ContributionsCollection,
   ContributionsWeek,
   GithubApiData,
-  GitHubData,
   WidgetSize,
 } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 
 interface GithubWidgetProps {
   id: string;
-  data: GitHubData;
+  data: GithubApiData;
   size: WidgetSize;
   variant: number;
   isOwner: boolean;
@@ -58,16 +57,16 @@ export function GithubWidget({
 
   const widgetApiData: GithubApiData | undefined = preview
     ? {
-      username: "Profile",
-      name: "Profile",
-      avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
-      url: "",
-      location: "",
-      followers: 0,
-      following: 0,
-      publicRepos: 0,
-      contributions: generateContributionsData(),
-    }
+        username: "Profile",
+        name: "Profile",
+        avatar: "https://avatars.githubusercontent.com/u/78096107?v=4",
+        url: "",
+        location: "",
+        followers: 0,
+        following: 0,
+        publicRepos: 0,
+        contributions: generateContributionsData(),
+      }
     : apiData;
 
   const getDisplayedWeeks = (size: WidgetSize): number => {
@@ -126,7 +125,7 @@ export function GithubWidget({
     }
     const maxContributions = Math.max(
       ...widgetApiData.contributions.weeks.flatMap((c: ContributionsWeek) =>
-        c.contributionDays.map((d: ContributionDay) => d.contributionCount)
+        c.contributionDays.map((d: ContributionDay) => d.contributionCount),
       ),
     );
     if (contributionCount === 0) return customColors[0]; // No contribution
@@ -187,8 +186,10 @@ export function GithubWidget({
                   className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
                 />
                 <span
-                  className={(widgetSize.cols === 1 ? "text-xs" : "text-md") +
-                    "sm:text-xl "}
+                  className={
+                    (widgetSize.cols === 1 ? "text-xs" : "text-md") +
+                    "sm:text-xl "
+                  }
                 >
                   {widgetApiData.name}
                 </span>
@@ -270,8 +271,7 @@ export function GithubWidget({
                                 }ms`,
                                 transform: `scale(${scale})`,
                               }}
-                            >
-                            </div>
+                            ></div>
                           </div>
                         );
                       },

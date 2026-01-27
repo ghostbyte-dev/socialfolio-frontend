@@ -12,7 +12,6 @@ import Logo from "@/assets/icons/logo.svg";
 import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import ConfirmationModal from "./ConfirmationModal";
-import DeleteUserModal from "./DeleteUserModal";
 import Popup from "./Popup";
 import Settings from "./Settings";
 import ShareModal from "./ShareModal";

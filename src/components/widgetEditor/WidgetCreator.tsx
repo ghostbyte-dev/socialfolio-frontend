@@ -89,7 +89,7 @@ export default function WidgetCreator({ onClose }: WidgetCreatorProps) {
         id: "",
         size: data.size,
         variant: data.variant,
-        data: {},
+        data: data.data as any,
       };
 
       queryClient.setQueryData(

@@ -50,9 +50,10 @@ export default function WidgetPropsSelector({
     reset,
     formState: { errors, isValid },
   } = useForm<Record<string, any>>({
-    // 👈 Add this generic type here
-    resolver: widgetSchemas[selectedWidget.id]
-      ? zodResolver(widgetSchemas[selectedWidget.id])
+    resolver: widgetSchemas[selectedWidget.id as keyof typeof widgetSchemas]
+      ? (zodResolver(
+          widgetSchemas[selectedWidget.id as keyof typeof widgetSchemas],
+        ) as any) // 👈 Add 'as any' here
       : undefined,
     mode: "onTouched",
     defaultValues: initialData?.data ?? {},
@@ -104,7 +105,7 @@ export default function WidgetPropsSelector({
     variant: variant,
     id: "preview",
     type: selectedWidget?.id ?? "weather",
-    data: watchedData || {},
+    data: (watchedData as any) || {},
   };
 
   const onSubmit = (data: any) => {
