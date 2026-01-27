@@ -17,7 +17,7 @@ export function AddNewWidget() {
         editWidget={() => {}}
         onClick={() => setIsOpen(true)}
       >
-        <div className="h-full w-full flex justify-center items-center flex-col hover:cursor-pointer bg-primary text-on-primary">
+        <div className="h-full w-full flex justify-center items-center flex-col hover:cursor-pointer bg-primary hover:bg-primary-high text-on-primary transition">
           <PlusIcon size={56} />
           <span className="md:mt-5 font-bold text-xl md:text-2xl">
             Add Widget
