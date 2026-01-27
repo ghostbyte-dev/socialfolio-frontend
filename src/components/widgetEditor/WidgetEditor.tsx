@@ -104,7 +104,7 @@ export default function WidgetEditor({
     <div className="relative h-full flex flex-col bg-surface overflow-hidden">
       {/* Header */}
       <div className="px-10 py-5 border-b border-border flex justify-between items-center">
-        <h2 className="text-xl font-bold">Edit {selectedWidget.label}</h2>
+        <h2 className="text-xl font-bold">Edit {selectedWidget.name}</h2>
         <button
           type="button"
           aria-label="Close edit widget menu"

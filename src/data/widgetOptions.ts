@@ -10,7 +10,6 @@ export const widgetCategories: WidgetCategory[] = [
   {
     name: "Fediverse",
     widgets: [
-
       {
         id: "fediverse",
         name: "Fediverse",
@@ -20,13 +19,13 @@ export const widgetCategories: WidgetCategory[] = [
           {
             key: "link",
             label: "Link",
-            type: "url",
+            type: "text",
             placeholder: "https://pixelfed.social/@username",
           },
           {
             key: "fediverseHandle",
             label: "Fediverse Handle",
-            type: "string",
+            type: "text",
             placeholder: "@username@mastodon.social",
           },
         ],
@@ -335,7 +334,7 @@ export const widgetCategories: WidgetCategory[] = [
         imageLink: "/widgeteditor/signal.svg",
         imageLinkDarkTheme: "/widgeteditor/signal.svg",
         fields: [
-          { key: "link", label: "Link", type: "url" },
+          { key: "link", label: "Link", type: "text" },
         ],
         variants: [{ index: 1 }],
         sizes: [
@@ -824,7 +823,7 @@ export const widgetCategories: WidgetCategory[] = [
       fields: [{
         key: "email",
         label: "E-Mail",
-        type: "email",
+        type: "text",
         placeholder: "someone@example.com",
       }],
       variants: [{ index: 1 }, { index: 2 }],
@@ -846,7 +845,7 @@ export const widgetCategories: WidgetCategory[] = [
         {
           key: "link",
           label: "Link",
-          type: "url",
+          type: "text",
           placeholder: "https://somewebsite.com",
         },
       ],

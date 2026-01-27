@@ -1,7 +1,7 @@
 "use client";
 
 import * as Select from "@radix-ui/react-select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 
 interface Option {
   value: string;
@@ -29,16 +29,16 @@ const SingleSelect = ({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && (
-        // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
+        // biome-ignore lint/a11y/noLabelWithoutControl: <>
         <label>{label}</label>
       )}
 
       <Select.Root value={value} onValueChange={onValueChange}>
         {/* The Button that triggers the dropdown */}
-        <Select.Trigger className="flex items-center justify-between gap-2 px-4 py-2 text-sm border border-outline rounded-xl text-white outline-none hover:bg-surface-container-high transition-all focus:ring-2 focus:ring-primary w-full">
+        <Select.Trigger className="flex items-center justify-between gap-2 px-4 py-2 text-sm border border-outline rounded-xl text-on-surface outline-none hover:bg-surface-container-high transition-all focus:ring-2 focus:ring-primary w-full">
           <Select.Value placeholder={placeholder} />
           <Select.Icon>
-            <ChevronDown className="w-4 h-4 text-gray-500" />
+            <ChevronDown className="w-4 h-4 text-on-surface" />
           </Select.Icon>
         </Select.Trigger>
 
@@ -49,10 +49,6 @@ const SingleSelect = ({
             sideOffset={5}
             className="z-100 min-w-(--radix-select-trigger-width) overflow-hidden bg-surface border border-outline rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 backdrop-blur-md max-h-80"
           >
-            <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-[#0f172a] cursor-default text-white border-b border-border">
-              <ChevronUp className="w-4 h-4" />
-            </Select.ScrollUpButton>
-
             <Select.Viewport className="p-1">
               {options.map((opt) => (
                 <Select.Item
@@ -68,10 +64,6 @@ const SingleSelect = ({
                 </Select.Item>
               ))}
             </Select.Viewport>
-
-            <Select.ScrollDownButton className="flex items-center justify-center h-6 bg-[#0f172a] cursor-default text-white border-t border-border">
-              <ChevronDown className="w-4 h-4" />
-            </Select.ScrollDownButton>
           </Select.Content>
         </Select.Portal>
       </Select.Root>

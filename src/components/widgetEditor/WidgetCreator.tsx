@@ -20,7 +20,7 @@ export interface WidgetOption {
   fields: {
     key: string;
     label: string;
-    type: string;
+    type: "text" | "textArea" | "select" | "image" | "location" | "number";
     placeholder?: string | undefined;
     options?: string[] | undefined;
     defaultOption?: string | undefined;

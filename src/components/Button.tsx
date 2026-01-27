@@ -27,9 +27,9 @@ interface ButtonProps extends ComponentProps<"button"> {
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-primary text-black hover:bg-primary-variant",
   warning: "bg-warning hover:bg-warning-variant",
-  danger: "bg-danger hover:bg-danger-variant",
+  danger: "bg-danger text-white hover:bg-danger-variant",
   success: "bg-success hover:bg-success-variant",
-  neutral: "bg-neutral hover:bg-neutral-variant",
+  neutral: "bg-neutral text-on-surface hover:bg-neutral-variant",
   surface: "bg-surface text-on-surface hover:bg-surface-variant",
 };
 

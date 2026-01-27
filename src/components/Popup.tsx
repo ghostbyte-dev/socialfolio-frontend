@@ -47,6 +47,21 @@ const Popup = ({
     }
   }, [shouldRender, isOpen]);
 
+  useEffect(() => {
+    if (isOpen) {
+      // Prevent scrolling on the body
+      document.body.style.overflow = "hidden";
+    } else {
+      // Re-enable scrolling when closed
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup function in case the component unmounts unexpectedly
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const handleTransitionEnd = () => {
     if (!isOpen) setShouldRender(false);
   };
@@ -78,7 +93,7 @@ const Popup = ({
         role="dialog"
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
-        className={`wrapper h-fit flex flex-col shadow-xl transform transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+        className={`wrapper z-50 h-fit flex flex-col shadow-xl transform transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
           isAnimating
             ? "opacity-100 scale-100 translate-y-0"
             : "opacity-0 scale-95 translate-y-4"

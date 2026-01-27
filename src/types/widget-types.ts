@@ -30,6 +30,26 @@ export const instanceSchema = z
     "Enter a valid domain"
   );
 
+export const urlSchema = z
+  .string()
+  .min(1, "URL is required")
+  .regex(
+    /^https:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+.*$/,
+    "Enter a valid URL"
+  );
+
+export const optionalUrlSchema = z
+  .string()
+  .trim()
+  .optional()
+  .or(z.literal(""))
+  .refine(
+    (val) => !val || /^https:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+.*$/.test(val),
+    {
+      message: "Must be a valid URL",
+    }
+  );
+
 export const usernameSchema = z
   .string()
   .min(1, "Username is required")
@@ -220,7 +240,7 @@ export type MatrixData = z.infer<typeof MatrixSchema>;
 
 /* Generic Fediverse link + handle */
 export const FediverseSchema = z.object({
-  link: instanceSchema,
+  link: urlSchema,
   fediverseHandle: z.string().min(1),
 });
 export type FediverseData = z.infer<typeof FediverseSchema>;
@@ -344,7 +364,7 @@ export type KofiData = z.infer<typeof KofiSchema>;
 /* Image widget */
 export const ImageWidgetSchema = z.object({
   image: z.string().min(1),
-  link: z.string().url().optional().nullable(),
+  link: optionalUrlSchema,
 });
 export type ImageWidgetData = z.infer<typeof ImageWidgetSchema>;
 
