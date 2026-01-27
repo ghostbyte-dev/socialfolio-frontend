@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { isTouch } from "@/lib/isTouch";
 import { WidgetFactory } from "@/lib/WidgetFactory";
 import { StatsService, type WidgetStats } from "@/services/stats.service";
 import type { WidgetData } from "@/types/widget-types";
-import { isTouch } from "@/lib/isTouch";
 
 export default function WidgetsSection() {
   const { data: widgetStats } = useQuery({
@@ -39,8 +39,11 @@ export default function WidgetsSection() {
 
   return (
     <section className="mt-20 content-wrapper flex flex-col items-center">
-      <div className="flex justify-center mt-10">
-        <h2 className="text-5xl font-bold cursive-font">Widgets</h2>
+      <div className="flex flex-col items-center mt-10">
+        <h2 className="text-5xl font-bold cursive-font mb-3">Widgets</h2>
+        <p className="text-xl text-center">
+          Choose from a variety of {widgetStats?.length} widgets.
+        </p>
       </div>
 
       <div
@@ -63,7 +66,7 @@ export default function WidgetsSection() {
                 paddingBottom: `${aspectRatio * 100}%`, // Maintain aspect ratio
               }}
             >
-              <div className="absolute inset-0 group" tabIndex={0}>
+              <div className="absolute inset-0 group">
                 <WidgetFactory
                   widget={{
                     type: widget.type,
