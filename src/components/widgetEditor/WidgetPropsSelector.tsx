@@ -126,19 +126,17 @@ export default function WidgetPropsSelector({
 
   return (
     <div className="flex-1 p-8 h-full w-full overflow-y-scroll">
-      <div className="mt-4">
+      <div className="mt-4 space-y-4">
         {/* Size Selection */}
-        <div className="mb-4">
-          <SingleSelect
-            label="Widget Size"
-            options={sizeOptions}
-            value={`${selectedSize.cols}x${selectedSize.rows}`}
-            onValueChange={(val) => {
-              const [cols, rows] = val.split("x").map(Number);
-              setSelectedSize({ cols, rows });
-            }}
-          />
-        </div>
+        <SingleSelect
+          label="Widget Size"
+          options={sizeOptions}
+          value={`${selectedSize.cols}x${selectedSize.rows}`}
+          onValueChange={(val) => {
+            const [cols, rows] = val.split("x").map(Number);
+            setSelectedSize({ cols, rows });
+          }}
+        />
 
         <FormInput
           label="Priority"
@@ -150,14 +148,12 @@ export default function WidgetPropsSelector({
         />
 
         {/* Variant Selection */}
-        <div className="mb-4">
-          <SingleSelect
-            label={`${selectedWidget.variants.length} available variant${selectedWidget.variants.length > 1 ? "s" : ""}`}
-            options={variantOptions}
-            value={variant.toString()}
-            onValueChange={(val) => setVariant(Number(val))}
-          />
-        </div>
+        <SingleSelect
+          label={`${selectedWidget.variants.length} available variant${selectedWidget.variants.length > 1 ? "s" : ""}`}
+          options={variantOptions}
+          value={variant.toString()}
+          onValueChange={(val) => setVariant(Number(val))}
+        />
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           {selectedWidget.fields.map((field) => {
