@@ -12,6 +12,7 @@ import {
 } from "@/types/widget-types"; // Import WidgetSize
 import { Button } from "../Button";
 import { FormInput } from "../inputs/FormInput";
+import { FormTextarea } from "../inputs/FormTextarea";
 import SingleSelect from "../inputs/SingleSelect";
 import LocationInput from "../LocationInput";
 import type { WidgetOption } from "./WidgetCreator";
@@ -176,19 +177,12 @@ export default function WidgetPropsSelector({
                 )}
 
                 {field.type === "textArea" && (
-                  <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium">{field.label}</label>
-                    <textarea
-                      className={`input bg-surface-container-high w-full p-2 rounded-md ${errorMessage ? "border-red-500" : ""}`}
-                      rows={3}
-                      {...register(field.key)}
-                    />
-                    {errorMessage && (
-                      <span className="text-xs text-red-500">
-                        {errorMessage}
-                      </span>
-                    )}
-                  </div>
+                  <FormTextarea
+                    label={field.label}
+                    placeholder={field.placeholder ?? field.label}
+                    error={errorMessage}
+                    {...register(field.key)}
+                  />
                 )}
 
                 {field.type === "select" && field.options && (
