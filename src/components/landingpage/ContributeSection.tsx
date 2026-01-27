@@ -1,6 +1,7 @@
-import { Github } from "lucide-react";
+import { Github, GithubIcon } from "lucide-react";
 import Image from "next/image";
 import LiberaPayLogo from "@/assets/icons/liberaPayLogo.svg";
+import { Button } from "../Button";
 
 const ContributeSection = () => {
   return (
@@ -25,27 +26,26 @@ const ContributeSection = () => {
             </p>
 
             <div className="mt-4 flex flex-col lg:flex-row gap-2">
-              <a
+              <Button
+                label="Github Frontend"
+                icon={GithubIcon}
                 href="https://github.com/ghostbyte-dev/socialfolio-frontend"
-                className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
-              >
-                <Github className="mr-2 h-4 w-4" />
-                Github Frontend
-              </a>
-              <a
+                external
+              />
+
+              <Button
+                label="Github Backend"
+                icon={GithubIcon}
                 href="https://github.com/ghostbyte-dev/socialfolio-backend"
-                className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
-              >
-                <Github className="mr-2 h-4 w-4" />
-                Github Backend
-              </a>
-              <a
+                external
+              />
+
+              <Button
+                label="Issues"
+                icon={GithubIcon}
                 href="https://github.com/ghostbyte-dev/socialfolio-frontend/issues"
-                className="bg-primary w-fit text-black hover:bg-primary-high border-none rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex items-center px-4 py-2"
-              >
-                <Github className="mr-2 h-4 w-4" />
-                Issues
-              </a>
+                external
+              />
             </div>
           </div>
 

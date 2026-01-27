@@ -8,7 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import getCroppedImg from "@/lib/cropImage";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
-import SubmitButton from "./SubmitButton";
+import { Button } from "./Button";
 
 export default function Avatar({
   url,
@@ -24,7 +24,7 @@ export default function Avatar({
   const [file, setFile] = useState<string | undefined>();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState(
-    url.trim() === "" ? "/defaults/default-avatar.jpg" : url
+    url.trim() === "" ? "/defaults/default-avatar.jpg" : url,
   );
 
   function handleChange(e: any) {
@@ -75,7 +75,7 @@ export default function Avatar({
               alt=""
               width={200}
               height={200}
-              className="rounded-2xl min-h-48 min-w-48"
+              className="wrapper border-0"
               priority
             />
             <div className="flex opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute top-0 bg-black/50 h-full w-full rounded-xl justify-center items-center duration-300 ease-in-out">
@@ -131,7 +131,7 @@ function CropAvatar({
     if (croppedAreaPixels) {
       const croppedImage: Blob = await getCroppedImg(
         imageUrl,
-        croppedAreaPixels
+        croppedAreaPixels,
       );
       uploadAvatar.mutate(croppedImage);
     }
@@ -164,18 +164,15 @@ function CropAvatar({
         </div>
 
         <div className="flex justify-end gap-2 bottom-0 p-6">
-          <button
-            type="button"
+          <Button
+            label="Cancel"
+            variant="neutral"
             onClick={handleClosePopup}
-            className="button-outlined"
             disabled={uploadAvatar.isPending}
-          >
-            Cancel
-          </button>
-          <SubmitButton
-            text="Save"
+          />
+          <Button
+            label="Save"
             isLoading={uploadAvatar.isPending}
-            isFullWidth={false}
             onClick={saveImage}
           />
         </div>

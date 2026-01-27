@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
+import { Button } from "./Button";
+import Popup from "./Popup";
 
 export default function Description({
   description,
@@ -66,38 +68,24 @@ export default function Description({
         </button>
       )}
 
-      {isEditing && (
-        <FocusTrap>
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-surface-container p-6 rounded-lg shadow-lg w-96">
-              <h2 className="text-xl font-bold mb-4">Edit description</h2>
-              <input
-                type="text"
-                value={editedDescription}
-                onChange={(e) => setEditedDescription(e.target.value)}
-                className="input w-full bg-surface-container-high"
-                placeholder="Desription..."
-              />
-              <div className="flex justify-end gap-2 mt-5">
-                <button
-                  type="button"
-                  onClick={handleClosePopup}
-                  className="button-outlined"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="button"
-                  onClick={() => mutation.mutate(editedDescription)}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </FocusTrap>
-      )}
+      <Popup isOpen={isEditing} onClose={handleClosePopup} width="md">
+        <h2 className="text-xl font-bold mb-4">Edit description</h2>
+        <input
+          type="text"
+          value={editedDescription}
+          onChange={(e) => setEditedDescription(e.target.value)}
+          className="input w-full bg-surface-container-high"
+          placeholder="Desription..."
+        />
+        <div className="flex justify-end gap-2 mt-5">
+          <Button label="Cancel" variant="neutral" onClick={handleClosePopup} />
+          <Button
+            label="Save"
+            isLoading={mutation.isPending}
+            onClick={() => mutation.mutate(editedDescription)}
+          />
+        </div>
+      </Popup>
     </div>
   );
 }

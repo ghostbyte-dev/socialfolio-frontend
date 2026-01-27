@@ -1,21 +1,41 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import * as z from "zod";
+
+import { Button } from "@/components/Button";
+import { FormInput } from "@/components/inputs/FormInput";
 import { AuthService } from "@/services/auth.service";
+
+const resetPasswordSchema = z
+  .object({
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
 export default function ResetPasswordPage() {
   const params = useParams();
   const token = params.token as string;
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
-    password: "",
-    repeatPassword: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
+    mode: "onChange",
   });
-  const [error, setError] = useState<string | null>(null);
 
   const resetPassword = useMutation({
     mutationFn: (password: string) =>
@@ -24,62 +44,49 @@ export default function ResetPasswordPage() {
         success: "Password has been reset!",
         error: (err) => `Error: ${err.message}`,
       }),
-    onError: (error: Error) => {
-      setError(error.message);
-    },
     onSuccess() {
       router.push("/auth/login");
     },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formData.password === formData.repeatPassword) {
-      resetPassword.mutate(formData.password);
-    }
+  const onSubmit = (data: ResetPasswordFormData) => {
+    resetPassword.mutate(data.password);
   };
 
   return (
-    <>
+    <div className="w-full">
       <title>Reset password - Socialfolio</title>
-      <div className="w-full">
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4 flex flex-col w-full"
-        >
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="input"
-            required
-          />
-          <input
-            type="password"
-            name="repeatPassword"
-            placeholder="Password"
-            value={formData.repeatPassword}
-            onChange={handleChange}
-            className="input"
-            required
-          />
-          {error && <p className="text-red-500">{error}</p>}
-          <button
-            disabled={formData.password !== formData.repeatPassword}
-            type="submit"
-            className="button w-full"
-          >
-            Reset
-          </button>
-        </form>
-        {resetPassword.isPending ? <p>Loading...</p> : <></>}
-      </div>
-    </>
+      <h1 className="text-5xl font-bold mb-5">Reset password</h1>
+      <p className="mb-6">Set your new password</p>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 flex flex-col w-full"
+      >
+        <FormInput
+          label="New Password"
+          type="password"
+          placeholder="••••••••"
+          {...register("password")}
+          error={errors.password?.message}
+        />
+
+        <FormInput
+          label="Confirm New Password"
+          type="password"
+          placeholder="••••••••"
+          {...register("confirmPassword")}
+          error={errors.confirmPassword?.message}
+        />
+
+        <Button
+          type="submit"
+          label="Reset Password"
+          isLoading={resetPassword.isPending}
+          disabled={!isValid || resetPassword.isPending}
+          className="w-full"
+        />
+      </form>
+    </div>
   );
 }

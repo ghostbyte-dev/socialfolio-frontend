@@ -1,5 +1,3 @@
-import Button from "./Button";
-
 export default function EmailVerifiedPage() {
   return (
     <section className="p-4 w-full flex flex-col justify-center items-center text-center">

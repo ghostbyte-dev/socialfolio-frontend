@@ -11,6 +11,16 @@
   --color-on-surface: #1d1b20;
   --color-text: #000;
   --color-outline: #dcdbd1;
+
+  --color-success: #00c950;
+  --color-success-variant: #05df72;
+  --color-danger: #fb2c36;
+  --color-danger-variant: #ff6467;
+  --color-warning: #facc15;
+  --color-warning-variant: #ffb900;
+  --color-neutral: #bcbec0;
+  --color-neutral-variant: #9c9e9f;
+  --color-info: #82b0e5;
 }
 
 [data-theme="dark"] {
@@ -24,6 +34,16 @@
   --color-on-primary: #020618;
   --color-text: #fff;
   --color-outline: #30363d;
+
+  --color-success: #00c950;
+  --color-success-variant: #05df72;
+  --color-danger: #fb2c36;
+  --color-danger-variant: #ff6467;
+  --color-warning: #facc15;
+  --color-warning-variant: #ffb900;
+  --color-neutral: #1e283b;
+  --color-neutral-variant: #334155;
+  --color-info: #82b0e5;
 }
 
 [data-theme="light"] {
@@ -37,6 +57,16 @@
   --color-on-primary: #020618;
   --color-text: #333;
   --color-outline: #757780;
+
+  --color-success: #00c950;
+  --color-success-variant: #05df72;
+  --color-danger: #fb2c36;
+  --color-danger-variant: #ff6467;
+  --color-warning: #facc15;
+  --color-warning-variant: #ffb900;
+  --color-neutral: #bcbec0;
+  --color-neutral-variant: #9c9e9f;
+  --color-info: #82b0e5;
 }
 
 
@@ -54,7 +84,7 @@
 
 @layer components {
   .input {
-    @apply w-full rounded-xl bg-surface-container border border-transparent px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary;
+    @apply w-full rounded-xl border border-outline px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary;
   }
 
 
@@ -65,11 +95,6 @@
       @apply bg-primary-high;
     }
   }
-
-  .button-outlined {
-    @apply border border-[var(--color-on-surface)] text-[var(--color-on-surface)] rounded-[var(--radius-xl)] py-[calc(var(--spacing)*2)] px-[calc(var(--spacing)*4)] transition-colors duration-200 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)];
-  }
-
 
   button {
     @apply cursor-pointer;
@@ -91,6 +116,15 @@
 
   .floating-wrapper {
     @apply h-12 flex items-center justify-center rounded-full text-on-surface shadow-xs bg-surface-container border-2 border-surface dark:border-outline overflow-hidden;
+  }
+
+  label,
+  .label {
+    @apply text-sm font-medium text-on-surface ml-1 mb-1;
+  }
+
+  .form-error {
+    @apply text-sm text-danger mt-1 ml-1;
   }
 }
 

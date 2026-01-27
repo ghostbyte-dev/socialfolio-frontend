@@ -1,204 +1,267 @@
 "use client";
 
-import type { WidgetOption } from "./WidgetCreator";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import type { z } from "zod";
+
+import {
+  type WidgetProps,
+  type WidgetSize,
+  widgetSchemas,
+} from "@/types/widget-types"; // Import WidgetSize
+import { Button } from "../Button";
+import { FormInput } from "../inputs/FormInput";
+import SingleSelect from "../inputs/SingleSelect";
 import LocationInput from "../LocationInput";
-import type { WidgetProps } from "@/types/widget-types";
-import { WidgetFactory } from "@/lib/WidgetFactory";
-import { ArrowLeftIcon } from "lucide-react";
+import type { WidgetOption } from "./WidgetCreator";
+import { WidgetPreview } from "./WidgetPreview";
 
 interface WidgetPropsSelectorProps {
-  selectedWidget: WidgetOption | null;
-  handleSave: (formData: any, variant: number) => void;
+  selectedWidget: WidgetOption;
+  // Updated signature to include size
+  handleSave: (
+    formData: any,
+    variant: number,
+    priority: number,
+    size: WidgetSize,
+  ) => void;
   goBack: () => void;
+  initialData?: WidgetProps;
 }
 
 export default function WidgetPropsSelector({
   selectedWidget,
   handleSave,
-  goBack,
+  initialData,
 }: WidgetPropsSelectorProps) {
-  const [formData, setFormData] = useState<Record<string, any>>({});
-  const [variant, setVariant] = useState<number>(1);
-  const [widgetData, setWidgetData] = useState<WidgetProps>({
-    size: { cols: 1, rows: 1 },
-    variant: variant,
-    id: "1",
-    data: {},
-    type: selectedWidget?.id ?? "weather",
+  const [variant, setVariant] = useState<number>(initialData?.variant ?? 1);
+  const [selectedSize, setSelectedSize] = useState<WidgetSize>(
+    initialData?.size ?? selectedWidget.sizes[0] ?? { cols: 1, rows: 1 },
+  );
+
+  const [priority, setPriority] = useState<number>(initialData?.priority ?? 1);
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<Record<string, any>>({
+    resolver: widgetSchemas[selectedWidget.id as keyof typeof widgetSchemas]
+      ? (zodResolver(
+          widgetSchemas[selectedWidget.id as keyof typeof widgetSchemas],
+        ) as any) // 👈 Add 'as any' here
+      : undefined,
+    mode: "onTouched",
+    defaultValues: initialData?.data ?? {},
   });
 
-  const handleChange = (key: string, value: string, type: string) => {
-    if (type == "number") {
-      widgetData.data = {
-        ...widgetData.data,
-        [key]: Number(value),
-      };
-      setFormData((prev) => ({ ...prev, [key]: Number(value) }));
-    } else {
-      widgetData.data = {
-        ...widgetData.data,
-        [key]: value,
-      };
-      setFormData((prev) => ({ ...prev, [key]: value }));
-    }
-  };
+  const watchedData = useWatch({ control });
 
-  const handleImageChange = (
+  useEffect(() => {
+    if (selectedWidget) {
+      if (initialData) {
+        // Edit Mode: Use existing values
+        setVariant(initialData.variant);
+        setSelectedSize(initialData.size);
+        reset(initialData.data);
+      } else {
+        // Creation Mode: Use defaults
+        setVariant(1);
+        if (selectedWidget.sizes.length > 0)
+          setSelectedSize(selectedWidget.sizes[0]);
+
+        const defaults: Record<string, any> = {};
+        selectedWidget.fields.forEach((field) => {
+          if (field.defaultOption) defaults[field.key] = field.defaultOption;
+        });
+        reset(defaults);
+      }
+    }
+  }, [selectedWidget, reset, initialData]);
+
+  const handleImageUpload = (
     key: string,
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
-          handleChange(key, reader.result.toString(), "string");
+          setValue(key, reader.result.toString(), { shouldValidate: true });
         }
       };
       reader.readAsDataURL(file);
     }
   };
 
-  useEffect(() => {
-    setWidgetData((prev) => ({
-      ...prev,
-      variant: variant,
-    }));
-  }, [variant]);
+  // 2. Use selectedSize in the Preview
+  const previewWidgetData: WidgetProps = {
+    size: selectedSize,
+    variant: variant,
+    id: "preview",
+    type: selectedWidget?.id ?? "weather",
+    data: (watchedData as any) || {},
+  };
 
-  useEffect(() => {
-    if (!selectedWidget) return;
-    setVariant(1);
-    setWidgetData((prev) => ({ ...prev, type: selectedWidget.id }));
+  const onSubmit = (data: any) => {
+    // 3. Pass selectedSize to handleSave
+    handleSave(data, variant, priority, selectedSize);
+  };
 
-    selectedWidget.fields.forEach((field) => {
-      if (field.type === "select" && field.defaultOption) {
-        handleChange(field.key, field.defaultOption, "string");
-      }
-    });
-  }, [selectedWidget]);
+  const variantOptions = selectedWidget.variants.map((v) => ({
+    value: v.index.toString(),
+    label: `Variant ${v.index}`,
+  }));
+
+  // 4. Generate Size Options
+  const sizeOptions = selectedWidget.sizes.map((s) => ({
+    value: `${s.cols}x${s.rows}`,
+    label: `${s.cols} Columns x ${s.rows} Rows`,
+  }));
 
   return (
-    <div
-      className={
-        "flex-1 p-8 h-full w-full overflow-y-scroll " +
-        (selectedWidget == null ? "" : "")
-      }
-    >
-      <div className="flex">
-        <button
-          type="button"
-          onClick={goBack}
-          className="mr-2 md:hidden"
-          aria-label="Back to widget type seletion"
-        >
-          <ArrowLeftIcon size={16} />
-        </button>
-        {selectedWidget != null && (
-          <h2 className="text-xl font-bold">Create widget</h2>
-        )}
-      </div>
+    <div className="flex-1 p-8 h-full w-full overflow-y-scroll">
+      <div className="mt-4">
+        {/* Size Selection */}
+        <div className="mb-4">
+          <SingleSelect
+            label="Widget Size"
+            options={sizeOptions}
+            value={`${selectedSize.cols}x${selectedSize.rows}`}
+            onValueChange={(val) => {
+              const [cols, rows] = val.split("x").map(Number);
+              setSelectedSize({ cols, rows });
+            }}
+          />
+        </div>
 
-      {selectedWidget ? (
-        <div className="mt-4">
-          <div className="mb-4">
-            <label className="block font-medium mb-2">Variant</label>
-            <select
-              className="input bg-surface-container-high w-full"
-              value={variant}
-              onChange={(e) => setVariant(Number(e.target.value))}
-            >
-              {selectedWidget.variants.map((variant) => (
-                <option key={variant.index} value={variant.index}>
-                  Variant {variant.index}
-                </option>
-              ))}
-            </select>
-          </div>
-          {selectedWidget.fields.map((field) => (
-            <div key={field.key} className="mb-4">
-              <label className="block font-medium mb-2">{field.label}</label>
-              {field.type === "select" ? (
-                <select
-                  className="input bg-surface-container-high w-full"
-                  value={formData[field.key] || field.defaultOption}
-                  onChange={(e) =>
-                    handleChange(field.key, e.target.value, "string")
-                  }
-                >
-                  {field.options?.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              ) : field.type == "image" ? (
-                <div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="input bg-surface-container-high w-full"
-                    onChange={(e) => handleImageChange(field.key, e)}
+        <FormInput
+          label="Priority"
+          type="number"
+          value={priority}
+          onChange={(e) => {
+            setPriority(Number(e.target.value));
+          }}
+        />
+
+        {/* Variant Selection */}
+        <div className="mb-4">
+          <SingleSelect
+            label={`${selectedWidget.variants.length} available variant${selectedWidget.variants.length > 1 ? "s" : ""}`}
+            options={variantOptions}
+            value={variant.toString()}
+            onValueChange={(val) => setVariant(Number(val))}
+          />
+        </div>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          {selectedWidget.fields.map((field) => {
+            const errorMessage = errors[field.key]?.message as
+              | string
+              | undefined;
+
+            return (
+              <div key={field.key}>
+                {(field.type === "text" || field.type === "number") && (
+                  <FormInput
+                    label={field.label}
+                    type={field.type}
+                    placeholder={field.placeholder ?? field.label}
+                    error={errorMessage}
+                    {...register(field.key, {
+                      valueAsNumber: field.type === "number",
+                    })}
                   />
-                </div>
-              ) : field.type == "location" ? (
-                <LocationInput
-                  onLocationChange={(place) => {
-                    handleChange(
-                      field.key,
-                      JSON.stringify({ lat: place.lat, lon: place.lon }),
-                      "string"
-                    );
-                  }}
-                />
-              ) : field.type == "textArea" ? (
-                <textarea
-                  className="input bg-surface-container-high w-full"
-                  value={formData[field.key] ?? ""}
-                  onChange={(e) =>
-                    handleChange(field.key, e.target.value, field.type)
-                  }
-                ></textarea>
-              ) : (
-                <input
-                  type={field.type}
-                  className="input bg-surface-container-high w-full"
-                  value={formData[field.key] ?? ""}
-                  placeholder={field.placeholder ?? field.label}
-                  onChange={(e) =>
-                    handleChange(field.key, e.target.value, field.type)
-                  }
-                />
-              )}
-            </div>
-          ))}
+                )}
 
-          <div className="h-48 w-48 mb-5">
-            <WidgetFactory
-              isOwner={false}
-              widget={widgetData}
-              deleteWidget={() => {}}
-              preview={true}
-              editWidget={() => {}}
-            />
+                {field.type === "textArea" && (
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <textarea
+                      className={`input bg-surface-container-high w-full p-2 rounded-md ${errorMessage ? "border-red-500" : ""}`}
+                      rows={3}
+                      {...register(field.key)}
+                    />
+                    {errorMessage && (
+                      <span className="text-xs text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {field.type === "select" && field.options && (
+                  <Controller
+                    control={control}
+                    name={field.key}
+                    render={({ field: { onChange, value } }) => (
+                      <SingleSelect
+                        label={field.label}
+                        options={field.options!.map((opt) => ({
+                          value: opt,
+                          label: opt,
+                        }))}
+                        value={value}
+                        onValueChange={onChange}
+                      />
+                    )}
+                  />
+                )}
+
+                {field.type === "image" && (
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="input bg-surface-container-high w-full"
+                      onChange={(e) => handleImageUpload(field.key, e)}
+                    />
+                    {errorMessage && (
+                      <span className="text-xs text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {field.type === "location" && (
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <LocationInput
+                      onLocationChange={(place) => {
+                        setValue(
+                          field.key,
+                          JSON.stringify({ lat: place.lat, lon: place.lon }),
+                          { shouldValidate: true },
+                        );
+                      }}
+                    />
+                    {errorMessage && (
+                      <span className="text-xs text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          <div className="my-5">
+            <p className="font-bold mb-2">Preview</p>
+
+            <WidgetPreview widget={previewWidgetData} />
           </div>
 
-          <button
-            onClick={() => handleSave(formData, variant)}
-            className="button"
-            /* disabled={mutation.isPending} */
-          >
-            {/* {mutation.isPending ? "Saving..." : "Save Widget"} */}
-            Save Widget
-          </button>
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center">
-          <img src="/illustrations/select.svg" className="h-96" height={400} />
-          <p className="mt-4 font-bold">Select a widget to configure</p>
-        </div>
-      )}
+          <Button type="submit" label="Save Widget" disabled={!isValid} />
+        </form>
+      </div>
     </div>
   );
 }

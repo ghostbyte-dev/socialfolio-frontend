@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FocusTrap } from "focus-trap-react";
 import { PencilIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import type { IUser } from "@/types/user-type";
+import { Button } from "./Button";
+import Popup from "./Popup";
 
 export default function DisplayName({
   name,
@@ -59,37 +60,23 @@ export default function DisplayName({
         </button>
       )}
 
-      {isEditing && (
-        <FocusTrap>
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-surface-container p-6 rounded-lg shadow-lg w-96">
-              <h2 className="text-xl font-bold mb-4">Edit Display Name</h2>
-              <input
-                type="text"
-                value={editedName}
-                onChange={(e) => setEditedName(e.target.value)}
-                className="input bg-surface-container-high"
-              />
-              <div className="flex justify-end gap-2 mt-5">
-                <button
-                  type="button"
-                  onClick={handleClosePopup}
-                  className="button-outlined"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="button"
-                  onClick={() => mutation.mutate(editedName)}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </FocusTrap>
-      )}
+      <Popup isOpen={isEditing} onClose={handleClosePopup} width="md">
+        <h2 className="text-xl font-bold mb-4">Edit Display Name</h2>
+        <input
+          type="text"
+          value={editedName}
+          onChange={(e) => setEditedName(e.target.value)}
+          className="input bg-surface-container-high"
+        />
+        <div className="flex justify-end gap-2 mt-5">
+          <Button label="Cancel" variant="neutral" onClick={handleClosePopup} />
+          <Button
+            label="Save"
+            isLoading={mutation.isPending}
+            onClick={() => mutation.mutate(editedName)}
+          />
+        </div>
+      </Popup>
     </div>
   );
 }

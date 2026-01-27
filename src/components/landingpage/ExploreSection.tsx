@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "../Button";
 import ExploreProfileButton from "./ExploreProfileButton";
 
 export default function ExploreSection() {
@@ -36,14 +37,7 @@ export default function ExploreSection() {
           />
         </div>
 
-        <Link
-          href="/explore"
-          className="button bg-surface text-on-surface rounded-xl"
-        >
-          <span className="relative z-10 transition-colors duration-300 ease-in-out">
-            Explore all
-          </span>
-        </Link>
+        <Button href="/explore" variant="surface" label="Explore all" />
       </div>
     </section>
   );

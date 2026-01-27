@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { PeertubeData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import Image from "next/image";
 
 interface PeertubeWidgetProps {
   data: PeertubeData;

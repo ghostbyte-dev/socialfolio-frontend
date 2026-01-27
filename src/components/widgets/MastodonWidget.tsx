@@ -1,8 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { WidgetService } from "@/services/widget.service";
 import type { MastodonData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { useQuery } from "@tanstack/react-query";
-import { WidgetService } from "@/services/widget.service";
-import Image from "next/image";
 
 interface MastodonWidgetProps {
   id: string;

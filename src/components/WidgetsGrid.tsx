@@ -1,17 +1,18 @@
-import { WidgetFactory } from "@/lib/WidgetFactory";
-import { WidgetService } from "@/services/widget.service";
-import type { GitHubData, WidgetProps } from "@/types/widget-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import EditWidgetModal from "./widgetEditor/WidgetEditor";
 import { useAuth } from "@/context/AuthContext";
+import { WidgetFactory } from "@/lib/WidgetFactory";
+import { WidgetService } from "@/services/widget.service";
+import type { SocialfolioData, WidgetProps } from "@/types/widget-types";
+import Popup from "./Popup";
+import WidgetEditor from "./widgetEditor/WidgetEditor";
 
 const addNewWidget: WidgetProps = {
   id: "0",
   type: "newwidget",
   variant: 1,
   size: { cols: 1, rows: 1 },
-  data: {} as GitHubData,
+  data: {} as SocialfolioData,
 };
 
 export default function WidgetsGrid({
@@ -48,7 +49,7 @@ export default function WidgetsGrid({
 
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        (old: WidgetProps[]) => old.filter((widget) => widget.id !== id)
+        (old: WidgetProps[]) => old.filter((widget) => widget.id !== id),
       );
 
       return { previousWidgets };
@@ -56,7 +57,7 @@ export default function WidgetsGrid({
     onError: (_err, _id: string, context: any) => {
       queryClient.setQueryData(
         ["widgetsofuser", username],
-        context.previousWidgets
+        context.previousWidgets,
       );
     },
     onSettled: () => {
@@ -95,7 +96,7 @@ export function WidgetsGridDisplay({
   preview?: boolean;
 }) {
   const [editModal, setEditModal] = useState<WidgetProps | undefined>(
-    undefined
+    undefined,
   );
 
   return (
@@ -130,14 +131,18 @@ export function WidgetsGridDisplay({
         );
       })}
 
-      {editModal && isOwner ? (
-        <EditWidgetModal
-          widgetProps={editModal}
+      <Popup
+        isOpen={editModal !== undefined && isOwner}
+        onClose={() => setEditModal(undefined)}
+        width="xl"
+        nopadding
+      >
+        <WidgetEditor
+          // biome-ignore lint/style/noNonNullAssertion: <>
+          widgetProps={editModal!}
           onClose={() => setEditModal(undefined)}
         />
-      ) : (
-        <></>
-      )}
+      </Popup>
     </div>
   );
 }

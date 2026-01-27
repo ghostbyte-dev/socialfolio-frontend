@@ -1,4 +1,4 @@
-import Button from "../Button";
+import { Button } from "../Button";
 
 export default function HeroSection({
   loggedInUsername,
@@ -18,27 +18,13 @@ export default function HeroSection({
           </p>
         </div>
         {loggedInUsername ? (
-          <a href={`/${loggedInUsername}`}>
-            <button
-              type="button"
-              className="button bg-surface text-on-surface rounded-xl"
-            >
-              <span className="relative z-10 transition-colors duration-300 ease-in-out">
-                My profile
-              </span>
-            </button>
-          </a>
+          <Button
+            label="My profile"
+            variant="surface"
+            href={`/${loggedInUsername}`}
+          />
         ) : (
-          <a href={`/auth/login`}>
-            <button
-              type="button"
-              className="button bg-surface text-on-surface rounded-xl"
-            >
-              <span className="relative z-10 transition-colors duration-300 ease-in-out">
-                Get Started
-              </span>
-            </button>
-          </a>
+          <Button label="Get started" variant="surface" href="/auth/login" />
         )}
 
         <div className=" pt-20 z-20 mt-20">

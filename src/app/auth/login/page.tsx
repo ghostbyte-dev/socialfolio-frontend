@@ -1,96 +1,105 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import SubmitButton from "@/components/SubmitButton";
+import * as z from "zod";
+
+import { Button } from "@/components/Button";
+import { FormInput } from "@/components/inputs/FormInput";
 import { useAuth } from "@/context/AuthContext";
-import { type LoginCredentials, login as loginApi } from "@/lib/auth";
+import { login as loginApi } from "@/lib/auth";
+
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(1, "Enter a password"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState<LoginCredentials>({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { setToken } = useAuth(); // 👈 new auth context
+  const { setToken } = useAuth();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onTouched",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
-
     try {
-      // Call backend login
-      const data = await loginApi(formData.email, formData.password, setToken);
-
-      toast.success(`Welcome, ${data.username}!`);
-      router.push(`/${data.username}`);
+      const response = await loginApi(data.email, data.password, setToken);
+      toast.success(`Welcome, ${response.username}!`);
+      router.push(`/${response.username}`);
     } catch (err) {
       const msg = (err as Error).message || "Login failed";
       toast.error(msg);
-      setError(msg);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
+    <div className="w-full">
       <title>Login - Socialfolio</title>
-      <div className="w-full">
-        <h1 className="text-5xl font-bold mb-5">Login</h1>
+      <h1 className="text-5xl font-bold mb-5">Login</h1>
 
-        <p className="mb-5">
-          Need an account yet?{" "}
-          <Link href="/auth/register" className="underline hover:text-primary">
-            Register
-          </Link>
-        </p>
+      <p className="mb-5">
+        Need an account?{" "}
+        <Link href="/auth/register" className="underline hover:text-primary">
+          Register
+        </Link>
+      </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4 flex flex-col w-full"
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 flex flex-col w-full"
+      >
+        <FormInput
+          label="Email"
+          type="email"
+          placeholder="Your email"
+          {...register("email")}
+          error={errors.email?.message}
+        />
+
+        <FormInput
+          label="Password"
+          type="password"
+          placeholder="••••••••"
+          {...register("password")}
+          error={errors.password?.message}
+        />
+
+        <Button
+          type="submit"
+          disabled={!isValid}
+          label="Login"
+          isLoading={loading}
+        />
+      </form>
+
+      <div className="mt-3 flex justify-center">
+        <Link
+          href="/auth/password/reset"
+          className="underline hover:text-primary"
         >
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="input"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="input"
-            required
-          />
-          {error && <p className="text-red-500">{error}</p>}
-
-          <SubmitButton text="Login" isLoading={loading} />
-        </form>
-
-        <div className="mt-3 flex justify-center">
-          <Link
-            href="/auth/password/reset"
-            className="underline hover:text-primary"
-          >
-            I forgot my password
-          </Link>
-        </div>
+          I forgot my password
+        </Link>
       </div>
-    </>
+    </div>
   );
 }

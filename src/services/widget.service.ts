@@ -9,6 +9,7 @@ export interface ICreateWidgetRequest {
   type: string;
   variant: number;
   size: ISize;
+  priority: number;
   data: Record<string, string>
 }
 
