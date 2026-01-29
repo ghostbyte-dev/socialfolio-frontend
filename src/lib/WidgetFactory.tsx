@@ -1,4 +1,5 @@
 import { AddNewWidget } from "@/components/widgets/AddNewWidget";
+import { ApodWidget } from "@/components/widgets/ApodWidget";
 import { BaseWidget } from "@/components/widgets/BaseWidget";
 import { BlueskyWidget } from "@/components/widgets/BlueskyWidget";
 import { BookWyrmWiget } from "@/components/widgets/BookWyrmWidget";
@@ -559,6 +560,19 @@ export function WidgetFactory({
         <WeatherWidget
           id={widget.id}
           data={widget.data as WeatherWidgetData}
+          size={widget.size}
+          variant={widget.variant}
+          isOwner={isOwner}
+          deleteWidget={deleteWidget}
+          editWidget={editWidget}
+          preview={preview}
+        />
+      );
+    case "apod":
+      return (
+        <ApodWidget
+          id={widget.id}
+          data={null}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}

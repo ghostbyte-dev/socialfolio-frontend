@@ -758,6 +758,20 @@ export const widgetCategories: WidgetCategory[] = [
       ],
     },
     {
+      id: "apod",
+      name: "Apod",
+      imageLink: "/widgeteditor/image_black.svg",
+      imageLinkDarkTheme: "/widgeteditor/image_white.svg",
+      fields: [],
+      variants: [{ index: 1 }],
+      sizes: [
+        { cols: 1, rows: 1 },
+        { cols: 1, rows: 2 },
+        { cols: 2, rows: 1 },
+        { cols: 2, rows: 2 },
+      ],
+    },
+    {
       id: "image",
       name: "Image",
       imageLink: "/widgeteditor/image_black.svg",
