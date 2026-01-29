@@ -42,6 +42,7 @@ export function ApodWidget({
       isOwner={isOwner}
       deleteWidget={deleteWidget}
       editWidget={editWidget}
+      link="https://apod.nasa.gov/apod/"
     >
       <div className="h-full w-full flex justify-center items-center relative">
         {widgetApiData && (
