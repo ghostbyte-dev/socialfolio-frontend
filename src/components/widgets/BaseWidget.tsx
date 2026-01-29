@@ -1,5 +1,6 @@
 import { PencilIcon, XIcon } from "lucide-react";
 import type React from "react";
+import { useEffect } from "react";
 import { isTouch } from "@/lib/isTouch";
 
 export interface BaseWidgetProps {
@@ -19,7 +20,7 @@ export function BaseWidget({
   onClick,
   link,
 }: BaseWidgetProps) {
-  const isClickable = !!(link || onClick) && !(isOwner && isTouch());
+  const isClickable = (link || onClick) && !(isOwner && isTouch());
 
   const handleClick = onClick ?? (() => {});
 
@@ -34,12 +35,12 @@ export function BaseWidget({
     : "group-focus:opacity-100 group-focus:scale-100 focus:scale-100 focus:opacity-100";
 
   return (
-    <div className="relative w-full h-full group">
-      {!isClickable && !link && (
+    <div className="relative w-full h-full group" tabIndex={isOwner ? 0 : -1}>
+      {((!isClickable && !link) || isOwner) && (
         <div className="w-full h-full wrapper">{children}</div>
       )}
 
-      {link && (
+      {link && !isOwner && (
         <a
           href={link}
           target="_blank"
@@ -50,7 +51,7 @@ export function BaseWidget({
         </a>
       )}
 
-      {!link && isClickable && (
+      {!link && isClickable && !isOwner && (
         <button
           type="button"
           className="h-full w-full wrapper clickable"
