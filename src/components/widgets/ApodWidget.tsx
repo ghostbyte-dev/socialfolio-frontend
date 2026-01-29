@@ -33,7 +33,7 @@ export function ApodWidget({
 
   const widgetApiData: ApodApiData | undefined = preview
     ? {
-        url: "https://apod.nasa.gov/apod/image/2601/NGC-2442-rev-1-crop-18-Jan-2026_2048.jpg",
+        url: "https://apod.nasa.gov/apod/image/0907/corona_vangorp.jpg",
       }
     : apiData;
 
