@@ -178,20 +178,31 @@ export function GithubWidget({
           {widgetApiData && (
             <>
               <div className="flex flex-row items-center gap-2 sm:gap-4">
-                <Image
-                  src={widgetApiData.avatar ?? "/defaults/default-avatar.jpg"}
-                  alt="Github logo"
-                  height={64}
-                  width={64}
-                  className="rounded-2xl object-contain w-10 h-10 sm:w-16 sm:h-16"
-                />
+                <div className="h-10 w-10 md:h-16 md:w-16 rounded-xl flex items-center justify-center bg-[#171515] dark:bg-[#fff]">
+                  <div className="w-3/4 h-3/4 relative">
+                    <Image
+                      src="/widgets/github/github-logo-dark.webp"
+                      alt="Github logo"
+                      fill
+                      className="object-contain light:hidden"
+                    />
+
+                    <Image
+                      src="/widgets/github/github-logo-white.webp"
+                      alt="Github logo"
+                      fill
+                      className="object-contain dark:hidden"
+                    />
+                  </div>
+                </div>
+
                 <span
                   className={
                     (widgetSize.cols === 1 ? "text-xs" : "text-md") +
-                    "sm:text-xl "
+                    "sm:text-xl font-bold"
                   }
                 >
-                  {widgetApiData.name}
+                  Github
                 </span>
               </div>
               {widgetSize.rows > 1 && widgetSize.cols > 1 && (
