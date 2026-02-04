@@ -26,7 +26,7 @@ export const instanceSchema = z
   .string()
   .min(1, "Instance is required")
   .regex(
-    /^((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/,
+    /^(https?:\/\/)?((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/,
     "Enter a valid domain"
   );
 
