@@ -37,7 +37,7 @@ const UserClientPage = () => {
     queryKey: ["otheruser", username],
     queryFn: async () => {
       try {
-        return await UserService.getUser(username, token ?? "");
+        return await UserService.getUser(username, token ?? "", true);
       } catch (err: any) {
         if (err.message === "UserNotFound") {
           setUserNotFound(true);
