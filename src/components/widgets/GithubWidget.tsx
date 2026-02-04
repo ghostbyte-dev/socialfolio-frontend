@@ -106,14 +106,6 @@ export function GithubWidget({
     return contributions;
   }, [widgetSize, widgetApiData?.contributions]);
 
-  const customColors = [
-    "#ccd1e0", // Very light blue (lighter than primary color)
-    "#8999c7", // Light blue
-    "#4c63a4", // Primary blue (#495d92 adjusted)
-    "#2e4180", // Darker blue
-    "#1b2a5d", // Very dark blue (almost navy)
-  ];
-
   function contributionDayColor(contributionCount: number) {
     if (!widgetApiData) {
       return;
@@ -123,13 +115,15 @@ export function GithubWidget({
         c.contributionDays.map((d: ContributionDay) => d.contributionCount),
       ),
     );
-    if (contributionCount === 0) return customColors[0]; // No contribution
+    if (contributionCount === 0) return "var(--github-0)"; // No contribution
     const intensity = contributionCount / maxContributions;
 
-    if (intensity > 0.75) return customColors[4];
-    if (intensity > 0.5) return customColors[3];
-    if (intensity > 0.25) return customColors[2];
-    return customColors[1];
+    console.log(intensity);
+
+    if (contributionCount > 50) "var(--github-4)";
+    if (contributionCount > 30) "var(--github-3)";
+    if (contributionCount > 10) return "var(--github-2)";
+    return "var(--github-1)";
   }
 
   return (

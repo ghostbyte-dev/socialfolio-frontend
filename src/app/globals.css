@@ -21,6 +21,12 @@
   --color-neutral: #bcbec0;
   --color-neutral-variant: #9c9e9f;
   --color-info: #82b0e5;
+
+  --github-0: #ebedf0;
+  --github-1: #9be9a8;
+  --github-2: #40c463;
+  --github-3: #30a14e;
+  --github-4: #216e39;
 }
 
 [data-theme="dark"] {
@@ -44,6 +50,12 @@
   --color-neutral: #1e283b;
   --color-neutral-variant: #334155;
   --color-info: #82b0e5;
+
+  --github-0: #151b23;
+  --github-1: #033a16;
+  --github-2: #196c2e;
+  --github-3: #2ea043;
+  --github-4: #56d364;
 }
 
 [data-theme="light"] {
@@ -67,6 +79,12 @@
   --color-neutral: #bcbec0;
   --color-neutral-variant: #9c9e9f;
   --color-info: #82b0e5;
+
+  --github-0: #ebedf0;
+  --github-1: #9be9a8;
+  --github-2: #40c463;
+  --github-3: #30a14e;
+  --github-4: #216e39;
 }
 
 
