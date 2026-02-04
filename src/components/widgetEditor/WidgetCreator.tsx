@@ -24,6 +24,7 @@ export interface WidgetOption {
     placeholder?: string | undefined;
     options?: string[] | undefined;
     defaultOption?: string | undefined;
+    required?: boolean; //default true
   }[];
   variants: Variant[];
   sizes: Size[];

@@ -1,9 +1,9 @@
 import Image from "next/image";
-import type { PixelfedData } from "@/types/widget-types";
+import type { LemmyWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
 
 interface LemmyWidgetProps {
-  data: PixelfedData;
+  data: LemmyWidgetData;
   size: { cols: number; rows: number };
   variant: number;
   isOwner: boolean;

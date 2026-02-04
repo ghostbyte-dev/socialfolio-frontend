@@ -81,7 +81,18 @@ const getUsersWidgets = async (username: string, jwt: string | undefined): Promi
 const getWidgetData = async (id: string): Promise<WidgetApiData> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/widgets/${id}`);
   if (!res.ok) {
-    throw new Error("Failed to fetch user data");
+    let errorMessage = "";
+    try {
+      const json = await res.json();
+      if (json.message) {
+        errorMessage = json.message
+      } else {
+        throw new Error();
+      };
+    } catch (_e) {
+      throw new Error("Failed to fetch user data");
+    }
+    throw new Error(errorMessage);
   }
   const json = await res.json()
 

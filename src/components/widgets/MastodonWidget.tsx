@@ -36,10 +36,6 @@ export interface WeatherApiData {
   isDay: boolean;
 }
 
-export interface ApodApiData {
-  url: string;
-}
-
 export function MastodonWidget({
   id,
   data,

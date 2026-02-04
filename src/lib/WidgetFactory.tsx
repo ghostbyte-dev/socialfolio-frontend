@@ -127,12 +127,14 @@ export function WidgetFactory({
     case "pixelfed":
       return (
         <PixelfedWidget
+          id={widget.id}
           data={widget.data as PixelfedData}
           size={widget.size}
           variant={widget.variant}
           isOwner={isOwner}
           deleteWidget={deleteWidget}
           editWidget={editWidget}
+          preview={preview}
         />
       );
     case "loops":

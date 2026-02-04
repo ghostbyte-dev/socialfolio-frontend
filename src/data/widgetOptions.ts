@@ -72,8 +72,9 @@ export const widgetCategories: WidgetCategory[] = [
             placeholder: "pixelfed.social",
           },
           { key: "username", label: "Username", type: "text" },
+          { key: "accountId", label: "Account Id", type: "text", required: false }
         ],
-        variants: [{ index: 1 }],
+        variants: [{ index: 1 }, { index: 2 }],
         sizes: [
           { cols: 1, rows: 1 },
           { cols: 1, rows: 2 },
