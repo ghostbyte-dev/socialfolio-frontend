@@ -19,33 +19,30 @@ export default function Bio({
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 grid-flow-row-dense">
-        <div className="hidden xl:block"></div>
-        <div className="sm:mr-5 col-span-1 md:col-span-1">
+      <div className="flex flex-col items-center">
+        <div className="max-w-40 md:max-w-56">
           <Avatar url={user.avatar} isOwner={isOwner} />
         </div>
 
-        <div className="flex items-start col-span-2 md:col-span-2 lg:col-span-3 xl:col-span-2 flex-col mt-5 sm:mt-0 w-full sm:w-auto">
-          <h1 className="text-3xl font-bold mb-4 text-start wrap-break-word max-w-screen sm:max-w-none">
-            {user.displayName?.trim() ? user.displayName : user.username}
-          </h1>
+        <h1 className="text-2xl md:text-4xl mt-5 text-center font-bold mb-4 wrap-break-word max-w-screen sm:max-w-none">
+          {user.displayName?.trim() ? user.displayName : user.username}
+        </h1>
 
-          {user.description.trim() && (
-            <p className="text-xl wrap-break-word max-w-screen sm:max-w-none sm:px-0">
-              {user.description}
-            </p>
-          )}
+        {user.description.trim() && (
+          <p className="text-lg md:text-xl text-center wrap-break-word max-w-3xl">
+            {user.description}
+          </p>
+        )}
 
-          {isOwner && (
-            <Button
-              label="Edit profile"
-              onClick={() => setIsEditing(true)}
-              size="sm"
-              className="mt-5"
-              icon={SettingsIcon}
-            />
-          )}
-        </div>
+        {isOwner && (
+          <Button
+            label="Edit profile"
+            onClick={() => setIsEditing(true)}
+            size="sm"
+            className="mt-5"
+            icon={SettingsIcon}
+          />
+        )}
       </div>
       {user && (
         <Popup

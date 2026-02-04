@@ -43,7 +43,6 @@ export default function Avatar({
   };
 
   const handleClosePopup = () => {
-    console.log("close");
     setFile(undefined);
     setIsEditing(false);
   };
@@ -140,7 +139,6 @@ function CropAvatar({
   const uploadAvatar = useMutation({
     mutationFn: (avatar: Blob) => UserService.uploadAvatar(avatar, jwt),
     onSuccess: (data: IUser, variables, context) => {
-      console.log(data);
       queryClient.setQueryData(["otheruser", username], data);
       handleClosePopup();
     },

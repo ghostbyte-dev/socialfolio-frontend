@@ -95,11 +95,6 @@ export function GithubWidget({
   }, [size]);
 
   const displayedContributions = useMemo(() => {
-    console.log(
-      "Recalculating contributions:",
-      widgetSize,
-      widgetApiData?.contributions,
-    );
     const contributions = getContributions(
       widgetApiData?.contributions ?? {
         weeks: [],
@@ -136,8 +131,6 @@ export function GithubWidget({
     if (intensity > 0.25) return customColors[2];
     return customColors[1];
   }
-
-  console.log(widgetApiData?.avatar);
 
   return (
     <BaseWidget

@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import type { NoteWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { useEffect, useState } from "react";
 
 interface NoteWidgetProps {
   data: NoteWidgetData;
@@ -52,23 +52,18 @@ function NoteWidgetVariant2({
       let font: any;
       switch (variant) {
         case 2:
-          // @ts-ignore
           font = (await import("figlet/importable-fonts/Standard.js")).default;
           break;
         case 3:
-          // @ts-ignore
           font = (await import("figlet/importable-fonts/Slant.js")).default;
           break;
         case 4:
-          // @ts-ignore
           font = (await import("figlet/importable-fonts/Univers.js")).default;
           break;
         case 5:
-          // @ts-ignore
           font = (await import("figlet/importable-fonts/Star Wars.js")).default;
           break;
         case 6:
-          // @ts-ignore
           font = (await import("figlet/importable-fonts/Tinker-Toy.js"))
             .default;
           break;
@@ -77,7 +72,6 @@ function NoteWidgetVariant2({
       figlet.parseFont("Standard", font);
 
       figlet.text(data.note, { font: "Standard" }, (err, result) => {
-        console.log(result);
         if (!err) setAsciiNote(result ?? "");
       });
     }
