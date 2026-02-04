@@ -1,9 +1,11 @@
 // /types/widget-types.ts
 import { z } from "zod";
+import type { ApodApiData } from "@/components/widgets/ApodWidget";
 import type {
   MastodonApiData,
   WeatherApiData,
 } from "@/components/widgets/MastodonWidget";
+import type { PixelfedApiData } from "@/components/widgets/PixelfedWidget";
 
 /**
  * Core widget props (kept as explicit TS interfaces since they are used in many places)
@@ -27,16 +29,13 @@ export const instanceSchema = z
   .min(1, "Instance is required")
   .regex(
     /^(https?:\/\/)?((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/,
-    "Enter a valid domain"
+    "Enter a valid domain",
   );
 
 export const urlSchema = z
   .string()
   .min(1, "URL is required")
-  .regex(
-    /^https:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+.*$/,
-    "Enter a valid URL"
-  );
+  .regex(/^https:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+.*$/, "Enter a valid URL");
 
 export const optionalUrlSchema = z
   .string()
@@ -47,16 +46,13 @@ export const optionalUrlSchema = z
     (val) => !val || /^https:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+.*$/.test(val),
     {
       message: "Must be a valid URL",
-    }
+    },
   );
 
 export const usernameSchema = z
   .string()
   .min(1, "Username is required")
-  .regex(
-    /^[a-zA-Z0-9._]{1,30}$/,
-    "Enter a valid username"
-  );
+  .regex(/^[a-zA-Z0-9._]{1,30}$/, "Enter a valid username");
 
 /* ---------------------------
    Zod schemas + inferred types
@@ -65,7 +61,7 @@ export const usernameSchema = z
 /* Mastodon */
 export const MastodonSchema = z.object({
   username: usernameSchema,
-  instance: instanceSchema
+  instance: instanceSchema,
 });
 export type MastodonData = z.infer<typeof MastodonSchema>;
 
@@ -73,6 +69,7 @@ export type MastodonData = z.infer<typeof MastodonSchema>;
 export const PixelfedSchema = z.object({
   username: usernameSchema,
   instance: instanceSchema,
+  accountId: z.string().nullable()
 });
 export type PixelfedData = z.infer<typeof PixelfedSchema>;
 
@@ -305,7 +302,9 @@ export const ContributionsCollectionSchema = z.object({
   totalContributions: z.number(),
   weeks: z.array(ContributionsWeekSchema),
 });
-export type ContributionsCollection = z.infer<typeof ContributionsCollectionSchema>;
+export type ContributionsCollection = z.infer<
+  typeof ContributionsCollectionSchema
+>;
 
 export const GithubApiSchema = z.object({
   username: z.string().min(1),
@@ -456,4 +455,9 @@ export type WidgetData = z.infer<
 >;
 
 /* WidgetApiData remains a union of API-return types (keeps your earlier external API types) */
-export type WidgetApiData = MastodonApiData | GithubApiData | WeatherApiData;
+export type WidgetApiData =
+  | MastodonApiData
+  | GithubApiData
+  | WeatherApiData
+  | ApodApiData
+  | PixelfedApiData;

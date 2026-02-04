@@ -173,6 +173,7 @@ export default function WidgetPropsSelector({
                     {...register(field.key, {
                       valueAsNumber: field.type === "number",
                     })}
+                    required={field.required ?? true}
                   />
                 )}
 

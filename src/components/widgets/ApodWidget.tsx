@@ -4,7 +4,10 @@ import { getWeatherIcon } from "@/lib/getWeatherIcon";
 import { WidgetService } from "@/services/widget.service";
 import type { WidgetApiData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import type { ApodApiData, WeatherApiData } from "./MastodonWidget";
+
+export interface ApodApiData {
+  url: string;
+}
 
 interface ApodWidgetProps {
   id: string;
