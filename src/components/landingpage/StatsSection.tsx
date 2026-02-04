@@ -39,6 +39,14 @@ export default function StatsSection() {
           ) : (
             <div></div>
           )}
+
+          <div className="w-56 h-56 m-10">
+            <StatsWidget
+              stat={stats?.viewsCount?.toString() ?? ""}
+              name="Profile visits last 24 hours"
+              variant={1}
+            />
+          </div>
         </div>
       </div>
     </section>

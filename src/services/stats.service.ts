@@ -7,6 +7,7 @@ export interface WidgetStats {
 export interface StatsResponse {
   userCount: number;
   widgetCount: number;
+  viewsCount: number;
   mostUsedWidgets: WidgetStats[];
 }
 

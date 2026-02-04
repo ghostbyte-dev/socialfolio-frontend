@@ -26,7 +26,7 @@ export function StatsWidget({ stat, name, variant }: StatsWidgetProps) {
         }
       >
         <span className="font-bold text-6xl">{stat}</span>
-        <span className="mt-3">{name}</span>
+        <span className="mt-3 text-center">{name}</span>
       </div>
     </BaseWidget>
   );
