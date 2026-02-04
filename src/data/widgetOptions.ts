@@ -779,7 +779,7 @@ export const widgetCategories: WidgetCategory[] = [
       imageLinkDarkTheme: "/widgeteditor/image_white.svg",
       fields: [
         { key: "image", label: "Image", type: "image" },
-        { key: "link", label: "Link", type: "text" },
+        { key: "link", label: "Link", type: "text", required: false },
       ],
       variants: [{ index: 1 }],
       sizes: [
