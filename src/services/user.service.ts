@@ -16,12 +16,12 @@ const getSelf = async (jwt: string): Promise<IUser> => {
 };
 
 
-const getUser = async (username: string, jwt: string | undefined): Promise<IUser> => {
+const getUser = async (username: string, jwt: string | undefined, isView: boolean): Promise<IUser> => {
   const headers: HeadersInit = jwt ? {
     "Content-Type": "application/json",
     Authorization: `Bearer ${jwt}`,
   } : {}
-  const res = await fetch(`${API_URL}/api/user/username/${username}`, { headers: headers });
+  const res = await fetch(`${API_URL}/api/user/username/${username}?view=${isView}`, { headers: headers });
   if (!res.ok) {
     if (res.status === 404) {
       throw new Error("UserNotFound");

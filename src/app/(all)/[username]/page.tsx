@@ -9,7 +9,7 @@ export async function generateMetadata({
   const { username } = await params;
 
   try {
-    const user = await UserService.getUser(username, undefined);
+    const user = await UserService.getUser(username, undefined, false);
 
     return {
       title: `${user.username} - Socialfolio`,
