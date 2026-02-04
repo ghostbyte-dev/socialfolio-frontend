@@ -13,4 +13,5 @@ export interface IUser {
   description: string;
   avatar: string;
   status: Status;
+  views?: number;
 }
