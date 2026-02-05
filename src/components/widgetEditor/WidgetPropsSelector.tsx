@@ -226,11 +226,8 @@ export default function WidgetPropsSelector({
                     <label className="text-sm font-medium">{field.label}</label>
                     <LocationInput
                       onLocationChange={(place) => {
-                        setValue(
-                          field.key,
-                          JSON.stringify({ lat: place.lat, lon: place.lon }),
-                          { shouldValidate: true },
-                        );
+                        setValue("lon", place.lon, { shouldValidate: true });
+                        setValue("lat", place.lat, { shouldValidate: true });
                       }}
                     />
                     {errorMessage && (

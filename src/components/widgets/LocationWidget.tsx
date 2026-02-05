@@ -1,6 +1,6 @@
+import { useMemo, useRef } from "react";
 import type { LocationWidgetData } from "@/types/widget-types";
 import { BaseWidget } from "./BaseWidget";
-import { useMemo, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import dynamic from "next/dynamic";
 
@@ -22,13 +22,13 @@ export function LocationWidget({
 }: LocationWidgetProps) {
   const mapRef = useRef(null);
 
-  const Map = useMemo(
+  const MyMapDynamic = useMemo(
     () =>
       dynamic(() => import("@/components/Map"), {
         loading: () => <p>A map is loading</p>,
         ssr: false,
       }),
-    []
+    [],
   );
 
   if (!data.lat || !data.lon) {
@@ -50,14 +50,14 @@ export function LocationWidget({
       editWidget={editWidget}
     >
       {variant === 1 && (
-        <Map
+        <MyMapDynamic
           position={{ lon: data.lon, lat: data.lat }}
           zoom={data.zoom}
           light={true}
         />
       )}
       {variant === 2 && (
-        <Map
+        <MyMapDynamic
           position={{ lon: data.lon, lat: data.lat }}
           zoom={data.zoom}
           light={false}

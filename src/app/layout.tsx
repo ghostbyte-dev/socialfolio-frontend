@@ -4,10 +4,10 @@ import { Karla, Petrona } from "next/font/google";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
-import { ThemeProvider } from "next-themes";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PlausibleProvider from "next-plausible";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/context/AuthContext";
 
 const textFont = Karla({
@@ -36,6 +36,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <head>
+        <link
+          href="https://api.tiles.mapbox.com/mapbox-gl-js/v<YOUR_MAPBOX_VERSION>/mapbox-gl.css"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${textFont.className} ${headingFont.variable} antialiased bg-surface min-h-screen`}
       >
