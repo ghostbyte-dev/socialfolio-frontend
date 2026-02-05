@@ -18,7 +18,7 @@ export default function MyMap(props: any) {
       initialViewState={{
         longitude: position.lon,
         latitude: position.lat,
-        zoom: 10,
+        zoom: zoom,
       }}
       mapStyle="mapbox://styles/ghostbytedev/cml8py2h6005n01sj9cn7hes5"
       config={{
