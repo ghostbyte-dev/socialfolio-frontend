@@ -27,7 +27,7 @@ const LocationInput: React.FC<LocationInputProps> = ({ onLocationChange }) => {
     debounceTimer.current = setTimeout(() => {
       if (value.length > 2) {
         fetch(
-          `https://api.locationiq.com/v1/autocomplete?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&`
+          `https://api.locationiq.com/v1/autocomplete?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&`,
         )
           .then((response) => response.json())
           .then((response: LocationData[]) => setSuggestions(response))
@@ -39,6 +39,7 @@ const LocationInput: React.FC<LocationInputProps> = ({ onLocationChange }) => {
   };
 
   const handleLocationSelect = (selectedLocation: any) => {
+    console.log(selectedLocation);
     setLocation(selectedLocation.display_name);
     onLocationChange(selectedLocation);
     setSuggestions([]);
@@ -57,6 +58,8 @@ const LocationInput: React.FC<LocationInputProps> = ({ onLocationChange }) => {
       {suggestions?.length > 0 && (
         <div className="mt-2 bg-surface-container-high border border-outline rounded-lg shadow-lg max-h-60 overflow-y-auto">
           {suggestions.map((suggestion) => (
+            // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
+            // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
             <div
               key={suggestion.place_id}
               onClick={() => handleLocationSelect(suggestion)}

@@ -206,8 +206,11 @@ export default function WidgetPropsSelector({
 
                 {field.type === "image" && (
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium">{field.label}</label>
+                    <label className="text-sm font-medium" htmlFor="file">
+                      {field.label}
+                    </label>
                     <input
+                      id="file"
                       type="file"
                       accept="image/*"
                       className="input bg-surface-container-high w-full"
@@ -223,7 +226,9 @@ export default function WidgetPropsSelector({
 
                 {field.type === "location" && (
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium">{field.label}</label>
+                    <label className="text-sm font-medium" htmlFor="location">
+                      {field.label}
+                    </label>
                     <LocationInput
                       onLocationChange={(place) => {
                         setValue("lon", place.lon, { shouldValidate: true });

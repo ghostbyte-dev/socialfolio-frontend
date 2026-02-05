@@ -131,20 +131,12 @@ export default function WidgetCreator({ onClose }: WidgetCreatorProps) {
     size: WidgetSize,
   ) => {
     if (!selectedWidget) return;
-
-    const widgetData = selectedWidget.fields.reduce(
-      (acc, field) => {
-        acc[field.key] = formData[field.key] || "";
-        return acc;
-      },
-      {} as Record<string, string>,
-    );
     const createWidgetRequest: ICreateWidgetRequest = {
       type: selectedWidget.id,
       variant: variant,
       size: size,
       priority: priority,
-      data: widgetData,
+      data: formData,
     };
 
     mutation.mutate({
