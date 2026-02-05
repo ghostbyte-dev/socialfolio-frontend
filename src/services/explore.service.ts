@@ -14,12 +14,15 @@ export interface ExploreProfilesResponse {
   profiles: ExploreProfile[];
 }
 
+export type ExploreOrder = "latest" | "popular";
+
+
 const EXPLORE_PROFILES_LIMIT: number = 30;
-const getProfiles = async (cursor: string = "", limit: number = EXPLORE_PROFILES_LIMIT): Promise<ExploreProfilesResponse> => {
+const getProfiles = async (cursor: string = "", order: ExploreOrder = "latest", limit: number = EXPLORE_PROFILES_LIMIT): Promise<ExploreProfilesResponse> => {
   const headers: HeadersInit = {
     "Content-Type": "application/json"
   }
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/explore/profiles?limit=${limit}&cursor=${cursor}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/explore/profiles?limit=${limit}&cursor=${cursor}&order=${order}`, {
     headers: headers,
   }
   );

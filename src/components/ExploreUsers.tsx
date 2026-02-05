@@ -1,8 +1,9 @@
 "use client";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import {
+  type ExploreOrder,
   type ExploreProfile,
   ExploreService,
 } from "@/services/explore.service";
@@ -12,6 +13,8 @@ import ExploreProfileCard from "./ExploreProfileCard";
 import LoadingIndicator from "./LoadingIndicator";
 
 const ExploreUsers = () => {
+  const [order, setOrder] = useState<ExploreOrder>("latest");
+
   const {
     data,
     error,
@@ -20,15 +23,40 @@ const ExploreUsers = () => {
     isFetchingNextPage,
     isPending,
   } = useInfiniteQuery({
-    queryKey: ["projects"],
+    queryKey: ["profiles", order],
     queryFn: ({ pageParam }: { pageParam: string }) =>
-      ExploreService.getProfiles(pageParam),
+      ExploreService.getProfiles(pageParam, order),
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: "",
   });
 
   return (
     <section className="content-wrapper mb-20">
+      <div className="relative items-start floating-wrapper p-1 bg-surface-container mb-8 w-fit font-bold text-sm">
+        <button
+          type="button"
+          onClick={() => setOrder("latest")}
+          className={`rounded-full px-4 h-9 flex items-center justify-center ${
+            order === "latest"
+              ? "bg-primary text-on-primary"
+              : "bg-surface-container"
+          }`}
+        >
+          Newest Profiles
+        </button>
+        <button
+          type="button"
+          onClick={() => setOrder("popular")}
+          className={`rounded-full px-4 h-9 flex items-center justify-center ${
+            order === "popular"
+              ? "bg-primary text-on-primary"
+              : "bg-surface-container"
+          }`}
+        >
+          Most Popular
+        </button>
+      </div>
+
       {isPending && <LoadingIndicator />}
       {error && <ErrorPage message={error.message} />}
       {data && (
