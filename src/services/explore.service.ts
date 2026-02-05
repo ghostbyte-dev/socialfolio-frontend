@@ -17,7 +17,7 @@ export interface ExploreProfilesResponse {
 export type ExploreOrder = "latest" | "popular";
 
 
-const EXPLORE_PROFILES_LIMIT: number = 30;
+const EXPLORE_PROFILES_LIMIT: number = 60;
 const getProfiles = async (cursor: string = "", order: ExploreOrder = "latest", limit: number = EXPLORE_PROFILES_LIMIT): Promise<ExploreProfilesResponse> => {
   const headers: HeadersInit = {
     "Content-Type": "application/json"
