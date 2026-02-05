@@ -1,5 +1,7 @@
 import UserClientPage from "@/components/UserClientPage";
 import { UserService } from "@/services/user.service";
+import { WidgetService } from "@/services/widget.service";
+import type { MastodonData } from "@/types/widget-types";
 
 export async function generateMetadata({
   params,
@@ -7,7 +9,6 @@ export async function generateMetadata({
   params: Promise<{ username: string }>;
 }) {
   const { username } = await params;
-
   try {
     const user = await UserService.getUser(username, undefined, false);
 
@@ -39,6 +40,24 @@ export async function generateMetadata({
   }
 }
 
-export default function UserPage() {
-  return <UserClientPage />;
+export default async function UserPage({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) {
+  const { username } = await params;
+  const user = await UserService.getUser(username, undefined, false);
+  const mastodonWidgets = await WidgetService.getMastodonWidgets(user.username);
+  return (
+    <>
+      {mastodonWidgets.map((w) => {
+        const data = w.data as MastodonData;
+        const profileUrl = `${data.instance}/@${data.username}`;
+        console.log(profileUrl);
+        return <link key={w.id} rel="me" href={profileUrl} />;
+      })}
+
+      <UserClientPage />
+    </>
+  );
 }

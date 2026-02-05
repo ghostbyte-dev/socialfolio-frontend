@@ -77,6 +77,16 @@ const getUsersWidgets = async (username: string, jwt: string | undefined): Promi
   return res.json();
 };
 
+const getMastodonWidgets = async (username: string): Promise<WidgetProps[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/widgets/${username}/mastodon`,
+  );
+  console.log("ladöljkasdf")
+  if (!res.ok) {
+    return [];
+  }
+  console.log("hallo")
+  return res.json();
+};
 
 const getWidgetData = async (id: string): Promise<WidgetApiData> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/widgets/${id}`);
@@ -126,5 +136,6 @@ export const WidgetService = {
   deleteWidget,
   getUsersWidgets,
   getWidgetData,
-  updateWidget
+  updateWidget,
+  getMastodonWidgets
 };
