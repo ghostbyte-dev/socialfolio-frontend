@@ -31,8 +31,7 @@ export default function MyMap(props: any) {
     >
       <Marker longitude={position.lon} latitude={position.lat}>
         <div className="relative flex h-6 w-6">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
-
+          <span className="absolute inline-flex h-full w-full animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-blue-400 opacity-75"></span>
           <span className="relative inline-flex h-6 w-6 rounded-full bg-blue-600 border-3 border-white"></span>
         </div>{" "}
       </Marker>
