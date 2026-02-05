@@ -37,10 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
-        <link
-          href="https://api.tiles.mapbox.com/mapbox-gl-js/v<YOUR_MAPBOX_VERSION>/mapbox-gl.css"
-          rel="stylesheet"
-        />
+        <link rel="me" href="https://techhub.social/@socialfolio" />
       </head>
       <body
         className={`${textFont.className} ${headingFont.variable} antialiased bg-surface min-h-screen`}
