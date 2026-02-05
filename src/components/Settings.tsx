@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CircleQuestionMarkIcon, XIcon } from "lucide-react";
+import { InfoIcon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
 import type { IUser, Status } from "@/types/user-type";
 import { Button } from "./Button";
+import ConfirmationModal from "./ConfirmationModal";
 import SingleSelect from "./inputs/SingleSelect";
 
 interface SettingsProps {
@@ -15,11 +17,15 @@ interface SettingsProps {
 
 export default function Settings({ user, onClose }: SettingsProps) {
   const queryClient = useQueryClient();
-  const { token, user: authUser } = useAuth();
+  const { token, user: authUser, logout } = useAuth();
+
+  const router = useRouter();
+
   const username = authUser?.username;
 
   const [status, setStatus] = useState<Status>(user.status);
-  const [isStatusInfoOpen, setIsStatusInfoOpen] = useState<boolean>();
+  const [accountDeletionPopup, setAccountDeletionPopup] =
+    useState<boolean>(false);
 
   const statusOptions = [
     { value: "visible", label: "Visible" },
@@ -41,6 +47,21 @@ export default function Settings({ user, onClose }: SettingsProps) {
     },
   });
 
+  const deleteUser = useMutation({
+    mutationFn: () =>
+      toast.promise(UserService.deleteUser(token ?? ""), {
+        loading: "loading...",
+        success: "Deleted account successfully",
+        error: (err) => `Error: ${err.message}`,
+      }),
+    onSuccess: (variables, context) => {
+      queryClient.clear();
+      setAccountDeletionPopup(false);
+      logout();
+      router.push("/");
+    },
+  });
+
   const handleSave = () => {
     updateStatus.mutate(status);
   };
@@ -48,10 +69,21 @@ export default function Settings({ user, onClose }: SettingsProps) {
   return (
     <>
       <div className="flex flex-col overflow-y-scroll gap-4 mb-20">
-        <h2 className="text-xl font-bold">Settings</h2>
+        <div className="flex justify-between">
+          <h2 className="text-xl font-bold">Settings</h2>
 
-        <form className="flex flex-col gap-2" onSubmit={handleSave}>
-          <div className="flex flex-row gap-2">
+          <button
+            type="button"
+            aria-label="Close widget creator"
+            onClick={onClose}
+            className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+          >
+            <XIcon size={18} />
+          </button>
+        </div>
+
+        <form className="mt-5" onSubmit={handleSave}>
+          <div className=" gap-2">
             <SingleSelect
               label="Status"
               options={statusOptions}
@@ -59,18 +91,43 @@ export default function Settings({ user, onClose }: SettingsProps) {
               onValueChange={(val) => setStatus(val as Status)}
               className="flex-1"
             />
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsStatusInfoOpen(true);
-              }}
-              aria-label="Status explanation"
-            >
-              <CircleQuestionMarkIcon size={24} />
-            </button>
+            <div className="p-3 border border-blue-500 bg-blue-500/10 rounded-xl mt-3">
+              <div className="flex items-center space-x-2 mb-2 text-blue-500">
+                <InfoIcon size={18} />
+                <h3 className="text-xl font-bold">Status</h3>
+              </div>
+
+              <p className="text-sm">
+                The status determines the visibility of your profile.
+              </p>
+
+              <p className="mt-3 text-blue-500 font-bold">Visible:</p>
+              <p className="text-sm">
+                Your profile is publicly accessible and will appear on the
+                explore page.
+              </p>
+
+              <p className="mt-3 text-blue-500 font-bold">Hidden:</p>
+              <p className="text-sm">
+                Your profile will not appear on the explore page, but it can
+                still be accessed directly via its URL.
+              </p>
+
+              <p className="mt-3 text-blue-500 font-bold">Disabled:</p>
+              <p className="text-sm">
+                Your profile is completely hidden from others. Only you can view
+                it when logged in.
+              </p>
+            </div>
           </div>
         </form>
+
+        <Button
+          label="Delete Account"
+          onClick={() => setAccountDeletionPopup(true)}
+          className="mt-8"
+          variant="danger"
+        />
       </div>
       <div className="w-full flex justify-end gap-2">
         <Button label="Cancel" onClick={onClose} variant="neutral" />
@@ -80,52 +137,16 @@ export default function Settings({ user, onClose }: SettingsProps) {
           onClick={handleSave}
         />
       </div>
-      {isStatusInfoOpen && (
-        <StatusInfoDialog onClose={() => setIsStatusInfoOpen(false)} />
-      )}
+
+      <ConfirmationModal
+        isOpen={accountDeletionPopup && user !== null}
+        onClose={() => setAccountDeletionPopup(false)}
+        actionVariant="danger"
+        title="Delete account"
+        description={`Are you sure you want to delete your account.`}
+        action={() => deleteUser.mutateAsync()}
+        actionLabel="Delete"
+      />
     </>
-  );
-}
-
-function StatusInfoDialog({ onClose }: { onClose: () => void }) {
-  return (
-    <div
-      className="fixed inset-0 bg-black/50 flex justify-center items-center"
-      onClick={onClose}
-    >
-      <div
-        className="relative bg-surface-container-high rounded-2xl shadow-lg flex overflow-hidden flex-col px-10 py-5 max-w-[80%] md:max-w-[50%]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h3 className="text-xl font-bold">Status Info</h3>
-
-        <p>The status determines the visibility of your profile.</p>
-
-        <strong>Visible:</strong>
-        <p>
-          Your profile is publicly accessible and will appear on the explore
-          page.
-        </p>
-
-        <strong>Hidden:</strong>
-        <p>
-          Your profile will not appear on the explore page, but it can still be
-          accessed directly via its URL.
-        </p>
-
-        <strong>Disabled:</strong>
-        <p>
-          Your profile is completely hidden from others. Only you can view it
-          when logged in.
-        </p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="top-4 right-4 absolute text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
-        >
-          <XIcon size={18} />
-        </button>
-      </div>
-    </div>
   );
 }

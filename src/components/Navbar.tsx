@@ -1,17 +1,25 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FocusTrap } from "focus-trap-react";
-import { MenuIcon, XIcon } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  CircleQuestionMarkIcon,
+  CircleUserIcon,
+  CodeXmlIcon,
+  CompassIcon,
+  LogOutIcon,
+  MenuIcon,
+  ScrollIcon,
+  Settings2Icon,
+  Share2Icon,
+  XIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import Logo from "@/assets/icons/logo.svg";
 import { useAuth } from "@/context/AuthContext";
 import { UserService } from "@/services/user.service";
-import ConfirmationModal from "./ConfirmationModal";
 import Popup from "./Popup";
 import Settings from "./Settings";
 import ShareModal from "./ShareModal";
@@ -20,17 +28,13 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 export default function Navbar() {
   const { token, user: authUser, logout } = useAuth();
   const router = useRouter();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSettingsModalOpen, setIsSettingsModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [accountDeletionPopup, setAccountDeletionPopup] =
-    useState<boolean>(false);
-  const jwt = token;
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isUserOpen, setIsUserOpen] = useState(false);
 
-  const queryClient = useQueryClient();
+  const jwt = token;
 
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname.startsWith("/auth");
@@ -45,48 +49,9 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    setDropdownOpen(false);
+    setIsNavOpen(false);
     router.push("/auth/login");
   };
-
-  const openAccountDeletionPopup = () => {
-    setAccountDeletionPopup(true);
-  };
-
-  // Close dropdown if clicked outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    }
-
-    if (dropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dropdownOpen]);
-
-  const deleteUser = useMutation({
-    mutationFn: () =>
-      toast.promise(UserService.deleteUser(token ?? ""), {
-        loading: "loading...",
-        success: "Deleted account successfully",
-        error: (err) => `Error: ${err.message}`,
-      }),
-    onSuccess: (variables, context) => {
-      queryClient.clear();
-      setAccountDeletionPopup(false);
-      logout();
-      router.push("/");
-    },
-  });
 
   return (
     <div
@@ -94,14 +59,14 @@ export default function Navbar() {
         isHome ? "bg-primary text-on-primary" : "bg-surface text-on-surface"
       }
     >
-      <nav className="mt-5 py-2 content-wrapper max-w-[1400px] flex justify-between items-center relative">
+      <nav className="mt-5 py-2 content-wrapper max-w-350 flex justify-between items-center relative">
         <div className="flex items-center z-20">
           <Link href="/" className="flex items-center">
             <Logo
               className={
                 isHome
-                  ? "w-[34px] h-[34px] text-on-primary"
-                  : "w-[34px] h-[34px] text-primary"
+                  ? "w-8.5 h-8.5 text-on-primary"
+                  : "w-8.5 h-8.5 text-primary"
               }
             />
 
@@ -144,13 +109,11 @@ export default function Navbar() {
           )}
 
           {authUser && user && (
-            <div className="relative inline-block text-left" ref={dropdownRef}>
+            <div className="relative inline-block text-left">
               <button
                 type="button"
                 className="inline-flex w-full justify-center floating-wrapper"
-                aria-expanded={dropdownOpen}
-                aria-haspopup="true"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() => setIsUserOpen(true)}
               >
                 <Image
                   src={
@@ -164,67 +127,6 @@ export default function Navbar() {
                   className="rounded-full p-1"
                 />
               </button>
-
-              {dropdownOpen && (
-                <div
-                  className="absolute right-0 z-10 p-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-surface-container ring-1 shadow-lg ring-black/5 focus:outline-none text-on-surface"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="menu-button"
-                >
-                  <div className="" role="none">
-                    <Link
-                      href={`/${user.username}`}
-                      className="block px-4 py-2 text-sm font-bold rounded hover:bg-surface"
-                      role="menuitem"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      View my page
-                    </Link>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsShareModalOpen(true);
-                        setDropdownOpen(false);
-                      }}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm rounded hover:bg-surface"
-                      role="menuitem"
-                    >
-                      Share
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsSettingsModalOpen(true);
-                        setDropdownOpen(false);
-                      }}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm rounded hover:bg-surface"
-                      role="menuitem"
-                    >
-                      Settings
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm text-danger rounded hover:bg-surface"
-                      role="menuitem"
-                    >
-                      Logout
-                    </button>
-                    <button
-                      type="button"
-                      onClick={openAccountDeletionPopup}
-                      className="block w-full text-left px-4 py-2 font-bold text-sm text-danger rounded hover:bg-surface"
-                      role="menuitem"
-                    >
-                      Delete Account
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
           )}
 
@@ -233,90 +135,183 @@ export default function Navbar() {
               type="button"
               aria-label="open menu"
               className="floating-wrapper ml-3 lg:hidden aspect-square"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsNavOpen(true)}
             >
               <MenuIcon />
             </button>
           </div>
         </div>
       </nav>
-      <FocusTrap active={isOpen}>
-        <div
-          className="fixed z-50 right-0 top-0 bottom-0 flex h-full flex-col overflow-x-hidden bg-surface-container text-on-surface duration-500 "
-          style={{ width: isOpen ? "75vw" : "0vw" }}
-          tabIndex={isOpen ? 0 : -1}
-        >
-          <div className="flex flex-row mt-8 ml-auto mr-8 gap-5 items-center">
-            <ThemeSwitcher
-              bgColor="bg-surface-container-high"
-              activeColor="bg-surface-container"
-              isFocusable={isOpen}
-            />
+
+      <Popup
+        isOpen={isUserOpen}
+        onClose={() => setIsUserOpen(false)}
+        width="md"
+      >
+        <div className="text-on-surface">
+          <div className="flex justify-between mb-6">
+            <h2 className="text-xl font-bold">Profile menu</h2>
 
             <button
               type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              tabIndex={isOpen ? 0 : -1}
-              aria-label="Close Menu"
+              aria-label="Close widget creator"
+              onClick={() => setIsUserOpen(false)}
+              className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
             >
-              <XIcon />
+              <XIcon size={18} />
             </button>
           </div>
-
-          <div
-            className={`flex w-full pl-10 basis-full flex-col justify-center gap-5 text-2xl font-bold`}
-          >
+          {user && (
             <Link
-              href="/explore"
-              className="cursor-pointer font-bold"
-              onClick={() => setIsOpen(false)}
-              tabIndex={isOpen ? 0 : -1}
+              href={`/${user.username}`}
+              className="flex items-center space-x-2 px-4 py-2 text-sm font-bold text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+              onClick={() => setIsUserOpen(false)}
             >
-              <span
-                className={`
-                duration-300 
-                ${isOpen ? "delay-200" : "text-transparent"}
-              `}
-              >
-                Explore
-              </span>
+              <CircleUserIcon size={18} />
+              <span>View my page</span>
             </Link>
+          )}
+
+          <div className="space-y-2 mt-3">
+            <button
+              type="button"
+              onClick={() => {
+                setIsShareModalOpen(true);
+                setIsUserOpen(false);
+              }}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <Share2Icon size={18} />
+              <span>Share</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsSettingsModalOpen(true);
+                setIsUserOpen(false);
+              }}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <Settings2Icon size={18} />
+              <span>Settings</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-danger rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <LogOutIcon size={18} />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </Popup>
+
+      <Popup isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} width="md">
+        <div className="text-on-surface">
+          <div className="flex justify-between mb-6">
+            <h2 className="text-xl font-bold">Navigation</h2>
+
+            <button
+              type="button"
+              aria-label="Close widget creator"
+              onClick={() => setIsNavOpen(false)}
+              className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
+            >
+              <XIcon size={18} />
+            </button>
+          </div>
+          {/* <Link
+            href={`/${user.username}`}
+            className="block px-4 py-2 text-sm font-bold rounded hover:bg-surface"
+            role="menuitem"
+            onClick={() => setDropdownOpen(false)}
+          >
+            View my page
+          </Link> */}
+
+          <div className="flex lg:hidden">
+            <ThemeSwitcher isFocusable={isNavOpen} />
           </div>
 
-          <Popup
-            isOpen={user !== undefined && isSettingsModalOpen}
-            onClose={() => setIsSettingsModalOpen(false)}
-            width="lg"
-          >
-            <Settings
-              user={user!}
-              onClose={() => setIsSettingsModalOpen(false)}
-            />
-          </Popup>
+          <div className="space-y-2 mt-5">
+            <button
+              type="button"
+              onClick={() => {
+                router.push("/explore");
+                setIsNavOpen(false);
+              }}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <CompassIcon size={18} />
+              <span>Explore profiles</span>
+            </button>
 
-          <Popup
-            isOpen={user !== undefined && isShareModalOpen}
-            onClose={() => setIsShareModalOpen(false)}
-            width="md"
-            nopadding
-          >
-            <ShareModal
-              user={user!}
-              onClose={() => setIsShareModalOpen(false)}
-            />
-          </Popup>
+            <button
+              type="button"
+              onClick={() => {
+                router.push("/#features");
+                setIsNavOpen(false);
+              }}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <ScrollIcon size={18} />
+              <span>Features</span>
+            </button>
 
-          <ConfirmationModal
-            isOpen={accountDeletionPopup && user !== null}
-            onClose={() => setAccountDeletionPopup(false)}
-            actionVariant="danger"
-            title="Delete account"
-            description={`Are you sure you want to delete your account.`}
-            action={() => deleteUser.mutateAsync()}
-            actionLabel="Delete"
-          />
+            <button
+              type="button"
+              onClick={() => {
+                router.push("/#faq");
+                setIsNavOpen(false);
+              }}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <CircleQuestionMarkIcon size={18} />
+              <span>FAQ</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                router.push("/#contribute");
+                setIsNavOpen(false);
+              }}
+              className="flex items-center space-x-2 w-full text-left px-4 py-2 font-bold text-sm text-on-surface rounded-lg hover:bg-surface-container-high"
+              role="menuitem"
+            >
+              <CodeXmlIcon size={18} />
+              <span>Contribute</span>
+            </button>
+          </div>
         </div>
-      </FocusTrap>
+      </Popup>
+
+      <Popup
+        isOpen={user !== undefined && isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        width="lg"
+      >
+        <Settings user={user!} onClose={() => setIsSettingsModalOpen(false)} />
+      </Popup>
+
+      <Popup
+        isOpen={user !== undefined && isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        width="md"
+        nopadding
+      >
+        <ShareModal user={user!} onClose={() => setIsShareModalOpen(false)} />
+      </Popup>
     </div>
   );
 }
