@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     let cursor: string | null = "";
     const profiles: ExploreProfile[] = [];
     while (index < 20 && cursor !== null) {
-        const res = await ExploreService.getProfiles(cursor, 100);
+        const res = await ExploreService.getProfiles(cursor, "latest", 100);
         profiles.push(...res.profiles);
         cursor = res.nextCursor;
         index++;
