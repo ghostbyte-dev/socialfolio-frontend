@@ -33,8 +33,8 @@ export default function Bio({
             {user.description}
           </p>
         )}
-        {user.views && isOwner && (
-          <div className="text-sm mt-2">{user.views} profile views</div>
+        {user.views != null && isOwner && (
+          <div className="text-sm mt-2">{user.views} views last 24 hours</div>
         )}
 
         {isOwner && (
