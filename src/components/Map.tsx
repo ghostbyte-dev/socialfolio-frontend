@@ -23,9 +23,7 @@ export default function MyMap(props: any) {
       mapStyle="mapbox://styles/ghostbytedev/cml8py2h6005n01sj9cn7hes5"
       config={{
         basemap: {
-          showPointOfInterestLabels: false,
-          showRoadLabels: false,
-          showTransitLabels: false,
+          lightPreset: light ? "day" : "dusk",
         },
       }}
     >
