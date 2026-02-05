@@ -109,15 +109,16 @@ export default function WidgetEditor({
   return (
     <div className="relative h-full flex flex-col bg-surface overflow-hidden">
       {/* Header */}
-      <div className="px-10 py-5 border-b border-border flex justify-between items-center">
-        <h2 className="text-xl font-bold">Edit {selectedWidget.name}</h2>
+      <div className="px-5 py-5 border-b border-outline flex justify-between items-center">
+        <h2 className="text-xl font-bold pl-5">Edit {selectedWidget.name}</h2>
+
         <button
           type="button"
-          aria-label="Close edit widget menu"
+          aria-label="Close widget creator"
           onClick={onClose}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="z-30 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center hover:cursor-pointer"
         >
-          <XIcon size={24} />
+          <XIcon size={18} />
         </button>
       </div>
 
