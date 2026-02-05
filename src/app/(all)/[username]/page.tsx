@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import UserClientPage from "@/components/UserClientPage";
 import { UserService } from "@/services/user.service";
 import { WidgetService } from "@/services/widget.service";
@@ -7,7 +8,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ username: string }>;
-}) {
+}): Promise<Metadata> {
   const { username } = await params;
   try {
     const user = await UserService.getUser(username, undefined, false);
