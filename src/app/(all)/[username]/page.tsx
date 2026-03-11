@@ -47,11 +47,16 @@ export default async function UserPage({
   params: Promise<{ username: string }>;
 }) {
   const { username } = await params;
-  const user = await UserService.getUser(username, undefined, false);
-  const mastodonWidgets = await WidgetService.getMastodonWidgets(user.username);
+  let mastodonWidgets = null;
+  try {
+    const user = await UserService.getUser(username, undefined, false);
+    mastodonWidgets = await WidgetService.getMastodonWidgets(user.username);
+  } catch (e) {
+    console.log(e);
+  }
   return (
     <>
-      {mastodonWidgets.map((w) => {
+      {mastodonWidgets?.map((w) => {
         const data = w.data as MastodonData;
         const profileUrl = `${data.instance}/@${data.username}`;
         console.log(profileUrl);
