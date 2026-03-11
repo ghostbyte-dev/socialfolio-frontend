@@ -34,7 +34,7 @@ const UserClientPage = () => {
     isPending,
     error,
   } = useQuery({
-    queryKey: ["otheruser", username],
+    queryKey: ["otheruser", username, token],
     queryFn: async () => {
       try {
         return await UserService.getUser(username, token ?? "", true);
